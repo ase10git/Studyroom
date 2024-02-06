@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b">
+<!-- 파일을 수정하지 말고 복사해서 사용해주세요 -->
+	<select id="board_list" resultType="board" parameterType="java.util.HashMap">
+	 	select * from
+	 		(select rank() over(order by ref desc, step) no, b.* from community_board b)
+	 		where no between #{start***REMOVED*** and #{end***REMOVED***
+	</select>
+	
+	<!-- 전체 게시물 수 조회 -->
+	<select id="board_count" resultType="int">
+		select count(*) from community_board
+	</select>
+	
+	<!-- 게시글 한 건 조회 -->
+	<select id="board_one" parameterType="int" resultType="board">
+		select * from community_board where id=#{id***REMOVED***
+	</select>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="update_readhit" parameterType="int">
+		update community_board set readhit = readhit + 1
+		where id=#{id***REMOVED***
+	</update>
+	
+	<!-- 게시물 추가 -->
+	<insert id="board_insert" parameterType="board">
+		insert into community_board values(
+			seq_community_board_id.nextVal,
+			#{nickname***REMOVED***,
+			#{title***REMOVED***,
+			#{content***REMOVED***,
+			#{ip_addr***REMOVED***,
+			register_date,
+			0, <!-- readhit -->
+			seq_community_board_id.currVal,<!-- ref -->
+			0,  <!-- step -->
+			0,<!-- depth -->
+			0  <!-- del_flag -->
+		)
+	</insert>
+	
+	<!-- 게시물 삭제 -->
+	<update id="del_update" parameterType="board">
+		update community_board 
+		set title = #{title***REMOVED***,
+			nickname=#{nickname***REMOVED***,
+			del_flag = -1
+		where id=#{id***REMOVED***
+					
+	</update>
+	
+	<!-- 댓글추가를 위한 step + 1 -->
+	<update id="board_update_step" parameterType="board">
+		update community_board set step = step + 1
+		where ref = #{ref***REMOVED*** and step > #{step***REMOVED***
+	</update>
+	
+	<!-- 답글 추가 -->
+	<insert id="board_reply" parameterType="board">
+		insert into community_board values(
+			seq_community_board_id.nextVal,
+			#{nickname***REMOVED***,
+			#{title***REMOVED***, 
+			#{content***REMOVED***,
+			#{ip_addr***REMOVED***,
+			register_date,
+			0, <!-- readhit -->
+			#{ref***REMOVED***,
+			#{step***REMOVED***,
+			#{depth***REMOVED***,
+			0  <!-- del_flag -->
+		)
+	
+	</insert>
+
+</mapper>
+
