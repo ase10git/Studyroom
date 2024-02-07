@@ -34,16 +34,16 @@
 			return;
 		}
 		
-// 		if(role == null){
-// 			alert("유형을 선택해주세요.");
-// 			return;
-// 		} 
+		if(role == null){
+			alert("유형을 선택해주세요.");
+			return;
+		} 
 	
 		//이메일은 형식검사
 		let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 	
 		if(!regex.test(email)){
-			alert('형식에 맞게 작성해주세요.');
+			alert("이메일 형식이 맞지 않습니다.");
 			return;
 		}
 		
