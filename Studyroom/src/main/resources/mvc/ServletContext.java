@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.study.study.TestController;
 
+import dao.UserDAO;
+
 @Configuration
 @EnableWebMvc
 //@ComponentScan("com.study.study")
@@ -19,7 +21,8 @@ public class ServletContext implements WebMvcConfigurer{
 
 	// testController Bean
 	@Bean
-	public TestController testController() {
-		return new TestController();
+	public TestController testController(UserDAO userDAO) {
+		return new TestController(userDAO);
 	}
+	
 }
