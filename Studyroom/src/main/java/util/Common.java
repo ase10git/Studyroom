@@ -14,4 +14,12 @@ public class Common {
 	public final static String QUESTION_PATH = VIEW_PATH + "question/";
 	public final static String REGISTER_PATH = VIEW_PATH + "register/";
 	public final static String USER_PATH = VIEW_PATH + "user/";
+	
+	public static class Board {
+		// 한 페이지에 보여줄 게시물 수
+		public final static int BLOCKLIST = 10;
+		
+		// 페이지 메뉴 수 
+		public final static int BLOCKPAGE = 3;
+	}
 }

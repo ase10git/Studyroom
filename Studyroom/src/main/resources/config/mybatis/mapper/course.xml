@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c">
+	<!-- 코스 전체 조회 -->
+	<select id="course_list" resultType="course">
+	 	SELECT * FROM course
+	</select>
+	
+	<!-- 코스 한 건 조회 -->
+	<select id="course_view" parameterType="int" resultType="course">
+		SELECT * FROM course WHERE ID=#{id}
+	</select>
+	
+	<!-- 코스 추가하기 -->
+	<insert id="course_insert" parameterType="course">
+		INSERT INTO course VALUES(
+			SEQ_COURSE_ID,
+			#{title},
+			#{instructor},
+			#{summary},
+			#{start_date},
+			#{end_date},
+		)
+	</insert>
+	
+	<!-- 코스 수정하기 -->
+	<update id="course_modify" parameterType="course">
+		UPDATE course
+		SET TITLE = #{title},
+			INSTRUCTOR = {instructor},
+			SUMMARY = #{summary},
+			START_DATE = #{start_date},
+			END_DATE = #{end_date},
+		WHERE ID=#{id}		
+	</update>
+	
+	<!-- 코스 삭제처럼 처리하기 -->
+	<update id="course_delete_update" parameterType="course">
+		UPDATE course
+		SET END_DATE = #{end_date}
+		WHERE ID=#{id}					
+	</update>
+
+	<!-- 코스 물리적 삭제 -->
+	<delete id="course_delete" parameterType="int">
+		DELETE FROM course 
+		WHERE ID=#{id}
+	</delete>
+</mapper>
+

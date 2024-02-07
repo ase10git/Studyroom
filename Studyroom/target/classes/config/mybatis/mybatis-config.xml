@@ -9,10 +9,12 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="dto.TestDTO" alias="test"/> -->
+		<typeAlias type="dto.CourseBoardDTO" alias="courseboard"/>
+		<typeAlias type="dto.CourseDTO" alias="course"/>
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="config/mybatis/mapper/test.xml" /> -->
+		<mapper resource="config/mybatis/mapper/course.xml" />
+		<mapper resource="config/mybatis/mapper/course_board.xml" />
 	</mappers>
 </configuration>
