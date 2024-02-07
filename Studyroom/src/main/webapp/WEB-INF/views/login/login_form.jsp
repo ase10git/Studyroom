@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
 	function send(f) {
 		var email = f.email.value.trim();
@@ -18,6 +19,35 @@
 		if(pwd == '') {
 			alert("비밀번호를 입력해주세요.");
 			return;
+	***REMOVED***
+		
+		//이메일은 형식검사
+		let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/i
+			
+		if(!regex.test(email)){
+			alert("이메일 형식이 맞지 않습니다.");
+			return;
+	***REMOVED***
+		
+		let url = "login";
+		let param = "email="+email+"&pwd="+encodeURIComponent(pwd);
+		
+		sendRequest(url,param,login_check,"POST");
+***REMOVED***
+	
+	function login_check() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			var data = xhr.responseText;
+			var json = (new Function('return' + data))();
+			
+			if(json[0].param == 'no_email') {
+				alert("이메일이 존재하지 않습니다.");				
+		***REMOVED*** else if(json[0].param == 'no_pwd') {
+				alert("비밀번호를 다시 입력해 주세요.")
+		***REMOVED*** else {
+				alert("로그인 성공");
+				location.href='announcemnet_list';
+		***REMOVED***
 	***REMOVED***
 ***REMOVED***
 </script>
