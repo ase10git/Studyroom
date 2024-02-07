@@ -52,7 +52,8 @@
 </script>
 </head>
 <body>
-	<form action="" method="post">
+	<!-- register_insert 매핑으로 전송 -->
+	<form action="register_insert" method="post">
 		<table border="1" >
 			<caption>::: 회원가입 :::</caption>
 			<tr>
@@ -90,7 +91,7 @@
 			<tr>
 				<td colspan="2">
 					<input id="" name="" type="button" value="회원가입" onclick="send(this.form)">
-					<input id="" name="" type="button" value="취소" onclick="location.href='login'">
+					<input id="" name="" type="button" value="취소" onclick="location.href='login_form'">
 				</td>
 			</tr>
 		</table>

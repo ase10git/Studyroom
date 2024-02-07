@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.study.study.TestController;
+import com.study.study.UserController;
 
 import dao.UserDAO;
 
@@ -19,10 +19,10 @@ public class ServletContext implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 ***REMOVED***
 
-	// testController Bean
+	//UserController Bean
 ***REMOVED***
-	public TestController testController(UserDAO userDAO) {
-		return new TestController(userDAO);
+	public UserController userController(UserDAO userDAO) {
+		return new UserController(userDAO);
 ***REMOVED***
 	
 ***REMOVED***

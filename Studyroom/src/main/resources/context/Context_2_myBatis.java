@@ -28,5 +28,10 @@ public class Context_2_myBatis {
 		
 		return factoryBean.getObject();
 ***REMOVED***
+	
+***REMOVED***
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory factoryBean) {
+		return new SqlSessionTemplate(factoryBean);
+   ***REMOVED***
 
 ***REMOVED***
