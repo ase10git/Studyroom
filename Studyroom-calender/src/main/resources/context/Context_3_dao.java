@@ -13,9 +13,9 @@ public class Context_3_dao {
 //	public BoardDAO boardDAO(SqlSession sqlSession) {
 //		return new BoardDAO(sqlSession);
 //	}
-//	@Bean
-//	public CalenderDAO calenderDAO(SqlSession sqlSession) {
-//		return new CalenderDAO(sqlSession);
-//	}
+	@Bean
+	public CalenderDAO calenderDAO(SqlSession sqlSession) {
+		return new CalenderDAO(sqlSession);
+	}
 	
 }
