@@ -5,7 +5,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
+	let u_emailCheck = false;
+
+	function email_check() {
+		let email = document.getElementById("email").value;
+		alert(email);
+		if(email == '') {
+			alert("이메일을 입력하세요.");
+		}
+		
+		//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
+		//비동기 통신을 이용한다.
+		let url = "email_check";
+		let param = "email="+email;
+		
+		sendReqeust(url,param,resultFn,"post");
+	}
+	
+	function resultFn() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			var data = xhr.responseText;
+			var json = (new Function('return'+data))();
+			
+			if(json[0].res == 'yes') {
+				alert("사용가능한 이메일 입니다.");
+				u_emailCheck = true;
+			} else {
+				alert("이미 사용중은 이메일 입니다.");
+				return;
+			}
+		}
+	}
+	
+	function che() {
+		u_emailCheck = false;
+	}
+
 	function send(f) {
 		let email = f.email.value.trim();
 		let pwd = f.pwd.value.trim();
@@ -34,7 +71,7 @@
 			return;
 		}
 		
-		if(role == null){
+		if(role == ''){
 			alert("유형을 선택해주세요.");
 			return;
 		} 
@@ -52,15 +89,16 @@
 </script>
 </head>
 <body>
-	<!-- register_insert 매핑으로 전송 -->
-	<form action="register_insert" method="post">
-		<table border="1" >
+	<!-- register_insert 전송 -->
+	<form  action="register_insert" method="post">
+		<table border="1">
 			<caption>::: 회원가입 :::</caption>
 			<tr>
 				<th>이메일</th>
 				<td>
-		  			<input id="email" name="email" type="email" placeholder="example@abc.com" autofocus="autofocus" checked="checked" urequired>
-		  			<input id="email_check" name="email_check" type="button" value="이메일 인증하기">
+		  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked" urequired>
+		  			<input type="button" value="이메일 중복체크" onclick="email_check()">
+<!-- 		  			<input id="email_check" name="email_check" type="button" value="이메일 인증하기"> -->
 	  			</td>
   			</tr>
 			<tr>
@@ -84,8 +122,8 @@
 			<tr>
 				<th>유&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;형</th>
 				<td style="font-family: Arial;font-size: 15px;color: #808080;">
-					<input id="mentor" name="role" type="radio" value="멘토" checked="checked">멘토
-					<input id="student" name="role" type="radio" value="학생">학생
+					<input id="mentor" name="role" type="radio" value="mentor">멘토
+					<input id="student" name="role" type="radio" value="student">학생
 				</td>
 			</tr>	
 			<tr>
