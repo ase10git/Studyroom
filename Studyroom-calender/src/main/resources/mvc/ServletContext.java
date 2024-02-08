@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.study.study.CalenderController;
-import com.study.study.TestController;
 
 import dao.CalenderDAO;
 
@@ -21,7 +20,7 @@ public class ServletContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public CalenderController calenderController() {
-		return new CalenderController();
+	public CalenderController calenderController(CalenderDAO calenderDAO) {
+		return new CalenderController(calenderDAO);
 	}
 }

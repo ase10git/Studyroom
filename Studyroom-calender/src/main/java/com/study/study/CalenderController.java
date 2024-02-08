@@ -9,19 +9,19 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CalenderDAO;
-import dto.CalendarDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 
 @Controller
 
+@RequiredArgsConstructor
 public class CalenderController {
 	
+	final CalenderDAO cal_dao;
 	
 	@RequestMapping("calender_list")
 	public String calendar(Model model){
