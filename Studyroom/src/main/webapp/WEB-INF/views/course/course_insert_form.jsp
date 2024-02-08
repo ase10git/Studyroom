@@ -11,31 +11,38 @@
 		}
 		
 		function back() {
-			location.href='course_board_list';
+			location.href='course_list';
 		}
 	</script>
 </head>
 <body>
-    <form action="course_board_insert" name="f" method="POST" enctype="multipart/form-data">
+    <form action="course_insert" name="f" method="POST">
 		<input type="hidden" name="page" value="${param.page}">
-		<!-- courseID를 넘겨야 함. 글 수정 시 현재 오류 발생 -->
 		<table border="1" align="center">
-			<caption>:::새 글 쓰기:::</caption>
+			<caption>:::새 코스 추가:::</caption>
 			<tr>
-				<th>제목</th>
+				<th>코스 이름</th>
 				<td><input name="title"></td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td><textarea name="content" rows="10" cols="50" style="resize:none;"></textarea></td>
+				<th>강사</th>
+				<td><input name="instructor"></td>
 			</tr>
 			<tr>
-				<th>첨부파일</th>
-				<td><input name="file" type="file"></td>
+				<th>코스 설명</th>
+				<td><textarea name="summary" rows="5" cols="50" style="resize:none;"></textarea></td>
+			</tr>
+			<tr>
+				<th>코스 시작일</th>
+				<td><input name="start_date" type="date"></td>
+			</tr>
+			<tr>
+				<th>코스 종료일</th>
+				<td><input name="end_date" type="date"></td>
 			</tr>
             <tr>
                 <td>
-                    <input id="send_btn" type="button" value="글 등록하기" onclick="send()"></input>
+                    <input id="send_btn" type="button" value="코스 등록하기" onclick="send()"></input>
                 </td>
                 <td>
                     <input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>

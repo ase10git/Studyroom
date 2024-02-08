@@ -21,10 +21,12 @@ public class UploadFile {
 		// 업로드된 파일 클래스 인스턴스
 		MultipartFile file = dto.getFile();
 		
+		System.out.println("파일 검사 : " + file.isEmpty());
+		
 		// 기본 이름 설정
 		String fileName = "no_file";
-		
-		if(!file.isEmpty()) { // 파일을 업로드 했는지 검사
+				
+		if(!file.isEmpty()) { // 파일을 업로드 했는지 검사(파일이 있는 경우)
 			fileName = file.getOriginalFilename(); // 원본 파일 이름
 			
 			// 저장할 파일 설정
@@ -43,7 +45,7 @@ public class UploadFile {
 				file.transferTo(saveFile);
 			} catch (Exception e) {
 			}
-		}
+		} 
 		
 		// DB에 보낼 파일 이름을 CourseBoardDTO dto에 저장
 		dto.setFile_name(fileName);

@@ -4,22 +4,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cb">
 	<!-- 코스 전체 공지글 조회 -->
-	<select id="board_list" resultType="courseboard" parameterType="java.util.HashMap">
+	<select id="board_list" resultType="courseboard" >
 	 	SELECT * FROM course_board
-	 	WHERE COURSE_ID = #{course_id}
-	 	ORDER BY register_date DESC
+<!-- 	 	WHERE COURSE_ID = #{course_id} -->
 	</select>
 	
 	<!-- 코스 전체 공지글 수 조회 -->
 	<select id="board_count" resultType="int">
 		SELECT COUNT(*) FROM course_board
-		WHERE COURSE_ID = #{course_id}
+<!-- 		WHERE COURSE_ID = #{course_id} -->
 	</select>
 	
 	<!-- 코스 공지글 한 건 조회 -->
 	<select id="board_one" parameterType="int" resultType="courseboard">
 		SELECT * FROM course_board 
-		WHERE COURSE_ID = #{course_id}
+		WHERE ID = #{id}
 	</select>
 
 	<!-- 코스 공지글 추가하기 -->
@@ -41,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET TITLE = #{title},
 			CONTENT = #{content},
 			FILE_NAME = #{file_name}
-		WHERE ID = #{id}				
+		WHERE ID = #{id}
 	</update>
 
 	<!-- 코스 공지글 삭제한 것처럼 수정 -->
@@ -54,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 코스 공지글 물리적 삭제 -->
 	<delete id="board_delete" parameterType="int">
 		DELETE FROM course_board 
-		WHERE ID = #{id}
+		WHERE DEL_FLAG = -1
 	</delete>
 </mapper>
 
