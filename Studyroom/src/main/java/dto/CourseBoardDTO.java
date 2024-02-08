@@ -15,5 +15,5 @@ public class CourseBoardDTO {
 	private String register_date; // 공지글 등록 날짜
 	private String file_name; // 첨부파일 이름
 	
-	private MultipartFile file;  // 실제 첨부파일
+	private MultipartFile file;  // 실제 첨부파일 -- 서버 컴퓨터에 저장됨
 ***REMOVED***

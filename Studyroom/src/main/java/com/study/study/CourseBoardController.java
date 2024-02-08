@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
@@ -64,25 +65,26 @@ public class CourseBoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);
 		
-		return Common.COURSE_PATH +"course_board_list.jsp?page="+page;
+		return Common.COURSE_PATH +"course_board_list.jsp?page=" + page;
 ***REMOVED***
 	
 	// 코스 공지글 상세보기
 	@RequestMapping("course_board_view")
-	public String course_board_view(Model model, int idx, int page) {
+	public String course_board_view(Model model, int id, int page) {
 		
 		// id로 공지글 조회하기
-		CourseBoardDTO dto = course_board_dao.selectOne(idx);
+		CourseBoardDTO dto = course_board_dao.selectOne(id);
 		
 		// 페이지에 조회한 공지글 포워딩
 		model.addAttribute("dto", dto);
 		
-		return Common.COURSE_PATH + "course_board_view.jsp?page="+page;
+		return Common.COURSE_PATH + "course_board_view.jsp?page=" + page;
 ***REMOVED***
 	
 	// 코스 공지글 추가하기 페이지 이동
 	@RequestMapping("course_board_insert_form")
 	public String course_board_insert_form() {
+		// 로그인 확인 및 권한 확인 추가 예정
 //		UserDTO show = (UserDTO)session.getAttribute("id");
 //		
 //		if (show == null) {
@@ -102,11 +104,13 @@ public class CourseBoardController {
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
 		uploadFile.fileUpload(dto, request);
-		
+
+		// 공지글 추가
 		int res = course_board_dao.insert(dto);
 	
+		// 추가 완료 시 공지글 보는 페이지로 돌아가기
 		if (res > 0) {
-//			return "redirect:board_list?page="+page;
+			return "course_board_list";
 	***REMOVED***
 		
 		return "";
@@ -114,12 +118,19 @@ public class CourseBoardController {
 	
 	// 코스 공지글 수정 페이지 이동
 	@RequestMapping("course_board_modify_form")
-	public String course_board_modify_form() {
+	public String course_board_modify_form(Model model, int id) {
+		// 로그인 확인 및 권한 확인 추가 예정
 //		MemberDTO show = (MemberDTO)session.getAttribute("id");
 //		
 //		if(show == null) {
 //			return Common.Board.VIEW_PATH + "login_form.jsp";
 //	***REMOVED***
+		
+		// 요청 페이지에서 공지글의 id를 받아 공지글을 조회
+		CourseBoardDTO dto = course_board_dao.selectOne(id);
+		
+		// 공지글 객체를 수정 페이지로 포워딩
+		model.addAttribute("dto", dto);
 		
 		return Common.COURSE_PATH + "course_board_modify_form.jsp";
 ***REMOVED***
@@ -128,20 +139,29 @@ public class CourseBoardController {
 	@RequestMapping("course_board_modify")
 	public String course_board_modify(CourseBoardDTO dto) {
 		
+		// 파일 업로드 설정 클래스의 인스턴스
+		UploadFile uploadFile = new UploadFile();
+		
+		// 파일 업로드를 진행하고 dto에 파일 이름 저장
+		uploadFile.fileUpload(dto, request);
+		
+		// 공지글 수정
 		int res = course_board_dao.modify(dto);
 		
+		// 공지글 수정 완료 시 공지글 보는 화면으로 돌아가기
 		if (res > 0) {
-//			return "redirect:board_list?page="+page;
+			return "redirect:course_board_list";
 	***REMOVED***
 		
 		return "";
 ***REMOVED***
 	
-	
 	// 코스 공지글 삭제된 것처럼 수정하기
 	@RequestMapping("course_board_delete")
 	public String course_board_delete(int id) {
-
+		// 권한 설정 예정
+		
+		// 공지글 삭제된 것처럼 수정하기(논리적 삭제)
 		int res = course_board_dao.delete_update(id);
 	
 		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
@@ -152,17 +172,45 @@ public class CourseBoardController {
 
 ***REMOVED***
 	
-	// 코스 글 물리적 삭제
+	// 코스 공지글 물리적 삭제
 	@RequestMapping("course_board_delete_physical")
-	public String course_board_delete_physical(int id) {
-
-		int res = course_board_dao.delete_physical(id);
+	public String course_board_delete_physical() {
+		// 권한 설정 예정
+		
+		// 공지글 DB에서 삭제하기(물리적 삭제)
+		int res = course_board_dao.delete_physical();
 	
-		if (res == 1) {
+		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
 			return "[{'result':'yes'***REMOVED***]";
 	***REMOVED*** else {
 			return "[{'result':'no'***REMOVED***]";
 	***REMOVED***
 
 ***REMOVED***
+	
+	
+	
+	// ajax 테스트용 메소드
+	// 코스 공지글 상세보기
+//	@RequestMapping("ajax_test")
+//	@ResponseBody
+//	public String ajax_test(Model model, int id) {
+//
+//		// id로 공지글 조회하기
+//		CourseBoardDTO DTO = course_board_dao.selectOne(id);
+//		
+//		// 페이지에 조회한 공지글 포워딩
+//		model.addAttribute("DTO", DTO);
+//		
+//		System.out.println(DTO);
+//		
+//		if (DTO != null) {
+//			return "[{'result':'yes'***REMOVED***]";
+//	***REMOVED*** else {
+//			return "[{'result':'no'***REMOVED***]";
+//	***REMOVED***
+//		
+//***REMOVED***
+	
+	
 ***REMOVED***
