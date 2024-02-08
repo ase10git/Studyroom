@@ -51,7 +51,7 @@ public class UserController {
 		}
 		
 		//세션에 바인딩
-		session.setAttribute("eamil", dto);
+		session.setAttribute("email", dto);
 		
 		//로그인에 성공한 경우
 		return "[{'param':'clear'}]";
@@ -64,18 +64,33 @@ public class UserController {
 		return "redirect:login_form";
 	}
 	
-	//회원가입
+	//회원가입 페이지로 이동
 	@RequestMapping("register") 
 	public String register() {
 		return Common.REGISTER_PATH+"register.jsp";
 	}
 	
+	//이메일 체크
+	@RequestMapping("email_check")
+	@ResponseBody
+	public String email_check(String email) {
+		UserDTO dto = user_dao.selectOne(email);
+		
+		//null이면 중복되지 않으므로 가입 가능
+		if(dto == null) {
+			return "[{'res':'yes'}]";
+		}
+		
+		return "[{'res':'no'}]";
+	}
+	
+	//회원가입
 	@RequestMapping("register_insert")
 	public String register_insert(UserDTO dto) {
 		int res = user_dao.insert(dto);
 		
 		if(res > 0) {
-			return "redirect:logint_form";
+			return "redirect:login_form";
 		}
 		
 		return null;

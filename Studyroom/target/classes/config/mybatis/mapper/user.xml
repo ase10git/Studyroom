@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insert" parameterType="user">
-		INSERT INTO user VALUES(
+		INSERT INTO "USER" VALUES(
 			seq_user_id.nextVal,
 			#{username},
 			#{email},
