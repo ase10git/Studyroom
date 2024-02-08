@@ -13,8 +13,8 @@ public class CourseBoardDAO {
 	final SqlSession sqlSession;
 
 		// 페이지별 코스 공지글 조회
-		public List<CourseBoardDTO> selectList(HashMap<String,Integer> map){
-			return sqlSession.selectList("cb.board_list",map);
+		public List<CourseBoardDTO> selectList(HashMap<String, Integer> map){
+			return sqlSession.selectList("cb.board_list");
 		}
 	
 		// 전체 코스 공지글 수 조회
@@ -23,8 +23,8 @@ public class CourseBoardDAO {
 		}
 		
 		// 코스 공지글 한 건 조회
-		public CourseBoardDTO selectOne(int idx) {
-			return sqlSession.selectOne("cb.board_one",idx);
+		public CourseBoardDTO selectOne(int id) {
+			return sqlSession.selectOne("cb.board_one", id);
 		}
 				
 		// 코스 공지글 추가하기
@@ -43,8 +43,8 @@ public class CourseBoardDAO {
 		}
 		
 		// 코스 공지글 물리적 삭제
-		public int delete_physical(int id) {
-			return sqlSession.delete("c.board_delete", id);
+		public int delete_physical() {
+			return sqlSession.delete("cb.board_delete");
 		}
 
 }

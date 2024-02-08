@@ -8,6 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	SELECT * FROM course
 	</select>
 	
+	<!-- 코스 전체 공지글 수 조회 -->
+	<select id="course_count" resultType="int">
+		SELECT COUNT(*) FROM course
+	</select>
+	
 	<!-- 코스 한 건 조회 -->
 	<select id="course_view" parameterType="int" resultType="course">
 		SELECT * FROM course WHERE ID=#{id}
@@ -37,16 +42,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 코스 삭제처럼 처리하기 -->
-	<update id="course_delete_update" parameterType="course">
-		UPDATE course
-		SET END_DATE = #{end_date}
-		WHERE ID=#{id}					
+	<update id="course_delete_update" parameterType="int">
+<!-- 		UPDATE course -->
+<!-- 		SET END_DATE = #{end_date} -->
+<!-- 		WHERE ID=#{id}					 -->
 	</update>
 
 	<!-- 코스 물리적 삭제 -->
 	<delete id="course_delete" parameterType="int">
-		DELETE FROM course 
-		WHERE ID=#{id}
+<!-- 		DELETE FROM course -->
+<!-- 		WHERE DEL_FLAG = -1 -->
 	</delete>
 </mapper>
 
