@@ -13,9 +13,9 @@ public class Context_3_dao {
 //	public BoardDAO boardDAO(SqlSession sqlSession) {
 //		return new BoardDAO(sqlSession);
 //***REMOVED***
-//***REMOVED***
-//	public CalenderDAO calenderDAO(SqlSession sqlSession) {
-//		return new CalenderDAO(sqlSession);
-//***REMOVED***
+***REMOVED***
+	public CalenderDAO calenderDAO(SqlSession sqlSession) {
+		return new CalenderDAO(sqlSession);
+***REMOVED***
 	
 ***REMOVED***

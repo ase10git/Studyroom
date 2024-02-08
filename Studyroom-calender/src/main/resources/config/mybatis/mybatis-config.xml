@@ -10,11 +10,11 @@
 	
 	<typeAliases>
 		<!-- <typeAlias type="dto.TestDTO" alias="test"/> -->
-		<!-- <typeAlias type="dto.CalendarDTO" alias="calender"/> -->
+		<typeAlias type="dto.CalendarDTO" alias="calender"/>
 	</typeAliases>
 
 	<mappers>
 		<!-- <mapper resource="config/mybatis/mapper/test.xml" /> -->
-		<!-- <mapper resource="config/mybatis/mapper/calender.xml" /> -->
+		<mapper resource="config/mybatis/mapper/calender.xml" />
 	</mappers>
 </configuration>
