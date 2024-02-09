@@ -6,7 +6,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.study.study.TestController;
+import com.study.study.CourseBoardController;
+import com.study.study.CourseController;
+
+import dao.CourseBoardDAO;
+import dao.CourseDAO;
 
 ***REMOVED***
 @EnableWebMvc
@@ -17,9 +21,21 @@ public class ServletContext implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 ***REMOVED***
 
-	// testController Bean
+//	// testController Bean
+//***REMOVED***
+//	public TestController testController() {
+//		return new TestController();
+//***REMOVED***
+	
+	// CourseController Bean
 ***REMOVED***
-	public TestController testController() {
-		return new TestController();
+	public CourseController courseController(CourseDAO course_dao) {
+		return new CourseController(course_dao);
+***REMOVED***
+	
+	// CourseBoardController Bean
+***REMOVED***
+	public CourseBoardController courseBoardController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
+		return new CourseBoardController(course_dao, course_board_dao);
 ***REMOVED***
 ***REMOVED***
