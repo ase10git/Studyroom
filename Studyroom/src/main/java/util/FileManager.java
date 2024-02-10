@@ -1,0 +1,183 @@
+package util;
+
+import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import dto.CourseBoardDTO;
+
+// 파일 업로드와 다운로드를 관리하는 클래스
+public class FileManager {
+
+	// 파일 업로드 경로 설정
+	String webPath = "/resources/upload/"; // 프로젝트 경로
+	String savePath = null; // 실제 컴퓨터 경로
+	
+	// 생성자에 request 객체를 받아 파일 실제 저장 정로를 설정
+	public FileManager(HttpServletRequest request) {
+		savePath = request.getServletContext().getRealPath(webPath); // 실제 컴퓨터 경로
+//		System.out.println(savePath); // 경로 출력
+	}
+	
+	// 새 공지글 추가 시 파일 업로드
+	public void fileUpload(CourseBoardDTO new_dto, HttpServletRequest request) {
+
+		// 업로드된 파일 클래스 인스턴스
+		MultipartFile file = new_dto.getFile();
+		
+		// 기본 이름 설정
+		String fileName = "no_file";
+		
+		if(!file.isEmpty()) { // 파일을 업로드 했는지 검사(파일이 있는 경우)
+			fileName = file.getOriginalFilename(); // 원본 파일 이름
+			
+			// 저장할 파일 설정
+			File saveFile = new File(savePath, fileName);
+			
+			if(!saveFile.exists()) { // 중복 파일 검사
+				saveFile.mkdirs(); // 폴더로 생성, 이후에 파일로 변경됨
+			} else {
+				long time = System.currentTimeMillis(); // 업로드 시간 기록
+				fileName = String.format("%d_%s", time, fileName); // 파일 이름을 업로드 시간 포함해서 수정
+				saveFile = new File(savePath, fileName); // 새 파일 이름으로 파일 설정
+			}
+						
+			// 물리적으로 파일을 업로드
+			try {
+				file.transferTo(saveFile);
+			} catch (Exception e) {}
+
+		}
+				
+		// DB에 보낼 파일 이름 저장
+		new_dto.setFile_name(fileName);
+		
+	}
+	
+	// 공지글 수정 시 파일 업로드
+	public void fileUpload(CourseBoardDTO new_dto, CourseBoardDTO origin_dto, HttpServletRequest request, int flag) {
+
+		// 새로 변경된 공지글의 파일 첨부 및 파일 이름을 new_dto에 저장
+		fileUpload(new_dto, request);
+		
+		// 새로 변경된 공지글의 파일 이름
+		String fileName = new_dto.getFile_name();
+	
+		if (fileName != "no_file") { // 새로 변경된 공지글에 파일이 첨부된 경우에만			
+			// 공지글 수정 시 기존 파일 제거
+			fileDelete(origin_dto); 
+					
+			// DB에 보낼 파일 이름을 기존 origin_dto에 저장(새로 업데이트)
+			origin_dto.setFile_name(fileName);
+				
+		} else { // 새로 변경된 공지글에 첨부 파일이 없는 경우
+			if (flag == 1) { // 첨부 파일 삭제 요청 있음
+				fileDelete(origin_dto); // 첨부 파일 제거
+			} else { // 첨부 파일 삭제 요청이 없음
+				return;
+			}
+		}
+	}
+	
+	// 서버 컴퓨터에서 파일 제거
+	public void fileDelete(CourseBoardDTO dto) {
+		// dto에 저장된 파일 이름으로 서버 컴퓨터에 저장된 파일 정보 가져오기
+		File saveFile = new File(savePath, dto.getFile_name());
+		if (saveFile.exists()) { // 기존 공지글의 첨부 파일이 서버에 저장되어 있는 경우
+			saveFile.delete();
+		}
+		dto.setFile_name("no_file"); // DB에 첨부파일이 없음을 표시
+	}
+
+	
+	// 파일 다운로드
+//	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
+//		// 서버에 파일이 저장된 경로 가져오기
+//		String dir = request.getParameter("dir");
+//		String fullPath = request.getServletContext().getRealPath(dir);
+//		
+//		String fileName = "";
+//		fileName = request.getParameter("filename");
+//		String fullPathName = String.format("%s%s", fullPath, fileName);
+//		
+//		// 파일 가져오기
+//		File file = new File(fullPathName);
+//		byte[] b = new byte[1024*1024*100]; // 파일 최대 한도만큼 바이트 배열 설정
+//		
+//		// 사용자 브라우저 타입 얻어오기
+//		String strAgent = request.getHeader("User-Agent");
+//		System.out.println("browser : " + strAgent);
+//		
+//		String userCharset = request.getCharacterEncoding();
+//		if (userCharset == null) {
+//			userCharset = "utf-8";
+//		}
+//
+//		String value = "";
+//		// IE인 경우
+//		// IE 지원이 종료되어 향후엔 IE 부분이 필요 없을지도 모른다.
+//		if (strAgent.indexOf("MSIE") > -1) {
+//			// IE 5.5 인 경우
+//			if (strAgent.indexOf("MSIE 5.5") > -1) {
+//				value = "filename="+fileName;
+//			} else if (strAgent.indexOf("MSIE 7.0") > -1) { // IE 7.0인 경우
+//				// 인코딩 타입 비교
+//				if (userCharset.equalsIgnoreCase("UTF-8")) {
+//					fileName = URLEncoder.encode(fileName, userCharset);
+//					fileName = fileName.replaceAll("\\+", " ");
+//					value = "attachment; filename=\""+fileName+"\"";
+//				} else {
+//					value = "attachment; filename=" + new String(fileName.getBytes(userCharset), "ISO-8859-1"); 
+//				}
+//			} else { // IE 8.0 이상인 경우 두 번 호출됨
+//				// 인코딩 타입 비교
+//				if (userCharset.equalsIgnoreCase("UTF-8")) {
+//					fileName = URLEncoder.encode(fileName, userCharset);
+//					fileName = fileName.replaceAll("\\+", " ");
+//					value = "attachment; filename=\""+fileName+"\"";
+//				} else {
+//					value = "attachment; filename" + new String(fileName.getBytes(userCharset), "ISO-8859-1");
+//				}
+//			} // IE 확인 종료
+//		} else if (strAgent.indexOf("Firefox") > -1) { // Firefox인 경우
+//			// Firefox는 공백 문자 이후가 인식되지 않음
+//			// 다만 기타 브라우저랑 코드는 같은데..
+//			value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
+//		} else { // 그외 브라우저
+//			value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
+//		}
+//		
+//		// 브라우저가 캐싱하지 않도록 설정
+//		response.setContentType("Pragma : no-cache");
+//		
+//		// 전송 데이터가 stream 처리되도록 설정. 웹 상 전송 문자셋은 8859_1
+//		response.setContentType("application/octect-stream;charset=8859_1;");
+//		
+//		// 데이터 형식 성향 설정(attachment : 첨부파일)
+//		response.setHeader("Content-Disposition", value);
+//		
+//		// 내용물 인코딩 방식 결정
+//		response.setHeader("Content-Transfer-Encoding", "binary");
+//		
+//		// 파일 내보내기 - 정확하게는 이미지가 아닌 모든 파일임
+//		if (file.isFile()) {
+//			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+//			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+//			
+//			int i = 0;
+//			
+//			try {
+//				while((i=bis.read(b)) != -1) {
+//					bos.write(b, 0, i);
+//				}
+//			} catch (Exception e) {
+//			} finally {
+//				if (bos != null) bos.close();
+//				if (bis != null) bis.close();
+//			}
+//		}
+//	}
+	
+}

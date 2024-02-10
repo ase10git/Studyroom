@@ -3,16 +3,16 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cb">
-	<!-- 코스 전체 공지글 조회 -->
-	<select id="board_list" resultType="courseboard" >
+	<!-- 특정 코스의 코스 전체 공지글 조회 -->
+	<select id="board_list" resultType="courseboard" parameterType="int">
 	 	SELECT * FROM course_board
-<!-- 	 	WHERE COURSE_ID = #{course_id} -->
+	 	WHERE COURSE_ID = #{course_id} AND DEL_FLAG != -1
 	</select>
 	
-	<!-- 코스 전체 공지글 수 조회 -->
-	<select id="board_count" resultType="int">
+	<!-- 특정 코스의 코스 전체 공지글 수 조회 -->
+	<select id="board_count" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM course_board
-<!-- 		WHERE COURSE_ID = #{course_id} -->
+		WHERE COURSE_ID = #{course_id} AND DEL_FLAG != -1
 	</select>
 	
 	<!-- 코스 공지글 한 건 조회 -->

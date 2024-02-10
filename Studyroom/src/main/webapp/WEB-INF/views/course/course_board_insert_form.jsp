@@ -7,18 +7,18 @@
 <title>Insert title here</title>
 	<script type="text/javascript">
 		function send() {
+			
 			f.submit();
 		}
 		
 		function back() {
-			location.href='course_board_list';
+			location.href = "course_board_list?course_id=${param.course_id}";
 		}
 	</script>
 </head>
 <body>
     <form action="course_board_insert" name="f" method="POST" enctype="multipart/form-data">
-		<input type="hidden" name="page" value="${param.page}">
-		<!-- courseID를 넘겨야 함. 글 수정 시 현재 오류 발생 -->
+    	<input name="course_id" type="hidden" value="${param.course_id}">
 		<table border="1" align="center">
 			<caption>:::새 글 쓰기:::</caption>
 			<tr>

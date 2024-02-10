@@ -33,7 +33,7 @@
       <div class="row gy-4">
         <div class="box col-12 col-md-6">
           <div class="gt">
-				<p>gutter box</p>
+				<input type="button" value="course" onclick="location.href='course_list';">
           </div>
         </div>
         <div class="box col-12 col-md-6">
