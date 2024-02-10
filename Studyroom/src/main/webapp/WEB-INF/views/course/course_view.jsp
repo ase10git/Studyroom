@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="resources/js/HttpRequest.js"></script>
 	<script>
 		function back() {
-			location.href='course_list?page=${param.page}';
+			location.href = "course_list?page=${param.page}";
 		}
 	
 		function del() {			

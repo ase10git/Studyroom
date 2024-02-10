@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,14 +8,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script type="text/javascript">
-		function write() {
-			location.href='course_board_insert_form';
+	<script type="text/javascript">		
+		function back() {
+			location.href = "course_list";
+		}
+		
+		function write_board() {
+			location.href="course_board_insert_form?course_id=${course_id}";
 		}
 	</script>
 </head>
 <body>
-
+	
     <table>
         <tr>
             <th>번호</th>
@@ -32,7 +37,10 @@
     
         <tr>
             <td>
-                <input id="insert_btn" type="button" value="글 작성하기" onclick="write()">
+                <input id="insert_btn" type="button" value="글 작성하기" onclick="write_board()">
+            </td>
+            <td>
+                <input id="back_btn" type="button" value="뒤로 가기" onclick="back()">
             </td>
         </tr>
     </table>
