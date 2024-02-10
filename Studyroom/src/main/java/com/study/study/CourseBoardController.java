@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseBoardDAO;
-import dao.CourseDAO;
 import dto.CourseBoardDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
+import util.FileManager;
 import util.Paging;
-import util.UploadFile;
 
 @Controller
 @RequiredArgsConstructor
 public class CourseBoardController {
 	
-	 final CourseDAO course_dao;
+//	 final CourseDAO course_dao;
 	 final CourseBoardDAO course_board_dao;
 //	 final UserDAO user_dao;
 	
@@ -37,7 +36,7 @@ public class CourseBoardController {
 		
 	// 코스 공지글 전체를 페이지별로
 	@RequestMapping("course_board_list")
-	public String course_board_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
+	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {
 		
 		// 시작, 종료 페이지 계산
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
@@ -49,10 +48,10 @@ public class CourseBoardController {
 		map.put("end", end);
 	
 		// 페이지 번호에 따른 전체 게시글 조회
-		List<CourseBoardDTO> list = course_board_dao.selectList(map);
+		List<CourseBoardDTO> list = course_board_dao.selectList(map, course_id); // test용 course_id = 1
 		
 		// 전체 게시글 수 조회
-		int rowTotal = course_board_dao.getRowTotal();
+		int rowTotal = course_board_dao.getRowTotal(course_id);
 		
 		// 페이지 메뉴 생성하기
 		String pageMenu = Paging.getPaging("course_board_list", 
@@ -64,6 +63,7 @@ public class CourseBoardController {
 		// 페이지에 데이터 포워딩
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);
+		model.addAttribute("course_id", course_id);
 		
 		return Common.COURSE_PATH +"course_board_list.jsp?page=" + page;
 ***REMOVED***
@@ -100,11 +100,11 @@ public class CourseBoardController {
 	public String course_board_insert(CourseBoardDTO dto) {
 
 		// 파일 업로드 설정 클래스의 인스턴스
-		UploadFile uploadFile = new UploadFile();
+		FileManager fileManager = new FileManager(request);
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
-		uploadFile.fileUpload(dto, request);
-
+		fileManager.fileUpload(dto, request);
+		
 		// 공지글 추가
 		int res = course_board_dao.insert(dto);
 	
@@ -137,27 +137,39 @@ public class CourseBoardController {
 	
 	// 코스 공지글 수정하기
 	@RequestMapping("course_board_modify")
-	public String course_board_modify(CourseBoardDTO dto) {
+	public String course_board_modify(CourseBoardDTO dto, int id, int page, int delete_flag) {
+
+		// 원본 origin_dto를 id로 조회
+		CourseBoardDTO origin_dto = course_board_dao.selectOne(id);
 		
 		// 파일 업로드 설정 클래스의 인스턴스
-		UploadFile uploadFile = new UploadFile();
+		FileManager fileManager = new FileManager(request);
+		
+//		if (flag.equals("true")) { // 첨부파일 삭제 요청이 있다면
+//			fileManager.fileDelete(origin_dto);
+//	***REMOVED***
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
-		uploadFile.fileUpload(dto, request);
+		fileManager.fileUpload(dto, origin_dto, request, delete_flag);
+		
+		// 수정한 내용을 origin_dto에 저장
+		origin_dto.setTitle(dto.getTitle());
+		origin_dto.setContent(dto.getContent());
 		
 		// 공지글 수정
-		int res = course_board_dao.modify(dto);
+		int res = course_board_dao.modify(origin_dto);
 		
-		// 공지글 수정 완료 시 공지글 보는 화면으로 돌아가기
+		// 공지글 수정 완료 시 ajax를 위한 메시지 전송
 		if (res > 0) {
-			return "redirect:course_board_list";
+			return "redirect:course_board_view?id="+dto.getId()+"&page="+page;
 	***REMOVED***
 		
-		return "";
+		return "/";
 ***REMOVED***
 	
 	// 코스 공지글 삭제된 것처럼 수정하기
 	@RequestMapping("course_board_delete")
+	@ResponseBody
 	public String course_board_delete(int id) {
 		// 권한 설정 예정
 		
@@ -174,6 +186,7 @@ public class CourseBoardController {
 	
 	// 코스 공지글 물리적 삭제
 	@RequestMapping("course_board_delete_physical")
+	@ResponseBody
 	public String course_board_delete_physical() {
 		// 권한 설정 예정
 		

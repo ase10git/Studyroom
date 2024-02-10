@@ -86,9 +86,10 @@ public class CourseController {
 //		if (user.role == "admin" || user.role == "mentor") {
 //			return Common.COURSE_PATH + "course_insert_form.jsp";
 //	***REMOVED***
-		
+//		
 		return Common.COURSE_PATH + "course_insert_form.jsp";
-//		return Common.COURSE_PATH + "error_page.jsp";
+
+		//return Common.COURSE_PATH + "error_page.jsp";
 ***REMOVED***
 	
 	

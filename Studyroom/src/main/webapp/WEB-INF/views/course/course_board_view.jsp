@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 	<script type="text/javascript" src="resources/js/HttpRequest.js"></script>
 	<script>
 		function back() {
-			location.href='course_board_list?page=${param.page***REMOVED***';
+			location.href = "course_board_list?course_id=${dto.course_id***REMOVED***&page=${param.page***REMOVED***";
 	***REMOVED***
 		function del() {			
 			if (!confirm("삭제하시겠습니까?")) {
@@ -33,9 +35,10 @@
 				
 				if(json[0].result == 'yes') {
 					alert("성공적으로 삭제했습니다.");
-					location.href = "course_board_list";
+					location.href = "course_board_list?course_id=${dto.course_id***REMOVED***";
 			***REMOVED*** else {
 					alert("삭제를 실패했습니다.");
+					return;
 			***REMOVED***
 		***REMOVED***
 	***REMOVED***
@@ -55,7 +58,7 @@
 		</tr>
 		<tr>
 			<th>게시 날짜</th>
-			<td>${dto.register_date***REMOVED***</td>
+			<td>${fn:split(dto.register_date, " ")[0]***REMOVED***</td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -64,7 +67,14 @@
 		<tr>
 			<th>첨부 파일</th>
 			<td>
-                <a href="#">${dto.file_name***REMOVED***</a>
+				<c:choose>
+					<c:when test="${dto.file_name ne 'no_file'***REMOVED***">
+	                	<a href="#">${dto.file_name***REMOVED***</a>
+	                </c:when>
+	                <c:otherwise>
+	                	<span>첨부 파일 없음</span>
+	                </c:otherwise>
+                </c:choose>
             </td>
 		</tr>
 		<tr>
