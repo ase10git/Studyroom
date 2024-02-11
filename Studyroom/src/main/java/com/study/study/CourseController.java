@@ -96,7 +96,7 @@ public class CourseController {
 	// 코스 추가하기
 	@RequestMapping("course_insert")
 	public String course_insert(CourseDTO dto) {
-		
+
 		// 코스 추가
 		int res = course_dao.insert(dto);
 	
@@ -132,8 +132,11 @@ public class CourseController {
 	
 	// 코스 수정하기
 	@RequestMapping("course_modify")
-	public String course_modify(CourseDTO dto) {
+	public String course_modify(CourseDTO dto, int id) {
 
+		// 새로 변경할 dto의 id를 저장
+		dto.setId(id);
+		
 		// 코스 수정
 		int res = course_dao.modify(dto);
 

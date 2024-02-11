@@ -36,7 +36,7 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// CourseBoardController Bean
 	@Bean
-	public CourseBoardController courseBoardController(CourseBoardDAO course_board_dao) {
-		return new CourseBoardController(course_board_dao);
+	public CourseBoardController courseBoardController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
+		return new CourseBoardController(course_dao, course_board_dao);
 	}
 }

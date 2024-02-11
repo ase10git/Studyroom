@@ -19,6 +19,21 @@
 	</script>
 </head>
 <body>
+	<table>
+        <tr>
+            <th>코스 이름</th>
+            <th>강사 이름</th>
+            <th>기간<th>
+        </tr>
+        <tr>
+            <td>${course_dto.title}</td>
+            <td>${course_dto.instructor}</td>
+            <td>${fn:split(course_dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</td>
+        </tr>
+        <tr>
+        	<td colspan="3"><pre>${course_dto.summary}</pre></td>
+        </tr>
+    </table>
 	
     <table>
         <tr>
