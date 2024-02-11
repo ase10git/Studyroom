@@ -10,9 +10,11 @@
 	
 	<typeAliases>
 		<typeAlias type="dto.UserDTO" alias="user"/>
+		<typeAlias type="dto.AnnouncementDTO" alias="announcement"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="config/mybatis/mapper/user.xml" />
+		<mapper resource="config/mybatis/mapper/announcement.xml" />
 	</mappers>
 </configuration>
