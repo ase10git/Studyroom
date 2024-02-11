@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="resources/js/HttpRequest.js"></script>
+<script src="${pageContext.request.contextPath }resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
 	let u_emailCheck = false;
 
 	function email_check() {
 		let email = document.getElementById("email").value;
-		alert(email);
+// 		alert(email);
 		if(email == '') {
 			alert("이메일을 입력하세요.");
 		}
