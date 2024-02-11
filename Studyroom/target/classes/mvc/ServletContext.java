@@ -28,8 +28,8 @@ public class ServletContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public AnnouncementController(AnnouncementDAO announcemnetDAO) {
-		return new AnnouncementController(announcemnetDAO);
+	public AnnouncementController(AnnouncementDAO announcementDAO) {
+		return new AnnouncementController(announcementDAO);
 	}
 	
 }
