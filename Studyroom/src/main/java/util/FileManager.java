@@ -1,8 +1,14 @@
 package util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -93,91 +99,98 @@ public class FileManager {
 
 	
 	// 파일 다운로드
-//	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
-//		// 서버에 파일이 저장된 경로 가져오기
-//		String dir = request.getParameter("dir");
-//		String fullPath = request.getServletContext().getRealPath(dir);
-//		
-//		String fileName = "";
-//		fileName = request.getParameter("filename");
-//		String fullPathName = String.format("%s%s", fullPath, fileName);
-//		
-//		// 파일 가져오기
-//		File file = new File(fullPathName);
-//		byte[] b = new byte[1024*1024*100]; // 파일 최대 한도만큼 바이트 배열 설정
-//		
-//		// 사용자 브라우저 타입 얻어오기
-//		String strAgent = request.getHeader("User-Agent");
+	public void fileDownload(CourseBoardDTO dto, HttpServletRequest request, HttpServletResponse response) {
+		
+		// dto에 저장된 파일 이름 가져오기
+		String fileName = dto.getFile_name();
+		
+		// 첨부 파일이 없는 경우엔 함수 동작 종료
+		if (fileName.equals("no_file")) {
+			return;
+		}
+		
+		String fullPathName = String.format("%s%s", savePath, fileName);
+		
+		// 파일 가져오기
+		File file = new File(fullPathName);
+		byte[] b = new byte[1024*1024*100]; // 파일 최대 한도만큼 바이트 배열 설정
+		
+		// 사용자 브라우저 타입 얻어오기
+		String strAgent = request.getHeader("User-Agent");
 //		System.out.println("browser : " + strAgent);
-//		
-//		String userCharset = request.getCharacterEncoding();
-//		if (userCharset == null) {
-//			userCharset = "utf-8";
-//		}
-//
-//		String value = "";
-//		// IE인 경우
-//		// IE 지원이 종료되어 향후엔 IE 부분이 필요 없을지도 모른다.
-//		if (strAgent.indexOf("MSIE") > -1) {
-//			// IE 5.5 인 경우
-//			if (strAgent.indexOf("MSIE 5.5") > -1) {
-//				value = "filename="+fileName;
-//			} else if (strAgent.indexOf("MSIE 7.0") > -1) { // IE 7.0인 경우
-//				// 인코딩 타입 비교
-//				if (userCharset.equalsIgnoreCase("UTF-8")) {
-//					fileName = URLEncoder.encode(fileName, userCharset);
-//					fileName = fileName.replaceAll("\\+", " ");
-//					value = "attachment; filename=\""+fileName+"\"";
-//				} else {
-//					value = "attachment; filename=" + new String(fileName.getBytes(userCharset), "ISO-8859-1"); 
-//				}
-//			} else { // IE 8.0 이상인 경우 두 번 호출됨
-//				// 인코딩 타입 비교
-//				if (userCharset.equalsIgnoreCase("UTF-8")) {
-//					fileName = URLEncoder.encode(fileName, userCharset);
-//					fileName = fileName.replaceAll("\\+", " ");
-//					value = "attachment; filename=\""+fileName+"\"";
-//				} else {
-//					value = "attachment; filename" + new String(fileName.getBytes(userCharset), "ISO-8859-1");
-//				}
-//			} // IE 확인 종료
-//		} else if (strAgent.indexOf("Firefox") > -1) { // Firefox인 경우
-//			// Firefox는 공백 문자 이후가 인식되지 않음
-//			// 다만 기타 브라우저랑 코드는 같은데..
-//			value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
-//		} else { // 그외 브라우저
-//			value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
-//		}
-//		
-//		// 브라우저가 캐싱하지 않도록 설정
-//		response.setContentType("Pragma : no-cache");
-//		
-//		// 전송 데이터가 stream 처리되도록 설정. 웹 상 전송 문자셋은 8859_1
-//		response.setContentType("application/octect-stream;charset=8859_1;");
-//		
-//		// 데이터 형식 성향 설정(attachment : 첨부파일)
-//		response.setHeader("Content-Disposition", value);
-//		
-//		// 내용물 인코딩 방식 결정
-//		response.setHeader("Content-Transfer-Encoding", "binary");
-//		
-//		// 파일 내보내기 - 정확하게는 이미지가 아닌 모든 파일임
-//		if (file.isFile()) {
-//			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-//			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
-//			
-//			int i = 0;
-//			
-//			try {
-//				while((i=bis.read(b)) != -1) {
-//					bos.write(b, 0, i);
-//				}
-//			} catch (Exception e) {
-//			} finally {
-//				if (bos != null) bos.close();
-//				if (bis != null) bis.close();
-//			}
-//		}
-//	}
+		
+		// Charset을 확인하고, 없다면 utf-8로 설정
+		String userCharset = request.getCharacterEncoding();
+		if (userCharset == null) {
+			userCharset = "utf-8";
+		}
+
+		// 사용자의 브라우저 타입 별 파일 이름 형식 처리
+		String value = "";		
+		try {
+			// IE인 경우
+			if (strAgent.indexOf("MSIE") > -1) {
+				if (strAgent.indexOf("MSIE 5.5") > -1) { // IE 5.5 인 경우
+					value = "filename="+fileName;
+				} else if (strAgent.indexOf("MSIE 7.0") > -1) { // IE 7.0인 경우
+					// 인코딩 타입 비교
+					if (userCharset.equalsIgnoreCase("UTF-8")) {
+						fileName = URLEncoder.encode(fileName, userCharset);
+						fileName = fileName.replaceAll("\\+", " ");
+						value = "attachment; filename=\""+fileName+"\"";
+					} else {
+						value = "attachment; filename=" + new String(fileName.getBytes(userCharset), "ISO-8859-1"); 
+					}
+				} else { // IE 8.0 이상인 경우 두 번 호출됨
+					// 인코딩 타입 비교
+					if (userCharset.equalsIgnoreCase("UTF-8")) {
+						fileName = URLEncoder.encode(fileName, userCharset);
+						fileName = fileName.replaceAll("\\+", " ");
+						value = "attachment; filename=\""+fileName+"\"";
+					} else {
+						value = "attachment; filename" + new String(fileName.getBytes(userCharset), "ISO-8859-1");
+					}
+				} // IE 확인 종료
+			} else if (strAgent.indexOf("Firefox") > -1) { // Firefox인 경우
+				value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
+			} else { // 그외 브라우저
+				value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
+			}
+		} catch (Exception e) {}		
+		
+		// 브라우저가 캐싱하지 않도록 설정
+		response.setContentType("Pragma : no-cache");
+		
+		// 전송 데이터가 stream 처리되도록 설정(웹 상 전송 문자셋은 8859_1)
+		response.setContentType("application/octect-stream;charset=8859_1;");
+		
+		// 데이터 형식 성향 설정(attachment : 첨부파일)
+		response.setHeader("Content-Disposition", value);
+		
+		// 내용물 인코딩 방식 결정
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		
+		// 파일 내보내기
+		try {
+			if (file.isFile()) { // 파일 존재 여부 확인
+				// 파일 입출력 스트림 생성
+				//response.getOutputStream()가 이미 호출되었다는 에러가 뜨지만 파일 다운에 지장이 없음
+				BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+				BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+
+				int i = 0;
+				
+				try {
+					while((i=bis.read(b)) != -1) { // 파일을 읽어서 출력 스트림에 저장
+						bos.write(b, 0, i);
+					}
+				} catch (Exception e) {
+				} finally { // 파일 입출력 스트림 종료
+					if (bos != null) bos.close();
+					if (bis != null) bis.close();
+				}
+			}
+		} catch (Exception e) {}
+	}
 	
 }

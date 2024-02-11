@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseBoardDAO;
+import dao.CourseDAO;
 import dto.CourseBoardDTO;
+import dto.CourseDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 import util.FileManager;
@@ -24,7 +28,7 @@ import util.Paging;
 @RequiredArgsConstructor
 public class CourseBoardController {
 	
-//	 final CourseDAO course_dao;
+	 final CourseDAO course_dao;
 	 final CourseBoardDAO course_board_dao;
 //	 final UserDAO user_dao;
 	
@@ -32,8 +36,11 @@ public class CourseBoardController {
 	HttpServletRequest request;
 	
 	@Autowired
+	HttpServletResponse response;
+	
+	@Autowired
 	HttpSession session;
-		
+	
 	// 코스 공지글 전체를 페이지별로
 	@RequestMapping("course_board_list")
 	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {
@@ -53,6 +60,9 @@ public class CourseBoardController {
 		// 전체 게시글 수 조회
 		int rowTotal = course_board_dao.getRowTotal(course_id);
 		
+		// course의 정보 가져오기
+		CourseDTO course_dto = course_dao.selectOne(course_id);
+		
 		// 페이지 메뉴 생성하기
 		String pageMenu = Paging.getPaging("course_board_list", 
 											page, 
@@ -64,6 +74,7 @@ public class CourseBoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("course_id", course_id);
+		model.addAttribute("course_dto", course_dto);
 		
 		return Common.COURSE_PATH +"course_board_list.jsp?page=" + page;
 	}
@@ -98,8 +109,8 @@ public class CourseBoardController {
 	// 코스 공지글 추가하기
 	@RequestMapping("course_board_insert")
 	public String course_board_insert(CourseBoardDTO dto) {
-
-		// 파일 업로드 설정 클래스의 인스턴스
+		
+		// FileManager 클래스 인스턴스 생성
 		FileManager fileManager = new FileManager(request);
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
@@ -141,15 +152,12 @@ public class CourseBoardController {
 
 		// 원본 origin_dto를 id로 조회
 		CourseBoardDTO origin_dto = course_board_dao.selectOne(id);
-		
-		// 파일 업로드 설정 클래스의 인스턴스
+				
+		// FileManager 클래스 인스턴스 생성
 		FileManager fileManager = new FileManager(request);
 		
-//		if (flag.equals("true")) { // 첨부파일 삭제 요청이 있다면
-//			fileManager.fileDelete(origin_dto);
-//		}
-		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
+		// 만약 첨부 파일 삭제 요청이 있으면 삭제를 진행
 		fileManager.fileUpload(dto, origin_dto, request, delete_flag);
 		
 		// 수정한 내용을 origin_dto에 저장
@@ -200,8 +208,22 @@ public class CourseBoardController {
 		}
 
 	}
-	
-	
+
+	// 첨부 파일 다운로드
+	@RequestMapping("course_board_filedownload")
+	public String course_board_filedownload(int id) {
+		
+		// id로 CourseBoardDTO 조회
+		CourseBoardDTO dto = course_board_dao.selectOne(id);
+		
+		// FileManager 클래스 인스턴스 생성
+		FileManager fileManager = new FileManager(request);	
+		
+		// FileManager 클래스에게 파일 다운로드 동작 요청
+		fileManager.fileDownload(dto, request, response);
+
+		return "";
+	}
 	
 	// ajax 테스트용 메소드
 	// 코스 공지글 상세보기

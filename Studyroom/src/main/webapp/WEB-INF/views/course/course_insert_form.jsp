@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 	<script type="text/javascript">
 		function send() {
+			// date : YYYY-MM-DD 형식으로 들어옴
+			// mapper에서 To_DATE()로 형식변환
+
 			f.submit();
 		}
 		

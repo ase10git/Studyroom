@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 	</script>
 </head>
 <body>
-    <form action="course_modify" name="f" method="POST">
+    <form action="course_modify?id=${dto.id}" name="f" method="POST">
 		<input type="hidden" name="page" value="${param.page}">
 		<table border="1" align="center">
 			<caption>:::코스 수정하기:::</caption>
@@ -34,11 +35,11 @@
 			</tr>
 			<tr>
 				<th>코스 시작일</th>
-				<td><input name="start_date" type="date"></td>
+				<td><input name="start_date" type="date" value="${fn:split(dto.start_date, ' ')[0]}"></td>
 			</tr>
 			<tr>
 				<th>코스 종료일</th>
-				<td><input name="end_date" type="date"></td>
+				<td><input name="end_date" type="date" value="${fn:split(dto.end_date, ' ')[0]}"></td>
 			</tr>
             <tr>
                 <td>
