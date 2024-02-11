@@ -28,8 +28,8 @@ public class ServletContext implements WebMvcConfigurer{
 ***REMOVED***
 	
 ***REMOVED***
-	public AnnouncementController(AnnouncementDAO announcemnetDAO) {
-		return new AnnouncementController(announcemnetDAO);
+	public AnnouncementController(AnnouncementDAO announcementDAO) {
+		return new AnnouncementController(announcementDAO);
 ***REMOVED***
 	
 ***REMOVED***

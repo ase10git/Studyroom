@@ -2,10 +2,22 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="a">
-	<select id="announcement_list" resultType="announcement" parameterType="java.util.HashMap">
-		
+<mapper namespace="u">
+	<select id="login_check" parameterType="String" resultType="user">
+		SELECT * FROM user WHERE email=#{email***REMOVED*** 
 	</select>
+	
+	<insert id="insert" parameterType="user">
+		INSERT INTO "USER" VALUES(
+			seq_user_id.nextVal,
+			#{username***REMOVED***,
+			#{email***REMOVED***,
+			#{tel***REMOVED***,
+			#{pwd***REMOVED***,
+			#{role***REMOVED***,
+			0
+		)
+	</insert>
 	
 </mapper>
 
