@@ -69,7 +69,7 @@
 			<td>
 				<c:choose>
 					<c:when test="${dto.file_name ne 'no_file'***REMOVED***">
-	                	<a href="#">${dto.file_name***REMOVED***</a>
+	                	<a href="course_board_filedownload?id=${dto.id***REMOVED***">${dto.file_name***REMOVED***</a>
 	                </c:when>
 	                <c:otherwise>
 	                	<span>첨부 파일 없음</span>

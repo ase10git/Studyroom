@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,6 @@
 	</script>
 </head>
 <body>
-<%-- 	<input type="hidden" name="page" value="${param.page***REMOVED***"> --%>
     <table border="1" align="center">	
 		<caption>::게시글 상세보기::</caption>
 		<tr>
@@ -64,11 +64,11 @@
 		</tr>
 		<tr>
 			<th>코스 시작일</th>
-			<td>${dto.start_date***REMOVED***</td>
+			<td>${fn:split(dto.start_date, " ")[0]***REMOVED***</td>
 		</tr>
 		<tr>
 			<th>코스 종료일</th>
-			<td>${dto.end_date***REMOVED***</td>
+			<td>${fn:split(dto.end_date, " ")[0]***REMOVED***</td>
 		</tr>
 		<tr>
 			<td colspan="2">
