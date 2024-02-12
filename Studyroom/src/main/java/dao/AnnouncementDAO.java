@@ -22,4 +22,9 @@ public class AnnouncementDAO {
 	public int getRowTotal() {
 		return sqlSession.selectOne("a.announcement_count");
 	}
+	
+	//게시글 한 건 조회
+	public AnnouncementDTO selectOne(int id) {
+		return sqlSession.selectOne("a.aanouncement_one", id);
+	}
 }

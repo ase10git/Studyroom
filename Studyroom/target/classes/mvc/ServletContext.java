@@ -6,10 +6,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.study.study.AnnouncementController;
 import com.study.study.UserController;
 
-import dao.AnnouncementDAO;
 import dao.UserDAO;
 
 @Configuration
@@ -27,9 +25,9 @@ public class ServletContext implements WebMvcConfigurer{
 		return new UserController(userDAO);
 	}
 	
-	@Bean
-	public AnnouncementController(AnnouncementDAO announcementDAO) {
-		return new AnnouncementController(announcementDAO);
-	}
+//	@Bean
+//	public AnnouncementController(AnnouncementDAO announcementDAO) {
+//		return new AnnouncementController(announcementDAO);
+//	}
 	
 }

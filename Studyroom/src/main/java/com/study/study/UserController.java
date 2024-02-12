@@ -71,9 +71,9 @@ public class UserController {
 	}
 	
 	//이메일 체크
-	@RequestMapping("email_check")
+	@RequestMapping("check_email")
 	@ResponseBody
-	public String email_check(String email) {
+	public String check_email(String email) {
 		UserDTO dto = user_dao.selectOne(email);
 		
 		//null이면 중복되지 않으므로 가입 가능

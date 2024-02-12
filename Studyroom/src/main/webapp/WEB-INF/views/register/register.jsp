@@ -5,23 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${pageContext.request.contextPath }resources/js/HttpRequest.js"></script>
+<script src="resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
 	let u_emailCheck = false;
 
-	function email_check() {
+	function check_email() {
 		let email = document.getElementById("email").value;
-// 		alert(email);
+		alert(email);
 		if(email == '') {
 			alert("이메일을 입력하세요.");
 		}
 		
 		//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
 		//비동기 통신을 이용한다.
-		let url = "email_check";
+		let url = "check_email";
 		let param = "email="+email;
 		
-		sendReqeust(url,param,resultFn,"post");
+		sendReqeust(url,param,resultFn,"POST");
 	}
 	
 	function resultFn() {
@@ -90,21 +90,21 @@
 </head>
 <body>
 	<!-- register_insert 전송 -->
-	<form  action="register_insert" method="post">
-		<table border="1">
+	<form action="register_insert" method="post">
+		<table border="1" align="center">
 			<caption>::: 회원가입 :::</caption>
 			<tr>
 				<th>이메일</th>
 				<td>
-		  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked" urequired>
-		  			<input type="button" value="이메일 중복체크" onclick="email_check()">
-<!-- 		  			<input id="email_check" name="email_check" type="button" value="이메일 인증하기"> -->
+		  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked">
+		  			<input type="button" value="이메일 중복체크" onclick="check_email()">
+<!-- 		  			<input id="email_check" name="check_email" type="button" value="이메일 인증하기"> -->
 	  			</td>
   			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td>
-					<input id="pwd" name="pwd" type="password" placeholder="8~12자리 입력해 주세요.">
+					<input id="pwd" name="pwd" type="password" placeholder="4~12자리 입력해 주세요.">
 				</td>
 			</tr>
 			<tr>
