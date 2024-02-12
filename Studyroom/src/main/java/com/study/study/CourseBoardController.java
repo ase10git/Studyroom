@@ -102,7 +102,7 @@ public class CourseBoardController {
 //			return Common.Board.VIEW_PATH + "login_form.jsp";
 //		}
 		
-		return Common.COURSE_PATH + "course_board_insert_form.jsp";
+		return Common.ADMIN_PATH + "course_board_insert_form.jsp";
 	}
 	
 	
@@ -143,7 +143,7 @@ public class CourseBoardController {
 		// 공지글 객체를 수정 페이지로 포워딩
 		model.addAttribute("dto", dto);
 		
-		return Common.COURSE_PATH + "course_board_modify_form.jsp";
+		return Common.ADMIN_PATH + "course_board_modify_form.jsp";
 	}
 	
 	// 코스 공지글 수정하기
@@ -224,28 +224,6 @@ public class CourseBoardController {
 
 		return "";
 	}
-	
-	// ajax 테스트용 메소드
-	// 코스 공지글 상세보기
-//	@RequestMapping("ajax_test")
-//	@ResponseBody
-//	public String ajax_test(Model model, int id) {
-//
-//		// id로 공지글 조회하기
-//		CourseBoardDTO DTO = course_board_dao.selectOne(id);
-//		
-//		// 페이지에 조회한 공지글 포워딩
-//		model.addAttribute("DTO", DTO);
-//		
-//		System.out.println(DTO);
-//		
-//		if (DTO != null) {
-//			return "[{'result':'yes'}]";
-//		} else {
-//			return "[{'result':'no'}]";
-//		}
-//		
-//	}
-	
+		
 	
 }

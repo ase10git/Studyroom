@@ -26,7 +26,12 @@ public class CourseBoardDAO {
 		public CourseBoardDTO selectOne(int id) {
 			return sqlSession.selectOne("cb.board_one", id);
 		}
-				
+			
+		// 삭제 요청된 코스 공지글 조회
+		public List<CourseBoardDTO> deleteList() {
+			return sqlSession.selectList("cb.board_delete_list");
+		}
+		
 		// 코스 공지글 추가하기
 		public int insert(CourseBoardDTO dto) {
 			return sqlSession.insert("cb.board_insert", dto);

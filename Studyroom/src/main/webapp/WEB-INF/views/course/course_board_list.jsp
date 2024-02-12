@@ -7,7 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>코스 공지글 목록</title>
+	<!-- bootstrap css -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"/>
+    <link rel="stylesheet" href="resources/css/main.css">
+
 	<script type="text/javascript">		
 		function back() {
 			location.href = "course_list";
@@ -19,46 +25,62 @@
 	</script>
 </head>
 <body>
-	<table>
-        <tr>
-            <th>코스 이름</th>
-            <th>강사 이름</th>
-            <th>기간<th>
-        </tr>
-        <tr>
-            <td>${course_dto.title}</td>
-            <td>${course_dto.instructor}</td>
-            <td>${fn:split(course_dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</td>
-        </tr>
-        <tr>
-        	<td colspan="3"><pre>${course_dto.summary}</pre></td>
-        </tr>
-    </table>
-	
-    <table>
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>게시 날짜</th>
-        </tr>
-        
-        <c:forEach var="dto" items="${list}">
-            <tr>
-                <td>${dto.id}</td>
-                <td><a href="course_board_view?id=${dto.id}&page=${param.page}">${dto.title}</a></td>
-                <td>${dto.register_date}</td>
-            </tr>  
-        </c:forEach>
-    
-        <tr>
-            <td>
-                <input id="insert_btn" type="button" value="글 작성하기" onclick="write_board()">
-            </td>
-            <td>
-                <input id="back_btn" type="button" value="뒤로 가기" onclick="back()">
-            </td>
-        </tr>
-    </table>
 
+    <section class="sec">
+        <div class="container">
+         <h1>코스 공지글</h1>
+          <div class="row gy-4">
+            <div class="box col-12">
+                <table>
+                    <tr>
+                        <th>코스 이름</th>
+                        <th>강사 이름</th>
+                        <th>기간<th>
+                    </tr>
+                    <tr>
+                        <td>${course_dto.title}</td>
+                        <td>${course_dto.instructor}</td>
+                        <td>${fn:split(course_dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><p class="summary"><pre>${course_dto.summary}</pre></p></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="box col-12">
+                <table>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>게시 날짜</th>
+                    </tr>
+                    
+                    <c:forEach var="dto" items="${list}">
+                        <tr>
+                            <td>${dto.id}</td>
+                            <td><a href="course_board_view?id=${dto.id}&page=${param.page}">${dto.title}</a></td>
+                            <td>${fn:split(dto.register_date, " ")[0]}</td>
+                        </tr>  
+                    </c:forEach>
+                
+                    <tr>
+                        <td>
+                            <input id="insert_btn" type="button" value="글 작성하기" onclick="write_board()">
+                        </td>
+                        <td>
+                            <input id="back_btn" type="button" value="뒤로 가기" onclick="back()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+	<!-- bootstrap script -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+	crossorigin="anonymous"></script>
 </body>
 </html>

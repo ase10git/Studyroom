@@ -34,6 +34,7 @@
         <div class="box col-12 col-md-6">
           <div class="gt">
 				<input type="button" value="course" onclick="location.href='course_list';">
+				<input type="button" value="삭제관리" onclick="location.href='delete_management';">
           </div>
         </div>
         <div class="box col-12 col-md-6">
