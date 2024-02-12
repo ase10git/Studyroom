@@ -18,6 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM course WHERE ID=#{id***REMOVED***
 	</select>
 	
+	<!-- 삭제 요청된 코스 조회 -->
+	<select id="course_delete_list" resultType="course">
+		SELECT * FROM course WHERE DEL_FLAG = -1
+	</select>
+	
 	<!-- 코스 추가하기 -->
 	<insert id="course_insert" parameterType="course">
 		INSERT INTO course VALUES(
@@ -51,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 코스 물리적 삭제 -->
 	<delete id="course_delete" parameterType="int">
 <!-- 		DELETE FROM course -->
-<!-- 		WHERE DEL_FLAG = -1 -->
+<!-- 		WHERE ID = #{id***REMOVED*** AND DEL_FLAG = -1 -->
 	</delete>
 </mapper>
 
