@@ -87,7 +87,7 @@ public class CourseController {
 //			return Common.COURSE_PATH + "course_insert_form.jsp";
 //		}
 //		
-		return Common.COURSE_PATH + "course_insert_form.jsp";
+		return Common.ADMIN_PATH + "course_insert_form.jsp";
 
 		//return Common.COURSE_PATH + "error_page.jsp";
 	}
@@ -125,7 +125,7 @@ public class CourseController {
 		// 코스 객체를 수정 페이지로 포워딩
 		model.addAttribute("dto", dto);
 		
-		return Common.COURSE_PATH + "course_modify_form.jsp";
+		return Common.ADMIN_PATH + "course_modify_form.jsp";
 //		return Common.COURSE_PATH + "error_page.jsp";
 	}
 	

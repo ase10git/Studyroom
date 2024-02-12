@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ID = #{id}
 	</select>
 
+	<!-- 삭제 요청된 코스 조회 -->
+	<select id="board_delete_list" resultType="courseboard">
+		SELECT * FROM course_board WHERE DEL_FLAG = -1
+	</select>
+
 	<!-- 코스 공지글 추가하기 -->
 	<insert id="board_insert" parameterType="courseboard">
 		INSERT INTO course_board VALUES(
