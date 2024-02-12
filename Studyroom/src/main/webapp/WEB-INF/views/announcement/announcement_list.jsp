@@ -50,29 +50,6 @@
 </style>
 </head>
 <body>
-	<nav>
-		<tr>
-			<td id="logo">
-				<h1><a href="/">Studyroom</a></h1>
-			</td>
-		</tr>
-		<ul>
-			<li>&nbsp;</li>
-			<li>&nbsp;</li>
-			<li>&nbsp;</li>
-			<li>&nbsp;</li>
-			<li><a href="#">메뉴1</a>
-			<li>&nbsp;</li>
-			<li>&nbsp;</li>
-			<li><a href="#">메뉴2</a>
-			<li>&nbsp;</li>
-			<li>&nbsp;</li>
-			<li><a href="#">메뉴3</a>
-			<li>&nbsp;</li>
-			<li>&nbsp;</li>
-			<li><a href="#">메뉴4</a>
-		</ul>
-	</nav>
 	
 	<table border="1">
 		<tr>
