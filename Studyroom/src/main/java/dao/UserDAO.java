@@ -10,7 +10,7 @@ public class UserDAO {
 	
 	final SqlSession sqlSession;
 	
-	//로그인
+	//로그인 체크
 	public UserDTO selectOne(String email) {
 		return sqlSession.selectOne("u.login_check",email);
 	}

@@ -16,7 +16,7 @@ public class Context_3_dao {
 	}
 	
 	@Bean
-	public AnnouncementDAO announcemnetDAO(SqlSession sqlSession) {
+	public AnnouncementDAO announcementDAO(SqlSession sqlSession) {
 		return new AnnouncementDAO(sqlSession);
 	}
 	

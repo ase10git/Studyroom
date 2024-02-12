@@ -29,13 +29,13 @@
 			return;
 		}
 		
-		let url = "login";
-		let param = "email="+email+"&pwd="+encodeURIComponent(pwd);
+		var url = "login";
+		var param = "email="+email+"&pwd="+encodeURIComponent(pwd);
 		
-		sendRequest(url,param,login_check,"POST");
+		sendRequest(url,param,myCheck,"POST");
 	}
 	
-	function login_check() {
+	function myCheck() {
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			var data = xhr.responseText;
 			var json = (new Function('return' + data))();
@@ -46,15 +46,15 @@
 				alert("비밀번호를 다시 입력해 주세요.")
 			} else {
 				alert("로그인 성공");
-				location.href='announcemnet_list';
+				location.href='announcement_list';
 			}
 		}
 	}
 </script>
 </head>
 <body>
-	<form action="" method="post">
-		<table border="1">
+	<form action="">
+		<table border="1" align="center">
 			<caption>::: 로그인 :::</caption>
 			<tr>
 				<th>이메일</th>

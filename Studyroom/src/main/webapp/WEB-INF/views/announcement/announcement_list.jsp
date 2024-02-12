@@ -86,7 +86,7 @@
 			<tr>
 				<td>${dto.id }</td>
 				<td>${dto.title }</td>
-				<td>${ }</td> <!-- 작성자는 관리자로 표시되게 -->
+				<td>관리자</td> <!-- 작성자는 관리자로 표시되게 -->
 				<td>${dto.register_date }</td>
 				<td>${dto.readhit }</td>
 			</tr>
