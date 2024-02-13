@@ -79,7 +79,9 @@
 	
 	.menu {
 	    display: block;
-	    width: 200px;
+	    position: fixed;
+	    width: 300px;
+	    height: 750px;
 	    background-color: #000;
 	    color: #fff;
 	    border-radius: 20px;
@@ -121,7 +123,8 @@
 	    padding: 0 0 0 50px; /* 아이콘과 텍스트 사이 여백 */
 	}
 	
-
+	.login_tbl {
+	}
 
 	
 
@@ -130,18 +133,18 @@
 <body>
 	<div class="menu">
 		<label for="expand-menu"><div>Studyroom</div></label>
-		<input type="checkbox" id="expand-menu" name="expand-menu">
+		<input type="checkbox" id="expand-menu" name="expand-menu"><br><br><br>
 		<ul>
-			<li><a href='/' class="item"><div>로그인</div></a>
-			<li><a href='/' class="item"><div>메뉴1</div></a>
-			<li><a href='/' class="item"><div>메뉴2</div></a>
-			<li><a href='/' class="item"><div>메뉴3</div></a>
+			<li><a href='/' class="item"><div>로그인</div></a><br>
+			<li><a href='/' class="item"><div>메뉴1</div></a><br>
+			<li><a href='/' class="item"><div>메뉴2</div></a><br>
+			<li><a href='/' class="item"><div>메뉴3</div></a><br>
 			<li><a href='/' class="item"><div>메뉴4</div></a>
 		</ul>
 	</div>
 
 	<form action="">
-		<table border="1" align="center">
+		<table border="1" align="center" id="login_tbl" name="login_tbl">
 			<caption>::: 로그인 :::</caption>
 			<tr>
 				<th>이메일</th>
