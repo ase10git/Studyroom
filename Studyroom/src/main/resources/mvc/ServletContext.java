@@ -7,14 +7,17 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.study.study.AdminController;
+import com.study.study.AnnouncementController;
 import com.study.study.CalendarController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
-import com.study.study.TestController;
+import com.study.study.UserController;
 
+import dao.AnnouncementDAO;
 import dao.CalendarDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserDAO;
 
 ***REMOVED***
 @EnableWebMvc
@@ -25,12 +28,17 @@ public class ServletContext implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 ***REMOVED***
 
-//	// testController Bean
+	// UserController Bean
 ***REMOVED***
-	public TestController testController() {
-		return new TestController();
+	public UserController userController(UserDAO userDAO) {
+		return new UserController(userDAO);
 ***REMOVED***
 	
+	//***REMOVED***
+	public AnnouncementController announcemnetController(AnnouncementDAO announcementDAO) {
+		return new AnnouncementController(announcementDAO);
+***REMOVED***
+
 	// CourseController Bean
 ***REMOVED***
 	public CourseController courseController(CourseDAO course_dao) {
@@ -54,4 +62,5 @@ public class ServletContext implements WebMvcConfigurer{
 	public AdminController adminController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
 		return new AdminController(course_dao, course_board_dao);
 ***REMOVED***
+
 ***REMOVED***
