@@ -11,6 +11,7 @@ import com.study.study.AnnouncementController;
 import com.study.study.CalendarController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
+import com.study.study.TestController;
 import com.study.study.UserController;
 
 import dao.AnnouncementDAO;
@@ -28,6 +29,12 @@ public class ServletContext implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
+	// TestController Bean : *****편집자 - 세션 연결 테스트를 위한 임시 컨트롤러
+	@Bean
+	public TestController testController() {
+		return new TestController();
+	}
+	
 	// UserController Bean
 	@Bean
 	public UserController userController(UserDAO userDAO) {
