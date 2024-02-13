@@ -21,7 +21,7 @@
 		let url = "check_email";
 		let param = "email="+email;
 		
-		sendReqeust(url,param,resultFn,"POST");
+		sendRequest(url,param,resultFn,"POST");
 ***REMOVED***
 	
 	function resultFn() {
@@ -33,7 +33,7 @@
 				alert("사용가능한 이메일 입니다.");
 				u_emailCheck = true;
 		***REMOVED*** else {
-				alert("이미 사용중은 이메일 입니다.");
+				alert("이미 사용중인 이메일 입니다.");
 				return;
 		***REMOVED***
 	***REMOVED***
