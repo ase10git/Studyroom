@@ -28,6 +28,11 @@ public class Context_2_myBatis {
 		
 		return factoryBean.getObject();
 	}
+	
+	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory factoryBean) {
+		return new SqlSessionTemplate(factoryBean);
+   }
 
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory factoryBean) {

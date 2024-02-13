@@ -10,10 +10,25 @@ import dao.CalendarDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 
+import dao.AnnouncementDAO;
+import dao.UserDAO;
+
 @Configuration
 @EnableAspectJAutoProxy
 public class Context_3_dao {
 	
+	// UserDAO Bean : 사용자
+	@Bean
+	public UserDAO userDAO(SqlSession sqlSession) {
+		return new UserDAO(sqlSession);
+	}
+
+	// AnnouncementDAO Bean : 전체 공지사항
+	@Bean
+	public AnnouncementDAO announcementDAO(SqlSession sqlSession) {
+		return new AnnouncementDAO(sqlSession);
+	}
+
 	// CourseDAO Bean : 코스
 	@Bean
 	public CourseDAO courseDAO(SqlSession sqlSession) {
