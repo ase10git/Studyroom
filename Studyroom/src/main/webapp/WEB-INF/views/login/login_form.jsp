@@ -53,105 +53,113 @@
 </script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style type="text/css">
- 	.menu ::before{ 
- 	    font-family: 'Material Icons'; 
- 	    font-size: 1.5em; 
- 	    float: left; 
- 	    clear: left; 
- 	} 
-	
- 	.menu label::before{ content: '\e5d2'; } 
- 	.menu li:nth-child(1) a::before{ content: '\f02e'; } 
- 	.menu li:nth-child(2) a::before{ content: '\e8d6'; } 
- 	.menu li:nth-child(3) a::before{ content: '\e88a'; } 
- 	.menu li:nth-child(4) a::before{ content: '\e8cc'; } 
- 	.menu li:nth-child(5) a::before{ content: '\e87d'; } 
- 	.menu li:nth-child(6) a::before{ content: '\e8b8'; } 
-	
- 	#expand-menu { /* 체크박스 폼 요소 감춤 */ 
-     	display: none; 
- 	} 
-	
- 	#expand-menu:checked ~ ul { /* 체크박스 체크되었으면 메뉴 목록 표시 - 반응형 표시용 */ 
- 	    display: block; 
- 	    height: auto; 
- 	} 
-	
- 	.menu { 
- 	    float:left;
- 	    width: 300px; 
- 	    height: 750px; 
- 	    background-color: #000; 
- 	    color: #fff; 
- 	    border-radius: 20px; 
- 	    padding: 10px; 
- 	    box-sizing: border-box; 
- 	    overflow: hidden; /* 반응형 애니메이션용 */ 
-	    transition: all 0.5s ease; /* 반응형 애니메이션 */ 
- 	} 
-	
- 	.menu ul { 
- 	    list-style: none; 
- 	    margin: 0; 
- 	    padding: 0; 
- 	} 
-	
- 	.menu a, .menu > label { 
- 	    display: block; 
- 	    height: 25px; 
- 	    padding: 8px; 
- 	    cursor: pointer; 
- 	    color: #fff; 
- 	    text-decoration: none; 
- 	} 
-	
- 	.menu a:hover { 
-     color: #000; 
- 	} 
-	
-	.menu ul li:hover, .menu > label:hover { 
- 	    background-color: #fff; 
- 	    color: #000; 
- 	    border-radius: 10px; 
- 	} 
-	
- 	.menu div { 
- 	    line-height: 1.5; 
- 	    font-size: 1em; 
- 	    font-family: 'Noto Sans KR'; 
- 	    padding: 0 0 0 50px; /* 아이콘과 텍스트 사이 여백 */ 
- 	} 
-	
-	body, html {	
-		height:100%;
+	body, html {
+		height: 100%;
 		margin: 0;
 		display: flex;
- 		justify-content: center; 
-		align-items: center;	
-	}
-	
-	.login_tbl {
-		width: 50%;
+		justify-content: center;
+		align-items: center;
+		font-family: Arial, sans-serif;
+		background-color: #f0f0f0;
 	}
 
+	.container {
+	    display: flex;
+	}
 	
+	.logo {
+	    width: 300px;
+	    height: 100%;
+	    background-color: #333;
+	    color: #fff;
+	    border-radius: 20px;
+	    padding: 20px;
+	    box-sizing: border-box;
+	    overflow: hidden;
+	    transition: all 0.5s ease;
+	    position: relative;
+	}
 
+     .logo h1 {
+         margin: 0;
+         padding: 20px 0;
+         text-align: center;
+         font-size: 24px;
+     }
+
+
+
+     #expand-menu {
+         display: none;
+     }
+
+     #expand-menu:checked ~ .menu {
+         width: 0;
+         padding: 0;
+         overflow: hidden;
+     }
+
+     .login-form {
+         padding: 20px;
+         background-color: #fff;
+         border-radius: 10px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     }
+
+     .login-form input[type="text"],
+     .login-form input[type="password"] {
+         width: 100%;
+         padding: 10px;
+         margin-bottom: 15px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+     }
+
+     .login-form input[type="button"] {
+         width: 100%;
+         padding: 10px;
+         border: none;
+         background-color: #333;
+         color: #fff;
+         border-radius: 5px;
+         cursor: pointer;
+     }
+
+     .login-form input[type="button"]:hover {
+         background-color: #555;
+     }
+
+	@media (max-width: 768px) {
+		.container {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.logo {
+			width: 100%;
+			height: auto;
+			border-radius: 0;
+		}
+
+		.logo h1 {
+		    padding: 10px 0;
+		    font-size: 20px;
+		}
+
+	    .login-form {
+	        border-radius: 0;
+	    }
+    }
 </style>
 </head>
 <body>
-	<div class="menu">
-		<label for="expand-menu"><div>Studyroom</div></label>
-		<input type="checkbox" id="expand-menu" name="expand-menu"><br><br><br>
-		<ul>
-			<li><a href='/' class="item"><div>로그인</div></a><br>
-			<li><a href='/' class="item"><div>메뉴1</div></a><br>
-			<li><a href='/' class="item"><div>메뉴2</div></a><br>
-			<li><a href='/' class="item"><div>메뉴3</div></a><br>
-			<li><a href='/' class="item"><div>메뉴4</div></a>
-		</ul>
-	</div>
+	<div class="container">
+		<input type="checkbox" id="expand-menu" name="expand-menu">
+		<div class="logo">
+	        <h1>Studyroom</h1>
+    	</div>
 
-	<form action="">
+	<form class="login-form" action="">
 		<table border="1" align="center" id="login_tbl" name="login_tbl">
 			<caption>::: 로그인 :::</caption>
 			<tr>
@@ -170,5 +178,6 @@
 			</tr>
 		</table>
 	</form>
+	</div>
 </body>
 </html>
