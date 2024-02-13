@@ -1,19 +1,19 @@
 package com.study.study;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import util.Common;
+import lombok.RequiredArgsConstructor;
 
 // 테스트용 컨트롤러
 // 파일을 변경하지 말고 복사해서 사용해주세요
 @Controller
+@RequiredArgsConstructor
 public class TestController {
 
-	@RequestMapping("/")
-	public String test() {
-		return Common.VIEW_PATH + "home.jsp";
-	}
+//	@RequestMapping("/")
+//	public String test() {
+//		return Common.VIEW_PATH + "home.jsp";
+//	}
 	
 	/*
 	@RequestMapping("/")
