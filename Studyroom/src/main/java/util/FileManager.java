@@ -15,19 +15,23 @@ import dto.CourseBoardDTO;
 
 // 파일 업로드와 다운로드를 관리하는 클래스
 public class FileManager {
-
+	
 	// 파일 업로드 경로 설정
-	String webPath = "/resources/upload/"; // 프로젝트 경로
+//	String webPath = "/resources/upload/"; // 프로젝트 경로
 	String savePath = null; // 실제 컴퓨터 경로
 	
-	// 생성자에 request 객체를 받아 파일 실제 저장 정로를 설정
-	public FileManager(HttpServletRequest request) {
-		savePath = request.getServletContext().getRealPath(webPath); // 실제 컴퓨터 경로
-//		System.out.println(savePath); // 경로 출력
+	// savePath getter
+	public String getSavePath() {
+		return this.savePath;
+***REMOVED***
+	
+	// savePath setter
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
 ***REMOVED***
 	
 	// 새 공지글 추가 시 파일 업로드
-	public void fileUpload(CourseBoardDTO new_dto, HttpServletRequest request) {
+	public void fileUpload(CourseBoardDTO new_dto) {
 
 		// 업로드된 파일 클래스 인스턴스
 		MultipartFile file = new_dto.getFile();
@@ -62,10 +66,10 @@ public class FileManager {
 ***REMOVED***
 	
 	// 공지글 수정 시 파일 업로드
-	public void fileUpload(CourseBoardDTO new_dto, CourseBoardDTO origin_dto, HttpServletRequest request, int flag) {
+	public void fileUpload(CourseBoardDTO new_dto, CourseBoardDTO origin_dto, int flag) {
 
 		// 새로 변경된 공지글의 파일 첨부 및 파일 이름을 new_dto에 저장
-		fileUpload(new_dto, request);
+		fileUpload(new_dto);
 		
 		// 새로 변경된 공지글의 파일 이름
 		String fileName = new_dto.getFile_name();
@@ -114,49 +118,12 @@ public class FileManager {
 		File file = new File(fullPathName);
 		byte[] b = new byte[1024*1024*100]; // 파일 최대 한도만큼 바이트 배열 설정
 		
-		// 사용자 브라우저 타입 얻어오기
-		String strAgent = request.getHeader("User-Agent");
-//		System.out.println("browser : " + strAgent);
-		
 		// Charset을 확인하고, 없다면 utf-8로 설정
 		String userCharset = request.getCharacterEncoding();
 		if (userCharset == null) {
 			userCharset = "utf-8";
 	***REMOVED***
 
-		// 사용자의 브라우저 타입 별 파일 이름 형식 처리
-		String value = "";		
-		try {
-			// IE인 경우
-			if (strAgent.indexOf("MSIE") > -1) {
-				if (strAgent.indexOf("MSIE 5.5") > -1) { // IE 5.5 인 경우
-					value = "filename="+fileName;
-			***REMOVED*** else if (strAgent.indexOf("MSIE 7.0") > -1) { // IE 7.0인 경우
-					// 인코딩 타입 비교
-					if (userCharset.equalsIgnoreCase("UTF-8")) {
-						fileName = URLEncoder.encode(fileName, userCharset);
-						fileName = fileName.replaceAll("\\+", " ");
-						value = "attachment; filename=\""+fileName+"\"";
-				***REMOVED*** else {
-						value = "attachment; filename=" + new String(fileName.getBytes(userCharset), "ISO-8859-1"); 
-				***REMOVED***
-			***REMOVED*** else { // IE 8.0 이상인 경우 두 번 호출됨
-					// 인코딩 타입 비교
-					if (userCharset.equalsIgnoreCase("UTF-8")) {
-						fileName = URLEncoder.encode(fileName, userCharset);
-						fileName = fileName.replaceAll("\\+", " ");
-						value = "attachment; filename=\""+fileName+"\"";
-				***REMOVED*** else {
-						value = "attachment; filename" + new String(fileName.getBytes(userCharset), "ISO-8859-1");
-				***REMOVED***
-			***REMOVED*** // IE 확인 종료
-		***REMOVED*** else if (strAgent.indexOf("Firefox") > -1) { // Firefox인 경우
-				value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
-		***REMOVED*** else { // 그외 브라우저
-				value = "attachment; filename=" + new String(fileName.getBytes(), "ISO-8859-1");
-		***REMOVED***
-	***REMOVED*** catch (Exception e) {***REMOVED***		
-		
 		// 브라우저가 캐싱하지 않도록 설정
 		response.setContentType("Pragma : no-cache");
 		
@@ -164,7 +131,7 @@ public class FileManager {
 		response.setContentType("application/octect-stream;charset=8859_1;");
 		
 		// 데이터 형식 성향 설정(attachment : 첨부파일)
-		response.setHeader("Content-Disposition", value);
+		response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+"\"");
 		
 		// 내용물 인코딩 방식 결정
 		response.setHeader("Content-Transfer-Encoding", "binary");

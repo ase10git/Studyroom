@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseDAO;
 import dto.CourseDTO;
@@ -150,6 +151,7 @@ public class CourseController {
 	
 	// 코스 삭제된 것처럼 수정하기(논리적 삭제)
 	@RequestMapping("course_delete")
+	@ResponseBody
 	public String course_delete(int id) {
 		// 권한 설정 예정
 		
@@ -165,6 +167,7 @@ public class CourseController {
 	
 	// 코스 물리적 삭제
 	@RequestMapping("course_delete_physical")
+	@ResponseBody
 	public String course_delete_physical() {
 
 		int res = course_dao.delete_physical();

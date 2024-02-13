@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="c">
 	<!-- 코스 전체 조회 -->
 	<select id="course_list" resultType="course">
-	 	SELECT * FROM course
+	 	SELECT * FROM course WHERE DEL_FLAG != -1
 	</select>
 	
 	<!-- 코스 전체 공지글 수 조회 -->
 	<select id="course_count" resultType="int">
-		SELECT COUNT(*) FROM course
+		SELECT COUNT(*) FROM course WHERE DEL_FLAG != -1
 	</select>
 	
 	<!-- 코스 한 건 조회 -->
@@ -48,15 +48,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 코스 삭제처럼 처리하기 -->
 	<update id="course_delete_update" parameterType="int">
-<!-- 		UPDATE course -->
-<!-- 		SET DEL_FLAG = -1 -->
-<!-- 		WHERE ID = #{id***REMOVED***					 -->
+		UPDATE course
+		SET DEL_FLAG = -1
+		WHERE ID = #{id***REMOVED***					
 	</update>
 
 	<!-- 코스 물리적 삭제 -->
 	<delete id="course_delete" parameterType="int">
-<!-- 		DELETE FROM course -->
-<!-- 		WHERE ID = #{id***REMOVED*** AND DEL_FLAG = -1 -->
+		DELETE FROM course
+		WHERE ID = #{id***REMOVED*** AND DEL_FLAG = -1
 	</delete>
 </mapper>
 

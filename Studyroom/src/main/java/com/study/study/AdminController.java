@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 import dto.CourseBoardDTO;
+import dto.CourseDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 
@@ -43,13 +44,13 @@ public class AdminController {
 		
 		// del_flag = -1인 코스 조회
 		// 현재 DB에 course는 DEL_FLAG 컬럼이 없어서 일반 조회로 대체함
-//		List<CourseDTO> course_list = course_dao.deleteList();
+		List<CourseDTO> course_list = course_dao.deleteList();
 		
 		// del_flag = -1인 코스 공지글 조회
 		List<CourseBoardDTO> course_board_list = course_board_dao.deleteList();
 		
 		// 데이터를 삭제 관리 페이지에 포워딩
-//		model.addAttribute("course_list", course_list);
+		model.addAttribute("course_list", course_list);
 		model.addAttribute("course_board_list", course_board_list);
 	
 		return  Common.ADMIN_PATH + "delete_management.jsp";

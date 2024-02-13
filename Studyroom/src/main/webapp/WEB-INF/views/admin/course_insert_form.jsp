@@ -27,14 +27,14 @@
 <body>
 	<section class="sec">
 		<div class="container">
-		 <h1>test home</h1>
+		 <h1>새 코스 추가</h1>
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
 			  <div class="gt">
 				<form action="course_insert" name="f" method="POST">
 					<input type="hidden" name="page" value="${param.page***REMOVED***">
 					<table>
-						<caption>:::새 코스 추가:::</caption>
+<!-- 						<caption>:::새 코스 추가:::</caption> -->
 						<tr>
 							<th>코스 이름</th>
 							<td><input name="title"></td>

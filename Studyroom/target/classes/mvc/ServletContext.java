@@ -1,8 +1,5 @@
 package mvc;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 ***REMOVED***
 ***REMOVED***
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

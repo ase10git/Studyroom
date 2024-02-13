@@ -24,7 +24,7 @@
             <div class="box col-12">
                 <table>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input class="total_check" type="checkbox"></th>
                         <th>번호</th>
                         <th>수강생 이름</th>
                     </tr>
@@ -34,14 +34,14 @@
         </div>
       </section>
 
-      <!-- <section class="sec course">
-        <div class="container">
+    <section class="sec course">
+       <div class="container">
         <h2>코스 삭제 요청</h2>
           <div class="row gy-4">
             <div class="box col-12">
                 <table>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input class="total_check" type="checkbox"></th>
                         <th>번호</th>
                         <th>코스 이름</th>
                         <th>강사 이름</th>
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-      </section> -->
+      </section>
 
       <section class="sec course_board">
         <div class="container">
@@ -69,7 +69,7 @@
             <div class="box col-12">
                 <table>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input class="total_check" type="checkbox"></th>
                         <th>번호</th>
                         <th>코스 번호</th>
                         <th>등록 날짜</th>
@@ -96,7 +96,7 @@
             <div class="box col-12">
                 <table>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input class="total_check" type="checkbox"></th>
                         <th>번호</th>
                         <th>커뮤니티 번호</th>
                         <th>제목</th>

@@ -28,10 +28,6 @@
 			
 			sendRequest(url, param, resultFn, "POST");
 			
-			// 동작 테스트용
-// 			let url = "ajax_test";
-// 			let param = "id=1";
-// 			sendRequest(url, param, resultFn, "POST");
 	***REMOVED***
 			
 		function resultFn() {
@@ -41,7 +37,7 @@
 				
 				if(json[0].result == 'yes') {
 					alert("성공적으로 삭제했습니다.");
-					location.href = "course_board_list";
+					location.href = "course_list";
 			***REMOVED*** else {
 					alert("삭제를 실패했습니다.");
 			***REMOVED***
@@ -57,11 +53,11 @@
 
 	<section class="sec">
 		<div class="container">
-		 <h1>test home</h1>
+		 <h1>코스 공지글</h1>
 		  <div class="row gy-4">
 			<div class="box col-12">
 				<table>	
-					<caption>::게시글 상세보기::</caption>
+<!-- 					<caption>::게시글 상세보기::</caption> -->
 					<tr>
 						<th>코스 이름</th>
 						<td>${dto.title***REMOVED***</td>
@@ -72,7 +68,7 @@
 					</tr>
 					<tr>
 						<th>코스 설명</th>
-						<td width="200px" height="50px">
+						<td>
 							<p class="summary"><pre>${dto.summary***REMOVED***</pre></p>
 						</td>
 					</tr>

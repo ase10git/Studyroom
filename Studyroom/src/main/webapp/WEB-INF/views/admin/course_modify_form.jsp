@@ -26,13 +26,13 @@
 
 	<section class="sec">
 		<div class="container">
-		 <h1>test home</h1>
+		 <h1>코스 수정하기</h1>
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
 				<form action="course_modify?id=${dto.id***REMOVED***" name="f" method="POST">
 					<input type="hidden" name="page" value="${param.page***REMOVED***">
 					<table>
-						<caption>:::코스 수정하기:::</caption>
+<!-- 						<caption>:::코스 수정하기:::</caption> -->
 						<tr>
 							<th>코스 이름</th>
 							<td><input name="title" value="${dto.title***REMOVED***"></td>
