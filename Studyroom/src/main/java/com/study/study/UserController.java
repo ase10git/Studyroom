@@ -13,8 +13,6 @@ import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 
-// 테스트용 컨트롤러
-// 파일을 변경하지 말고 복사해서 사용해주세요
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -28,7 +26,7 @@ public class UserController {
 	HttpSession session;
 	
 	//첫 화면(로그인)
-	@RequestMapping(value = {"/","login_form"})
+	@RequestMapping(value = {"/","/login_form"})
 	public String login_form() {
 		return Common.LOGIN_PATH+"login_form.jsp";
 	}
@@ -52,6 +50,13 @@ public class UserController {
 		
 		//세션에 바인딩
 		session.setAttribute("email", dto);
+		
+		//************************** 편집자 - 테스트용 *****************************
+		session.setAttribute("userId", dto.getId());
+		System.out.println(dto.getId());
+		session.setAttribute("role", dto.getRole());
+		System.out.println(dto.getRole());
+		//***********************************************************************
 		
 		//로그인에 성공한 경우
 		return "[{'param':'clear'}]";
