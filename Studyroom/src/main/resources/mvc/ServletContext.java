@@ -6,8 +6,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.study.study.AdminController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
+import com.study.study.TestController;
 
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
@@ -22,10 +24,10 @@ public class ServletContext implements WebMvcConfigurer{
 	}
 
 //	// testController Bean
-//	@Bean
-//	public TestController testController() {
-//		return new TestController();
-//	}
+	@Bean
+	public TestController testController() {
+		return new TestController();
+	}
 	
 	// CourseController Bean
 	@Bean
@@ -37,5 +39,11 @@ public class ServletContext implements WebMvcConfigurer{
 	@Bean
 	public CourseBoardController courseBoardController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
 		return new CourseBoardController(course_dao, course_board_dao);
+	}
+	
+	// AdminController Bean
+	@Bean
+	public AdminController adminController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
+		return new AdminController(course_dao, course_board_dao);
 	}
 }

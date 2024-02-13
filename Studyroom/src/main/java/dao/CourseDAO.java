@@ -29,6 +29,11 @@ public class CourseDAO {
 			return sqlSession.selectOne("c.course_view",id);
 		}
 
+		// 삭제 요청된 코스 조회
+		public List<CourseDTO> deleteList() { 
+			return sqlSession.selectList("c.course_delete_list");
+		}
+		
 		// 코스 추가
 		public int insert(CourseDTO dto) {
 			return sqlSession.insert("c.course_insert",dto);

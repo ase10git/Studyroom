@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseDAO;
 import dto.CourseDTO;
@@ -86,16 +87,17 @@ public class CourseController {
 //		if (user.role == "admin" || user.role == "mentor") {
 //			return Common.COURSE_PATH + "course_insert_form.jsp";
 //		}
-		
-		return Common.COURSE_PATH + "course_insert_form.jsp";
-//		return Common.COURSE_PATH + "error_page.jsp";
+//		
+		return Common.ADMIN_PATH + "course_insert_form.jsp";
+
+		//return Common.COURSE_PATH + "error_page.jsp";
 	}
 	
 	
 	// 코스 추가하기
 	@RequestMapping("course_insert")
 	public String course_insert(CourseDTO dto) {
-		
+
 		// 코스 추가
 		int res = course_dao.insert(dto);
 	
@@ -124,15 +126,18 @@ public class CourseController {
 		// 코스 객체를 수정 페이지로 포워딩
 		model.addAttribute("dto", dto);
 		
-		return Common.COURSE_PATH + "course_modify_form.jsp";
+		return Common.ADMIN_PATH + "course_modify_form.jsp";
 //		return Common.COURSE_PATH + "error_page.jsp";
 	}
 	
 	
 	// 코스 수정하기
 	@RequestMapping("course_modify")
-	public String course_modify(CourseDTO dto) {
+	public String course_modify(CourseDTO dto, int id) {
 
+		// 새로 변경할 dto의 id를 저장
+		dto.setId(id);
+		
 		// 코스 수정
 		int res = course_dao.modify(dto);
 
@@ -146,6 +151,7 @@ public class CourseController {
 	
 	// 코스 삭제된 것처럼 수정하기(논리적 삭제)
 	@RequestMapping("course_delete")
+	@ResponseBody
 	public String course_delete(int id) {
 		// 권한 설정 예정
 		
@@ -161,6 +167,7 @@ public class CourseController {
 	
 	// 코스 물리적 삭제
 	@RequestMapping("course_delete_physical")
+	@ResponseBody
 	public String course_delete_physical() {
 
 		int res = course_dao.delete_physical();
