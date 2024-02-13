@@ -42,7 +42,7 @@ public class UserController {
 		
 		//dto가 null일 경우 email이 DB에 존재하지 않음
 		if(dto == null) {
-			return "[{'param':'no_eamil'}]";
+			return "[{'param':'no_email'}]";
 		}
 		
 		//우리가 입력받은 pwd와 DB에 저장된 비밀번호를 비교하기
@@ -74,6 +74,7 @@ public class UserController {
 	@RequestMapping("check_email")
 	@ResponseBody
 	public String check_email(String email) {
+		System.out.println(email);
 		UserDTO dto = user_dao.selectOne(email);
 		
 		//null이면 중복되지 않으므로 가입 가능
