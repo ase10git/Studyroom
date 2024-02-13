@@ -11,9 +11,9 @@
 
 	function check_email() {
 		let email = document.getElementById("email").value;
-		alert(email);
 		if(email == '') {
 			alert("이메일을 입력하세요.");
+			return;
 	***REMOVED***
 		
 		//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
