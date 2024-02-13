@@ -28,9 +28,9 @@ public class Paging {
 		if(isPrevPage) {
 			sb.append("<a href='"+pageURL+"?page=");
 			sb.append(startPage-1);
-			sb.append("'><img src='resources/img/btn_prev.gif'></a>");
+			sb.append("'>¢¸</a>");
 	***REMOVED*** else {
-			sb.append("<img src='resources/img/btn_prev.gif'>");
+			sb.append("¢¸");
 	***REMOVED***
 		
 		sb.append("");
@@ -54,9 +54,9 @@ public class Paging {
 		if(isNextPage) {
 			sb.append("<a href='"+pageURL+"?page=");
 			sb.append(endPage+1);
-			sb.append("'><img src='resources/img/btn_next.gif'></a>");
+			sb.append("'>¢º</a>");
 	***REMOVED*** else {
-			sb.append("<img src='resources/img/btn_next.gif'>");
+			sb.append("¢º");
 	***REMOVED***
 		
 		return sb.toString();
