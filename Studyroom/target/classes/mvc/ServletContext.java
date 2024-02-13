@@ -7,6 +7,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.study.study.TestController;
+import com.study.study.UserController;
+
+import dao.UserDAO;
 
 @Configuration
 @EnableWebMvc
@@ -17,9 +20,9 @@ public class ServletContext implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
-	// testController Bean
+	// UserController Bean
 	@Bean
-	public TestController testController() {
-		return new TestController();
+	public UserController userController(UserDAO userDAO) {
+		return new UserController(userDAO);
 	}
 }

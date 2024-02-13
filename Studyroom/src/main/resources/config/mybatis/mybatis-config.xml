@@ -9,10 +9,12 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="dto.TestDTO" alias="test"/> -->
+		<typeAlias type="dto.UserDTO" alias="user"/>
+		<typeAlias type="dto.CustomerServiceDTO" alias="cs"/>
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="config/mybatis/mapper/test.xml" /> -->
+		<mapper resource="config/mybatis/mapper/user.xml" />
+		<mapper resource="config/mybatis/mapper/customerService.xml" />
 	</mappers>
 </configuration>
