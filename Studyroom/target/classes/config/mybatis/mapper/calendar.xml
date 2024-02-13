@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c">
+	<select id="calendar_list" resultType="calendar" parameterType="int">
+		select * from calendar_event where user_id = #{userid***REMOVED***
+	</select>
+
+	<select id="getCalYearAndMonth" parameterType="map" resultType="calendar">
+    SELECT * FROM calendar_event
+	WHERE user_id = #{userId***REMOVED*** AND EXTRACT(YEAR FROM datetime) = #{year***REMOVED*** AND EXTRACT(MONTH FROM datetime) = #{month***REMOVED***
+	</select>
+	
+	<select id="getcalendarEvent" resultType="calendar" parameterType="map">
+    SELECT * FROM calendar_event WHERE user_id = #{userId***REMOVED*** AND id = #{id***REMOVED***
+</select>
+
+<update id="calendarEventUpdate" parameterType="int">
+        UPDATE calendar_event
+        SET del_flag = -1
+        WHERE id = #{id***REMOVED***
+    </update>
+	
+</mapper>

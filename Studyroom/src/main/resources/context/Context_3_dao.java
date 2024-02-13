@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import advice.Advice;
+import dao.CalendarDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 
@@ -23,6 +24,12 @@ public class Context_3_dao {
 ***REMOVED***
 	public CourseBoardDAO courseBoardDAO(SqlSession sqlSession) {
 		return new CourseBoardDAO(sqlSession);
+***REMOVED***
+	
+	// CalendarDAO Bean : Ä¶¸°´õ
+***REMOVED***
+	public CalendarDAO calendarDAO(SqlSession sqlSession) {
+		return new CalendarDAO(sqlSession);
 ***REMOVED***
 	
 	// AOP
