@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	사용자 작성글만 보기(test)
 </body>
 </html>
