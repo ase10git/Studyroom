@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,12 @@ public class CalendarController {
 	
 	final CalendarDAO cal_dao;
 	
+	@Autowired
+	HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
+	
 	//이건 임시로 유저아이디를 세션에 저장하는겁니당.
 	@RequestMapping("userform")
 	public String userform(HttpSession session) { //이부분만 userid 세션정보 불러와서 받으면 될거같아요.
@@ -37,8 +44,10 @@ public class CalendarController {
 	
 	
 	//해당 유저의 캘린더 데이터를 가져오고 캘린더 페이지로 이동하는 컨트롤러 메서드
-	@RequestMapping("calendar_list")
-	public String calendar(Model model, @RequestParam("userId") int user_id){
+	@RequestMapping("calendar_list") //**************** 편집자 - 세션과 캘린더 연결 **********************
+	public String calendar(Model model){ //, @RequestParam("userId") int user_id
+			int user_id = (int)session.getAttribute("userId");
+			//************************************************************************************
 			List<CalendarDTO> dto = cal_dao.calendar_list(user_id);
 			model.addAttribute("dto",dto);
 			//현재 날짜를 가져와서 연도와 월을 구함.>3<
