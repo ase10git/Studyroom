@@ -53,6 +53,7 @@
 		function modify() {
 			location.href = "course_board_modify_form?id=${dto.id}&page=${param.page}";
 		}
+		
 	</script>
 </head>
 
@@ -64,7 +65,7 @@
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
 				<table>	
-					<caption>::게시글 상세보기::</caption>
+<%-- 					<caption>::게시글 상세보기::</caption> --%>
 					<tr>
 						<th>제목</th>
 						<td>${dto.title}</td>
@@ -75,7 +76,9 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td width="500px" height="200px"><pre>${dto.content}</pre></td>
+						<td width="500px" height="200px">
+							<p><pre>${dto.content}</pre></p>
+						</td>
 					</tr>
 					<tr>
 						<th>첨부 파일</th>
@@ -88,6 +91,11 @@
 									<span>첨부 파일 없음</span>
 								</c:otherwise>
 							</c:choose>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="${pageContext.request.contextPath}/resources/upload/${dto.file_name}" alt="">
 						</td>
 					</tr>
 					<tr>

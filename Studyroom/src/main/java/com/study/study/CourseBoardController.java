@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,9 +40,21 @@ public class CourseBoardController {
 	@Autowired
 	HttpSession session;
 	
+	// FileManager 클래스 인스턴스 생성
+	FileManager fileManager = new FileManager();
+		
+	String webPath = "/resources/upload/"; // 프로젝트상 경로
+	
 	// 코스 공지글 전체를 페이지별로
 	@RequestMapping("course_board_list")
 	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {
+		
+		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
+		if (fileManager.getSavePath() == null) {
+
+			String realPath = request.getServletContext().getRealPath(webPath);
+			fileManager.setSavePath(realPath);
+		}
 		
 		// 시작, 종료 페이지 계산
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
@@ -110,11 +121,8 @@ public class CourseBoardController {
 	@RequestMapping("course_board_insert")
 	public String course_board_insert(CourseBoardDTO dto) {
 		
-		// FileManager 클래스 인스턴스 생성
-		FileManager fileManager = new FileManager(request);
-		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
-		fileManager.fileUpload(dto, request);
+		fileManager.fileUpload(dto);
 		
 		// 공지글 추가
 		int res = course_board_dao.insert(dto);
@@ -152,13 +160,10 @@ public class CourseBoardController {
 
 		// 원본 origin_dto를 id로 조회
 		CourseBoardDTO origin_dto = course_board_dao.selectOne(id);
-				
-		// FileManager 클래스 인스턴스 생성
-		FileManager fileManager = new FileManager(request);
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
 		// 만약 첨부 파일 삭제 요청이 있으면 삭제를 진행
-		fileManager.fileUpload(dto, origin_dto, request, delete_flag);
+		fileManager.fileUpload(dto, origin_dto, delete_flag);
 		
 		// 수정한 내용을 origin_dto에 저장
 		origin_dto.setTitle(dto.getTitle());
@@ -211,18 +216,16 @@ public class CourseBoardController {
 
 	// 첨부 파일 다운로드
 	@RequestMapping("course_board_filedownload")
-	public String course_board_filedownload(int id) {
+	public String course_board_filedownload(Model model, int id) {
 		
 		// id로 CourseBoardDTO 조회
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
-		
-		// FileManager 클래스 인스턴스 생성
-		FileManager fileManager = new FileManager(request);	
-		
-		// FileManager 클래스에게 파일 다운로드 동작 요청
-		fileManager.fileDownload(dto, request, response);
 
-		return "";
+		// 파일 다운로드를 처리할 페이지에 dto와 fileManager를 포워딩
+		model.addAttribute("dto", dto);
+		model.addAttribute("fileManager", fileManager);
+		
+		return Common.COURSE_PATH + "filedownload.jsp";
 	}
 		
 	

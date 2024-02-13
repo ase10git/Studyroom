@@ -59,12 +59,12 @@
 
 	<section class="sec">
 		<div class="container">
-		 <h1>test home</h1>
+		 <h1>코스 공지글 수정하기</h1>
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
 				<form name="f" method="POST" enctype="multipart/form-data">
 					<table>
-						<caption>:::글 수정하기:::</caption>
+<!-- 						<caption>:::글 수정하기:::</caption> -->
 						<tr>
 							<th>제목</th>
 							<td><input name="title" value="${dto.title}"></td>
