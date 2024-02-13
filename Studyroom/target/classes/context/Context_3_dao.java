@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import advice.Advice;
+import dao.AnnouncementDAO;
 import dao.CalendarDAO;
+import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
-
-import dao.AnnouncementDAO;
 import dao.UserDAO;
 
 @Configuration
@@ -39,6 +39,12 @@ public class Context_3_dao {
 	@Bean
 	public CourseBoardDAO courseBoardDAO(SqlSession sqlSession) {
 		return new CourseBoardDAO(sqlSession);
+	}
+	
+	// CommunityDAO Bean : Ä¿¹Â´ÏÆ¼
+	@Bean
+	public CommunityDAO communityDAO(SqlSession sqlSession) {
+		return new CommunityDAO(sqlSession);
 	}
 	
 	// CalendarDAO Bean : Ä¶¸°´õ
