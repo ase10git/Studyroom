@@ -3,11 +3,13 @@
 import org.apache.ibatis.session.SqlSession;
 ***REMOVED***
 ***REMOVED***
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import advice.SessionCheckAspect;
 import dao.UserDAO;
 
 ***REMOVED***
+@EnableAspectJAutoProxy
 public class Context_3_dao {
 	
 	// UserDAO bean »ý¼º

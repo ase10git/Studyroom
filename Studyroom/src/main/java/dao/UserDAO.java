@@ -15,17 +15,24 @@ public class UserDAO {
 	
 	final SqlSession sqlSession;
 	
-	// 단일 사용자 정보 조회
-	public UserDTO selectOne(int id) {
-		return sqlSession.selectOne("user.user_one", id);
+	// 단일 사용자 정보 조회(로그인 이메일확인용)
+	public UserDTO selectOne(String email) {
+		return sqlSession.selectOne("u.login_check", email);
 ***REMOVED***
 	
-	// 사용자 정보 수정
+	// 사용자 추가(회원가입)
+	public int insert(UserDTO userDTO) {
+		return sqlSession.insert("u.insert", userDTO);
+***REMOVED***
 	
+	// 사용자 정보 수정		// 미완성
+	public int modify(UserDTO userDTO) {
+		return sqlSession.update("u.update", userDTO);
+***REMOVED***
 	
-	// 전체 사용자 조회(admin용)
+	// 전체 사용자 조회(admin용)	// 미완성
 	public List<UserDTO> selectList() {
-		return sqlSession.selectList("user.user_list");
+		return sqlSession.selectList("u.user_list");
 ***REMOVED***
 	
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.UserDAO;
 import dto.UserDTO;
@@ -27,28 +28,20 @@ public class UserController {
 	
 	// 사용자 정보 화면 보기
 	@RequestMapping("user_view")
-	public String user_view(Model model, int id) {
-//		UserDTO current_session = (UserDTO)session.getAttribute("email");
-//		
-//		if(current_session == null) {
-//			return Common.LOGIN_PATH + "login_form.jsp";
-//	***REMOVED***
-		
-		UserDTO dto = user_dao.selectOne(id);
-		model.addAttribute("dto", dto);
+	public String user_view(Model model) {
 		return Common.USER_PATH+"user_view.jsp";
 ***REMOVED***
 	
 	// 사용자 정보 수정하기 전 비밀번호 확인 페이지 이동
-	@RequestMapping("user_modify_password_check_form")
-	public String user_modify_password_check_form() {
-		return Common.USER_PATH+"user_modify_password_check_form.jsp";
+	@RequestMapping("user_pw_auth_form")
+	public String user_pw_auth_form(Model model) {
+		return Common.USER_PATH+"pw_auth_form.jsp";
 ***REMOVED***
 	
-	// 사용자 정보 수정 페이지 이동
+	// 사용자 정보 수정 페이지 이동	// 미완성
 	@RequestMapping("user_modify_form")
-	public String user_modify_form() {
-		return "";
+	public String user_modify_form(Model model) {
+		return Common.USER_PATH+"user_modify_form.jsp";
 ***REMOVED***
 	
 	
