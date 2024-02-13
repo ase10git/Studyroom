@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.study.study.AdminController;
 import com.study.study.AnnouncementController;
 import com.study.study.CalendarController;
+import com.study.study.CommunityController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
 import com.study.study.TestController;
@@ -16,6 +17,7 @@ import com.study.study.UserController;
 
 import dao.AnnouncementDAO;
 import dao.CalendarDAO;
+import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 import dao.UserDAO;
@@ -56,6 +58,12 @@ public class ServletContext implements WebMvcConfigurer{
 ***REMOVED***
 	public CourseBoardController courseBoardController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
 		return new CourseBoardController(course_dao, course_board_dao);
+***REMOVED***
+	
+	// CommunityController Bean
+***REMOVED***
+	public CommunityController communityController(CommunityDAO dao) {
+		return new CommunityController(dao);
 ***REMOVED***
 	
 	// CalendarController Bean
