@@ -2,13 +2,38 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="user">
+<mapper namespace="u">
 
 	<!-- 사용자 하나 조회 -->
-	<select id="user_one" parameterType="int" resultType="user">
-		select * from "USER" where id=#{id}
+	<select id="login_check" parameterType="String" resultType="user">
+		select * from user_tbl where email=#{email} 
 	</select>
-
+	
+	
+	<!-- 사용자 추가 -->
+	<insert id="insert" parameterType="user">
+		INSERT INTO user_tbl VALUES(
+			seq_user_id.nextVal,
+			#{username},
+			#{email},
+			#{tel},
+			#{pwd},
+			#{role},
+			0
+		)
+	</insert>
+	
+	
+	<!-- 사용자 정보 수정 -->
+	<update id="update" parameterType="user">
+		update user_tbl
+		set username = #{username},
+			tel = #{tel},
+			pwd = #{pwd}
+		where id = #{id}
+	</update>
+	
+	
 	<!-- 전체 사용자 조회(admin용) -->
 	<select id="user_list" resultType="user">
 	 	select * from "USER" order by id desc

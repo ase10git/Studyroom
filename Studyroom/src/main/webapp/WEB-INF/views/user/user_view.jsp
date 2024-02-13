@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="button" value="수정하기" onclick="location.href='user_modify_password_check_form'">
+				<input type="button" value="수정하기" onclick="location.href='user_pw_auth_form'">
 			</td>
 		</tr>
 	</table>
