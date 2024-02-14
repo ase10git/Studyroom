@@ -2,7 +2,6 @@ package advice;
 
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ public class SessionCheckAspect {
 	@Autowired
     private HttpSession session;
     
+	
     @Before("execution(* com.study.study.UserController.user_*(..))")
     public void checkSession() {
         UserDTO currentSession = (UserDTO) session.getAttribute("email");
@@ -33,4 +33,5 @@ public class SessionCheckAspect {
             model.addAttribute("dto", dto);
         }
     }
+    
 }
