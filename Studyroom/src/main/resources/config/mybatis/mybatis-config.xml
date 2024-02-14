@@ -9,10 +9,22 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="dto.TestDTO" alias="test"/> -->
+		<typeAlias type="dto.UserDTO" alias="user"/>
+		<typeAlias type="dto.CustomerServiceDTO" alias="csboard"/>
+		<typeAlias type="dto.AnnouncementDTO" alias="announcement"/>
+		<typeAlias type="dto.CourseDTO" alias="course"/>
+		<typeAlias type="dto.CourseBoardDTO" alias="courseboard"/>
+		<typeAlias type="dto.CommunityDTO" alias="community"/> 
+		<typeAlias type="dto.CalendarDTO" alias="calendar"/>	
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="config/mybatis/mapper/test.xml" /> -->
+		<mapper resource="config/mybatis/mapper/user.xml" />
+		<mapper resource="config/mybatis/mapper/customerService.xml" />
+		<mapper resource="config/mybatis/mapper/announcement.xml" />
+		<mapper resource="config/mybatis/mapper/course.xml" />
+		<mapper resource="config/mybatis/mapper/course_board.xml" />
+		<mapper resource="config/mybatis/mapper/community.xml" />
+		<mapper resource="config/mybatis/mapper/calendar.xml" />
 	</mappers>
 </configuration>
