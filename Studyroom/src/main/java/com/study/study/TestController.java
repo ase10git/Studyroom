@@ -1,8 +1,10 @@
 package com.study.study;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
+import util.Common;
 
 // 테스트용 컨트롤러
 // 파일을 변경하지 말고 복사해서 사용해주세요
@@ -10,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TestController {
 
-//	@RequestMapping("/")
-//	public String test() {
-//		return Common.VIEW_PATH + "home.jsp";
-//	}
+	@RequestMapping("home")
+	public String test() {
+		return Common.VIEW_PATH + "home.jsp";
+	}
 	
 	/*
 	@RequestMapping("/")
