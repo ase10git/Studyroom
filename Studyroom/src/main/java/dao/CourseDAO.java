@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.CourseDTO;
+import dto.UserCourseDTO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,12 +17,22 @@ public class CourseDAO {
 	
 		// 코스 전체 조회
 		public List<CourseDTO> selectList(HashMap<String, Integer> map) { 
-			return sqlSession.selectList("c.course_list");
+			return sqlSession.selectList("c.course_list", map);
 	***REMOVED***
 		
 		// 전체 코스 수 조회
 		public int getRowTotal() {
 			return sqlSession.selectOne("c.course_count");
+	***REMOVED***
+	
+		// 특정 사용자의 코스 전체 조회
+		public List<UserCourseDTO> selectList_user(HashMap<String, Integer> map) { 
+			return sqlSession.selectList("c.course_list_user", map);
+	***REMOVED***
+		
+		// 특정 사용자의 전체 코스 수 조회
+		public int getRowTotal_user(int user_id) {
+			return sqlSession.selectOne("c.course_count_user", user_id);
 	***REMOVED***
 		
 		// 코스 한 건 조회
