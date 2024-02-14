@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import advice.Advice;
+import advice.SessionCheckAspect;
 import dao.AnnouncementDAO;
 import dao.CalendarDAO;
 import dao.CommunityDAO;
@@ -52,10 +52,12 @@ public class Context_3_dao {
 	public CalendarDAO calendarDAO(SqlSession sqlSession) {
 		return new CalendarDAO(sqlSession);
 	}
-	
-	// AOP
+
+	// SessionCheckAspect Bean : 세션체크 Advice
 	@Bean
-	public Advice advice() {
-		return new Advice();
+	public SessionCheckAspect sessionCheckAspect() {
+		return new SessionCheckAspect();
 	}
 }
+
+
