@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,8 +15,8 @@ import util.Common;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
-	
+public class LoginController {
+
 	final UserDAO user_dao;
 	
 	@Autowired
@@ -27,7 +26,7 @@ public class UserController {
 	HttpSession session;
 	
 	//첫 화면(로그인)
-	@RequestMapping(value = {"/","/login_form"})
+	@RequestMapping(value = {"/","login_form"})
 	public String login_form() {
 		return Common.LOGIN_PATH+"login_form.jsp";
 	}
@@ -51,13 +50,6 @@ public class UserController {
 		
 		//세션에 바인딩
 		session.setAttribute("email", dto);
-		
-		//************************** 편집자 - 테스트용 *****************************
-		session.setAttribute("userId", dto.getId());
-		System.out.println(dto.getId());
-		session.setAttribute("role", dto.getRole());
-		System.out.println(dto.getRole());
-		//***********************************************************************
 		
 		//로그인에 성공한 경우
 		return "[{'param':'clear'}]";
@@ -103,22 +95,4 @@ public class UserController {
 		return null;
 	}
 	
-	// 사용자 정보 화면 보기
-	@RequestMapping("user_view")
-	public String user_view(Model model) {
-		return Common.USER_PATH+"user_view.jsp";
-	}
-	
-	// 사용자 정보 수정하기 전 비밀번호 확인 페이지 이동
-	@RequestMapping("user_pw_auth_form")
-	public String user_pw_auth_form(Model model) {
-		return Common.USER_PATH+"pw_auth_form.jsp";
-	}
-	
-	// 사용자 정보 수정 페이지 이동	// 미완성
-	@RequestMapping("user_modify_form")
-	public String user_modify_form(Model model) {
-		return Common.USER_PATH+"user_modify_form.jsp";
-	}
-
 }
