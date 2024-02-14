@@ -3,10 +3,14 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="u">
+
+	<!-- 사용자 하나 조회 -->
 	<select id="login_check" parameterType="String" resultType="user">
-		SELECT * FROM user_tbl WHERE email=#{email***REMOVED*** 
+		select * from user_tbl where email=#{email***REMOVED*** 
 	</select>
 	
+	
+	<!-- 사용자 추가 -->
 	<insert id="insert" parameterType="user">
 		INSERT INTO user_tbl VALUES(
 			seq_user_id.nextVal,
@@ -19,5 +23,83 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	
+	<!-- 사용자 정보 수정 -->
+	<update id="update" parameterType="user">
+		update user_tbl
+		set username = #{username***REMOVED***,
+			tel = #{tel***REMOVED***,
+			pwd = #{pwd***REMOVED***
+		where id = #{id***REMOVED***
+	</update>
+	
+	
+	<!-- 전체 사용자 조회(admin용) -->
+	<select id="user_list" resultType="user">
+	 	select * from "USER" order by id desc
+	</select>
+
+	<!-- 전체 게시물 수 조회 -->
+	<select id="board_count" resultType="int">
+		select count(*) from community_board
+	</select>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="update_readhit" parameterType="int">
+		update community_board set readhit = readhit + 1
+		where id=#{id***REMOVED***
+	</update>
+	
+	<!-- 게시물 추가 -->
+	<insert id="board_insert" parameterType="board">
+		insert into community_board values(
+			seq_community_board_id.nextVal,
+			#{nickname***REMOVED***,
+			#{title***REMOVED***,
+			#{content***REMOVED***,
+			#{ip_addr***REMOVED***,
+			register_date,
+			0, <!-- readhit -->
+			seq_community_board_id.currVal,<!-- ref -->
+			0,  <!-- step -->
+			0,<!-- depth -->
+			0  <!-- del_flag -->
+		)
+	</insert>
+	
+	<!-- 게시물 삭제 -->
+	<update id="del_update" parameterType="board">
+		update community_board 
+		set title = #{title***REMOVED***,
+			nickname=#{nickname***REMOVED***,
+			del_flag = -1
+		where id=#{id***REMOVED***
+					
+	</update>
+	
+	<!-- 댓글추가를 위한 step + 1 -->
+	<update id="board_update_step" parameterType="board">
+		update community_board set step = step + 1
+		where ref = #{ref***REMOVED*** and step > #{step***REMOVED***
+	</update>
+	
+	<!-- 답글 추가 -->
+	<insert id="board_reply" parameterType="board">
+		insert into community_board values(
+			seq_community_board_id.nextVal,
+			#{nickname***REMOVED***,
+			#{title***REMOVED***, 
+			#{content***REMOVED***,
+			#{ip_addr***REMOVED***,
+			register_date,
+			0, <!-- readhit -->
+			#{ref***REMOVED***,
+			#{step***REMOVED***,
+			#{depth***REMOVED***,
+			0  <!-- del_flag -->
+		)
+	
+	</insert>
+
 </mapper>
 
