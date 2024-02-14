@@ -6,13 +6,29 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import advice.Advice;
+import dao.AnnouncementDAO;
+import dao.CalendarDAO;
+import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserDAO;
 
 ***REMOVED***
 @EnableAspectJAutoProxy
 public class Context_3_dao {
 	
+	// UserDAO Bean : 사용자
+***REMOVED***
+	public UserDAO userDAO(SqlSession sqlSession) {
+		return new UserDAO(sqlSession);
+***REMOVED***
+
+	// AnnouncementDAO Bean : 전체 공지사항
+***REMOVED***
+	public AnnouncementDAO announcementDAO(SqlSession sqlSession) {
+		return new AnnouncementDAO(sqlSession);
+***REMOVED***
+
 	// CourseDAO Bean : 코스
 ***REMOVED***
 	public CourseDAO courseDAO(SqlSession sqlSession) {
@@ -23,6 +39,18 @@ public class Context_3_dao {
 ***REMOVED***
 	public CourseBoardDAO courseBoardDAO(SqlSession sqlSession) {
 		return new CourseBoardDAO(sqlSession);
+***REMOVED***
+	
+	// CommunityDAO Bean : 커뮤니티
+***REMOVED***
+	public CommunityDAO communityDAO(SqlSession sqlSession) {
+		return new CommunityDAO(sqlSession);
+***REMOVED***
+	
+	// CalendarDAO Bean : 캘린더
+***REMOVED***
+	public CalendarDAO calendarDAO(SqlSession sqlSession) {
+		return new CalendarDAO(sqlSession);
 ***REMOVED***
 	
 	// AOP
