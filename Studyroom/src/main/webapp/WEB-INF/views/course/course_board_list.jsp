@@ -20,7 +20,7 @@
 		}
 		
 		function write_board() {
-			location.href="course_board_insert_form?course_id=${course_id}";
+			location.href="course_board_insert_form?course_id=${dto.course_id}";
 		}
 	</script>
 </head>

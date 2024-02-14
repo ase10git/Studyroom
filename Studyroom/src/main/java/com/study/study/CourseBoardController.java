@@ -41,10 +41,8 @@ public class CourseBoardController {
 	HttpSession session;
 	
 	// FileManager 클래스 인스턴스 생성
-	FileManager fileManager = new FileManager();
-		
-	String webPath = "/resources/upload/"; // 프로젝트상 경로
-	
+	public static FileManager fileManager = new FileManager();
+
 	// 코스 공지글 전체를 페이지별로
 	@RequestMapping("course_board_list")
 	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {
@@ -52,8 +50,9 @@ public class CourseBoardController {
 		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
 		if (fileManager.getSavePath() == null) {
 
-			String realPath = request.getServletContext().getRealPath(webPath);
+			String realPath = request.getServletContext().getRealPath("/resources/upload/");
 			fileManager.setSavePath(realPath);
+			System.out.println(realPath);
 		}
 		
 		// 시작, 종료 페이지 계산
@@ -64,9 +63,10 @@ public class CourseBoardController {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("course_id", course_id);
 	
 		// 페이지 번호에 따른 전체 게시글 조회
-		List<CourseBoardDTO> list = course_board_dao.selectList(map, course_id); // test용 course_id = 1
+		List<CourseBoardDTO> list = course_board_dao.selectList(map); // test용 course_id = 1
 		
 		// 전체 게시글 수 조회
 		int rowTotal = course_board_dao.getRowTotal(course_id);
@@ -84,7 +84,6 @@ public class CourseBoardController {
 		// 페이지에 데이터 포워딩
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);
-		model.addAttribute("course_id", course_id);
 		model.addAttribute("course_dto", course_dto);
 		
 		return Common.COURSE_PATH +"course_board_list.jsp?page=" + page;
@@ -104,20 +103,16 @@ public class CourseBoardController {
 	}
 	
 	// 코스 공지글 추가하기 페이지 이동
+	// admin, mentor만 가능
 	@RequestMapping("course_board_insert_form")
 	public String course_board_insert_form() {
-		// 로그인 확인 및 권한 확인 추가 예정
-//		UserDTO show = (UserDTO)session.getAttribute("id");
-//		
-//		if (show == null) {
-//			return Common.Board.VIEW_PATH + "login_form.jsp";
-//		}
 		
 		return Common.ADMIN_PATH + "course_board_insert_form.jsp";
 	}
 	
 	
 	// 코스 공지글 추가하기
+	// admin, mentor만 가능
 	@RequestMapping("course_board_insert")
 	public String course_board_insert(CourseBoardDTO dto) {
 		
@@ -136,14 +131,9 @@ public class CourseBoardController {
 	}
 	
 	// 코스 공지글 수정 페이지 이동
+	// admin, mentor만 가능
 	@RequestMapping("course_board_modify_form")
 	public String course_board_modify_form(Model model, int id) {
-		// 로그인 확인 및 권한 확인 추가 예정
-//		MemberDTO show = (MemberDTO)session.getAttribute("id");
-//		
-//		if(show == null) {
-//			return Common.Board.VIEW_PATH + "login_form.jsp";
-//		}
 		
 		// 요청 페이지에서 공지글의 id를 받아 공지글을 조회
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
@@ -155,6 +145,7 @@ public class CourseBoardController {
 	}
 	
 	// 코스 공지글 수정하기
+	// admin, mentor만 가능
 	@RequestMapping("course_board_modify")
 	public String course_board_modify(CourseBoardDTO dto, int id, int page, int delete_flag) {
 
@@ -181,6 +172,7 @@ public class CourseBoardController {
 	}
 	
 	// 코스 공지글 삭제된 것처럼 수정하기
+	// admin, mentor만 가능
 	@RequestMapping("course_board_delete")
 	@ResponseBody
 	public String course_board_delete(int id) {
@@ -198,6 +190,7 @@ public class CourseBoardController {
 	}
 	
 	// 코스 공지글 물리적 삭제
+	// admin, mentor만 가능
 	@RequestMapping("course_board_delete_physical")
 	@ResponseBody
 	public String course_board_delete_physical() {

@@ -4,13 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cb">
 	<!-- 특정 코스의 코스 전체 공지글 조회 -->
-	<select id="board_list" resultType="courseboard" parameterType="int">
-	 	SELECT * FROM course_board
-	 	WHERE COURSE_ID = #{course_id} AND DEL_FLAG != -1
+	<select id="board_list" parameterType="java.util.HashMap" resultType="courseboard" >
+	 	SELECT * FROM (SELECT RANK() OVER(ORDER BY id DESC) AS no, cb.* FROM course_board cb)
+		WHERE  COURSE_ID = #{course_id} AND DEL_FLAG != -1
+		AND no BETWEEN #{start} AND #{end}
 	</select>
 	
 	<!-- 특정 코스의 코스 전체 공지글 수 조회 -->
-	<select id="board_count" resultType="int" parameterType="int">
+	<select id="board_count" parameterType="int" resultType="int" >
 		SELECT COUNT(*) FROM course_board
 		WHERE COURSE_ID = #{course_id} AND DEL_FLAG != -1
 	</select>

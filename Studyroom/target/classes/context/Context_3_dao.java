@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import advice.FileManagerAspect;
 import advice.SessionCheckAspect;
 import dao.AnnouncementDAO;
 import dao.CalendarDAO;
@@ -12,6 +13,7 @@ import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 import dao.UserDAO;
+import util.FileManager;
 
 @Configuration
 @EnableAspectJAutoProxy
@@ -57,6 +59,12 @@ public class Context_3_dao {
 	@Bean
 	public SessionCheckAspect sessionCheckAspect() {
 		return new SessionCheckAspect();
+	}
+	
+	// FileManagerAspect Bean : 파일관리 클래스 Advice
+	@Bean
+	public FileManagerAspect fileManagerAspect() {
+		return new FileManagerAspect();
 	}
 }
 
