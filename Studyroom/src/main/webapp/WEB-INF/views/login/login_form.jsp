@@ -46,138 +46,45 @@
 				alert("비밀번호를 다시 입력해 주세요.")
 		***REMOVED*** else {
 				alert("로그인 성공");
-				location.href='announcement_list';
+// 				location.href='announcement_list';
+				// ********************* 편집자 - 다른 페이지 연동 테스트를 위한 home.jsp 연결 ***************
+				location.href = "home";
+				//****************************************************************
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
 </script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style type="text/css">
-	body, html {
-		height: 100%;
-		margin: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		font-family: Arial, sans-serif;
-		background-color: #f0f0f0;
-***REMOVED***
-
-	.container {
-	    display: flex;
-***REMOVED***
-	
-	.logo {
-	    width: 300px;
-	    height: 100%;
-	    background-color: #333;
-	    color: #fff;
-	    border-radius: 20px;
-	    padding: 20px;
-	    box-sizing: border-box;
-	    overflow: hidden;
-	    transition: all 0.5s ease;
-	    position: relative;
-***REMOVED***
-
-     .logo h1 {
-         margin: 0;
-         padding: 20px 0;
-         text-align: center;
-         font-size: 24px;
-     ***REMOVED***
-
-
-
-     #expand-menu {
-         display: none;
-     ***REMOVED***
-
-     #expand-menu:checked ~ .menu {
-         width: 0;
-         padding: 0;
-         overflow: hidden;
-     ***REMOVED***
-
-     .login-form {
-         padding: 20px;
-         background-color: #fff;
-         border-radius: 10px;
-         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-     ***REMOVED***
-
-     .login-form input[type="text"],
-     .login-form input[type="password"] {
-         width: 100%;
-         padding: 10px;
-         margin-bottom: 15px;
-         border: 1px solid #ccc;
-         border-radius: 5px;
-     ***REMOVED***
-
-     .login-form input[type="button"] {
-         width: 100%;
-         padding: 10px;
-         border: none;
-         background-color: #333;
-         color: #fff;
-         border-radius: 5px;
-         cursor: pointer;
-     ***REMOVED***
-
-     .login-form input[type="button"]:hover {
-         background-color: #555;
-     ***REMOVED***
-
-	@media (max-width: 768px) {
-		.container {
-			flex-direction: column;
-			align-items: stretch;
-	***REMOVED***
-
-		.logo {
-			width: 100%;
-			height: auto;
-			border-radius: 0;
-	***REMOVED***
-
-		.logo h1 {
-		    padding: 10px 0;
-		    font-size: 20px;
-	***REMOVED***
-
-	    .login-form {
-	        border-radius: 0;
-	    ***REMOVED***
-    ***REMOVED***
-</style>
+<link rel="stylesheet" href="resources/css/login_form.css">
 </head>
 <body>
+
 	<div class="container">
 		<input type="checkbox" id="expand-menu" name="expand-menu">
 		<div class="logo">
 	        <h1>Studyroom</h1>
     	</div>
 
-	<form class="login-form" action="">
-		<table border="1" align="center" id="login_tbl" name="login_tbl">
-			<caption>::: 로그인 :::</caption>
-			<tr>
-				<th>이메일</th>
-				<td><input id="email" name="email" placeholder="이메일을 입력해주세요." autofocus="autofocus">
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td><input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력해주세요.">
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input id="" name="" type="button" value="로그인" onclick="send(this.form)">
-					<input id="" name="" type="button" value="회원가입" onclick="location.href='register'">
-				</td>
-			</tr>
-		</table>
-	</form>
+		<form class="login-form" action="">
+			<table border="1" align="center" id="login_tbl" name="login_tbl">
+				<caption>::: 로그인 :::</caption>
+				<tr>
+					<th>이메일</th>
+					<td><input id="email" name="email" placeholder="이메일을 입력해주세요." autofocus="autofocus">
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력해주세요.">
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input id="" name="" type="button" value="로그인" onclick="send(this.form)">
+						<input id="" name="" type="button" value="회원가입" onclick="location.href='register'">
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
+	
 </body>
 </html>

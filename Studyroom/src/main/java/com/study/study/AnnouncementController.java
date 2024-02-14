@@ -57,7 +57,7 @@ public class AnnouncementController {
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
-		return Common.Announcement.ANNOUNCEMENT_PATH+"announcement_list.jsp?page="+page;
+		return Common.ANNOUNCEMENT_PATH + "announcement_list.jsp?page="+page;
 ***REMOVED***
 	
 ***REMOVED***
