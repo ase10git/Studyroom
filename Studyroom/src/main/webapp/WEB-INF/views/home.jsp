@@ -26,6 +26,7 @@
           
 			<!-- 각 카테고리별 테스트용 이동 버튼 -->
 			<div class="test-btn">
+				<input type="button" value="회원정보" onclick="location.href='user_view';">
 			    <input type="button" value="삭제관리" onclick="location.href='delete_management';">
 			    <input type="button" value="코스" onclick="location.href='course_list';">
 			    <input type="button" value="커뮤니티" onclick="location.href='community_list';">
