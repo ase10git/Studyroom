@@ -25,7 +25,7 @@ public class AnnouncementDAO {
 	
 	//게시글 한 건 조회
 	public CourseBoardDTO selectOne(int id) {
-		return sqlSession.selectOne("a.anouncement_one", id);
+		return sqlSession.selectOne("a.announcement_one", id);
 ***REMOVED***
 	
 	//게시글 추가하기(어드민)

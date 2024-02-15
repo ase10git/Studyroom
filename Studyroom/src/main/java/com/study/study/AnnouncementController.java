@@ -60,4 +60,13 @@ public class AnnouncementController {
 		return Common.ANNOUNCEMENT_PATH + "announcement_list.jsp?page="+page;
 ***REMOVED***
 	
+	@RequestMapping("view")
+	public String view(Model model, int id, int page) {
+		CourseBoardDTO dto = announcement_dao.selectOne(id);
+		
+		model.addAttribute("dto",dto);
+		
+		return Common.ANNOUNCEMENT_PATH+"announcement_view.jsp?page="+page;
+***REMOVED***
+	
 ***REMOVED***
