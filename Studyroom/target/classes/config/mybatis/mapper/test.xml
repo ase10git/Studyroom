@@ -35,11 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{content},
 			#{ip_addr},
 			register_date,
-			0, <!-- readhit -->
-			seq_community_board_id.currVal,<!-- ref -->
-			0,  <!-- step -->
-			0,<!-- depth -->
-			0  <!-- del_flag -->
+			0, readhit
+			seq_community_board_id.currVal,ref
+			0,  step
+			0,depth
+			0  del_flag
 		)
 	</insert>
 	
@@ -68,11 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{content},
 			#{ip_addr},
 			register_date,
-			0, <!-- readhit -->
+			0, readhit
 			#{ref},
 			#{step},
 			#{depth},
-			0  <!-- del_flag -->
+			0  del_flag
 		)
 	
 	</insert>

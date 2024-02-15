@@ -13,7 +13,7 @@ public class Context_4_fileupload {
 		multipartResolver.setDefaultEncoding("utf-8");
 		
 //		// 최대 업로드 용량을 10mb로 지정
-//		multipartResolver.setMaxUploadSize(10485760);
+		multipartResolver.setMaxUploadSize(10485760);
 		
 		return multipartResolver;
 	}
