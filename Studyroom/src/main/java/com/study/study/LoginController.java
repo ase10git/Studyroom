@@ -49,7 +49,7 @@ public class LoginController {
 	***REMOVED***
 		
 		//세션에 바인딩
-		session.setAttribute("email", dto);
+		session.setAttribute("dto", dto);
 		
 		//************************** 편집자 - 테스트용 *****************************
 		session.setAttribute("userId", dto.getId());
