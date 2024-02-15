@@ -2,37 +2,24 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="CalendarMapper">
-	<resultMap id="CalendarEventResultMap" type="calendar">
-		<id property="id" column="id" />
-		<result property="user_id" column="user_id" />
-		<result property="type" column="type" />
-		<result property="datetime" column="datetime" />
-		<result property="del_flag" column="del_flag" />
-		<result property="comment" column="comment" />
-	</resultMap>
-
-	<select id="getEventsByUserId" resultMap="CalendarEventResultMap">
-		SELECT * FROM calendar_event WHERE user_id = #{user_id***REMOVED*** AND del_flag = 0
+<mapper namespace="c">
+	<select id="calendar_list" resultType="calendar" parameterType="int">
+		select * from calendar_event where user_id = #{userid***REMOVED***
 	</select>
 
-	<select id="getEventsByMonth" resultMap="CalendarEventResultMap">
-		SELECT * FROM calendar_event WHERE user_id = #{user_id***REMOVED*** AND EXTRACT(YEAR FROM datetime) = #{year***REMOVED*** AND EXTRACT(MONTH FROM datetime) = #{month***REMOVED*** AND del_flag = 0
+	<select id="getCalYearAndMonth" parameterType="map" resultType="calendar">
+    SELECT * FROM calendar_event
+	WHERE user_id = #{userId***REMOVED*** AND EXTRACT(YEAR FROM datetime) = #{year***REMOVED*** AND EXTRACT(MONTH FROM datetime) = #{month***REMOVED***
 	</select>
 	
-	<update id="deleteEvent">
-        UPDATE calendar_event SET del_flag = -1 WHERE id = #{id***REMOVED***
+	<select id="getcalendarEvent" resultType="calendar" parameterType="map">
+    SELECT * FROM calendar_event WHERE user_id = #{userId***REMOVED*** AND id = #{id***REMOVED***
+</select>
+
+<update id="calendarEventUpdate" parameterType="int">
+        UPDATE calendar_event
+        SET del_flag = -1
+        WHERE id = #{id***REMOVED***
     </update>
-    
-    <insert id="insertEvent" parameterType="map">
-    INSERT INTO calendar_event ("ID", "USER_ID", "TYPE", "DATETIME", "COMMENT", "DEL_FLAG")
-    VALUES (SEQ_CALENDAR_EVENT_ID.NEXTVAL, #{userId***REMOVED***, #{type***REMOVED***, TO_DATE(#{datetime***REMOVED***, 'YYYY-MM-DD HH24:MI:SS'), #{comment***REMOVED***, #{delFlag***REMOVED***)
-</insert>
-
-<update id="updateEvent" parameterType="map">
-    UPDATE calendar_event
-    SET "TYPE" = #{type***REMOVED***, "COMMENT" = #{comment***REMOVED***
-    WHERE "ID" = #{id***REMOVED*** AND "DEL_FLAG" = 0
-</update>
-
+	
 </mapper>

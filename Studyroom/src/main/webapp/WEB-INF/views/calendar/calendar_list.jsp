@@ -5,324 +5,246 @@
 <head>
     <title>캘린더</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style type="text/css">
-   		#calendar {
-    width: 60%;
-    margin: 0 auto;
-    table-layout: fixed;
-    overflow: auto;
-***REMOVED***
-
-#calendar th {
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-***REMOVED***
-
-#calendar td {
-    height: 100px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-***REMOVED***
-
-#calendar td:hover {
-    background-color: #f5f5f5;
-***REMOVED***
+    <style>
+        table{
+        	border: 1px solid #AFEEEE;
+        	border-radius: 20px;
+   			border-collapse: separate;
+   	 		border-spacing: 0;
+        ***REMOVED***
+        
+        th{
+        	width: 150px;
+        	height: 100px;
+        	border-radius: 10px;
+        ***REMOVED***
+        
+        td{
+        	width:150px;
+        	height:100px;
+        	border-radius: 10px;
+        ***REMOVED***
+        
+        .dayBtn{
+        	width: 150px;
+        	height: 100px;
+        	border: none;
+        	background: transparent;
+        	display: flex; 
+   			align-items: flex-start;
+    		justify-content: flex-start;
+    		border-radius: 10px;
+        ***REMOVED***
+        
+        .dayBtn:hover {
+			background-color: #d1e3f7;
+	***REMOVED***
+		
+		.calBtn{
+			text-align: center;
+	***REMOVED***
+		
+		
+		
+		
+        
+        
     </style>
     <script src="resources/js/HttpRequest.js"></script>
-    <script>
-    var events = []; //일정을 저장할 변수
-    var year = new Date().getFullYear(); //현재연도
-    var month = new Date().getMonth() + 1; //현재월
-    var typeNames = { //일정타입 글에 대한 한글이름 지정
-    	    'note': '노트',
-    	    'personal_event': '개인 일정',
-    	    'course_schedule': '강의 일정'
-    ***REMOVED***;
-	//달력을 그리는 함수
-    function drawCalendar() {
-		//문자열을 저장할 변수
-        var html = '';
-		//현재 달의 첫 날과 마지막 날을 구함
-        var firstDate = new Date(year, month - 1, 1);
-        var lastDate = new Date(year, month, 0);
-		//6주를 표시하기위해 6번 반복
-        for (var i = 0; i < 6; i++) {
-            html += '<tr>';//한주의 시작
-            for (var j = 0; j < 7; j++) { //한주에는 7일이 있응께 7번 반복
-            	//현재 셀의 날짜르 계산함
-                var date = i * 7 + j - firstDate.getDay() + 1;
-                if (date > 0 && date <= lastDate.getDate()) { //날짜가 해당달에 속해잉ㅆ는겨웅
-                    var dateEvents = events.filter(function(e) { //해당 날짜의 ㅣㄹ정을 가져옴
-                        return e.datetime.getDate() == date &&
-                               e.datetime.getMonth() == month - 1 &&
-                               e.datetime.getFullYear() == year;
-                    ***REMOVED***);
-                	// 날짜와 그날의 일정을 셀에 추가
-                    html += '<td onclick="showEvents(' + date + ')">' + date; // 클릭 이벤트 추가
-                    dateEvents.forEach(function(e) {
-                    	 html += '<p>' + typeNames[e.type] + '</p>';
-                    ***REMOVED***);
-                    html += '</td>';
-                ***REMOVED*** else {
-                	//날짜가 해당달에 속하지 않는다면 빈셀
-                    html += '<td></td>';
+    <script type="text/javascript">
+    	var currentYear = ${currentYear***REMOVED***;
+    	var currentMonth = ${currentMonth***REMOVED***;
+    	
+    	//웹 페이지가 처음 로드 될때 실행 하는 동작 정의하깅 ><
+    	window.onload = function() {
+    		
+		    // 현재 년도와 월을 표시하기
+		    document.getElementById('calendarTitle').textContent = currentYear + '년 ' + currentMonth + '월';
+		
+		    // 데이터 요청하기
+		    var url = "calendar_data";
+		    var param = "year=" + currentYear + "&month=" + currentMonth;
+		    sendRequest(url, param, calData, "get");
+	***REMOVED***;
+    	
+    	
+    	 
+        function calPrev(){
+        	//현재 월에서 1빼깅 ~ 이전달 표시할려면 !
+        	 currentMonth = currentMonth - 1;
+        	
+        	//만약에 월이 1보다 작아지면 ? 아잉 ><
+        	 if(currentMonth < 1){
+        	        currentMonth = 12; //월을 12월로 만들구 
+        	        currentYear = currentYear - 1; //연도 -1 을하여 저번년도를 출력하게 하깅 ~
+        	 ***REMOVED***
+        	    var url = "calendar_data";
+        	    var param = "year="+currentYear+"&month="+currentMonth;
+        	    sendRequest(url, param, calData, "get");
+        ***REMOVED***
+        
+        //달력 데이터 처리
+        function calData() {
+            if(xhr.readyState == 4 && xhr.status == 200){
+                var data = xhr.responseText; //서버로 부터 받은 응답 테스트 변수에 담기 ><
+                var json = JSON.parse(data); //응답 텍스트를 존슨으로 받깅 ><
+                var prevMonthLastDay = json.prevMonthLastDay;
+                
+                
+                var daysInMonth = json.daysInMonth; //존슨 객체로부터 해당 달의 날짜 정보를 가져와 변수에 저장하깅 ><
+                currentYear = json.year; //존슨 객체에서 년도 정보를 가져와 변수에 저장하깅><
+                currentMonth = json.month; //존슨 객체에서 월 정보를 가져와 변수에 저장하기 헤헿 ><
+             	// 1일의 요일을 구합니다. (0:일요일, 1:월요일, ..., 6:토요일)
+                var firstDayOfWeek = new Date(currentYear, currentMonth-1, 1).getDay();
+                // 이전 달의 마지막 주 일요일의 날짜를 구하깅~
+                var lastSunday = prevMonthLastDay - firstDayOfWeek;
+                
+                //달력의 제목을 업데이트 하깅 ~~
+                document.getElementById('calendarTitle').textContent = currentYear + '년 ' + currentMonth + '월';
+
+                //테이블 본문 가져오깅 >< 그리구 calendarBody라는 id를 가진 요소를 찾아 변수에 저장하깅 ~
+                var tableBody = document.getElementById('calendarBody');
+                // 테이블 본문 지우깅 ~ 테이블 본문의 모든 자식 요소를 지우깅 ~
+                while (tableBody.firstChild) {
+                    tableBody.removeChild(tableBody.firstChild);
+                ***REMOVED***
+                var calList = json.calList;
+                console.log(calList);
+                //행과 셀을 동적으로 생성하깅 ~ 
+                var row = null; //현재 행을 저장할 변수 선언하깅 ~ 
+                for (var i = 0; i < 42; i++) { //달의 모든 날짜에 대해 반복하깅 ~
+					//주의 시작에서 새로운 행을 생성하깅 ~  i가 7의 배수일때마다 새로운 행 생성하기 ~ 그리고 본문에 추가하
+                    if (i % 7 == 0) {
+                        row = document.createElement('tr');
+                        tableBody.appendChild(row);
+                    ***REMOVED***
+                    
+                    var cell = document.createElement('td'); //새로운 셀 생성하깅 ~
+                    var day = (i < daysInMonth.length) ? daysInMonth[i] : null; //해당 날짜 가져오깅 ~
+                    
+                    
+                    if (day != null) {
+                    	
+                    	
+                    	//셀의 내용을 설정하깅 ~ 
+                    	//calList에 해당하는 날짜 이벤트를 찾깅 ~ 
+                   var event = calList.find(e => {
+					    var eventDate = new Date(e.datetime);
+					    return eventDate.getFullYear() == currentYear && 
+					           eventDate.getMonth()+1 == currentMonth && // getUTCMonth() + 1 사용
+					           eventDate.getDate() == day;
+				***REMOVED***);
+						
+                        if (event && event.del_flag == 0) {
+                        //일정타입에 따라 이름 수정하깅
+                        	var displayName;
+                        	switch(event.type){
+                        	case 'note':
+                        		displayName = '노트';
+                        		break;
+                        	case 'course_schedule':
+                        		displayName = '강의 스케줄'
+                        		break;
+                        	case 'personal_event':
+                        		displayName='개인일정'
+                        		break;
+                        		
+                        ***REMOVED***
+                        	
+                            cell.innerHTML =     cell.innerHTML = '<button class="dayBtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' + event.id + '">' +
+                            '<span style="font-size : 16px;">' + day + '</span>' +
+                            '<span>' + displayName + '</span>' + 
+                            '</button>';
+                        ***REMOVED*** else {
+                        	
+                            cell.innerHTML = '<button class="dayBtn" >' +
+                                             '<span style="font-size : 16px;">' + day + '</span>' +
+                                             '</button>';
+                        ***REMOVED***
+                    ***REMOVED*** else { 
+                    	//날짜가 null이라믄 ? 이번달력이 아니라믄 ?
+                    	if(i < 7){
+                    		//이전날짜 표시하깅 ~
+                    		var prevMonthDate = lastSunday + i+1;
+                    		cell.innerHTML = '<button class="dayBtn" style="background-color : gray;">' +'<span style="font-size : 16px; color: white;">'+ prevMonthDate +'</span>' + '</button>';
+                        ***REMOVED***else{
+                        	// 다음날짜 표시하깅 ~
+                        	var nextMonthFirstDate = i - daysInMonth.length + 1;
+                        	cell.innerHTML = '<button class="dayBtn" style="background-color : gray;">' +'<span style="font-size : 16px; color: white;">'+ nextMonthFirstDate +'</span>' + '</button>';
+                        ***REMOVED***
+                    ***REMOVED***
+                    row.appendChild(cell); //생성한 셀을 현재 행에 추가하깅 ~
+                    
+                ***REMOVED***
+                
+                // 마지막 주를 완성하기 위해 달의 끝에 추가 셀을 추가하깅 ~
+                // 현재 행의 셀 개수가 7개 미만이라믄 ? 새로운 셀을 생성하고 공백으로 설정한후 현재 행에 추가하깅 ~
+                while (row && row.cells.length < 7) {
+                    var cell = document.createElement('td');
+                    cell.innerHTML = '&nbsp;';
+                    row.appendChild(cell);
                 ***REMOVED***
             ***REMOVED***
-            html += '</tr>'; //한즈의끝
         ***REMOVED***
-		//생성한 HTML문자열로 달력그림
-        document.getElementById('calendar-body').innerHTML = html;
-		//현재 년도와 월표시
-        document.getElementById('current-year-month').innerText = year + '년 ' + month + '월';
-    ***REMOVED***
-    
-	//수정할 일정의 ID를 저장할 변수
-    var editEventId;
-    //특정 날짜의 일정을 보여주는 함수
-    function showEvents(date) {
-    	//해당날짜에 모든 일정을 가져옴.
-        var dateEvents = events.filter(function(e) {
-            return e.datetime.getDate() == date &&
-                   e.datetime.getMonth() == month - 1 &&
-                   e.datetime.getFullYear() == year;
-        ***REMOVED***);
-		
-    	//타이틀에 날짜를 표시함
-        document.getElementById('event-modal-title').innerText = year + "년 " + month + "월 " + date + "일";
-		
-    	//각 일정에 대한 정보를 HTML로 만듦 
-        var html = '';
-        dateEvents.forEach(function(e, i) {
-            html += '<p>' + typeNames[e.type] + ': ' + e.comment;
-            if (e.type != 'course_schedule') { // 강의 일정 이 아닌 경우에만 버튼 표시
-                html += ' <button id="delete-button-' + i + '">삭제</button>';
-                html += ' <button id="edit-button-' + i + '">수정</button></p>';  // '수정' 버튼 추가
-            ***REMOVED***
-        ***REMOVED***);
-		//일정 정보를 모달에 표시
-        document.getElementById('event-modal-body').innerHTML = html;
-		
-		//모달을 표시함
-        var myModal = new bootstrap.Modal(document.getElementById('event-modal'));
-        myModal.show();
-		
-        //삭제 버튼과 수정버튼에 이벤트 리스너를 추가함
-        dateEvents.forEach(function(e, i) {
-            if (e.type != 'course_schedule') { // 강의 일정 이 아닌 경우에만 버튼 이벤트 추가
-                document.getElementById('delete-button-' + i).addEventListener('click', function() {
-                    deleteEvent(e.id);
-                    myModal.hide();
-                ***REMOVED***);
-
-                document.getElementById('edit-button-' + i).addEventListener('click', function() {
-                    editEventId = e.id;  // 수정할 일정의 ID를 저장
-                    showEditModal(e);  // 수정 모달 창을 표시
-                ***REMOVED***);
-            ***REMOVED***
-        ***REMOVED***);
-    ***REMOVED***
-    
-    //수정할 일정을 표시해주는 함수
-    function showEditModal(event) {
-    	//수정할 일정의 정보를 입력필드에 표시
-        document.getElementById('edit-event-type').value = event.type;
-        document.getElementById('edit-event-comment').value = event.comment;
-		// 수정 모달을 표시
-        var myModal = new bootstrap.Modal(document.getElementById('edit-event-modal'));
-        myModal.show();
-    ***REMOVED***
-	// 일정을 수정하는 함수
-    function editEvent() {
-		//사용자가 입력한 새로운 일정 정보를 가져 
-        var newType = document.getElementById('edit-event-type').value;
-        var newComment = document.getElementById('edit-event-comment').value;
-		// 내용이 비어있는경우 경고창 
-        if (!newComment) {
-            alert("내용을 입력해주세요.");
-            return;
-        ***REMOVED***
-		//요청에 포함할 데이터 추가
-        var data = 'id=' + editEventId + '&type=' + newType + '&comment=' + newComment;
-		
-		//수정요청
-        sendRequest('editEvent', data, function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                getEventsByMonth();
-            ***REMOVED***
-        ***REMOVED***, 'POST');
-
-        //수정 모달을 닫음
-        var myModal = bootstrap.Modal.getInstance(document.getElementById('edit-event-modal'));
-        myModal.hide();
-    ***REMOVED***
-    
-	//새로운 일정을 추가하는 함수
-    function addEvent() {
-        var type = document.getElementById('event-type').value; //사용자가 입력한 일정들의 타입과 내용을 가져옴
-        var comment = document.getElementById('event-comment').value;
-        var selectedDate = document.getElementById('event-modal-title').innerText; //선택한 날짜를 가져옴
-		//문자열로 분리하여 연,월,일 추출
-        var dateParts = selectedDate.split(' ');
-        var year = dateParts[0].slice(0, -1);
-        var month = dateParts[1].slice(0, -1);
-        var day = dateParts[2].slice(0, -1);
-        var datetime = year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0');// 추출한 연도, 월, 일을 조합하여 datetime 문자열을 만듦
-
-        var data = 'type=' + type + '&comment=' + comment + '&datetime=' + datetime;// 요청에 포함할 데이터를 만들
-        var myModal = new bootstrap.Modal(document.getElementById('add-event-modal'));
-        myModal.hide();// 모달 창을 닫음
-        sendRequest('addEvent', data, function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                getEventsByMonth();// 일정이 추가되면 달력을 다시 그람
-            ***REMOVED***
-        ***REMOVED***, 'POST');
-    ***REMOVED***
-    
-    
-	//이전달로 이동하는 함수
-    function prevMonth() {
-        if (--month < 1) {
-            month = 12;
-            year--;
-        ***REMOVED***
-        getEventsByMonth();
-    ***REMOVED***
-	//담달 이동
-    function nextMonth() {
-        if (++month > 12) {
-            month = 1;
-            year++;
-        ***REMOVED***
-        getEventsByMonth();
-    ***REMOVED***
-	//해당월의 일정을 가져옴
-    function getEventsByMonth() {
-        sendRequest('getEventsByMonth', 'year=' + year + '&month=' + month, function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                events = JSON.parse(xhr.responseText).map(function(e) {
-                    var dateParts = e.datetime.split("-");
-                    e.datetime = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                    return e;
-                ***REMOVED***);
-                drawCalendar();
-            ***REMOVED***
-        ***REMOVED***, 'POST');
-    ***REMOVED***
-	//페이지가 다 로드가되면 가져옴
-    document.addEventListener('DOMContentLoaded', function() {
-        getEventsByMonth();
-    ***REMOVED***);
-    
-	//일정을 삭제하는 함수 id: 캘린더 번호
-    function deleteEvent(id) {
-		//확인 메세지보냄.
-		
-        var confirmDelete = confirm("정말 삭제하시겠습니까?");
-		//예를 누르면 일로내려와 수행
-        if (confirmDelete) {
-            sendRequest('deleteEvent', 'id=' + id, function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    getEventsByMonth();
-                ***REMOVED***
-            ***REMOVED***, 'POST');
-        ***REMOVED***
-    ***REMOVED***
-	</script>
+        
+        function calNext(){
+        	//현재 월에서 1더하기 다음달 표시할려면~ 아잉 >< 
+       	 	currentMonth = currentMonth + 1;
+       	
+       		//만약에 월이 12보다 커지면..?
+       	 	if(currentMonth > 12){
+       	        currentMonth = 1; //월을 1월로 만들구 
+       	        currentYear = currentYear + 1; //연도 +1 을하여 다음년도를 출력하게 하깅 ~
+       	 ***REMOVED***
+       	    var url = "calendar_data";
+       	    var param = "year="+currentYear+"&month="+currentMonth;
+       	    sendRequest(url, param, calData, "get");
+       ***REMOVED***
+        
+        
+        
+     </script>
 </head>
 <body>
-
-<div id="calendar-header">
-    <button onclick="prevMonth()">Previous</button>
-    <span id="current-year-month"></span>
-    <button onclick="nextMonth()">Next</button>
-</div>
-   
-	<table id="calendar" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-            </tr>
-        </thead>
-        <tbody id="calendar-body">
-            <!-- 여기에 자바스크립트로 달력 나옴 -->
-        </tbody>
-    </table>
-    <!-- 일정을 표시하는 모달창 -->
-    <div class="modal" tabindex="-1" id="event-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="event-modal-title">일정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="event-modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-event-modal">추가</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
+    <h1 align="center">StudyRoom</h1>
+    <h1 align="center" id="calendarTitle">${currentYear***REMOVED***년 ${currentMonth***REMOVED***월</h1>
+    <div class="calBtn">
+    <button name="calPrev" onclick="calPrev(${currentYear***REMOVED***, ${currentMonth***REMOVED***)">&lt</button>
+    <button name="calNext" onclick="calNext(${currentYear***REMOVED***, ${currentMonth***REMOVED***)">&gt</button>
     </div>
-</div>
-<!-- 새로운 일정을 추가하는 모달창 -->
-<div class="modal" tabindex="-1" id="add-event-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">새 일정 추가</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="event-form">
-                    <select id="event-type">
-                        <option value="personal_event">개인 일정</option>
-                        <option value="note">노트</option>
-                    </select>
-                    <textarea id="event-comment" rows="5" cols="20" placeholder="설명을 입력하세요."></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="addEvent()" data-bs-dismiss="modal">저장</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
+    <table border="1" align="center">
+    	<tr>
+        	<th>일</th>
+        	<th>월</th>
+        	<th>화</th>
+        	<th>수</th>
+        	<th>목</th>
+        	<th>금</th>
+        	<th>토</th>
+    	</tr>
+   		 <tbody id="calendarBody">
+    	</tbody>
+	</table>
+	<!-- 모달을 실행할 버튼 -->
+<!-- 모달 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 modalTitle" id="exampleModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        	Test
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- 일정 수정 모달창 -->
-<div class="modal" tabindex="-1" id="edit-event-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">일정 수정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="edit-event-form">
-                    <select id="edit-event-type">
-                        <option value="personal_event">개인 일정</option>
-                        <option value="note">노트</option>
-                    </select>
-                    <textarea id="edit-event-comment" rows="5" cols="20" placeholder="설명을 입력하세요."></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="editEvent()">저장</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
