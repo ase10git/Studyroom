@@ -26,7 +26,7 @@ public class LoginController {
 	HttpSession session;
 	
 	//첫 화면(로그인)
-	@RequestMapping(value = {"/","login_form"***REMOVED***)
+	@RequestMapping(value = {"/","/login_form"***REMOVED***)
 	public String login_form() {
 		return Common.LOGIN_PATH+"login_form.jsp";
 ***REMOVED***
@@ -50,6 +50,13 @@ public class LoginController {
 		
 		//세션에 바인딩
 		session.setAttribute("email", dto);
+		
+		//************************** 편집자 - 테스트용 *****************************
+		session.setAttribute("userId", dto.getId());
+		System.out.println(dto.getId());
+		session.setAttribute("role", dto.getRole());
+		System.out.println(dto.getRole());
+		//***********************************************************************
 		
 		//로그인에 성공한 경우
 		return "[{'param':'clear'***REMOVED***]";

@@ -12,6 +12,7 @@ import com.study.study.CalendarController;
 import com.study.study.CommunityController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
+import com.study.study.LoginController;
 import com.study.study.TestController;
 import com.study.study.UserController;
 
@@ -35,6 +36,12 @@ public class ServletContext implements WebMvcConfigurer{
 ***REMOVED***
 	public TestController testController() {
 		return new TestController();
+***REMOVED***
+	
+	// LoginController Bean
+***REMOVED***
+	public LoginController loginController(UserDAO userDAO) {
+		return new LoginController(userDAO);
 ***REMOVED***
 	
 	// UserController Bean
