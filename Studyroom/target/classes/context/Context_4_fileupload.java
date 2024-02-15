@@ -1,0 +1,22 @@
+***REMOVED***
+
+***REMOVED***
+***REMOVED***
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+***REMOVED***
+@EnableAspectJAutoProxy
+public class Context_4_fileupload {
+	
+***REMOVED***
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setDefaultEncoding("utf-8");
+		
+//		// 최대 업로드 용량을 10mb로 지정
+		multipartResolver.setMaxUploadSize(10485760);
+		
+		return multipartResolver;
+***REMOVED***
+***REMOVED***
