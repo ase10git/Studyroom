@@ -1,10 +1,9 @@
 package com.study.study;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,101 +35,65 @@ public class CalendarController {
 	@Autowired
 	HttpSession session;
 	
-	//ÀÌ°Ç ÀÓ½Ã·Î À¯Àú¾ÆÀÌµğ¸¦ ¼¼¼Ç¿¡ ÀúÀåÇÏ´Â°Ì´Ï´ç.
-	@RequestMapping("userform")
-	public String userform(HttpSession session) { //ÀÌºÎºĞ¸¸ userid ¼¼¼ÇÁ¤º¸ ºÒ·¯¿Í¼­ ¹ŞÀ¸¸é µÉ°Å°°¾Æ¿ä.
-		session.setAttribute("userId", 3);
-		return Common.CALENDAR_PATH+"userForm.jsp";
+	
+	@RequestMapping("calendar_list")
+	public String calendar(Model model){ 
+        int user_id = (int) session.getAttribute("userId");
+        List<CalendarDTO> calendarEvent = cal_dao.calendar_list(user_id);
+        model.addAttribute("calendarEvent", calendarEvent);
+        return Common.CALENDAR_PATH + "calendar_list.jsp";
+    ***REMOVED***
+	
+	@RequestMapping(value = "getEventsByMonth", method = {RequestMethod.GET, RequestMethod.POST***REMOVED***)
+	@ResponseBody
+	public List<CalendarDTO> getEventsByMonth(@RequestParam("year") int year, @RequestParam("month") int month) {
+	    int user_id = (int) session.getAttribute("userId");
+	    List<CalendarDTO> events = cal_dao.getEventsByMonth(user_id, year, month);
+
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+	    for (CalendarDTO event : events) {
+	        LocalDateTime dateTime = LocalDateTime.parse(event.getDatetime(), formatter);
+	        LocalDate date = dateTime.toLocalDate();
+	        event.setDatetime(date.toString());
+	    ***REMOVED***
+
+	    return events;
+***REMOVED***
+	
+	@RequestMapping(value = "deleteEvent", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteEvent(@RequestParam("id") int id) {
+	    if (cal_dao == null) {
+	        System.out.println("cal_dao is null");
+	        return "fail";
+	    ***REMOVED*** else {
+	        cal_dao.deleteEvent(id);
+	        return "success";
+	    ***REMOVED***
+***REMOVED***
+	
+	@PostMapping("addEvent")
+    @ResponseBody
+    public String addEvent(@RequestParam String type, @RequestParam String comment, @RequestParam String datetime, HttpSession session) {
+        if (comment.isEmpty()) {
+            return "ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”";
+        ***REMOVED***
+
+        
+        int userId = (int) session.getAttribute("userId");
+        
+        return cal_dao.insertEvent(type, comment, datetime, userId) ? "" : "";
+        
+        
+    ***REMOVED***
+	
+	@RequestMapping(value = "editEvent", method = RequestMethod.POST)
+	@ResponseBody
+	public void editEvent(@RequestParam("id") int id, @RequestParam("type") String type, @RequestParam("comment") String comment) {
+	    cal_dao.updateEvent(id, type, comment);
 ***REMOVED***
 	
 	
-	//ÇØ´ç À¯ÀúÀÇ Ä¶¸°´õ µ¥ÀÌÅÍ¸¦ °¡Á®¿À°í Ä¶¸°´õ ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ÄÁÆ®·Ñ·¯ ¸Ş¼­µå
-	@RequestMapping("calendar_list") //**************** ÆíÁıÀÚ - ¼¼¼Ç°ú Ä¶¸°´õ ¿¬°á **********************
-	public String calendar(Model model){ //, @RequestParam("userId") int user_id
-			int user_id = (int)session.getAttribute("userId");
-			//************************************************************************************
-			List<CalendarDTO> dto = cal_dao.calendar_list(user_id);
-			model.addAttribute("dto",dto);
-			//ÇöÀç ³¯Â¥¸¦ °¡Á®¿Í¼­ ¿¬µµ¿Í ¿ùÀ» ±¸ÇÔ.>3<
-			LocalDate today = LocalDate.now();
-	        int currentMonth = today.getMonthValue();
-	        int currentYear = today.getYear();
-	        
-	        //ÇØ´ç ¿ùÀÇ ¸ğµç ³¯Â¥¸¦ °¡Á®¿È.>3<
-	        List<Integer> daysInMonth = getDaysInMonth(currentYear, currentMonth);
-	        model.addAttribute("daysInMonth", daysInMonth);
-	        model.addAttribute("currentMonth", currentMonth);
-	        model.addAttribute("currentYear", currentYear);
-
-	        return Common.CALENDAR_PATH+"calendar_list.jsp";
-	***REMOVED***
-	
-	
-	// Æ¯Á¤ ¿¬µµ¿Í ¿ù¿¡ ´ëÇÑ ¸ğµç ³¯Â¥¸¦ °¡Á®¿À´Â ¸Ş¼­µå
-	 private List<Integer> getDaysInMonth(int year, int month) {
-		 	//ÇØ´ç ¿ùÀÇ ¸ğµç ³¯Â¥¸¦ ÀúÀåÇÒ ¸®½ºÆ® »ı¼º >.<
-	        List<Integer> daysInMonth = new ArrayList<>();
-	        
-	        //ÇØ´ç ¿ùÀÇ ÃÑ ³¯Â¥ ¼ö¸¦ ±¸ÇÔ ><
-	        int days = LocalDate.of(year, month, 1).lengthOfMonth();
-	        
-	        //ÇØ´ç ¿ùÀÇ Ã¹ ³¯ÀÇ ¿äÀÏÀ» ±¸ÇÏ±ë ¾ÆÀ×><
-	        int firstDay = LocalDate.of(year, month,1).getDayOfWeek().getValue();
-	        //ÇÑ ÁÖÀÇ ½ÃÀÛÀ» ÀÏ¿äÀÏ·Î ¼³Á¤ÇÏ±â À§ÇØ °ª Á¶Á¤ ><
-	        int calendarDayOfWeek = firstDay == 7 ? 1 : firstDay + 1;
-	        //Ã¹ÁÖÀÇ ½ÃÀÛ ¿äÀÏÀº null·Î Ã¤¿ì±ë ><
-	        for(int i = 1; i< calendarDayOfWeek; i++) {
-	        	daysInMonth.add(null);
-	        ***REMOVED***
-	        
-	        //ÇØ´ç ¿ù¿¡ ¸ğµç ³¯Â¥¸¦ ¸®½ºÆ®¿¡ Ãß°¡ÇÏ±ë><
-	        for (int i = 1; i <= days; i++) {
-	            daysInMonth.add(i);
-	        ***REMOVED***
-	        return daysInMonth;
-	 ***REMOVED***
-	 
-	// Æ¯Á¤ ¿¬µµ¿Í ¿ù¿¡ ´ëÇÑ Ä¶¸°´õ µ¥ÀÌÅÍ¸¦ °¡Á®¿À´Â ÄÁÆ®·Ñ·¯ ¸Ş¼­µå
-	 @RequestMapping("calendar_data")
-	 @ResponseBody
-	 public Map<String, Object> getCalendarData(@RequestParam("year") int year, @RequestParam("month") int month, HttpSession session) {
-	     // ÇØ´ç ¿ùÀÇ ¸ğµç ³¯Â¥¸¦ °¡Á®¿È.
-	     List<Integer> daysInMonth = getDaysInMonth(year, month);
-	     int userId = (int) session.getAttribute("userId");
-	     // ÀÌÀü ´ŞÀÇ ¸¶Áö¸· ³¯Â¥¸¦ ±¸ÇÔ.
-	     int prevMonthLastDay;
-	     if (month == 1) { // 1¿ùÀÇ ÀÌÀü ´ŞÀº 12¿ù.
-	         prevMonthLastDay = LocalDate.of(year - 1, 12, 1).lengthOfMonth();
-	     ***REMOVED*** else { // ±× ¿ÜÀÇ ´ŞÀº month - 1.
-	         prevMonthLastDay = LocalDate.of(year, month - 1, 1).lengthOfMonth();
-	     ***REMOVED***
-	    List<CalendarDTO> calList = cal_dao.getCalYearAndMonth(userId,year, month);
-	    System.out.println(calList);
-	    
-	     // ¹İÈ¯ÇÒ µ¥ÀÌÅÍ¸¦ Map¿¡ ´ã¾Æº¸ÀÚ±¸!
-	     Map<String, Object> data = new HashMap<>();
-	     data.put("daysInMonth", daysInMonth);
-	     data.put("year", year);
-	     data.put("month", month);
-	     data.put("prevMonthLastDay", prevMonthLastDay);
-	     data.put("calList", calList);
-	     return data;
-	 ***REMOVED***
-	 
-	// Æ¯Á¤ ÀÌº¥Æ®¿¡ ´ëÇÑ »ó¼¼ Á¤º¸¸¦ °¡Á®¿À´Â ÄÁÆ®·Ñ·¯ ¸Ş¼­µå
-	 @RequestMapping("calendar_view")
-	 public String calendarView(Model model, @RequestParam("id") int id, HttpSession session) {
-	     int userId = (int) session.getAttribute("userId");
-	     CalendarDTO calendarEvent = cal_dao.getCalendarEvent(userId, id);
-	     model.addAttribute("calendarEvent", calendarEvent);
-	     return Common.CALENDAR_PATH + "calendar_view.jsp";
-	 ***REMOVED***
-	 
-	 //ÀÌ°Ç ¼öÁ¤ÀÌ ÇÊ¿äÇØ¿ä. // ÆíÁıÀÚ : CourseController³ª CourseBoardController Âü°í
-	 @RequestMapping(value = "calendar_del", method = RequestMethod.POST)
-	 public String calendar_delete(@RequestParam("id") int id) {
-		 cal_dao.deleteEvent(id);
-		 return "redirect:calendar_list";
-	 ***REMOVED***
  	    
 ***REMOVED***
