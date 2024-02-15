@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 사용자 조회(admin용) -->
 	<select id="user_list" resultType="user">
-	 	select * from "USER" order by id desc
+	 	select * from user_tbl order by id desc
 	</select>
 
 	<!-- 전체 게시물 수 조회 -->

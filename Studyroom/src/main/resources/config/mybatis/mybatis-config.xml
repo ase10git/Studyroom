@@ -11,7 +11,6 @@
 	<typeAliases>
 		<typeAlias type="dto.UserDTO" alias="user"/>
 		<typeAlias type="dto.CustomerServiceDTO" alias="csboard"/>
-		<typeAlias type="dto.AnnouncementDTO" alias="announcement"/>
 		<typeAlias type="dto.CourseDTO" alias="course"/>
 		<typeAlias type="dto.CourseBoardDTO" alias="courseboard"/>
 		<typeAlias type="dto.CommunityDTO" alias="community"/> 
