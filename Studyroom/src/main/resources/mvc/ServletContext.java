@@ -1,7 +1,6 @@
 package mvc;
 
 ***REMOVED***
-import org.springframework.context.annotation.ComponentScan;
 ***REMOVED***
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,6 +21,7 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.TestDAO;
 import dao.UserDAO;
 
 ***REMOVED***

@@ -1,12 +1,22 @@
 package dao;
 
-import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 
 
 // sample dao
 // 파일을 바꾸지 말고 복사해서 사용해주세요
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class TestDAO {
+	
+	SqlSession sqlSession;
+	
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+***REMOVED***
+	
+	public void test() {
+		System.out.println("-- call TestDAO.test()---");
+***REMOVED***
 
 //	SqlSession sqlSession;
 //	

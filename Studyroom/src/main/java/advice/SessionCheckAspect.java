@@ -1,7 +1,6 @@
 package advice;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -30,7 +29,7 @@ public class SessionCheckAspect {
 //        ***REMOVED***
 //    ***REMOVED***
 	
-	@Pointcut("execution(* com.study.study.UserController.*(..))")
+	@Pointcut("execution(* com.study.study.*.*(..))")
 	public void myPoint() {***REMOVED***
 	
 	@Before("myPoint()") 
@@ -38,8 +37,5 @@ public class SessionCheckAspect {
 		System.out.println("----before:"+jp.getSignature());
 ***REMOVED***
 	
-	@After("myPoint()") 
-	public void after(JoinPoint jp) {
-		System.out.println("---after:"+jp.toLongString());
-***REMOVED***
+	
 ***REMOVED***
