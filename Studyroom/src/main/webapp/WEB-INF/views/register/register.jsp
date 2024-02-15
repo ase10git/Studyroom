@@ -84,6 +84,11 @@
 			return;
 	***REMOVED***
 		
+		if(!u_emailCheck){
+			alert("중복된 이메일 입니다.");
+			return;
+	***REMOVED***
+		
 		f.submit();
 ***REMOVED***
 </script>
@@ -128,8 +133,8 @@
 			</tr>	
 			<tr>
 				<td colspan="2">
-					<input id="" name="" type="button" value="회원가입" onclick="send(this.form)">
-					<input id="" name="" type="button" value="취소" onclick="location.href='login_form'">
+					<input type="button" value="회원가입" onclick="send(this.form)">
+					<input type="button" value="취소" onclick="location.href='login_form'">
 				</td>
 			</tr>
 		</table>

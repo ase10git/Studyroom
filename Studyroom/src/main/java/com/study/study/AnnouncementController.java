@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.AnnouncementDAO;
-import dto.AnnouncementDTO;
+import dto.CourseBoardDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 import util.Paging;
@@ -40,7 +40,7 @@ public class AnnouncementController {
 		map.put("end", end);
 		
 		//페이지 번호에 따른 전체 게시글 조회
-		List<AnnouncementDTO> list = announcement_dao.selectList(map);
+		List<CourseBoardDTO> list = announcement_dao.selectList(map);
 		
 		//전체 게시글 수 조회
 		int rowTotal = announcement_dao.getRowTotal();
