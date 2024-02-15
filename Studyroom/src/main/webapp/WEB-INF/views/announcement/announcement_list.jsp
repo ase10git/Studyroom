@@ -45,9 +45,11 @@
 			<th>등록일</th>
 		</tr>
 		<c:forEach var="dto" items="${list }">
+		
 			<tr>
+		
 				<td>${dto.id }</td>
-				<td>${dto.title }</td>
+				<td><a href="view?id=${dto.id}&page=${param.page }">${dto.title }</a></td>
 				<td>관리자</td> <!-- 작성자는 관리자로 표시되게 -->
 				<td>${dto.register_date }</td>
 			</tr>
