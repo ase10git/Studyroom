@@ -20,11 +20,13 @@
 	***REMOVED***
 		
 		function write_board() {
-			location.href="course_board_insert_form?course_id=${course_id***REMOVED***";
+			location.href="course_board_insert_form?course_id=${dto.course_id***REMOVED***";
 	***REMOVED***
 	</script>
 </head>
 <body>
+
+	<%@ include file="../include/menu.jsp" %>
 
     <section class="sec">
         <div class="container">

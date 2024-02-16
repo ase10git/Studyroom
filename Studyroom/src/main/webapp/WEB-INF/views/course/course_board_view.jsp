@@ -59,6 +59,8 @@
 
 <body>
 
+	<%@ include file="../include/menu.jsp" %>
+	
 	<section class="sec">
 		<div class="container">
 		 <h1>test home</h1>
