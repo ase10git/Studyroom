@@ -29,6 +29,8 @@
 </head>
 <body>
 
+	<%@ include file="../include/menu.jsp" %>
+	
     <section class="sec">
         <div class="container">
          <h1>코스 목록</h1>
