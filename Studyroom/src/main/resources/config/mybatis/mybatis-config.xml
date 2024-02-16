@@ -17,6 +17,7 @@
 		<typeAlias type="dto.UserCourseDTO" alias="usercourse"/>
 		<typeAlias type="dto.CommunityDTO" alias="community"/> 
 		<typeAlias type="dto.CalendarDTO" alias="calendar"/>	
+		<typeAlias type="dto.UserCommunityLikeDTO" alias="uclike"/>	
 	</typeAliases>
 
 	<mappers>
