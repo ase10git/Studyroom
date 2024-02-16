@@ -39,8 +39,8 @@ public class CourseController {
 	public String course_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
 
 		// ****************** 편집자 - 테스트용 user_id **********************
-		int user_id = 5;
-		String role = "mentor";
+		int user_id = (int)session.getAttribute("userId");;
+		String role = (String)session.getAttribute("role");
 		// ***************************************************************
 		
 		// 시작, 종료 페이지 계산

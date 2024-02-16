@@ -6,26 +6,47 @@
 <head>
 <meta charset="UTF-8">
 <title>사용자 정보 페이지</title>
+	<!-- bootstrap css -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"/>
 </head>
 <body>
-	<table border="1">
-		<tr>
-			<th>아이디</th>
-			<td>${dto.username***REMOVED***</td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td>${dto.email***REMOVED***</td>
-		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td>${dto.tel***REMOVED***</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="button" value="수정하기" onclick="location.href='user_pw_auth_form'">
-			</td>
-		</tr>
-	</table>
+
+	<%@ include file="../include/menu.jsp" %>
+
+	<section class="sec event">
+		<div class="container">
+		 <h1>test home</h1>
+		  <div class="row gy-4">
+			<div class="box col-12 col-md-6">
+				<table border="1">
+					<tr>
+						<th>아이디</th>
+						<td>${dto.username***REMOVED***</td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td>${dto.email***REMOVED***</td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td>${dto.tel***REMOVED***</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="button" value="수정하기" onclick="location.href='user_pw_auth_form'">
+						</td>
+					</tr>
+				</table>
+			</div>
+		  </div>
+		</div>
+	  </section>
+
+		<!-- bootstrap script -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+		crossorigin="anonymous"></script>
 </body>
 </html>
