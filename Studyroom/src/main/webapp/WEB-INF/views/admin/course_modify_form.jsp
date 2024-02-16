@@ -24,6 +24,8 @@
 </head>
 <body>
 
+	<%@ include file="../include/menu.jsp" %>
+
 	<section class="sec">
 		<div class="container">
 		 <h1>코스 수정하기</h1>

@@ -25,6 +25,9 @@
 	</script>
 </head>
 <body>
+
+	<%@ include file="../include/menu.jsp" %>
+	
 	<section class="sec">
 		<div class="container">
 		 <h1>새 코스 추가</h1>
