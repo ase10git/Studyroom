@@ -32,7 +32,7 @@
         <div class="container">
          <h1>코스 공지글</h1>
           <div class="row gy-4">
-            <div class="box col-12">
+            <div class="col box col-12">
                 <table>
                     <tr>
                         <th>코스 이름</th>
@@ -50,7 +50,7 @@
                 </table>
             </div>
             
-            <div class="box col-12">
+            <div class="col box col-12">
                 <table>
                     <tr>
                         <th>번호</th>

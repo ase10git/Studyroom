@@ -35,7 +35,7 @@
         <div class="container">
          <h1>코스 목록</h1>
           <div class="row gy-4">
-            <div class="box col-12 col-md-6">
+            <div class="col box col-12 col-md-6">
                 <table>
                     <tr>
                         <th>번호</th>

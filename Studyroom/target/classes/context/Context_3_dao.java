@@ -5,15 +5,14 @@ import org.apache.ibatis.session.SqlSession;
 ***REMOVED***
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import advice.FileManagerAspect;
 import advice.SessionCheckAspect;
 import dao.AnnouncementDAO;
 import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCommunityLikeDAO;
 import dao.UserDAO;
-import util.FileManager;
 
 ***REMOVED***
 @EnableAspectJAutoProxy
@@ -60,12 +59,13 @@ public class Context_3_dao {
 	public SessionCheckAspect sessionCheckAspect() {
 		return new SessionCheckAspect();
 ***REMOVED***
+
+	// UserCommunityLikeDAO Bean : 유저- 커뮤니티 추천
+***REMOVED***
+	public UserCommunityLikeDAO userCommunityLikeDAO(SqlSession sqlSession) {
+		return new UserCommunityLikeDAO(sqlSession);
+***REMOVED***
 	
-	// FileManagerAspect Bean : 파일관리 클래스 Advice
-***REMOVED***
-	public FileManagerAspect fileManagerAspect() {
-		return new FileManagerAspect();
-***REMOVED***
 ***REMOVED***
 
 

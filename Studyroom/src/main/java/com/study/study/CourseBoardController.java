@@ -43,6 +43,8 @@ public class CourseBoardController {
 	// FileManager 클래스 인스턴스 생성
 	public static FileManager fileManager = new FileManager();
 
+	String webPath = "/resources/upload/"; // 프로젝트상 경로
+
 	// 코스 공지글 전체를 페이지별로
 	@RequestMapping("course_board_list")
 	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {

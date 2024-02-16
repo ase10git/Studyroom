@@ -20,6 +20,7 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCommunityLikeDAO;
 import dao.UserDAO;
 
 ***REMOVED***
@@ -63,8 +64,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// CommunityController Bean
 ***REMOVED***
-	public CommunityController communityController(CommunityDAO dao) {
-		return new CommunityController(dao);
+	public CommunityController communityController(CommunityDAO dao,UserCommunityLikeDAO uclDAO) {
+		return new CommunityController(dao,uclDAO);
 ***REMOVED***
 	
 	// CalendarController Bean
