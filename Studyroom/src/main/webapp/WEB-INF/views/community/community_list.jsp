@@ -40,42 +40,22 @@
          <th>작성일</th>
          <th>조회수</th>
       </tr>
+      
       <c:forEach var="dto" items="${list}">
+      <c:if test="${dto.depth eq 0 and dto.del_flag eq 0}">
       <tr>
          <td align="center">${dto.id}</td>
          <!-- 댓글일 경우 들여쓰기 -->
          <td>
-            <c:forEach begin="1" end="${dto.depth}">
-               &nbsp;
-            </c:forEach>
-            <!-- 댓글기호 -->
-            <c:if test="${ dto.depth ne 0 }">ㄴ</c:if>
-            
-            <!-- 삭제되지 않은 글이라면 출력가능 -->
-            <c:if test="${dto.del_flag ne -1}">
-               <a href="community_view?id=${dto.id}&page=${param.page}">
-                  <font color="black">${dto.title}</font>
-               </a>
-            </c:if>
-            
-            
-            <!-- 삭제된 게시물은 클릭할 수 없도록 처리 -->
-            <c:if test="${dto.del_flag eq -1 }">
-               <font color="gray">${dto.title }</font>
-            </c:if>
+           <a href="community_view?id=${dto.id}&page=${param.page}">
+             <font color="black">${dto.title}</font>
+           </a>
          </td>
-         <td>${dto.nickname }</td>
-         
-         <c:if test="${dto.del_flag ne -1 }">
-            <td>${fn:split(dto.register_date,' ')[0]}</td>
-         </c:if>
-         
-         <!-- 삭제된 게시물은 unKnown으로 표시 -->
-         <c:if test="${dto.del_flag eq -1 }">
-            <td>unknown</td>
-         </c:if>
+         <td>${dto.nickname }</td>  
+         <td>${fn:split(dto.register_date,' ')[0]}</td>       
          <td>${dto.readhit }</td>
       </tr>   
+      </c:if>
       </c:forEach>
       <tr>
          <td colspan="5" align="center">
