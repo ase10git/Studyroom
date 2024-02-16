@@ -26,50 +26,21 @@
 	    padding: 0;
 ***REMOVED***
 	
-	.menu a, .menu > label {
-	    display: block;
-	    height: 25px;
-	    padding: 8px;
-	    cursor: pointer;
-	    color: #fff;
-	    text-decoration: none;
-***REMOVED***
-	
 	.menu a:hover {
     	color: #000;
 ***REMOVED***
-	
-	.menu ul li:hover, .menu > label:hover {
-	    background-color: #fff;
-	    color: #000;
-	    border-radius: 10px;
-***REMOVED***
-	
-	.menu div {
-	    line-height: 1.5;
-	    font-size: 1em;
-	    font-family: 'Noto Sans KR';
-	    padding: 0 0 0 50px; /* 아이콘과 텍스트 사이 여백 */
-***REMOVED***
 
-	.menu div {
-	    position: absolute; /* 절대 위치로 텍스트 고정 */
-	    left: 50px;
-	    line-height: 1.5;
-	    font-size: 1em;
-	    font-family: 'Noto Sans KR';
-	    padding: 0 0 0 20px; /* 패딩 20p로 축소 */
-***REMOVED***
-	
 	.menu #expand-menu:not(:checked) ~ ul { /* 데스크탑 화면에서도 메뉴를 접었더 펼칠 수 있음 */
    		display: none;
 ***REMOVED***
+	
+	.menu .menu-bar li a .logo{width:200px; height:100px;***REMOVED***
 </style>
 </head>
 <body>
 	<div class="menu">
 		<ul class="menu-bar">
-			<li> <a href='announcement_list' class="item logo"><img src="${pageContext.request.contextPath***REMOVED***/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
+			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath***REMOVED***/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
 			<li><a href='#' class="item user-info"><span>내 정보</span></a></li>
 			<li><a href='course_list' class="item course"><span>코스</span></a></li>
 			<li><a href='community_list' class="item community"><span>커뮤니티</span></a></li>
