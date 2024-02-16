@@ -1,10 +1,10 @@
 * {
-    margin:0;   /* 마진 리셋 */
-    padding:0;   /* 패딩 리셋 */
+    margin:0;   /* 留덉쭊 由ъ뀑 */
+    padding:0;   /* �뙣�뵫 由ъ뀑 */
 }
 
 a {
-    text-decoration:none;  /* 텍스트 링크 밑줄 없애기 */ 
+    text-decoration:none;  /* �뀓�뒪�듃 留곹겕 諛묒쨪 �뾾�븷湲� */ 
     color: inherit;
 }
 
@@ -23,18 +23,18 @@ ul {
       padding-bottom: 200px;
 }
 
-/* 로고 */
+/* 濡쒓퀬 */
 #logo { 
-    float:left;   /* 왼쪽으로 플로팅 */ 
-    width:250px;   /*  너비 */ 
-    height:100px;   /* 높이 */
-    line-height:100px;  /* 세로로 중간에 맞춤 - 줄간격을 높이 값과 같게 */
-    padding-left:150px;  /* 왼쪽에 여백 */
+    float:left;   /* �쇊履쎌쑝濡� �뵆濡쒗똿 */ 
+    width:250px;   /*  �꼫鍮� */ 
+    height:100px;   /* �넂�씠 */
+    line-height:100px;  /* �꽭濡쒕줈 以묎컙�뿉 留욎땄 - 以꾧컙寃⑹쓣 �넂�씠 媛믨낵 媛숆쾶 */
+    padding-left:150px;  /* �쇊履쎌뿉 �뿬諛� */
 }
 
 #logo h1 {
     font-family:fantasy;
     font-weight:300;
-    font-size:40px;   /* 글자 크기 */
-    color:rgb(255,255,140);   /* 글자 색*/
+    font-size:40px;   /* 湲��옄 �겕湲� */
+    color:rgb(255,255,140);   /* 湲��옄 �깋*/
 }

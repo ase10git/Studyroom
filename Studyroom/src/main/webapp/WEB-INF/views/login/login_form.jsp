@@ -51,16 +51,15 @@
 				alert("비밀번호를 다시 입력해 주세요.")
 			} else {
 				alert("로그인 성공");
-// 				location.href='announcement_list';
-				// ********************* 편집자 - 다른 페이지 연동 테스트를 위한 home.jsp 연결 ***************
-				location.href = "home";
-				//****************************************************************
+
+				location.href='announcement_list';
+
 			}
 		}
 	}
 </script>
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 <link rel="stylesheet" href="resources/css/login_form.css">
 </head>
 <body>
