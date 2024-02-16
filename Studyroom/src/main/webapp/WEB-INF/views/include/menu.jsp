@@ -7,29 +7,6 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style type="text/css">
-	.menu ::before{
-	    font-family: 'Material Icons';
-	    font-size: 1.5em;
-	    float: left;
-	    clear: left;
-	}
-	
-	.menu label::before{ content: '\e5d2'; }
-	.menu li:nth-child(1) a::before{ content: '\f02e'; }
-	.menu li:nth-child(2) a::before{ content: '\e8d6'; }
-	.menu li:nth-child(3) a::before{ content: '\e88a'; }
-	.menu li:nth-child(4) a::before{ content: '\e8cc'; }
-	.menu li:nth-child(5) a::before{ content: '\e87d'; }
-	.menu li:nth-child(6) a::before{ content: '\e8b8'; }
-	
-	#expand-menu { /* 체크박스 폼 요소 감춤 */
-    	display: none;
-	}
-	
-	#expand-menu:checked ~ ul { /* 체크박스 체크되었으면 메뉴 목록 표시 - 반응형 표시용 */
-	    display: block;
-	    height: auto;
-	}
 	
 	.menu {
 	    display: block;
@@ -74,19 +51,7 @@
 	    font-family: 'Noto Sans KR';
 	    padding: 0 0 0 50px; /* 아이콘과 텍스트 사이 여백 */
 	}
-	
-	@media screen and (max-width:1023px) {
-    	.menu { /* 1단계 */
-        	width: 60px;
-    	}
-	}
-	
-	@media screen and (max-width:560px) {
-	    .menu #expand-menu:not(:checked) ~ ul { /* 2단계 */
-	        display: none;
-	    }
-	}
-	
+
 	.menu div {
 	    position: absolute; /* 절대 위치로 텍스트 고정 */
 	    left: 50px;
@@ -104,10 +69,11 @@
 <body>
 	<div class="menu">
 		<ul class="menu-bar">
-			<li> <a href='/' class="item logo"><div>Logo</div></a>
-			<li><a href='/' class="item course"><div>코스</div></a>
-			<li><a href='/' class="item community"><div>커뮤니티</div></a>
-			<li><a href='/' class="item calendar"><div>캘린더</div></a>
+			<li> <a href='announcement_list' class="item logo"><img src="${pageContext.request.contextPath}/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
+			<li><a href='#' class="item user-info"><span>내 정보</span></a></li>
+			<li><a href='course_list' class="item course"><span>코스</span></a></li>
+			<li><a href='community_list' class="item community"><span>커뮤니티</span></a></li>
+			<li><a href='calendar_list' class="item calendar"><span>캘린더</span></a></li>
 		</ul>
 	</div>
 </body>
