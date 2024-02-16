@@ -41,7 +41,7 @@ public class CourseBoardController {
 	HttpSession session;
 	
 	// FileManager 클래스 인스턴스 생성
-	FileManager fileManager = new FileManager();
+	public static FileManager fileManager = new FileManager();
 		
 	String webPath = "/resources/upload/"; // 프로젝트상 경로
 	

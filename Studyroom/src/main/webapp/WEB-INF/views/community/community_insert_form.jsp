@@ -16,7 +16,7 @@
 </script>
 </head>
 <body>
-	<form action="community_insert" name="f" method="post">
+	<form action="community_insert" name="f" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="page" value="${param.page***REMOVED***">
 		<table border="1">
 			<caption>:::새 글 쓰기:::</caption>
@@ -31,6 +31,10 @@
 			<tr>
 				<th>내용</th>
 				<td><textarea name="content" rows="10" cols="50" style="resize:none;"></textarea></td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td><input name="file" type="file"></td>
 			</tr>
 			<tr>
 				<td colspan="2">

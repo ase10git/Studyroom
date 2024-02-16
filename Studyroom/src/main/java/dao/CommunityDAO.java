@@ -59,5 +59,10 @@ public class CommunityDAO {
 		public int update(CommunityDTO dto) {
 			return sqlSession.update("c.community_update",dto);
 	***REMOVED***
-	
+		
+		
+		//답글 조회 
+		public List<CommunityDTO> select_reply(int ref){
+			return sqlSession.selectList("c.community_reply_list",ref);
+	***REMOVED***
 ***REMOVED***

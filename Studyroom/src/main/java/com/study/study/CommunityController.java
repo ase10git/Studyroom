@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommunityDAO;
+import dao.UserCommunityLikeDAO;
 import dto.CommunityDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
+import util.FileManager;
 import util.Paging;
 
 @Controller
@@ -25,6 +27,7 @@ import util.Paging;
 public class CommunityController {
 	
 	final CommunityDAO community_dao;
+	final UserCommunityLikeDAO uclDAO;
 	
 	
 	@Autowired
@@ -33,9 +36,23 @@ public class CommunityController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping("/community_list")//커뮤니티 화면 페이지
+	
+	
+	// FileManager 클래스 인스턴스 생성
+		public static FileManager fileManager = new FileManager();
+	
+		String webPath = "/resources/upload/";// 프로젝트상 경로
+	
+	//커뮤니티 화면 페이지
+	@RequestMapping("/community_list")
 	public String community_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
 		
+		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
+		if (fileManager.getSavePath() == null) {
+
+		String realPath = request.getServletContext().getRealPath(webPath);
+		fileManager.setSavePath(realPath);
+	***REMOVED***
 		
 		int start = (page - 1) * Common.Board.BLOCKLIST+1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -57,24 +74,32 @@ public class CommunityController {
 											Common.Board.BLOCKLIST,
 											Common.Board.BLOCKPAGE);
 		
-		
 		request.getSession().removeAttribute("show");
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
-		
 		return Common.VIEW_PATH+"community/community_list.jsp?page="+page;
 ***REMOVED***
 	
-	@RequestMapping("/community_list_user")//사용자 작성글 목록 페이지
+	//사용자 작성글 목록 페이지
+	@RequestMapping("/community_list_user")
 	public String community_list_user() {
 		return Common.VIEW_PATH + "community/community_list_user.jsp";
 ***REMOVED***
 	
-	@RequestMapping("community_view")//게시글 상세보기 페이지
+	//게시글 상세보기 페이지
+	@RequestMapping("community_view")
 	public String community_view(Model model, int id, int page) {
 		CommunityDTO dto = community_dao.selectOne(id);
+		
+		int user_id = (int)session.getAttribute("userId");
+		
+		System.out.println(uclDAO.like_count(id,user_id));	
+		
+		
+		//답글 조회
+		List<CommunityDTO> reply_list = community_dao.select_reply(id);
 		
 		//조회수 증가
 		HttpSession session = request.getSession();
@@ -84,28 +109,30 @@ public class CommunityController {
 			int res = community_dao.update_readhit(id);
 			session.setAttribute("show", "0");
 	***REMOVED***
-		
 		model.addAttribute("dto",dto);
+		model.addAttribute("reply_list",reply_list);
 		
-		return Common.VIEW_PATH+"/community/community_view.jsp?page="+page;
-	//return Common.VIEW_PATH+"/community/community_view.jsp";
+		return Common.VIEW_PATH + "/community/community_view.jsp?page="+page;
 ***REMOVED***
-
-@RequestMapping("community_insert_form") //게시글 추가 페이지 
-public String community_insert_form(int page) {
+	
+	//게시글 추가 페이지
+	@RequestMapping("community_insert_form")  
+	public String community_insert_form(int page) {
 	
 	UserDTO show = (UserDTO)session.getAttribute("id");
 	
 	if(show ==null) {
 		return Common.VIEW_PATH + "/community/community_insert_form.jsp?page"+page;
 ***REMOVED***
-	
-	
 	return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
 ***REMOVED***
-
-@RequestMapping("community_insert") // 게시글 추가 하기
-public String community_insert(CommunityDTO dto,int page) {
+	
+	//게시글 추가 하기
+	@RequestMapping("community_insert") 
+	public String community_insert(CommunityDTO dto,int page) {
+	
+		// 파일 업로드를 진행하고 dto에 파일 이름 저장
+		fileManager.fileUpload(dto);
 	
 	System.out.println("nickname : " + dto.getNickname());
 		String ip = request.getRemoteAddr();
@@ -116,30 +143,30 @@ public String community_insert(CommunityDTO dto,int page) {
 			return "redirect:community_list?page="+page;
 	***REMOVED***
 		return null;
-		
 ***REMOVED***
-
-@RequestMapping("community_modify_form") //게시글 수정하기 페이지
-public String community_modify_form(Model model, int id) {
+	
+	//게시글 수정하기 페이지
+	@RequestMapping("community_modify_form") 
+	public String community_modify_form(Model model, int id) {
 	CommunityDTO dto = community_dao.selectOne(id); //한건을 조회 하려고함
 	
 	model.addAttribute("dto",dto);
 	return Common.VIEW_PATH+"community/community_modify_form.jsp";
 ***REMOVED***
-
-
-@RequestMapping("community_modify")//게시글 수정하기
-public String community_modify(CommunityDTO dto, HttpServletRequest request) {
+	
+	//게시글 수정하기
+	@RequestMapping("community_modify")
+	public String community_modify(CommunityDTO dto, HttpServletRequest request) {
 	String ip = request.getRemoteAddr();
 	dto.setIp_addr(ip);
 	
 	//where절에서 사용할 id도 받아와야함.
-	
 	int res = community_dao.update(dto);
 	return "redirect:community_list";
 ***REMOVED***
-	
-	@RequestMapping("community_delete") //게시글 삭제하기
+
+	//게시글 삭제하기
+	@RequestMapping("community_delete") 
 	@ResponseBody
 	public String community_delete(int id) {
 		
@@ -156,24 +183,35 @@ public String community_modify(CommunityDTO dto, HttpServletRequest request) {
 			return "[{'result':'no'***REMOVED***]";
 		***REMOVED***
 	***REMOVED***
-		
 	
-	
-	
-	@RequestMapping("community_delete_physical")//게시글 물리적 삭제하기
+	//게시글 물리적 삭제하기
+	@RequestMapping("community_delete_physical")
 	@ResponseBody
 	public String community_delete_physical(int id) {
 		return null;
 ***REMOVED***
 	
-	
-	@RequestMapping("community_reply_insert") //답글 추가하기
-	public String community_reply_insert(CommunityDTO dto, int id, int page) {
-
-	return null;
+	//답글 추가하기
+	@RequestMapping("community_reply") 
+	public String community_reply(CommunityDTO dto, Integer id, int page) {
+		System.out.println("컨트롤러 옴");
+		String ip = request.getRemoteAddr();
+		
+		CommunityDTO baseDTO = community_dao.selectOne(id);
+		
+		int res = community_dao.update_step(baseDTO);
+		
+		dto.setIp_addr(ip);
+		
+		//댓글이 들어갈 위치 선정
+		dto.setRef(baseDTO.getRef());
+		dto.setStep(baseDTO.getStep()+1);
+		dto.setDepth(baseDTO.getDepth()+1);
+		
+		res = community_dao.reply(dto);
+		
+		return "redirect:community_view?id="+id+"&page="+page;
 ***REMOVED***
-	
-	
 	
 	
 ***REMOVED***

@@ -1,5 +1,7 @@
 package dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -20,5 +22,7 @@ public class CommunityDTO {
 	private String file_name; // 이미지 파일 이름
 	private String anon_flag; // 익명여부
 	private String nickname; // 닉네임
+	
+	private MultipartFile file;
 
 ***REMOVED***
