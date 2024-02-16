@@ -19,7 +19,6 @@ import dto.CommunityDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
-import util.FileManager;
 import util.Paging;
 
 @Controller
@@ -28,31 +27,16 @@ public class CommunityController {
 	
 	final CommunityDAO community_dao;
 	final UserCommunityLikeDAO uclDAO;
-	
-	
+		
 	@Autowired
 	HttpServletRequest request;
 	
 	@Autowired
 	HttpSession session;
-	
-	
-	
-	// FileManager 클래스 인스턴스 생성
-		public static FileManager fileManager = new FileManager();
-	
-		String webPath = "/resources/upload/";// 프로젝트상 경로
-	
+
 	//커뮤니티 화면 페이지
 	@RequestMapping("/community_list")
 	public String community_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
-		
-		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
-		if (fileManager.getSavePath() == null) {
-
-		String realPath = request.getServletContext().getRealPath(webPath);
-		fileManager.setSavePath(realPath);
-	***REMOVED***
 		
 		int start = (page - 1) * Common.Board.BLOCKLIST+1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -133,7 +117,7 @@ public class CommunityController {
 	public String community_insert(CommunityDTO dto,int page) {
 	
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
-		fileManager.fileUpload(dto);
+		AnnouncementController.fileManager.fileUpload(dto);
 	
 	System.out.println("nickname : " + dto.getNickname());
 		String ip = request.getRemoteAddr();

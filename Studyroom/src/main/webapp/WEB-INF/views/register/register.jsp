@@ -88,6 +88,11 @@
 			return;
 	***REMOVED***
 		
+		if(!u_emailCheck){
+			alert("중복된 이메일 입니다.");
+			return;
+	***REMOVED***
+		
 		f.submit();
 ***REMOVED***
 </script>
@@ -110,7 +115,7 @@
 							<td>
 					  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked">
 					  			<input type="button" value="이메일 중복체크" onclick="check_email()">
-			<!-- 		  			<input id="email_check" name="check_email" type="button" value="이메일 인증하기"> -->
+									<!--<input id="email_check" name="check_email" type="button" value="이메일 인증하기"> -->
 				  			</td>
 			  			</tr>
 						<tr>
@@ -140,8 +145,8 @@
 						</tr>	
 						<tr>
 							<td colspan="2">
-								<input id="" name="" type="button" value="회원가입" onclick="send(this.form)">
-								<input id="" name="" type="button" value="취소" onclick="location.href='login_form'">
+								<input type="button" value="회원가입" onclick="send(this.form)">
+								<input type="button" value="취소" onclick="location.href='login_form'">
 							</td>
 						</tr>
 					</table>
@@ -152,9 +157,10 @@
 	  </section>
 
 
-		<!-- bootstrap script -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
-		crossorigin="anonymous"></script>
+	<!-- bootstrap script -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+	crossorigin="anonymous"></script>
+
 </body>
 </html>
