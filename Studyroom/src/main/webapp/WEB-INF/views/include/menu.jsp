@@ -103,14 +103,11 @@
 </head>
 <body>
 	<div class="menu">
-		<label for="expand-menu"><div>Studyroom</div></label>
-		<input type="checkbox" id="expand-menu" name="expand-menu">
-		<ul>
-			<li><a href='/' class="item"><div>로그인</div></a>
-			<li><a href='/' class="item"><div>메뉴1</div></a>
-			<li><a href='/' class="item"><div>메뉴2</div></a>
-			<li><a href='/' class="item"><div>메뉴3</div></a>
-			<li><a href='/' class="item"><div>메뉴4</div></a>
+		<ul class="menu-bar">
+			<li> <a href='/' class="item logo"><div>Logo</div></a>
+			<li><a href='/' class="item course"><div>코스</div></a>
+			<li><a href='/' class="item community"><div>커뮤니티</div></a>
+			<li><a href='/' class="item calendar"><div>캘린더</div></a>
 		</ul>
 	</div>
 </body>

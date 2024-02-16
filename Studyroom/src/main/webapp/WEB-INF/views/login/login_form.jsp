@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<!-- bootstrap css -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"/>
+
 <script src="resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
 	function send(f) {
@@ -54,37 +59,55 @@
 		}
 	}
 </script>
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/login_form.css">
 </head>
 <body>
 
-	<div class="container">
-		<input type="checkbox" id="expand-menu" name="expand-menu">
-		<div class="logo">
-	        <h1>Studyroom</h1>
-    	</div>
-
-		<form class="login-form" action="">
-			<table border="1" align="center" id="login_tbl" name="login_tbl">
-				<caption>::: 로그인 :::</caption>
-				<tr>
-					<th>이메일</th>
-					<td><input id="email" name="email" placeholder="이메일을 입력해주세요." autofocus="autofocus">
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td><input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력해주세요.">
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-						<input id="" name="" type="button" value="로그인" onclick="send(this.form)">
-						<input id="" name="" type="button" value="회원가입" onclick="location.href='register'">
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
+	<%@ include file="../include/menu.jsp" %>
 	
+	<section class="sec event">
+		<div class="container">
+		  <div class="row gy-4">
+
+			<div class="col">
+				<input type="checkbox" id="expand-menu" name="expand-menu">
+				<div class="logo">
+					<h1>Studyroom</h1>
+				</div>
+			</div>
+
+			<div class="box col">
+				<form class="login-form" action="">
+					<table border="1" align="center" id="login_tbl" name="login_tbl">
+						<caption>::: 로그인 :::</caption>
+						<tr>
+							<th>이메일</th>
+							<td><input id="email" name="email" placeholder="이메일을 입력해주세요." autofocus="autofocus">
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td><input id="pwd" name="pwd" type="password" placeholder="비밀번호를 입력해주세요.">
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<input id="" name="" type="button" value="로그인" onclick="send(this.form)">
+								<input id="" name="" type="button" value="회원가입" onclick="location.href='register'">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+
+		  </div>
+		</div>
+	  </section>
+
+	
+	<!-- bootstrap script -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+	crossorigin="anonymous"></script>
 </body>
 </html>
