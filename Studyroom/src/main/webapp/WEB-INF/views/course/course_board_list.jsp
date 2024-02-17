@@ -42,7 +42,7 @@
                     <tr>
                         <td>${course_dto.title}</td>
                         <td>${course_dto.instructor}</td>
-                        <td>${fn:split(course_dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</td>
+                        <td>${fn:split(course_dto.start_date, " ")[0]} ~ ${fn:split(course_dto.end_date, " ")[0]}</td>
                     </tr>
                     <tr>
                         <td colspan="3"><p class="summary"><pre>${course_dto.summary}</pre></p></td>
