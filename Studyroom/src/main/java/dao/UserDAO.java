@@ -25,14 +25,14 @@ public class UserDAO {
 		return sqlSession.insert("u.insert",userDTO);
 	}
 	
-	// 사용자 정보 수정		// 미완성
-	public int modify(UserDTO userDTO) {
-		return sqlSession.update("u.update", userDTO);
-	}
-	
-	// 전체 사용자 조회(admin용)	// 미완성
-	public List<UserDTO> selectList() {
-		return sqlSession.selectList("u.user_list");
-	}
+//	// 사용자 정보 수정		// 미완성
+//	public int modify(UserDTO userDTO) {
+//		return sqlSession.update("u.update", userDTO);
+//	}
+//	
+//	// 전체 사용자 조회(admin용)	// 미완성
+//	public List<UserDTO> selectList() {
+//		return sqlSession.selectList("u.user_list");
+//	}
 
 }
