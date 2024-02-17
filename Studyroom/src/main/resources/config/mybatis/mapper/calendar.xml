@@ -3,6 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CalendarMapper">
+
+	<!-- 캘린더 테이블에서 정보 가져오기 -->
 	<resultMap id="CalendarEventResultMap" type="calendar">
 		<id property="id" column="id" />
 		<result property="user_id" column="user_id" />
@@ -12,27 +14,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="comment" column="comment" />
 	</resultMap>
 
+	<!-- 사용자별 일정 조회 -->
 	<select id="getEventsByUserId" resultMap="CalendarEventResultMap">
 		SELECT * FROM calendar_event WHERE user_id = #{user_id***REMOVED*** AND del_flag = 0
 	</select>
 
+	<!-- 사용자의 월별 일정 조회 -->
 	<select id="getEventsByMonth" resultMap="CalendarEventResultMap">
 		SELECT * FROM calendar_event WHERE user_id = #{user_id***REMOVED*** AND EXTRACT(YEAR FROM datetime) = #{year***REMOVED*** AND EXTRACT(MONTH FROM datetime) = #{month***REMOVED*** AND del_flag = 0
 	</select>
 	
+	<!-- 일정을 삭제된 것처럼 처리 -->
 	<update id="deleteEvent">
         UPDATE calendar_event SET del_flag = -1 WHERE id = #{id***REMOVED***
     </update>
     
+    <!-- 일정 물리적 제거 -->
+	<delete id="deleteEventPhysical">
+        DELETE FROM calendar_event WHERE del_flag = -1
+    </delete>
+    
+    <!-- 일정 추가 -->
     <insert id="insertEvent" parameterType="map">
     INSERT INTO calendar_event ("ID", "USER_ID", "TYPE", "DATETIME", "COMMENT", "DEL_FLAG")
     VALUES (SEQ_CALENDAR_EVENT_ID.NEXTVAL, #{userId***REMOVED***, #{type***REMOVED***, TO_DATE(#{datetime***REMOVED***, 'YYYY-MM-DD HH24:MI:SS'), #{comment***REMOVED***, #{delFlag***REMOVED***)
-</insert>
+	</insert>
 
-<update id="updateEvent" parameterType="map">
-    UPDATE calendar_event
-    SET "TYPE" = #{type***REMOVED***, "COMMENT" = #{comment***REMOVED***
-    WHERE "ID" = #{id***REMOVED*** AND "DEL_FLAG" = 0
-</update>
+	<!-- 일정 수정 -->
+	<update id="updateEvent" parameterType="map">
+	    UPDATE calendar_event
+	    SET "TYPE" = #{type***REMOVED***, "COMMENT" = #{comment***REMOVED***
+	    WHERE "ID" = #{id***REMOVED*** AND "DEL_FLAG" = 0
+	</update>
 
 </mapper>

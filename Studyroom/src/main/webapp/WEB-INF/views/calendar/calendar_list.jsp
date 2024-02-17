@@ -5,33 +5,7 @@
 <head>
     <title>캘린더</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style type="text/css">
-   		#calendar {
-    width: 60%;
-    margin: 0 auto;
-    table-layout: fixed;
-    overflow: auto;
-***REMOVED***
-
-#calendar th {
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-***REMOVED***
-
-#calendar td {
-    height: 100px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-***REMOVED***
-
-#calendar td:hover {
-    background-color: #f5f5f5;
-***REMOVED***
-    </style>
+    <link rel="stylesheet" href="resources/css/calendar_list.css">
     <script src="resources/js/HttpRequest.js"></script>
     <script>
     var events = []; //일정을 저장할 변수
@@ -235,94 +209,108 @@
 </head>
 <body>
 
-<div id="calendar-header">
-    <button onclick="prevMonth()">Previous</button>
-    <span id="current-year-month"></span>
-    <button onclick="nextMonth()">Next</button>
-</div>
-   
-	<table id="calendar" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-            </tr>
-        </thead>
-        <tbody id="calendar-body">
-            <!-- 여기에 자바스크립트로 달력 나옴 -->
-        </tbody>
-    </table>
+	<%@ include file="../include/menu.jsp" %>
+	
+	  <section class="sec event">
+	    <div class="container">
+	     <h1>캘린더</h1>
+	      <div class="row gy-4">
+	        <div class="col box">
+				<div id="calendar-header">
+				    <button onclick="prevMonth()">Previous</button>
+				    <span id="current-year-month"></span>
+				    <button onclick="nextMonth()">Next</button>
+				</div>
+				   
+				<table id="calendar" class="table table-bordered">
+			        <thead>
+			            <tr>
+			                <th>Sun</th>
+			                <th>Mon</th>
+			                <th>Tue</th>
+			                <th>Wed</th>
+			                <th>Thu</th>
+			                <th>Fri</th>
+			                <th>Sat</th>
+			            </tr>
+			        </thead>
+			        <tbody id="calendar-body">
+			            <!-- 여기에 자바스크립트로 달력 나옴 -->
+			        </tbody>
+			    </table>
+	        </div>
+	      </div>
+	    </div>
+	  </section>
+
+
     <!-- 일정을 표시하는 모달창 -->
     <div class="modal" tabindex="-1" id="event-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="event-modal-title">일정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="event-modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-event-modal">추가</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 새로운 일정을 추가하는 모달창 -->
-<div class="modal" tabindex="-1" id="add-event-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">새 일정 추가</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="event-form">
-                    <select id="event-type">
-                        <option value="personal_event">개인 일정</option>
-                        <option value="note">노트</option>
-                    </select>
-                    <textarea id="event-comment" rows="5" cols="20" placeholder="설명을 입력하세요."></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="addEvent()" data-bs-dismiss="modal">저장</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 일정 수정 모달창 -->
-<div class="modal" tabindex="-1" id="edit-event-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">일정 수정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="edit-event-form">
-                    <select id="edit-event-type">
-                        <option value="personal_event">개인 일정</option>
-                        <option value="note">노트</option>
-                    </select>
-                    <textarea id="edit-event-comment" rows="5" cols="20" placeholder="설명을 입력하세요."></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="editEvent()">저장</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
+    	<div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="event-modal-title">일정</h5>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body" id="event-modal-body">
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-event-modal">추가</button>
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 새로운 일정을 추가하는 모달창 -->
+	<div class="modal" tabindex="-1" id="add-event-modal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title">새 일정 추가</h5>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body">
+	                <form id="event-form">
+	                    <select id="event-type">
+	                        <option value="personal_event">개인 일정</option>
+	                        <option value="note">노트</option>
+	                    </select>
+	                    <textarea id="event-comment" rows="5" cols="20" placeholder="설명을 입력하세요."></textarea>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary" onclick="addEvent()" data-bs-dismiss="modal">저장</button>
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 일정 수정 모달창 -->
+	<div class="modal" tabindex="-1" id="edit-event-modal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title">일정 수정</h5>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body">
+	                <form id="edit-event-form">
+	                    <select id="edit-event-type">
+	                        <option value="personal_event">개인 일정</option>
+	                        <option value="note">노트</option>
+	                    </select>
+	                    <textarea id="edit-event-comment" rows="5" cols="20" placeholder="설명을 입력하세요."></textarea>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary" onclick="editEvent()">저장</button>
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

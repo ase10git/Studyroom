@@ -14,10 +14,12 @@ public class CalendarDAO {
 
 	final SqlSession sqlSession;
 	
+	// 사용자별 일정 조회
 	public List<CalendarDTO> calendar_list(int user_id) {
 		return sqlSession.selectList("CalendarMapper.getEventsByUserId", user_id);
 ***REMOVED***
 
+	// 사용자의 월별 일정 조회
 	public List<CalendarDTO> getEventsByMonth(int user_id, int year, int month) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("user_id", user_id);
@@ -26,10 +28,17 @@ public class CalendarDAO {
 		return sqlSession.selectList("CalendarMapper.getEventsByMonth", params);
 ***REMOVED***
 	
+	// 일정을 제거된 것처럼 처리
 	public void deleteEvent(int id) {
 	    sqlSession.update("CalendarMapper.deleteEvent", id);
 ***REMOVED***
 
+	// 일정 물리적 제거
+	public void deleteEventPhysical() {
+		sqlSession.delete("CalendarMapper.deleteEventPhysical");
+***REMOVED***
+	
+	// 일정 추가
 	public boolean insertEvent(String type, String comment, String datetime, int userId) {
 	    Map<String, Object> paramMap = new HashMap<>();
 	    paramMap.put("userId", userId);
@@ -40,6 +49,7 @@ public class CalendarDAO {
 	    return sqlSession.insert("CalendarMapper.insertEvent", paramMap) == 1;
 ***REMOVED***
 	
+	// 일정 수정
 	public int updateEvent(int id, String type, String comment) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
