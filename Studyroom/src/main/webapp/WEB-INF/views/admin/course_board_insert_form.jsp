@@ -24,6 +24,8 @@
 </head>
 <body>
 
+	<%@ include file="../include/menu.jsp" %>
+	
 	<section class="sec">
 		<div class="container">
 		 <h1>코스 공지글 추가하기</h1>

@@ -6,25 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-.input-box {
-    margin-top: 5px;
-    padding : 7px 15px;
-    width : 100%;
-    background-color: white;
-    border: 1px solid #e3e2e2;
-    border-radius: 3px;
-}
-.input{
-    margin: 0;
-    padding: 5px;
-    width: 100%;
-    border: none;
-    outline: none;
-}
-</style>
-
+<title>글 상세보기</title>
+	<!-- bootstrap css -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"/>
+	<link rel="stylesheet" href="resources/css/community_view.css">
 <script src="resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
 	function del(){
@@ -82,102 +69,112 @@
 		location.href="community_modify_form?id=${dto.id}&page=${param.page}";
 	}
 	function like(){
+		
+		if("${user_like}"==1){
+			alert('이미 추천했습니다.');
+			return
+		}
+		
+		location.href="community_like?id=${dto.id}&page=${param.page}";
 		alert('추천되었습니다.');
+		
 	}
 </script>
 </head>
 <body>
-	<table border="1">
-		<caption>:::게시글 상세보기:::</caption>
-		<tr>
-			<th>제목</th>
-			<td>${dto.title }</td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td>${dto.nickname }</td>
-		</tr>
-		<tr>
-			<th>작성일</th>
-			<td>${dto.register_date }</td>
-		</tr>
-		<tr>
-			<th>이미지</th>
-			<td><img src="${pageContext.request.contextPath}/resources/upload/${dto.file_name}" alt="이미지"></td>
-		<tr>
-			<th>내용</th>
-			<td width="500px" height="200px"><pre>${dto.content}</pre></td>
-		</tr>
-		
-		
-		<!-- 답글 관련 -->
-		
-		<form action="community_reply" name="f" method="post">
-		<input type="hidden" name="id"	 value="${param.id }">
-		<input type="hidden" name="page" value="${param.page}">	
-		
-		<!-- 답글 보여주기 -->
-		<c:forEach var="dto" items="${reply_list}">
-      	<tr>
-         <td align="center">${dto.id}</td>
-         
-         <!-- 댓글일 경우 들여쓰기 -->
-         <td><c:forEach begin="1" end="${dto.depth}">&nbsp;</c:forEach>
-         <!-- 댓글기호 -->
-       <!-- <c:if test="${ dto.depth ne 0 }">ㄴ</c:if> -->
-            
-         <!-- 삭제되지 않은 글이라면 출력가능 -->
-         <c:if test="${dto.del_flag ne -1}">
-		 <font color="black">${dto.content}</font>
-         </c:if>
-            
-         <!-- 삭제된 게시물은 클릭할 수 없도록 처리 -->
-         <c:if test="${dto.del_flag eq -1 }">
-         <font color="gray">${dto.content }</font>
-         </c:if>
-         </td>
-         <td>${dto.nickname }</td>
-         
-         <c:if test="${dto.del_flag ne -1 }">
-            <td>${fn:split(dto.register_date,' ')[0]}</td>
-         </c:if>
-         
-         <!-- 삭제된 게시물은 unKnown으로 표시 -->
-         <c:if test="${dto.del_flag eq -1 }">
-            <td>unknown</td>
-         </c:if>
-      </tr>   
-      
-      
-      </c:forEach>
-		<tr>
-			<td colspan="4" rows="30">
-			<!-- 답변 -->
-				<div class="input-box">
-				<textarea name="content" class="input"  style="resize:none;"></textarea>
+
+	<%@ include file="../include/menu.jsp" %>
+	
+	<section class="sec event">
+		<div class="container">
+			<h1>커뮤니티 글 상세보기</h1>
+			<div class="row gy-4">
+
+				<div class="col box">
+					<table border="1">
+						<caption>:::게시글 상세보기:::</caption>
+						<tr>
+							<th>제목</th>
+							<td>${dto.title }</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td>${dto.nickname }</td>
+						</tr>
+						<tr>
+							<th>작성일</th>
+							<td>${dto.register_date }</td>
+						</tr>
+						<tr>
+							<th>이미지</th>
+							<td><img src="${pageContext.request.contextPath}/resources/upload/${dto.file_name}" alt="이미지"></td>
+						<tr>
+							<th>내용</th>
+							<td width="500px" height="200px"><pre>${dto.content}</pre></td>
+						</tr>
+					</table>
+				</div>	
+
+				<!-- 답글 보여주기 -->
+				<div class="col box">
+					<c:forEach var="dto" items="${reply_list}">
+						<div class="reply_box">
+							<c:choose>
+								<c:when test="${dto.del_flag eq -1 }">
+									<div class="info">
+										<span class="nickname">삭제됨</span>
+										<span class="register_date">삭제됨</span>
+									</div>
+								</c:when>
+								<c:when test="${dto.del_flag eq 0 }">
+									<div class="info">
+										<span class="nickname">${dto.nickname}</span>
+										<span class="register_date">${fn:split(dto.register_date,' ')[0]}</span>
+									</div>
+									<p class="reply_content">${dto.content}</p>
+								</c:when>
+							</c:choose>
+						</div>
+					</c:forEach>
 				</div>		
-				<c:if test="${dto.depth lt 1 }">	
-				<input type="button" value="답변 등록" onclick="reply()">
-				</c:if>
-			</td>
-		</tr>	
-		<tr>
-			<td colspan="2">
-			<!-- ************** 편집자 - css를 위한 이미지 제거 ***************** -->
-			
-				<!-- 추천하기 -->
-				<input type="button" value="추천하기" onclick="like()">
-				
-				<!-- 목록보기 -->
-				<input type="button" value="목록보기" onclick="location.href='community_list'">
-				
-				<!-- 삭제 -->
-				<input type="button" value="삭제" onclick="del()">
-				<!-- 수정 -->
-				<input type="button" value="수정" onclick="modify()">	
-			</td>
-		</tr>	
-	</table>
+
+				<div class="col box">
+					<form action="community_reply" name="f" method="post">
+						<input type="hidden" name="id"	 value="${param.id }">
+						<input type="hidden" name="page" value="${param.page}">	
+							<!-- 답변 -->
+							<textarea name="content" class="input"  style="resize:none;"></textarea>	
+							<c:if test="${dto.depth lt 1 }">	
+								<input type="button" value="답변 등록" onclick="reply()">
+							</c:if>
+					</form>
+				</div>
+
+				<div class="col box">
+					<div class="btn-wrap">
+						<!-- 추천하기 -->
+						<input type="button" value="추천하기" onclick="like()">
+						
+						<!-- 목록보기 -->
+						<input type="button" value="목록보기" onclick="location.href='community_list'">
+						
+						<!-- 삭제 -->
+						<input type="button" value="삭제" onclick="del()">
+						<!-- 수정 -->
+						<input type="button" value="수정" onclick="modify()">	
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+		<!-- bootstrap script -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+		crossorigin="anonymous"></script>
+
 </body>
 </html>
 

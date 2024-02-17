@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseDAO;
 import dto.CourseDTO;
+import dto.UserCourseDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 import util.Paging;
@@ -33,9 +34,15 @@ public class CourseController {
 	HttpSession session;	
 	
 	// 코스 화면 보기 - 리스트
+	// admin만 사용 가능
 	@RequestMapping("course_list")
 	public String course_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
 
+		// ****************** 편집자 - 테스트용 user_id **********************
+		int user_id = (int)session.getAttribute("userId");;
+		String role = (String)session.getAttribute("role");
+		// ***************************************************************
+		
 		// 시작, 종료 페이지 계산
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -45,11 +52,28 @@ public class CourseController {
 		map.put("start", start);
 		map.put("end", end);
 		
-		// 페이지 번호에 따른 전체 코스 조회
-		List<CourseDTO> list = course_dao.selectList(map);
-		
 		// 전체 게시글 수 조회
-		int rowTotal = course_dao.getRowTotal();
+		int rowTotal = 0;
+		
+		// 전체 코스 list
+		List<CourseDTO> list = null; // 관리자
+		List<UserCourseDTO> list_user = null; // 학생과 멘토
+		
+		if (role.equals("admin")) { // 관리자일 경우
+			// 페이지 번호에 따른 전체 코스 조회
+			list = course_dao.selectList(map);
+
+			rowTotal = course_dao.getRowTotal(); // 전체 코스 개수
+		
+		} else { // 학생이나 멘토일 경우
+			map.put("user_id", user_id); // map에 사용자 정보 저장
+
+			// 페이지 번호에 따른 특정 사용자의 코스 전체 조회
+			list_user = course_dao.selectList_user(map);
+			
+			// 특정 사용자가 속한 코스의 전체 게시글 수
+			rowTotal = course_dao.getRowTotal_user(user_id);
+		}
 		
 		// 페이지 메뉴 생성하기
 		String pageMenu = Paging.getPaging("course_list", 
@@ -58,12 +82,18 @@ public class CourseController {
 											Common.Board.BLOCKLIST, 
 											Common.Board.BLOCKPAGE);
 		
-		model.addAttribute("list", list);
+		// 관리자라면 전체 코스 조회 내역을 포워딩
+		if (role.equals("admin")) {
+			model.addAttribute("list", list);
+		} else { // 학생과 멘토라면 참여한 코스의 조회 내역을 포워딩
+			model.addAttribute("list", list_user);
+		}
+		// 페이지 메뉴를 포워딩
 		model.addAttribute("pageMenu", pageMenu);
 		
 		return Common.COURSE_PATH + "course_list.jsp?page=" + page;
 	}
-	
+		
 	// 코스 상세 보기
 	@RequestMapping("course_view")
 	public String course_view(Model model, int id, int page) {	
@@ -79,15 +109,10 @@ public class CourseController {
 
 	
 	// 코스 추가 페이지로 이동
+	// admin만 가능
 	@RequestMapping("course_insert_form")
 	public String course_insert_form() {
-		// 로그인 확인 및 권한 확인 추가 예정
-//		UserDTO user = user_dao.select(int id);
-//		
-//		if (user.role == "admin" || user.role == "mentor") {
-//			return Common.COURSE_PATH + "course_insert_form.jsp";
-//		}
-//		
+
 		return Common.ADMIN_PATH + "course_insert_form.jsp";
 
 		//return Common.COURSE_PATH + "error_page.jsp";
@@ -95,6 +120,7 @@ public class CourseController {
 	
 	
 	// 코스 추가하기
+	// admin만 가능
 	@RequestMapping("course_insert")
 	public String course_insert(CourseDTO dto) {
 
@@ -111,14 +137,9 @@ public class CourseController {
 	
 	
 	// 코스 수정 페이지로 이동
+	// admin만 가능
 	@RequestMapping("course_modify_form")
 	public String course_modify_form(Model model, int id) {
-		// 로그인 확인 및 권한 확인 추가 예정
-//		UserDTO user = user_dao.select(int id);
-//		
-//		if (user.role == "admin" || user.role == "mentor") {
-//			return Common.Board.VIEW_PATH + "course_modify_form.jsp";
-//		}
 		
 		// 요청 페이지에서 코스의 id를 받아 코스 조회
 		CourseDTO dto = course_dao.selectOne(id);
@@ -132,6 +153,7 @@ public class CourseController {
 	
 	
 	// 코스 수정하기
+	// admin만 가능
 	@RequestMapping("course_modify")
 	public String course_modify(CourseDTO dto, int id) {
 
@@ -150,10 +172,10 @@ public class CourseController {
 	}
 	
 	// 코스 삭제된 것처럼 수정하기(논리적 삭제)
+	// admin만 가능
 	@RequestMapping("course_delete")
 	@ResponseBody
 	public String course_delete(int id) {
-		// 권한 설정 예정
 		
 		int res = course_dao.delete_update(id);
 	
@@ -166,6 +188,7 @@ public class CourseController {
 	}
 	
 	// 코스 물리적 삭제
+	// admin만 가능
 	@RequestMapping("course_delete_physical")
 	@ResponseBody
 	public String course_delete_physical() {
