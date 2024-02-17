@@ -47,8 +47,8 @@
 							</tr>
 							<tr>
 								<td colspan="2" align="center">
-									<input type="button" value="수정" onclick="send(this.form)">		
-									<input type="button" value="취소" onclick="location.href='community_list'">
+									<input type="button" class="btn btn-primary" value="수정" onclick="send(this.form)">		
+									<input type="button" class="btn btn-light" value="취소" onclick="location.href='community_list'">
 								</td>
 							</tr>		
 						</table>

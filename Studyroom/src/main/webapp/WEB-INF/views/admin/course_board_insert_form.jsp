@@ -65,10 +65,10 @@
 						</tr>
 						<tr>
 							<td>
-								<input id="send_btn" type="button" value="글 등록하기" onclick="send()"></input>
+								<input id="send_btn" type="button" class="btn btn-primary" value="글 등록하기" onclick="send()"></input>
 							</td>
 							<td>
-								<input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>
+								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
 							</td>
 						</tr>
 					</table>

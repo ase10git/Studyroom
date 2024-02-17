@@ -2,9 +2,9 @@
 
 .footer{
     width: 100%;
-    background-color: rgb(74, 43, 227);
+    background-color: #add8e6;
     color:white;
-    position: absolute; background-origin: 0;
+    background-origin: 0;
 }
 
 .footer .container{
@@ -16,7 +16,7 @@
     text-align: center;
 }
 
-.footer .container .title a{color: #ddd;}
+.footer .container .title{color: black;}
 
 .footer .container .row{ 
     width: 100%;
@@ -30,10 +30,10 @@
 
 .footer .container .row .col ul{margin: 0; padding: 0;}
 
-.footer .container .row .col ul li a{color:#ddd;}
+.footer .container .row .col ul li a{color: black;}
 
 .footer .container .row .col ul li:first-of-type{
-    color:rgb(255, 196, 0); font-weight: bold;
+    color:rgb(255, 66, 2); font-weight: bold;
 }
 
 .footer .container .row .col.sns ul{

@@ -73,8 +73,10 @@ public class CommunityController {
 	//게시글 상세보기 페이지
 	@RequestMapping("community_view")
 	public String community_view(Model model, int id, int page) {
+		// 게시글 정보 조회
 		CommunityDTO dto = community_dao.selectOne(id);
 		
+		// 사용자 아이디를 세션에서 가져옴
 		int user_id = (int)session.getAttribute("userId");
 
 		// 사용자가 특정 게시글에 추천을 했었는지 확인
@@ -91,9 +93,11 @@ public class CommunityController {
 			int res = community_dao.update_readhit(id);
 			session.setAttribute("show", "0");
 		}
+		
 		model.addAttribute("dto",dto);
 		model.addAttribute("reply_list",reply_list);
 		model.addAttribute("user_like", user_like);
+		model.addAttribute("userId", user_id);
 		
 		return Common.VIEW_PATH + "/community/community_view.jsp?page="+page;
 }
