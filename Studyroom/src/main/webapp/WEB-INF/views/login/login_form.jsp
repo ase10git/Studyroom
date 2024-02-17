@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 	<!-- bootstrap css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
@@ -51,21 +51,18 @@
 				alert("비밀번호를 다시 입력해 주세요.")
 			} else {
 				alert("로그인 성공");
-// 				location.href='announcement_list';
-				// ********************* 편집자 - 다른 페이지 연동 테스트를 위한 home.jsp 연결 ***************
-				location.href = "home";
-				//****************************************************************
+
+				location.href='announcement_list';
+
 			}
 		}
 	}
 </script>
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 <link rel="stylesheet" href="resources/css/login_form.css">
 </head>
 <body>
-
-	<%@ include file="../include/menu.jsp" %>
 	
 	<section class="sec event">
 		<div class="container">
@@ -81,7 +78,6 @@
 			<div class="box col">
 				<form class="login-form" action="">
 					<table border="1" align="center" id="login_tbl" name="login_tbl">
-						<caption>::: 로그인 :::</caption>
 						<tr>
 							<th>이메일</th>
 							<td><input id="email" name="email" placeholder="이메일을 입력해주세요." autofocus="autofocus">
