@@ -58,7 +58,7 @@
 					</tr>
 					<tr>
 						<td colspan="5" align="right">
-							<input type="button" class="btn write-btn" value="글쓰기"
+							<input type="button" class="btn btn-primary" class="btn write-btn" value="글쓰기"
 							onclick="location.href='community_insert_form?page=${param.page***REMOVED***'">
 						</td>
 					</tr>

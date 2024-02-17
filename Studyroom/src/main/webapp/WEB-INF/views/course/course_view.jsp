@@ -57,13 +57,12 @@
 
 	<%@ include file="../include/menu.jsp" %>
 	
-	<section class="sec">
+	<section class="sec course">
 		<div class="container">
-		 <h1>코스 상세보기</h1>
+		 <h1 class="title">코스 상세보기</h1>
 		  <div class="row gy-4">
 			<div class="col box col-12">
-				<table>	
-<!-- 					<caption>::게시글 상세보기::</caption> -->
+				<table class="course-box">	
 					<tr>
 						<th>코스 이름</th>
 						<td>${dto.title***REMOVED***</td>
@@ -75,22 +74,18 @@
 					<tr>
 						<th>코스 설명</th>
 						<td>
-							<p class="summary"><pre>${dto.summary***REMOVED***</pre></p>
+							<p class="summary">${dto.summary***REMOVED***</p>
 						</td>
 					</tr>
 					<tr>
-						<th>코스 시작일</th>
-						<td>${fn:split(dto.start_date, " ")[0]***REMOVED***</td>
-					</tr>
-					<tr>
-						<th>코스 종료일</th>
-						<td>${fn:split(dto.end_date, " ")[0]***REMOVED***</td>
+						<th>기간</th>
+						<td>${fn:split(dto.start_date, " ")[0]***REMOVED*** ~ ${fn:split(dto.end_date, " ")[0]***REMOVED***</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>
-							<input id="delete_btn" type="button" value="코스 삭제하기" onclick="del()"></input>
-							<input id="modify_btn" type="button" value="코스 수정하기" onclick="modify()"></input>
+							<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
+							<input id="delete_btn" type="button" class="btn btn-dark" value="코스 삭제하기" onclick="del()"></input>
+							<input id="modify_btn" type="button" class="btn btn-primary" value="코스 수정하기" onclick="modify()"></input>
 						</td>
 					</tr>
 				</table>

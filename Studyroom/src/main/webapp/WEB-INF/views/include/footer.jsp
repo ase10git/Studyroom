@@ -14,7 +14,7 @@
 <body>
     <footer class="footer">
         <div class="container">
-            <h2 class="title"><a href="announcement_list">Studyroom</a></h2>
+            <h2 class="title">Studyroom</h2>
             <div class="row gy-4 row-cols-4 row-cols-sm-2">
                 <div class="col box">
                     <ul>

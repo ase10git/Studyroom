@@ -55,8 +55,8 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="button" value="추가" onclick="send_check();">		
-								<input type="button" value="취소" onclick="location.href='community_list'">
+								<input type="button" class="btn btn-primary" value="추가" onclick="send_check();">		
+								<input type="button" class="btn btn-light" value="취소" onclick="location.href='community_list'">
 							</td>
 						</tr>
 					</table>

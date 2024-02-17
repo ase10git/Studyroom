@@ -32,16 +32,14 @@
 
 	<%@ include file="../include/menu.jsp" %>
 	
-	<section class="sec">
+	<section class="sec course-insert">
 		<div class="container">
-		 <h1>새 코스 추가</h1>
+		 <h1 class="title">새 코스 추가</h1>
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
-			  <div class="gt">
 				<form action="course_insert" name="f" method="POST">
 					<input type="hidden" name="page" value="${param.page***REMOVED***">
 					<table>
-<!-- 						<caption>:::새 코스 추가:::</caption> -->
 						<tr>
 							<th>코스 이름</th>
 							<td><input name="title"></td>
@@ -55,24 +53,21 @@
 							<td><textarea name="summary" rows="5" cols="50" style="resize:none;"></textarea></td>
 						</tr>
 						<tr>
-							<th>코스 시작일</th>
-							<td><input name="start_date" type="date"></td>
-						</tr>
-						<tr>
-							<th>코스 종료일</th>
-							<td><input name="end_date" type="date"></td>
-						</tr>
-						<tr>
+							<th>코스 기간</th>
 							<td>
-								<input id="send_btn" type="button" value="코스 등록하기" onclick="send()"></input>
+								<input name="start_date" type="date">
+								 ~ 
+								<input name="end_date" type="date">
 							</td>
-							<td>
-								<input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input id="send_btn" type="button" class="btn btn-primary" value="코스 등록하기" onclick="send()"></input>
+								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
 							</td>
 						</tr>
 					</table>
 				</form>
-			  </div>
 			</div>
 		  </div>
 		</div>

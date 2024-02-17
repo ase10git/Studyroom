@@ -101,10 +101,10 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" value="뒤로가기" onclick="back()">
+						<input type="button" class="btn btn-light" value="뒤로가기" onclick="back()">
 						<c:if test="${role eq 'admin'***REMOVED***">
-							<input id="modify_btn" type="button" value="글 수정하기" onclick="modify()"></input>
-							<input id="delete_btn" type="button" value="글 삭제하기" onclick="del()"></input>	
+							<input id="modify_btn" type="button" class="btn btn-primary" value="글 수정하기" onclick="modify()"></input>
+							<input id="delete_btn" type="button" class="btn btn-primary" value="글 삭제하기" onclick="del()"></input>	
 						</c:if>
 					</td>
 				</tr>

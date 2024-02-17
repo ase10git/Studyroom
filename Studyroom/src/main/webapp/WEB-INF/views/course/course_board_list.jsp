@@ -32,16 +32,16 @@
 
 	<%@ include file="../include/menu.jsp" %>
 
-    <section class="sec">
+    <section class="sec course-info">
         <div class="container">
-         <h1>코스 공지글</h1>
+         <h1 class="title">코스</h1>
           <div class="row gy-4">
             <div class="col box col-12">
-                <table>
+                <table class="info-box">
                     <tr>
                         <th>코스 이름</th>
                         <th>강사 이름</th>
-                        <th>기간<th>
+                        <th>기간</th>
                     </tr>
                     <tr>
                         <td>${course_dto.title***REMOVED***</td>
@@ -55,7 +55,7 @@
             </div>
             
             <div class="col box col-12">
-                <table>
+                <table class="board-box">
                     <tr>
                         <th>번호</th>
                         <th>제목</th>
@@ -71,13 +71,11 @@
                     </c:forEach>
 
                     <tr>
-                    	<c:if test="${role eq 'admin'***REMOVED***">
-                        <td>
-                            <input id="insert_btn" type="button" value="글 작성하기" onclick="insert()">
-                        </td>
-                        </c:if>
-                        <td>
-                            <input id="back_btn" type="button" value="뒤로 가기" onclick="back()">
+                        <td colspan="3">
+                            <c:if test="${role eq 'admin' || role eq 'mentor'***REMOVED***">
+                            	<input id="insert_btn" type="button" class="btn btn-primary" value="글 작성하기" onclick="insert()">
+                        	</c:if>
+                            <input id="back_btn" type="button" class="btn btn-light" value="뒤로 가기" onclick="back()">
                         </td>
                     </tr>
                 </table>

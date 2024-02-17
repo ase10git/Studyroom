@@ -76,7 +76,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="container">
         <h1>스터디룸 공지사항</h1>
         <c:if test="${role eq 'admin'***REMOVED***">
-        	<input type="button" class="btn insert-btn" value="공지 추가하기" onclick="insert()">
+        	<input type="button" class="btn btn-primary" class="btn insert-btn" value="공지 추가하기" onclick="insert()">
         </c:if>
         <div class="row gy-4">
           <c:forEach var="dto" items="${list***REMOVED***">

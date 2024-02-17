@@ -83,38 +83,72 @@
 
 	<%@ include file="../include/menu.jsp" %>
 	
-	<section class="sec event">
+	<section class="sec community">
 		<div class="container">
 			<h1>커뮤니티 글 상세보기</h1>
 			<div class="row gy-4">
 
 				<div class="col box">
-					<table border="1">
-						<caption>:::게시글 상세보기:::</caption>
+					<table class="community-box">
 						<tr>
 							<th>제목</th>
 							<td>${dto.title ***REMOVED***</td>
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td>${dto.nickname ***REMOVED***</td>
+								<c:choose>
+								<c:when test="${dto.nickname ne null***REMOVED***">
+									<td>${dto.nickname***REMOVED***</td>
+								</c:when>
+								<c:otherwise>
+									<td>수강생</td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 						<tr>
 							<th>작성일</th>
 							<td>${dto.register_date ***REMOVED***</td>
 						</tr>
 						<tr>
-							<th>이미지</th>
-							<td><img src="${pageContext.request.contextPath***REMOVED***/resources/upload/${dto.file_name***REMOVED***" alt="이미지"></td>
-						<tr>
 							<th>내용</th>
-							<td width="500px" height="200px"><pre>${dto.content***REMOVED***</pre></td>
+							<td>
+								<p>${dto.content***REMOVED***</p>
+								<c:if test="${dto.file_name ne 'no_file'***REMOVED***">
+									<img src="${pageContext.request.contextPath***REMOVED***/resources/upload/${dto.file_name***REMOVED***" alt="이미지">
+								</c:if>
+							</td>
 						</tr>
 					</table>
 				</div>	
 
+				<!-- 답글 작성 -->
+				<c:if test="${user_id ne dto.id***REMOVED***">
+					<div class="accordion col box" id="insert-reply">
+					  <div class="accordion-item">
+					    <h2 class="accordion-header">
+					      <button class="accordion-button collapsed" type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+					        답글 작성하기
+					      </button>
+					    </h2>
+					    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#insert-reply">
+					      <div class="accordion-body">
+					    	<form action="community_reply" name="f" method="post">
+								<input type="hidden" name="id"	 value="${param.id ***REMOVED***">
+								<input type="hidden" name="page" value="${param.page***REMOVED***">	
+									<!-- 답변 -->
+									<textarea name="content" class="input"  style="resize:none;"></textarea>	
+									<c:if test="${dto.depth lt 1 ***REMOVED***">	
+										<input type="button" class="btn btn-primary" value="답변 등록" onclick="reply()">
+									</c:if>
+							</form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</c:if>
+
 				<!-- 답글 보여주기 -->
-				<div class="col box">
+				<div class="col box reply">
 					<c:forEach var="dto" items="${reply_list***REMOVED***">
 						<div class="reply_box">
 							<c:choose>
@@ -134,35 +168,22 @@
 							</c:choose>
 						</div>
 					</c:forEach>
-				</div>		
-
-				<div class="col box">
-					<form action="community_reply" name="f" method="post">
-						<input type="hidden" name="id"	 value="${param.id ***REMOVED***">
-						<input type="hidden" name="page" value="${param.page***REMOVED***">	
-							<!-- 답변 -->
-							<textarea name="content" class="input"  style="resize:none;"></textarea>	
-							<c:if test="${dto.depth lt 1 ***REMOVED***">	
-								<input type="button" value="답변 등록" onclick="reply()">
-							</c:if>
-					</form>
-				</div>
-
-				<div class="col box">
+					
 					<div class="btn-wrap">
 						<!-- 추천하기 -->
-						<input type="button" value="추천하기" onclick="like()">
+						<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
 						
 						<!-- 목록보기 -->
-						<input type="button" value="목록보기" onclick="location.href='community_list'">
+						<input type="button" class="btn btn-light" value="목록보기" onclick="location.href='community_list'">
 						
-						<!-- 삭제 -->
-						<input type="button" value="삭제" onclick="del()">
-						<!-- 수정 -->
-						<input type="button" value="수정" onclick="modify()">	
+						<c:if test="${user_id eq dto.id***REMOVED***">
+							<!-- 삭제 -->
+							<input type="button" class="btn btn-dark" value="삭제" onclick="del()">
+							<!-- 수정 -->
+							<input type="button" class="btn btn-primary" value="수정" onclick="modify()">
+						</c:if>	
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>

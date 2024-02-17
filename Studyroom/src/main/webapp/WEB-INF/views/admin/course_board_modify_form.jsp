@@ -86,16 +86,16 @@
 							<th>첨부파일</th>
 							<td colspan="2">
 								<span id="file_name">${dto.file_name***REMOVED***</span>
-								<input id="file_delete_btn" type="button" value="첨부파일 제거" onclick="delete_file()">
+								<input id="file_delete_btn" type="button" class="btn btn-primary" value="첨부파일 제거" onclick="delete_file()">
 								<input name="file" type="file">
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input id="send_btn" type="button" value="글 수정하기" onclick="send()"></input>
+								<input id="send_btn" type="button" class="btn btn-primary" value="글 수정하기" onclick="send()"></input>
 							</td>
 							<td>
-								<input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>
+								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
 							</td>
 						</tr>
 					</table>
