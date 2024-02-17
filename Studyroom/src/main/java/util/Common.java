@@ -2,7 +2,7 @@ package util;
 
 public class Common {
 
-	// °æ·Î
+	// ê²½ë¡œ
 	public final static String VIEW_PATH = "/WEB-INF/views/";
 	public final static String ADMIN_PATH = VIEW_PATH + "admin/";
 	public final static String ANNOUNCEMENT_PATH = VIEW_PATH + "announcement/";
@@ -15,22 +15,22 @@ public class Common {
 	public final static String REGISTER_PATH = VIEW_PATH + "register/";
 	public final static String USER_PATH = VIEW_PATH + "user/";
 	
-	//°øÁö»çÇ× °Ô½ÃÆÇ
+	//ê³µì§€ì‚¬í•­ ê²Œì‹œíŒ
 	public static class Announcement{
 		
-		//ÇÑ ÆäÀÌÁö¿¡¼­ º¸¿©ÁÙ °Ô½Ã¹° ¼ö
+		//í•œ í˜ì´ì§€ì—ì„œ ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ ìˆ˜
 		public final static int BLOCKLIST = 20;
 		
-		//ÆäÀÌÁö ¸Ş´º ¼ö
+		//í˜ì´ì§€ ë©”ë‰´ ìˆ˜
 		// <- 1 2 3 4 5 ->
 		public final static int BLOCKPAGE = 5;
 	}
 
 	public static class Board {
-		// ÇÑ ÆäÀÌÁö¿¡ º¸¿©ÁÙ °Ô½Ã¹° ¼ö
+		// í•œ í˜ì´ì§€ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ ìˆ˜
 		public final static int BLOCKLIST = 10;
 		
-		// ÆäÀÌÁö ¸Ş´º ¼ö 
+		// í˜ì´ì§€ ë©”ë‰´ ìˆ˜ 
 		public final static int BLOCKPAGE = 3;
 	}
 }

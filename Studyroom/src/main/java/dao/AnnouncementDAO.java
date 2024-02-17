@@ -13,32 +13,32 @@ public class AnnouncementDAO {
 	
 	final SqlSession sqlSession;
 	
-	//ÆäÀÌÁöº° °Ô½Ã±Û Á¶È¸
+	//í˜ì´ì§€ë³„ ê²Œì‹œê¸€ ì¡°íšŒ
 	public List<CourseBoardDTO> selectList(HashMap<String, Integer> map) {
 		return sqlSession.selectList("a.announcement_list",map);
 	}
 	
-	//ÀüÃ¼ °Ô½Ã¹° ¼ö Á¶È¸
+	//ì „ì²´ ê²Œì‹œë¬¼ ìˆ˜ ì¡°íšŒ
 	public int getRowTotal() {
 		return sqlSession.selectOne("a.announcement_count");
 	}
 	
-	//°Ô½Ã±Û ÇÑ °Ç Á¶È¸
+	//ê²Œì‹œê¸€ í•œ ê±´ ì¡°íšŒ
 	public CourseBoardDTO selectOne(int id) {
 		return sqlSession.selectOne("a.announcement_one", id);
 	}
 	
-	//°Ô½Ã±Û Ãß°¡ÇÏ±â(¾îµå¹Î)
+	//ê²Œì‹œê¸€ ì¶”ê°€í•˜ê¸°(ì–´ë“œë¯¼)
 	public int insert(CourseBoardDTO dto) {
 		return sqlSession.insert("a.anouncement_insert",dto);
 	}
 	
-	//°øÁö±Û ¼öÁ¤
+	//ê³µì§€ê¸€ ìˆ˜ì •
 	public int modify(CourseBoardDTO dto) {
 		return sqlSession.update("a.announcement_modify",dto);
 	}
 	
-	//»èÁ¦ÇÑ°ÍÃ³·³ ¼öÁ¤ÇÏ±â(¾îµå¹Î)
+	//ì‚­ì œí•œê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°(ì–´ë“œë¯¼)
 	public int delete_update(CourseBoardDTO dto) {
 		return sqlSession.update("a.anouncement_delete_update",dto);
 	}

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
     margin:0;   /* 留덉쭊 由ъ뀑 */
     padding:0;   /* �뙣�뵫 由ъ뀑 */
@@ -37,4 +39,46 @@ ul {
     font-weight:300;
     font-size:40px;   /* 湲��옄 �겕湲� */
     color:rgb(255,255,140);   /* 湲��옄 �깋*/
+}
+
+/* swiper */
+.sec.visual{
+    width: 100%; max-width: 992px;
+    margin-top:50px;
+}
+
+.visual .swiper .swiper-wrapper .swiper-slide{
+    height: auto; min-height: 300px; max-height: 558px;
+}
+
+.visual .swiper .swiper-wrapper .swiper-slide img{
+    width: 1170px; height: 100%;
+}
+
+.visual .swiper .swiper-pagination{
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur( 0.5px );
+    -webkit-backdrop-filter: blur( 0.5px );
+    border-radius: 5px;
+}
+
+.visual .swiper .swiper-pagination-bullet{
+    background-color: white;
+}
+
+.visual .swiper .swiper-button-prev{
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur( 12.5px );
+    -webkit-backdrop-filter: blur( 12.5px );
+    border-radius: 5px;
+}
+
+.visual .swiper .swiper-button-next{
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur( 12.5px );
+    -webkit-backdrop-filter: blur( 12.5px );
+    border-radius: 5px;
 }

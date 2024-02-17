@@ -24,7 +24,7 @@ public class UserController {
 	@Autowired
 	HttpSession session;
 	
-	// »ç¿ëÀÚ Á¤º¸ È­¸é º¸±â
+	// ì‚¬ìš©ì ì •ë³´ í™”ë©´ ë³´ê¸°
 	@RequestMapping("user_view")
 	public String user_view(Model model) {	
 //		UserDTO dto = sessionService.getUserFromSession();
@@ -33,7 +33,7 @@ public class UserController {
 		return Common.USER_PATH+"user_view.jsp";
 	}
 	
-	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ÇÏ±â Àü ºñ¹Ğ¹øÈ£ È®ÀÎ ÆäÀÌÁö ÀÌµ¿
+	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì •í•˜ê¸° ì „ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ í˜ì´ì§€ ì´ë™
 	@RequestMapping("user_pw_auth_form")
 	public String user_pw_auth_form(Model model) {
 		UserDTO dto = (UserDTO)session.getAttribute("email");
@@ -46,7 +46,7 @@ public class UserController {
 		return "";
 	}
 	
-	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ ÆäÀÌÁö ÀÌµ¿	// ¹Ì¿Ï¼º
+	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì • í˜ì´ì§€ ì´ë™	// ë¯¸ì™„ì„±
 	@RequestMapping("user_modify_form")
 	public String user_modify_form(Model model) {
 		return Common.USER_PATH+"user_modify_form.jsp";
