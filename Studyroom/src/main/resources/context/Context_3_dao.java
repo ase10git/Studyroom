@@ -11,6 +11,7 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCommunityLikeDAO;
 import dao.UserDAO;
 
 @Configuration
@@ -58,6 +59,13 @@ public class Context_3_dao {
 	public SessionCheckAspect sessionCheckAspect() {
 		return new SessionCheckAspect();
 	}
+
+	// UserCommunityLikeDAO Bean : 유저- 커뮤니티 추천
+	@Bean
+	public UserCommunityLikeDAO userCommunityLikeDAO(SqlSession sqlSession) {
+		return new UserCommunityLikeDAO(sqlSession);
+	}
+	
 }
 
 

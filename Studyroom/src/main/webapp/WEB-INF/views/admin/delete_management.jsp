@@ -17,6 +17,9 @@
 
 </head>
 <body>
+
+	<%@ include file="../include/menu.jsp" %>
+
     <section class="sec user">
         <div class="container">
         <h2>수강생 삭제 요청</h2>
