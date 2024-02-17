@@ -71,7 +71,7 @@ public class LoginController {
 	
 	//회원가입 페이지로 이동
 	@RequestMapping("register") 
-	public String register() {
+	public String register2() {
 		return Common.REGISTER_PATH+"register.jsp";
 ***REMOVED***
 	
