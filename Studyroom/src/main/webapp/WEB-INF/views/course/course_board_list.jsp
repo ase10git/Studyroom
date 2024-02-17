@@ -20,7 +20,7 @@
 	***REMOVED***
 		
 		function write_board() {
-			location.href="course_board_insert_form?course_id=${dto.course_id***REMOVED***";
+			location.href="course_board_insert_form?course_id=${course_dto.id***REMOVED***";
 	***REMOVED***
 	</script>
 </head>
@@ -32,7 +32,7 @@
         <div class="container">
          <h1>코스 공지글</h1>
           <div class="row gy-4">
-            <div class="box col-12">
+            <div class="col box col-12">
                 <table>
                     <tr>
                         <th>코스 이름</th>
@@ -42,7 +42,7 @@
                     <tr>
                         <td>${course_dto.title***REMOVED***</td>
                         <td>${course_dto.instructor***REMOVED***</td>
-                        <td>${fn:split(course_dto.start_date, " ")[0]***REMOVED*** ~ ${fn:split(dto.end_date, " ")[0]***REMOVED***</td>
+                        <td>${fn:split(course_dto.start_date, " ")[0]***REMOVED*** ~ ${fn:split(course_dto.end_date, " ")[0]***REMOVED***</td>
                     </tr>
                     <tr>
                         <td colspan="3"><p class="summary"><pre>${course_dto.summary***REMOVED***</pre></p></td>
@@ -50,7 +50,7 @@
                 </table>
             </div>
             
-            <div class="box col-12">
+            <div class="col box col-12">
                 <table>
                     <tr>
                         <th>번호</th>

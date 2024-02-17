@@ -16,7 +16,7 @@
 
 	<section class="sec event">
 		<div class="container">
-		 <h1>test home</h1>
+		 <h1>사용자 정보 수정</h1>
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
 				<!-- 슈발 user 테이블에 이름 항목부터 넣자 -->

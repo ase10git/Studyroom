@@ -63,9 +63,9 @@
 	
 	<section class="sec">
 		<div class="container">
-		 <h1>test home</h1>
+		 <h1>코스 공지글 상세보기</h1>
 		  <div class="row gy-4">
-			<div class="box col-12 col-md-6">
+			<div class="col box col-12 col-md-6">
 				<table>	
 <%-- 					<caption>::게시글 상세보기::</caption> --%>
 					<tr>
