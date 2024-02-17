@@ -19,7 +19,7 @@
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">		
 		function move(id) {
-			location.href = "course_board_list?course_id=" + id;
+			;
 		}
 		
 		function management(id) {
@@ -37,43 +37,30 @@
 	
     <section class="sec course">
         <div class="container">
-         <h1>코스 목록</h1>
+         <h1 class="title">코스 목록</h1>
+         	<c:if test="${role eq 'admin'}">
+		    	<input id="insert_btn" type="button" class="btn btn-primary" value="코스 추가하기" onclick="insert()">    
+			</c:if>
           <div class="row gy-4">
             <div class="col box col-12 col-md-6">
-                <table class="course-box">
-                    <tr>
-                        <th>번호</th>
-                        <th>코스 이름</th>
-                        <th>강사 이름</th>
-                        <th>기간<th>
-                    </tr>
-                    
-                    <c:forEach var="dto" items="${list}">
-                        <tr>
-                            <td>${dto.id}</td>
-                            <td>${dto.title}</td>
-                            <td>${dto.instructor}</td>
-                            <td>${fn:split(dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</td>
-                            <td>
-                                <input id="course_board_btn" type="button" value="코스로 이동" onclick="move(${dto.id})">
-                            </td>
-                            <c:if test="${role eq 'admin'}">
-	                            <td>
-	                                <input id="course_view_btn" type="button" value="코스 관리" onclick="management(${dto.id})">
-	                            </td>
-                            </c:if>
-                        </tr>  
-                    </c:forEach>
-                </table>
+               <c:forEach var="dto" items="${list}">
+               		<div class="gt item">
+	               		<span class="name"><a href="course_board_list?course_id=${dto.id}">${dto.title}</a></span>
+	               		<span class="instructor">${dto.instructor}</span>
+	               		<span class="duration">${fn:split(dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</span>
+	               		
+	               		<c:if test="${role eq 'admin'}">
+							<input id="manage-btn" type="button" class="btn btn-primary" value="코스 관리" onclick="management(${dto.id})">
+	                    </c:if>
+               		</div>
+                </c:forEach>
             </div>
-            <c:if test="${role eq 'admin'}">
-	  			<div class="col box col-6">
-		        	<input id="insert_btn" type="button" value="코스 추가하기" onclick="insert()">    
-				</div>
-			</c:if>
+            <div class="col box col-12">
+            	${pageMenu}
+            </div>
           </div>
         </div>
-      </section>
+    </section>
 
     <%@ include file="../include/footer.jsp" %>
 

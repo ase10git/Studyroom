@@ -1,5 +1,5 @@
 @charset "UTF-8";
-html, body{height: 100%;}
+html, body{width: 100%; height: 100%;}
 
 body{
 	background: linear-gradient(to bottom, #ffffff, #add8e6);
@@ -25,5 +25,3 @@ a:hover{text-decoration: underline;}
 }
 
 .sec .container .row .box tr, th, td{border:1px solid black;}
-
-.sec .container .row .box table tr td .summary{word-wrap: break-word;}
