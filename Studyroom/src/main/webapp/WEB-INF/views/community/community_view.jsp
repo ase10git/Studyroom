@@ -12,66 +12,72 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/community_view.css">
-<script src="resources/js/HttpRequest.js"></script>
-<script type="text/javascript">
-	function del(){
-		if(!confirm("삭제하시겠습니까?")){
-			return;
-		}
+	<link rel="stylesheet" href="resources/css/main.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+	<script src="resources/js/HttpRequest.js"></script>
+	<script type="text/javascript">
+		function del(){
+			if(!confirm("삭제하시겠습니까?")){
+				return;
+			}
 
-		var url = "community_delete";
-		var param = "id=${dto.id}"
+			var url = "community_delete";
+			var param = "id=${dto.id}"
+			
+			sendRequest(url,param,delCheck,"post");
+		}
 		
-		sendRequest(url,param,delCheck,"post");
-	}
-	
-	function delCheck(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			var data = xhr.responseText;
-			
-			var json = (new Function('return' + data))();
-			
-			if(json[0].result == 'yes'){
-				alert('삭제 성공')
-				location.href='community_list?page=${param.page}';
-			} else {
-				alert('삭제 실패')
+		function delCheck(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var data = xhr.responseText;
+				
+				var json = (new Function('return' + data))();
+				
+				if(json[0].result == 'yes'){
+					alert('삭제 성공')
+					location.href='community_list?page=${param.page}';
+				} else {
+					alert('삭제 실패')
+				}
 			}
 		}
-	}
-	
-	function reply(){
 		
+		function reply(){
+			
+			
+			if(confirm("답글을 작성하시겠습니까?")){    //확인 하고 난 후
+				f.submit();
+				//location.href='community_view?id=${dto.id}&page=${param.page}';
+			}else{   //취소
+				return;
+			}
 		
-		if(confirm("답글을 작성하시겠습니까?")){    //확인 하고 난 후
-			f.submit();
-			//location.href='community_view?id=${dto.id}&page=${param.page}';
-		 }else{   //취소
-		     return;
-		 }
-	
-		//location.href='reply_form?id=${dto.id}&page=${param.page}';
-	}
-	function modify(){
-		//원본 비밀번호와 내가 작성한 비밀번호가 일치할때만 수정이 가능하도록 
-		/* let ori_pwd = f.ori_pwd.value;
-		let pwd = f.pwd.value;
-		
-		if(pwd==''){
-			alert("비밀번호를 입력하세요")
-			return;
+			//location.href='reply_form?id=${dto.id}&page=${param.page}';
 		}
-		
-		if(ori_pwd != pwd){
-			alert('비밀번호 불일치');
-			return;
-		} */
-		location.href="community_modify_form?id=${dto.id}&page=${param.page}";
-	}
-	function like(){
-		alert('추천되었습니다.');
-	}
-</script>
+		function modify(){
+			//원본 비밀번호와 내가 작성한 비밀번호가 일치할때만 수정이 가능하도록 
+			/* let ori_pwd = f.ori_pwd.value;
+			let pwd = f.pwd.value;
+			
+			if(pwd==''){
+				alert("비밀번호를 입력하세요")
+				return;
+			}
+			
+			if(ori_pwd != pwd){
+				alert('비밀번호 불일치');
+				return;
+			} */
+			location.href="community_modify_form?id=${dto.id}&page=${param.page}";
+		}
+		function like(){
+			alert('추천되었습니다.');
+		}
+	</script>
 </head>
 <body>
 
@@ -161,6 +167,7 @@
 		</div>
 	</section>
 
+	<%@ include file="../include/footer.jsp" %>
 
 		<!-- bootstrap script -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

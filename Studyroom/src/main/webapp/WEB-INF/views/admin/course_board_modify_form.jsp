@@ -10,7 +10,11 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
-
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script>
 		// 첨부 파일 제거 요청 여부
 		// 0 = false
@@ -30,7 +34,11 @@
 		
 		// 수정을 취소하고 공지글 상세보기 페이지로 이동
 		function back() {
-			location.href = "course_board_view?id=${dto.id}&page=${param.page}";
+			if(isCourse == 0) { 
+				location.href = "view?id=${dto.id}&page=${param.page}";
+			} else {
+				location.href = "course_board_view?id=${dto.id}&page=${param.page}";
+			}
 		}
 		
 		// 첨부파일 제거 요청 처리
@@ -59,14 +67,13 @@
 
 	<%@ include file="../include/menu.jsp" %>
 	
-	<section class="sec">
+	<section class="sec board">
 		<div class="container">
 		 <h1>코스 공지글 수정하기</h1>
 		  <div class="row gy-4">
 			<div class="box col-12 col-md-6">
 				<form name="f" method="POST" enctype="multipart/form-data">
 					<table>
-<!-- 						<caption>:::글 수정하기:::</caption> -->
 						<tr>
 							<th>제목</th>
 							<td><input name="title" value="${dto.title}"></td>
@@ -97,6 +104,8 @@
 		  </div>
 		</div>
 	  </section>
+
+	<%@ include file="../include/footer.jsp" %>
 
 	<!-- bootstrap script -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

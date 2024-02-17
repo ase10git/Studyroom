@@ -1,10 +1,22 @@
 @charset "UTF-8";
+html, body{height: 100%;}
+
+body{
+	background: linear-gradient(to bottom, #ffffff, #add8e6);
+}
 
 *{margin:0; padding:0; box-sizing: border-box;}
-ul, ol, li{list-style: none;}
-a{text-decoration: none;}
 
-.box{align-items: flex-start;}
+ul, ol, li{list-style: none;}
+
+a{text-decoration: none; color:black;}
+a:hover{text-decoration: underline;}
+
+.sec{width:100%;}
+
+.sec .container{width:100%;}
+
+.sec .container .row{align-items: center;}
 
 .sec .container .row .box table{
     width: 600px;
