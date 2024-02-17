@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommunityDAO;
-import dao.UserCommunityLikeDAO;
 import dto.CommunityDTO;
+import dto.UserCommunityLikeDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
-import util.FileManager;
 import util.Paging;
 
 @Controller
@@ -27,32 +26,16 @@ import util.Paging;
 public class CommunityController {
 	
 	final CommunityDAO community_dao;
-	final UserCommunityLikeDAO uclDAO;
-	
-	
+		
 	@Autowired
 	HttpServletRequest request;
 	
 	@Autowired
 	HttpSession session;
-	
-	
-	
-	// FileManager 클래스 인스턴스 생성
-		public static FileManager fileManager = new FileManager();
-	
-		String webPath = "/resources/upload/";// 프로젝트상 경로
-	
+
 	//커뮤니티 화면 페이지
 	@RequestMapping("/community_list")
 	public String community_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
-		
-		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
-		if (fileManager.getSavePath() == null) {
-
-		String realPath = request.getServletContext().getRealPath(webPath);
-		fileManager.setSavePath(realPath);
-	***REMOVED***
 		
 		int start = (page - 1) * Common.Board.BLOCKLIST+1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -95,8 +78,14 @@ public class CommunityController {
 		
 		int user_id = (int)session.getAttribute("userId");
 		
-		System.out.println(uclDAO.like_count(id,user_id));	
+		  UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+          likedto.setUser_id(user_id);
+          likedto.setCommunity_board_id(id);
+
+		// 사용자가 특정 게시글에 추천을 했었는지 확인
+		int user_like = community_dao.like_count(likedto);	
 		
+		System.out.println(user_like);
 		
 		//답글 조회
 		List<CommunityDTO> reply_list = community_dao.select_reply(id);
@@ -111,6 +100,7 @@ public class CommunityController {
 	***REMOVED***
 		model.addAttribute("dto",dto);
 		model.addAttribute("reply_list",reply_list);
+		model.addAttribute("user_like", user_like);
 		
 		return Common.VIEW_PATH + "/community/community_view.jsp?page="+page;
 ***REMOVED***
@@ -132,7 +122,7 @@ public class CommunityController {
 	public String community_insert(CommunityDTO dto,int page) {
 	
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
-		fileManager.fileUpload(dto);
+		AnnouncementController.fileManager.fileUpload(dto);
 	
 	System.out.println("nickname : " + dto.getNickname());
 		String ip = request.getRemoteAddr();
@@ -212,6 +202,25 @@ public class CommunityController {
 		
 		return "redirect:community_view?id="+id+"&page="+page;
 ***REMOVED***
+	
+	//추천하기
+	@RequestMapping("community_like")
+	public String community_like(int id,int page) {
+		
+		int user_id = (int)session.getAttribute("userId");
+		
+		  UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+          likedto.setUser_id(user_id);
+          likedto.setCommunity_board_id(id);
+
+          int res1 = community_dao.community_like(likedto);
+          int res2 = community_dao.community_likehit(id);
+          if(res1 > 0 && res2 > 0 ) {
+        	  return "redirect:community_list?id="+id+"&page="+page;
+          ***REMOVED***
+          return "";
+***REMOVED***
+	
 	
 	
 ***REMOVED***

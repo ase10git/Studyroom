@@ -23,6 +23,5 @@ public class CommunityDTO {
 	private String anon_flag; // 익명여부
 	private String nickname; // 닉네임
 	
-	private MultipartFile file;
-
+	private MultipartFile file; // 실제 파일
 ***REMOVED***

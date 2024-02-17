@@ -12,6 +12,7 @@ import com.study.study.CalendarController;
 import com.study.study.CommunityController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
+import com.study.study.LoginController;
 import com.study.study.TestController;
 import com.study.study.UserController;
 
@@ -20,7 +21,6 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
-import dao.UserCommunityLikeDAO;
 import dao.UserDAO;
 
 ***REMOVED***
@@ -36,6 +36,12 @@ public class ServletContext implements WebMvcConfigurer{
 ***REMOVED***
 	public TestController testController() {
 		return new TestController();
+***REMOVED***
+	
+	// LoginController Bean
+***REMOVED***
+	public LoginController loginController(UserDAO userDAO) {
+		return new LoginController(userDAO);
 ***REMOVED***
 	
 	// UserController Bean
@@ -64,8 +70,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// CommunityController Bean
 ***REMOVED***
-	public CommunityController communityController(CommunityDAO dao,UserCommunityLikeDAO uclDAO) {
-		return new CommunityController(dao,uclDAO);
+	public CommunityController communityController(CommunityDAO dao) {
+		return new CommunityController(dao);
 ***REMOVED***
 	
 	// CalendarController Bean

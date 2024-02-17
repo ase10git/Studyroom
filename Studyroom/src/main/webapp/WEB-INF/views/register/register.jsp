@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<!-- bootstrap css -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"/>
 <script src="resources/js/HttpRequest.js"></script>
 <script type="text/javascript">
 	let u_emailCheck = false;
@@ -84,55 +88,79 @@
 			return;
 	***REMOVED***
 		
+		if(!u_emailCheck){
+			alert("중복된 이메일 입니다.");
+			return;
+	***REMOVED***
+		
 		f.submit();
 ***REMOVED***
 </script>
 </head>
 <body>
-	<!-- register_insert 전송 -->
-	<form action="register_insert" method="post">
-		<table border="1" align="center">
-			<caption>::: 회원가입 :::</caption>
-			<tr>
-				<th>이메일</th>
-				<td>
-		  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked">
-		  			<input type="button" value="이메일 중복체크" onclick="check_email()">
-<!-- 		  			<input id="email_check" name="check_email" type="button" value="이메일 인증하기"> -->
-	  			</td>
-  			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input id="pwd" name="pwd" type="password" placeholder="4~12자리 입력해 주세요.">
-				</td>
-			</tr>
-			<tr>
-				<th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-				<td>
-					<input id="username" name="username" placeholder="이름을 입력해 주세요.">
-				</td>
-			</tr>	
-			<tr>
-				<th>전화번호</th>
-				<td>
-					<input id="tel" name="tel" placeholder="(ex:01012345678)">
-				</td>
-			</tr>
-			<tr>
-				<th>유&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;형</th>
-				<td style="font-family: Arial;font-size: 15px;color: #808080;">
-					<input id="mentor" name="role" type="radio" value="mentor">멘토
-					<input id="student" name="role" type="radio" value="student">학생
-				</td>
-			</tr>	
-			<tr>
-				<td colspan="2">
-					<input id="" name="" type="button" value="회원가입" onclick="send(this.form)">
-					<input id="" name="" type="button" value="취소" onclick="location.href='login_form'">
-				</td>
-			</tr>
-		</table>
-	</form>
+
+	<%@ include file="../include/menu.jsp" %>
+
+	<section class="sec event">
+		<div class="container">
+		 <h1>test home</h1>
+		  <div class="row gy-4">
+			<div class="box col-12 col-md-6">
+				<!-- register_insert 전송 -->
+				<form action="register_insert" method="post">
+					<table border="1" align="center">
+						<caption>::: 회원가입 :::</caption>
+						<tr>
+							<th>이메일</th>
+							<td>
+					  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked">
+					  			<input type="button" value="이메일 중복체크" onclick="check_email()">
+									<!--<input id="email_check" name="check_email" type="button" value="이메일 인증하기"> -->
+				  			</td>
+			  			</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td>
+								<input id="pwd" name="pwd" type="password" placeholder="4~12자리 입력해 주세요.">
+							</td>
+						</tr>
+						<tr>
+							<th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
+							<td>
+								<input id="username" name="username" placeholder="이름을 입력해 주세요.">
+							</td>
+						</tr>	
+						<tr>
+							<th>전화번호</th>
+							<td>
+								<input id="tel" name="tel" placeholder="(ex:01012345678)">
+							</td>
+						</tr>
+						<tr>
+							<th>유&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;형</th>
+							<td style="font-family: Arial;font-size: 15px;color: #808080;">
+								<input id="mentor" name="role" type="radio" value="mentor">멘토
+								<input id="student" name="role" type="radio" value="student">학생
+							</td>
+						</tr>	
+						<tr>
+							<td colspan="2">
+								<input type="button" value="회원가입" onclick="send(this.form)">
+								<input type="button" value="취소" onclick="location.href='login_form'">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </section>
+
+
+	<!-- bootstrap script -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+	crossorigin="anonymous"></script>
+
 </body>
 </html>

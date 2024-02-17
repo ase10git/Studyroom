@@ -13,8 +13,8 @@ public class CourseBoardDAO {
 	final SqlSession sqlSession;
 
 		// 페이지별 코스 공지글 조회
-		public List<CourseBoardDTO> selectList(HashMap<String, Integer> map, int course_id){
-			return sqlSession.selectList("cb.board_list", course_id);
+		public List<CourseBoardDTO> selectList(HashMap<String, Integer> map){
+			return sqlSession.selectList("cb.board_list", map);
 	***REMOVED***
 	
 		// 전체 코스 공지글 수 조회
