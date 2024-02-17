@@ -15,208 +15,208 @@ import dto.CourseBoardDTO;
 import lombok.Data;
 
 @Data
-// ÆÄÀÏ ¾÷·Îµå¿Í ´Ù¿î·Îµå¸¦ °ü¸®ÇÏ´Â Å¬·¡½º
+// íŒŒì¼ ì—…ë¡œë“œì™€ ë‹¤ìš´ë¡œë“œë¥¼ ê´€ë¦¬í•˜ëŠ” í´ë˜ìŠ¤
 public class FileManager {
 	
-	// ÆÄÀÏ ¾÷·Îµå °æ·Î ¼³Á¤
-//	String webPath = "/resources/upload/"; // ÇÁ·ÎÁ§Æ® °æ·Î
-	String savePath = null; // ½ÇÁ¦ ÄÄÇ»ÅÍ °æ·Î
+	// íŒŒì¼ ì—…ë¡œë“œ ê²½ë¡œ ì„¤ì •
+//	String webPath = "/resources/upload/"; // í”„ë¡œì íŠ¸ ê²½ë¡œ
+	String savePath = "D:\\Program Files (x86)\\Develop\\Web\\spring-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Studyroom\\resources\\upload\\";
 	
-	// =================================== ÆÄÀÏ ¾÷·Îµå ===========================================
-	// »õ °øÁö±Û Ãß°¡ ½Ã ÆÄÀÏ ¾÷·Îµå
+	// =================================== íŒŒì¼ ì—…ë¡œë“œ ===========================================
+	// ìƒˆ ê³µì§€ê¸€ ì¶”ê°€ ì‹œ íŒŒì¼ ì—…ë¡œë“œ
 	public void fileUpload(CourseBoardDTO new_dto) {
 
-		// ¾÷·ÎµåµÈ ÆÄÀÏ Å¬·¡½º ÀÎ½ºÅÏ½º
+		// ì—…ë¡œë“œëœ íŒŒì¼ í´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤
 		MultipartFile file = new_dto.getFile();
 		
-		// ±âº» ÀÌ¸§ ¼³Á¤
+		// ê¸°ë³¸ ì´ë¦„ ì„¤ì •
 		String fileName = "no_file";
 		
-		if(!file.isEmpty()) { // ÆÄÀÏÀ» ¾÷·Îµå Çß´ÂÁö °Ë»ç(ÆÄÀÏÀÌ ÀÖ´Â °æ¿ì)
-			fileName = file.getOriginalFilename(); // ¿øº» ÆÄÀÏ ÀÌ¸§
+		if(!file.isEmpty()) { // íŒŒì¼ì„ ì—…ë¡œë“œ í–ˆëŠ”ì§€ ê²€ì‚¬(íŒŒì¼ì´ ìˆëŠ” ê²½ìš°)
+			fileName = file.getOriginalFilename(); // ì›ë³¸ íŒŒì¼ ì´ë¦„
 			
-			// ÀúÀåÇÒ ÆÄÀÏ ¼³Á¤
+			// ì €ì¥í•  íŒŒì¼ ì„¤ì •
 			File saveFile = new File(savePath, fileName);
 			
-			if(!saveFile.exists()) { // Áßº¹ ÆÄÀÏ °Ë»ç
-				saveFile.mkdirs(); // Æú´õ·Î »ı¼º, ÀÌÈÄ¿¡ ÆÄÀÏ·Î º¯°æµÊ
+			if(!saveFile.exists()) { // ì¤‘ë³µ íŒŒì¼ ê²€ì‚¬
+				saveFile.mkdirs(); // í´ë”ë¡œ ìƒì„±, ì´í›„ì— íŒŒì¼ë¡œ ë³€ê²½ë¨
 		***REMOVED*** else {
-				long time = System.currentTimeMillis(); // ¾÷·Îµå ½Ã°£ ±â·Ï
-				fileName = String.format("%d_%s", time, fileName); // ÆÄÀÏ ÀÌ¸§À» ¾÷·Îµå ½Ã°£ Æ÷ÇÔÇØ¼­ ¼öÁ¤
-				saveFile = new File(savePath, fileName); // »õ ÆÄÀÏ ÀÌ¸§À¸·Î ÆÄÀÏ ¼³Á¤
+				long time = System.currentTimeMillis(); // ì—…ë¡œë“œ ì‹œê°„ ê¸°ë¡
+				fileName = String.format("%d_%s", time, fileName); // íŒŒì¼ ì´ë¦„ì„ ì—…ë¡œë“œ ì‹œê°„ í¬í•¨í•´ì„œ ìˆ˜ì •
+				saveFile = new File(savePath, fileName); // ìƒˆ íŒŒì¼ ì´ë¦„ìœ¼ë¡œ íŒŒì¼ ì„¤ì •
 		***REMOVED***
 						
-			// ¹°¸®ÀûÀ¸·Î ÆÄÀÏÀ» ¾÷·Îµå
+			// ë¬¼ë¦¬ì ìœ¼ë¡œ íŒŒì¼ì„ ì—…ë¡œë“œ
 			try {
 				file.transferTo(saveFile);
 		***REMOVED*** catch (Exception e) {***REMOVED***
 
 	***REMOVED***
 				
-		// DB¿¡ º¸³¾ ÆÄÀÏ ÀÌ¸§ ÀúÀå
+		// DBì— ë³´ë‚¼ íŒŒì¼ ì´ë¦„ ì €ì¥
 		new_dto.setFile_name(fileName);
 ***REMOVED***
 	
-	// »õ Ä¿¹Â´ÏÆ¼±Û Ãß°¡ ½Ã ÆÄÀÏ ¾÷·Îµå
+	// ìƒˆ ì»¤ë®¤ë‹ˆí‹°ê¸€ ì¶”ê°€ ì‹œ íŒŒì¼ ì—…ë¡œë“œ
 	public void fileUpload(CommunityDTO new_dto) {
 
-		// ¾÷·ÎµåµÈ ÆÄÀÏ Å¬·¡½º ÀÎ½ºÅÏ½º
+		// ì—…ë¡œë“œëœ íŒŒì¼ í´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤
 		MultipartFile file = new_dto.getFile();
 		
-		// ±âº» ÀÌ¸§ ¼³Á¤
+		// ê¸°ë³¸ ì´ë¦„ ì„¤ì •
 		String fileName = "no_file";
 		
-		if(!file.isEmpty()) { // ÆÄÀÏÀ» ¾÷·Îµå Çß´ÂÁö °Ë»ç(ÆÄÀÏÀÌ ÀÖ´Â °æ¿ì)
-			fileName = file.getOriginalFilename(); // ¿øº» ÆÄÀÏ ÀÌ¸§
+		if(!file.isEmpty()) { // íŒŒì¼ì„ ì—…ë¡œë“œ í–ˆëŠ”ì§€ ê²€ì‚¬(íŒŒì¼ì´ ìˆëŠ” ê²½ìš°)
+			fileName = file.getOriginalFilename(); // ì›ë³¸ íŒŒì¼ ì´ë¦„
 			
-			// ÀúÀåÇÒ ÆÄÀÏ ¼³Á¤
+			// ì €ì¥í•  íŒŒì¼ ì„¤ì •
 			File saveFile = new File(savePath, fileName);
 			
-			if(!saveFile.exists()) { // Áßº¹ ÆÄÀÏ °Ë»ç
-				saveFile.mkdirs(); // Æú´õ·Î »ı¼º, ÀÌÈÄ¿¡ ÆÄÀÏ·Î º¯°æµÊ
+			if(!saveFile.exists()) { // ì¤‘ë³µ íŒŒì¼ ê²€ì‚¬
+				saveFile.mkdirs(); // í´ë”ë¡œ ìƒì„±, ì´í›„ì— íŒŒì¼ë¡œ ë³€ê²½ë¨
 		***REMOVED*** else {
-				long time = System.currentTimeMillis(); // ¾÷·Îµå ½Ã°£ ±â·Ï
-				fileName = String.format("%d_%s", time, fileName); // ÆÄÀÏ ÀÌ¸§À» ¾÷·Îµå ½Ã°£ Æ÷ÇÔÇØ¼­ ¼öÁ¤
-				saveFile = new File(savePath, fileName); // »õ ÆÄÀÏ ÀÌ¸§À¸·Î ÆÄÀÏ ¼³Á¤
+				long time = System.currentTimeMillis(); // ì—…ë¡œë“œ ì‹œê°„ ê¸°ë¡
+				fileName = String.format("%d_%s", time, fileName); // íŒŒì¼ ì´ë¦„ì„ ì—…ë¡œë“œ ì‹œê°„ í¬í•¨í•´ì„œ ìˆ˜ì •
+				saveFile = new File(savePath, fileName); // ìƒˆ íŒŒì¼ ì´ë¦„ìœ¼ë¡œ íŒŒì¼ ì„¤ì •
 		***REMOVED***
 						
-			// ¹°¸®ÀûÀ¸·Î ÆÄÀÏÀ» ¾÷·Îµå
+			// ë¬¼ë¦¬ì ìœ¼ë¡œ íŒŒì¼ì„ ì—…ë¡œë“œ
 			try {
 				file.transferTo(saveFile);
 		***REMOVED*** catch (Exception e) {***REMOVED***
 
 	***REMOVED***
 				
-		// DB¿¡ º¸³¾ ÆÄÀÏ ÀÌ¸§ ÀúÀå
+		// DBì— ë³´ë‚¼ íŒŒì¼ ì´ë¦„ ì €ì¥
 		new_dto.setFile_name(fileName);
 ***REMOVED***
 	
 	
-	// =================================== ÆÄÀÏ ¼öÁ¤ ===========================================
-	// °øÁö±Û ¼öÁ¤ ½Ã ÆÄÀÏ ¾÷·Îµå
+	// =================================== íŒŒì¼ ìˆ˜ì • ===========================================
+	// ê³µì§€ê¸€ ìˆ˜ì • ì‹œ íŒŒì¼ ì—…ë¡œë“œ
 	public void fileUpload(CourseBoardDTO new_dto, CourseBoardDTO origin_dto, int flag) {
 
-		// »õ·Î º¯°æµÈ °øÁö±ÛÀÇ ÆÄÀÏ Ã·ºÎ ¹× ÆÄÀÏ ÀÌ¸§À» new_dto¿¡ ÀúÀå
+		// ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì˜ íŒŒì¼ ì²¨ë¶€ ë° íŒŒì¼ ì´ë¦„ì„ new_dtoì— ì €ì¥
 		fileUpload(new_dto);
 		
-		// »õ·Î º¯°æµÈ °øÁö±ÛÀÇ ÆÄÀÏ ÀÌ¸§
+		// ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì˜ íŒŒì¼ ì´ë¦„
 		String fileName = new_dto.getFile_name();
 	
-		if (fileName != "no_file") { // »õ·Î º¯°æµÈ °øÁö±Û¿¡ ÆÄÀÏÀÌ Ã·ºÎµÈ °æ¿ì¿¡¸¸			
-			// °øÁö±Û ¼öÁ¤ ½Ã ±âÁ¸ ÆÄÀÏ Á¦°Å
+		if (fileName != "no_file") { // ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì— íŒŒì¼ì´ ì²¨ë¶€ëœ ê²½ìš°ì—ë§Œ			
+			// ê³µì§€ê¸€ ìˆ˜ì • ì‹œ ê¸°ì¡´ íŒŒì¼ ì œê±°
 			fileDelete(origin_dto); 
 					
-			// DB¿¡ º¸³¾ ÆÄÀÏ ÀÌ¸§À» ±âÁ¸ origin_dto¿¡ ÀúÀå(»õ·Î ¾÷µ¥ÀÌÆ®)
+			// DBì— ë³´ë‚¼ íŒŒì¼ ì´ë¦„ì„ ê¸°ì¡´ origin_dtoì— ì €ì¥(ìƒˆë¡œ ì—…ë°ì´íŠ¸)
 			origin_dto.setFile_name(fileName);
 				
-	***REMOVED*** else { // »õ·Î º¯°æµÈ °øÁö±Û¿¡ Ã·ºÎ ÆÄÀÏÀÌ ¾ø´Â °æ¿ì
-			if (flag == 1) { // Ã·ºÎ ÆÄÀÏ »èÁ¦ ¿äÃ» ÀÖÀ½
-				fileDelete(origin_dto); // Ã·ºÎ ÆÄÀÏ Á¦°Å
-		***REMOVED*** else { // Ã·ºÎ ÆÄÀÏ »èÁ¦ ¿äÃ»ÀÌ ¾øÀ½
+	***REMOVED*** else { // ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì— ì²¨ë¶€ íŒŒì¼ì´ ì—†ëŠ” ê²½ìš°
+			if (flag == 1) { // ì²¨ë¶€ íŒŒì¼ ì‚­ì œ ìš”ì²­ ìˆìŒ
+				fileDelete(origin_dto); // ì²¨ë¶€ íŒŒì¼ ì œê±°
+		***REMOVED*** else { // ì²¨ë¶€ íŒŒì¼ ì‚­ì œ ìš”ì²­ì´ ì—†ìŒ
 				return;
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
 	
 	
-	// °øÁö±Û ¼öÁ¤ ½Ã ÆÄÀÏ ¾÷·Îµå
+	// ê³µì§€ê¸€ ìˆ˜ì • ì‹œ íŒŒì¼ ì—…ë¡œë“œ
 	public void fileUpload(CommunityDTO new_dto, CommunityDTO origin_dto, int flag) {
 
-		// »õ·Î º¯°æµÈ °øÁö±ÛÀÇ ÆÄÀÏ Ã·ºÎ ¹× ÆÄÀÏ ÀÌ¸§À» new_dto¿¡ ÀúÀå
+		// ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì˜ íŒŒì¼ ì²¨ë¶€ ë° íŒŒì¼ ì´ë¦„ì„ new_dtoì— ì €ì¥
 		fileUpload(new_dto);
 		
-		// »õ·Î º¯°æµÈ °øÁö±ÛÀÇ ÆÄÀÏ ÀÌ¸§
+		// ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì˜ íŒŒì¼ ì´ë¦„
 		String fileName = new_dto.getFile_name();
 	
-		if (fileName != "no_file") { // »õ·Î º¯°æµÈ °øÁö±Û¿¡ ÆÄÀÏÀÌ Ã·ºÎµÈ °æ¿ì¿¡¸¸			
-			// °øÁö±Û ¼öÁ¤ ½Ã ±âÁ¸ ÆÄÀÏ Á¦°Å
+		if (fileName != "no_file") { // ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì— íŒŒì¼ì´ ì²¨ë¶€ëœ ê²½ìš°ì—ë§Œ			
+			// ê³µì§€ê¸€ ìˆ˜ì • ì‹œ ê¸°ì¡´ íŒŒì¼ ì œê±°
 			fileDelete(origin_dto); 
 					
-			// DB¿¡ º¸³¾ ÆÄÀÏ ÀÌ¸§À» ±âÁ¸ origin_dto¿¡ ÀúÀå(»õ·Î ¾÷µ¥ÀÌÆ®)
+			// DBì— ë³´ë‚¼ íŒŒì¼ ì´ë¦„ì„ ê¸°ì¡´ origin_dtoì— ì €ì¥(ìƒˆë¡œ ì—…ë°ì´íŠ¸)
 			origin_dto.setFile_name(fileName);
 				
-	***REMOVED*** else { // »õ·Î º¯°æµÈ °øÁö±Û¿¡ Ã·ºÎ ÆÄÀÏÀÌ ¾ø´Â °æ¿ì
-			if (flag == 1) { // Ã·ºÎ ÆÄÀÏ »èÁ¦ ¿äÃ» ÀÖÀ½
-				fileDelete(origin_dto); // Ã·ºÎ ÆÄÀÏ Á¦°Å
-		***REMOVED*** else { // Ã·ºÎ ÆÄÀÏ »èÁ¦ ¿äÃ»ÀÌ ¾øÀ½
+	***REMOVED*** else { // ìƒˆë¡œ ë³€ê²½ëœ ê³µì§€ê¸€ì— ì²¨ë¶€ íŒŒì¼ì´ ì—†ëŠ” ê²½ìš°
+			if (flag == 1) { // ì²¨ë¶€ íŒŒì¼ ì‚­ì œ ìš”ì²­ ìˆìŒ
+				fileDelete(origin_dto); // ì²¨ë¶€ íŒŒì¼ ì œê±°
+		***REMOVED*** else { // ì²¨ë¶€ íŒŒì¼ ì‚­ì œ ìš”ì²­ì´ ì—†ìŒ
 				return;
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
 		
-	// =================================== ÆÄÀÏ Á¦°Å ===========================================
-	// ¼­¹ö ÄÄÇ»ÅÍ¿¡¼­ ÄÚ½º Ã·ºÎ ÆÄÀÏ Á¦°Å
+	// =================================== íŒŒì¼ ì œê±° ===========================================
+	// ì„œë²„ ì»´í“¨í„°ì—ì„œ ì½”ìŠ¤ ì²¨ë¶€ íŒŒì¼ ì œê±°
 	public void fileDelete(CourseBoardDTO dto) {
-		// dto¿¡ ÀúÀåµÈ ÆÄÀÏ ÀÌ¸§À¸·Î ¼­¹ö ÄÄÇ»ÅÍ¿¡ ÀúÀåµÈ ÆÄÀÏ Á¤º¸ °¡Á®¿À±â
+		// dtoì— ì €ì¥ëœ íŒŒì¼ ì´ë¦„ìœ¼ë¡œ ì„œë²„ ì»´í“¨í„°ì— ì €ì¥ëœ íŒŒì¼ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		File saveFile = new File(savePath, dto.getFile_name());
-		if (saveFile.exists()) { // ±âÁ¸ °øÁö±ÛÀÇ Ã·ºÎ ÆÄÀÏÀÌ ¼­¹ö¿¡ ÀúÀåµÇ¾î ÀÖ´Â °æ¿ì
+		if (saveFile.exists()) { // ê¸°ì¡´ ê³µì§€ê¸€ì˜ ì²¨ë¶€ íŒŒì¼ì´ ì„œë²„ì— ì €ì¥ë˜ì–´ ìˆëŠ” ê²½ìš°
 			saveFile.delete();
 	***REMOVED***
-		dto.setFile_name("no_file"); // DB¿¡ Ã·ºÎÆÄÀÏÀÌ ¾øÀ½À» Ç¥½Ã
+		dto.setFile_name("no_file"); // DBì— ì²¨ë¶€íŒŒì¼ì´ ì—†ìŒì„ í‘œì‹œ
 ***REMOVED***
 
-	// ¼­¹ö ÄÄÇ»ÅÍ¿¡¼­ Ä¿¹Â´ÏÆ¼ Ã·ºÎ ÆÄÀÏ Á¦°Å
+	// ì„œë²„ ì»´í“¨í„°ì—ì„œ ì»¤ë®¤ë‹ˆí‹° ì²¨ë¶€ íŒŒì¼ ì œê±°
 	public void fileDelete(CommunityDTO dto) {
-		// dto¿¡ ÀúÀåµÈ ÆÄÀÏ ÀÌ¸§À¸·Î ¼­¹ö ÄÄÇ»ÅÍ¿¡ ÀúÀåµÈ ÆÄÀÏ Á¤º¸ °¡Á®¿À±â
+		// dtoì— ì €ì¥ëœ íŒŒì¼ ì´ë¦„ìœ¼ë¡œ ì„œë²„ ì»´í“¨í„°ì— ì €ì¥ëœ íŒŒì¼ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		File saveFile = new File(savePath, dto.getFile_name());
-		if (saveFile.exists()) { // ±âÁ¸ °øÁö±ÛÀÇ Ã·ºÎ ÆÄÀÏÀÌ ¼­¹ö¿¡ ÀúÀåµÇ¾î ÀÖ´Â °æ¿ì
+		if (saveFile.exists()) { // ê¸°ì¡´ ê³µì§€ê¸€ì˜ ì²¨ë¶€ íŒŒì¼ì´ ì„œë²„ì— ì €ì¥ë˜ì–´ ìˆëŠ” ê²½ìš°
 			saveFile.delete();
 	***REMOVED***
-		dto.setFile_name("no_file"); // DB¿¡ Ã·ºÎÆÄÀÏÀÌ ¾øÀ½À» Ç¥½Ã
+		dto.setFile_name("no_file"); // DBì— ì²¨ë¶€íŒŒì¼ì´ ì—†ìŒì„ í‘œì‹œ
 ***REMOVED***
 	
-	// =================================== ÆÄÀÏ ´Ù¿î·Îµå ===========================================
-	// ÄÚ½º °øÁö±Û ÆÄÀÏ ´Ù¿î·Îµå
+	// =================================== íŒŒì¼ ë‹¤ìš´ë¡œë“œ ===========================================
+	// ì½”ìŠ¤ ê³µì§€ê¸€ íŒŒì¼ ë‹¤ìš´ë¡œë“œ
 	public void fileDownload(CourseBoardDTO dto, HttpServletRequest request, HttpServletResponse response) {
 		
-		// dto¿¡ ÀúÀåµÈ ÆÄÀÏ ÀÌ¸§ °¡Á®¿À±â
+		// dtoì— ì €ì¥ëœ íŒŒì¼ ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 		String fileName = dto.getFile_name();
 		
-		// Ã·ºÎ ÆÄÀÏÀÌ ¾ø´Â °æ¿ì¿£ ÇÔ¼ö µ¿ÀÛ Á¾·á
+		// ì²¨ë¶€ íŒŒì¼ì´ ì—†ëŠ” ê²½ìš°ì—” í•¨ìˆ˜ ë™ì‘ ì¢…ë£Œ
 		if (fileName.equals("no_file")) {
 			return;
 	***REMOVED***
 		
 		String fullPathName = String.format("%s%s", savePath, fileName);
 		
-		// ÆÄÀÏ °¡Á®¿À±â
+		// íŒŒì¼ ê°€ì ¸ì˜¤ê¸°
 		File file = new File(fullPathName);
-		byte[] b = new byte[1024*1024*100]; // ÆÄÀÏ ÃÖ´ë ÇÑµµ¸¸Å­ ¹ÙÀÌÆ® ¹è¿­ ¼³Á¤
+		byte[] b = new byte[1024*1024*100]; // íŒŒì¼ ìµœëŒ€ í•œë„ë§Œí¼ ë°”ì´íŠ¸ ë°°ì—´ ì„¤ì •
 		
-		// CharsetÀ» È®ÀÎÇÏ°í, ¾ø´Ù¸é utf-8·Î ¼³Á¤
+		// Charsetì„ í™•ì¸í•˜ê³ , ì—†ë‹¤ë©´ utf-8ë¡œ ì„¤ì •
 		String userCharset = request.getCharacterEncoding();
 		if (userCharset == null) {
 			userCharset = "utf-8";
 	***REMOVED***
 
-		// ºê¶ó¿ìÀú°¡ Ä³½ÌÇÏÁö ¾Êµµ·Ï ¼³Á¤
+		// ë¸Œë¼ìš°ì €ê°€ ìºì‹±í•˜ì§€ ì•Šë„ë¡ ì„¤ì •
 		response.setContentType("Pragma : no-cache");
 		
-		// Àü¼Û µ¥ÀÌÅÍ°¡ stream Ã³¸®µÇµµ·Ï ¼³Á¤(À¥ »ó Àü¼Û ¹®ÀÚ¼ÂÀº 8859_1)
+		// ì „ì†¡ ë°ì´í„°ê°€ stream ì²˜ë¦¬ë˜ë„ë¡ ì„¤ì •(ì›¹ ìƒ ì „ì†¡ ë¬¸ìì…‹ì€ 8859_1)
 		response.setContentType("application/octect-stream;charset=8859_1;");
 		
-		// µ¥ÀÌÅÍ Çü½Ä ¼ºÇâ ¼³Á¤(attachment : Ã·ºÎÆÄÀÏ)
+		// ë°ì´í„° í˜•ì‹ ì„±í–¥ ì„¤ì •(attachment : ì²¨ë¶€íŒŒì¼)
 		response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+"\"");
 		
-		// ³»¿ë¹° ÀÎÄÚµù ¹æ½Ä °áÁ¤
+		// ë‚´ìš©ë¬¼ ì¸ì½”ë”© ë°©ì‹ ê²°ì •
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		
-		// ÆÄÀÏ ³»º¸³»±â
+		// íŒŒì¼ ë‚´ë³´ë‚´ê¸°
 		try {
-			if (file.isFile()) { // ÆÄÀÏ Á¸Àç ¿©ºÎ È®ÀÎ
-				// ÆÄÀÏ ÀÔÃâ·Â ½ºÆ®¸² »ı¼º
-				//response.getOutputStream()°¡ ÀÌ¹Ì È£ÃâµÇ¾ú´Ù´Â ¿¡·¯°¡ ¶ßÁö¸¸ ÆÄÀÏ ´Ù¿î¿¡ ÁöÀåÀÌ ¾øÀ½
+			if (file.isFile()) { // íŒŒì¼ ì¡´ì¬ ì—¬ë¶€ í™•ì¸
+				// íŒŒì¼ ì…ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ìƒì„±
+				//response.getOutputStream()ê°€ ì´ë¯¸ í˜¸ì¶œë˜ì—ˆë‹¤ëŠ” ì—ëŸ¬ê°€ ëœ¨ì§€ë§Œ íŒŒì¼ ë‹¤ìš´ì— ì§€ì¥ì´ ì—†ìŒ
 				BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 				BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 
 				int i = 0;
 				
 				try {
-					while((i=bis.read(b)) != -1) { // ÆÄÀÏÀ» ÀĞ¾î¼­ Ãâ·Â ½ºÆ®¸²¿¡ ÀúÀå
+					while((i=bis.read(b)) != -1) { // íŒŒì¼ì„ ì½ì–´ì„œ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì— ì €ì¥
 						bos.write(b, 0, i);
 				***REMOVED***
 			***REMOVED*** catch (Exception e) {
-			***REMOVED*** finally { // ÆÄÀÏ ÀÔÃâ·Â ½ºÆ®¸² Á¾·á
+			***REMOVED*** finally { // íŒŒì¼ ì…ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ì¢…ë£Œ
 					if (bos != null) bos.close();
 					if (bis != null) bis.close();
 			***REMOVED***

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
@@ -18,7 +19,7 @@ import dto.CourseDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 
-// °ü¸®ÀÚ¸¸ ¼öÇàÇÒ ¼ö ÀÖ´Â µ¿ÀÛÀ» ÀúÀåÇÑ Å¬·¡½º
+// ê´€ë¦¬ìë§Œ ìˆ˜í–‰í•  ìˆ˜ ìˆëŠ” ë™ì‘ì„ ì €ì¥í•œ í´ë˜ìŠ¤
 
 @Controller
 @RequiredArgsConstructor
@@ -38,23 +39,23 @@ public class AdminController {
 	
 	@Autowired
 	HttpSession session;
-		
+
 	@RequestMapping("delete_management")
 	public String delete_management(Model model) {
 		
-		// del_flag = -1ÀÎ ÄÚ½º Á¶È¸
-		// ÇöÀç DB¿¡ course´Â DEL_FLAG ÄÃ·³ÀÌ ¾ø¾î¼­ ÀÏ¹İ Á¶È¸·Î ´ëÃ¼ÇÔ
+		// del_flag = -1ì¸ ì½”ìŠ¤ ì¡°íšŒ
+		// í˜„ì¬ DBì— courseëŠ” DEL_FLAG ì»¬ëŸ¼ì´ ì—†ì–´ì„œ ì¼ë°˜ ì¡°íšŒë¡œ ëŒ€ì²´í•¨
 		List<CourseDTO> course_list = course_dao.deleteList();
 		
-		// del_flag = -1ÀÎ ÄÚ½º °øÁö±Û Á¶È¸
+		// del_flag = -1ì¸ ì½”ìŠ¤ ê³µì§€ê¸€ ì¡°íšŒ
 		List<CourseBoardDTO> course_board_list = course_board_dao.deleteList();
 		
-		// µ¥ÀÌÅÍ¸¦ »èÁ¦ °ü¸® ÆäÀÌÁö¿¡ Æ÷¿öµù
+		// ë°ì´í„°ë¥¼ ì‚­ì œ ê´€ë¦¬ í˜ì´ì§€ì— í¬ì›Œë”©
 		model.addAttribute("course_list", course_list);
 		model.addAttribute("course_board_list", course_board_list);
 	
 		return  Common.ADMIN_PATH + "delete_management.jsp";
 		
 ***REMOVED***
-	 
+
 ***REMOVED***

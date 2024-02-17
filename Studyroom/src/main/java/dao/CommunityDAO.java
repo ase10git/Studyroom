@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.CommunityDTO;
+import dto.UserCommunityLikeDTO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -13,60 +14,72 @@ public class CommunityDAO {
 
 	final SqlSession sqlSession;
 	
-	//ÆäÀÌÁöº° °Ô½Ã±Û Á¶È¸
+	//í˜ì´ì§€ë³„ ê²Œì‹œê¸€ ì¡°íšŒ
 		public List<CommunityDTO> selectList(HashMap<String,Integer> map){
 			return sqlSession.selectList("cm.community_list",map);
 	***REMOVED***
 	
-		//ÀüÃ¼ °Ô½Ã¹° ¼ö Á¶È¸
+		//ì „ì²´ ê²Œì‹œë¬¼ ìˆ˜ ì¡°íšŒ
 		public int getRowTotal() {
 			return sqlSession.selectOne("cm.community_count");
 	***REMOVED***
 		
-		//°Ô½Ã±Û ÇÑ °Ç Á¶È¸
+		//ê²Œì‹œê¸€ í•œ ê±´ ì¡°íšŒ
 		public CommunityDTO selectOne(int id) {
 			return sqlSession.selectOne("cm.community_view",id);
 	***REMOVED***
 		
-		//Á¶È¸¼ö Áõ°¡
+		//ì¡°íšŒìˆ˜ ì¦ê°€
 		public int update_readhit(int id) {
 			int res = sqlSession.update("cm.update_readhit",id);
 			return res;
 	***REMOVED***
 		
-		//°Ô½Ã±Û Ãß°¡ÇÏ±â
+		//ê²Œì‹œê¸€ ì¶”ê°€í•˜ê¸°
 		public int insert(CommunityDTO dto) {
 			System.out.println("nickName : " + dto.getNickname());
 			return sqlSession.insert("cm.community_insert",dto);
 	***REMOVED***
 		
-		//»èÁ¦ÇÑ°ÍÃ³·³ ¼öÁ¤ÇÏ±â
+		//ì‚­ì œí•œê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°
 		public int del_update(CommunityDTO dto) {
 			return sqlSession.update("cm.del_update",dto);
 	***REMOVED***
 		
-		// °Ô½Ã±Û ¹°¸®Àû »èÁ¦
+		// ê²Œì‹œê¸€ ë¬¼ë¦¬ì  ì‚­ì œ
 		public int community_delete() {
 			return sqlSession.delete("cm.community_delete");
 	***REMOVED***
 		
-		//´ñ±ÛÃß°¡¸¦ À§ÇÑ step + 1
+		//ëŒ“ê¸€ì¶”ê°€ë¥¼ ìœ„í•œ step + 1
 		public int update_step(CommunityDTO dto) {
 			return sqlSession.update("cm.community_update_step",dto);
 	***REMOVED***
 		
-		//´ä±Û Ãß°¡ÇÏ±â
+		//ë‹µê¸€ ì¶”ê°€í•˜ê¸°
 		public int reply(CommunityDTO dto) {
 			return sqlSession.insert("cm.community_reply",dto);
 	***REMOVED***
 		
-		//°Ô½Ã±Û ¼öÁ¤ÇÏ±â
+		//ê²Œì‹œê¸€ ìˆ˜ì •í•˜ê¸°
 		public int update(CommunityDTO dto) {
 			return sqlSession.update("cm.community_update",dto);
 	***REMOVED***	
 		
-		//´ä±Û Á¶È¸ 
+		//ë‹µê¸€ ì¡°íšŒ 
 		public List<CommunityDTO> select_reply(int ref){
 			return sqlSession.selectList("cm.community_reply_list",ref);
+	***REMOVED***
+		
+		// íŠ¹ì • ì‚¬ìš©ìì˜ ì»¤ë®¤ë‹ˆí‹° ê¸€ ì¶”ì²œ ì—¬ë¶€ ì¡°íšŒ
+		public int like_count(int user_id, int community_board_id) {
+			
+			UserCommunityLikeDTO dto = new UserCommunityLikeDTO();
+			dto.setUser_id(user_id);
+			dto.setCommunity_board_id(community_board_id);
+			
+			Integer result = sqlSession.selectOne("cm.like_count", dto);
+			
+			return (result != null) ? result.intValue() : 0;
 	***REMOVED***
 ***REMOVED***

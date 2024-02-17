@@ -15,52 +15,52 @@ public class CourseDAO {
 	
 //	final UserDTO user_dto;
 	
-		// ÄÚ½º ÀüÃ¼ Á¶È¸
+		// ì½”ìŠ¤ ì „ì²´ ì¡°íšŒ
 		public List<CourseDTO> selectList(HashMap<String, Integer> map) { 
 			return sqlSession.selectList("co.course_list", map);
 	***REMOVED***
 		
-		// ÀüÃ¼ ÄÚ½º ¼ö Á¶È¸
+		// ì „ì²´ ì½”ìŠ¤ ìˆ˜ ì¡°íšŒ
 		public int getRowTotal() {
 			return sqlSession.selectOne("co.course_count");
 	***REMOVED***
 	
-		// Æ¯Á¤ »ç¿ëÀÚÀÇ ÄÚ½º ÀüÃ¼ Á¶È¸
+		// íŠ¹ì • ì‚¬ìš©ìì˜ ì½”ìŠ¤ ì „ì²´ ì¡°íšŒ
 		public List<UserCourseDTO> selectList_user(HashMap<String, Integer> map) { 
 			return sqlSession.selectList("co.course_list_user", map);
 	***REMOVED***
 		
-		// Æ¯Á¤ »ç¿ëÀÚÀÇ ÀüÃ¼ ÄÚ½º ¼ö Á¶È¸
+		// íŠ¹ì • ì‚¬ìš©ìì˜ ì „ì²´ ì½”ìŠ¤ ìˆ˜ ì¡°íšŒ
 		public int getRowTotal_user(int user_id) {
 			return sqlSession.selectOne("co.course_count_user", user_id);
 	***REMOVED***
 		
-		// ÄÚ½º ÇÑ °Ç Á¶È¸
+		// ì½”ìŠ¤ í•œ ê±´ ì¡°íšŒ
 		public CourseDTO selectOne(int id) {
 			return sqlSession.selectOne("co.course_view",id);
 	***REMOVED***
 
-		// »èÁ¦ ¿äÃ»µÈ ÄÚ½º Á¶È¸
+		// ì‚­ì œ ìš”ì²­ëœ ì½”ìŠ¤ ì¡°íšŒ
 		public List<CourseDTO> deleteList() { 
 			return sqlSession.selectList("co.course_delete_list");
 	***REMOVED***
 		
-		// ÄÚ½º Ãß°¡
+		// ì½”ìŠ¤ ì¶”ê°€
 		public int insert(CourseDTO dto) {
 			return sqlSession.insert("co.course_insert",dto);
 	***REMOVED***
 		
-		// ÄÚ½º ¼öÁ¤
+		// ì½”ìŠ¤ ìˆ˜ì •
 		public int modify(CourseDTO dto) {
 			return sqlSession.update("co.course_modify",dto);
 	***REMOVED***
 		
-		// ÄÚ½º »èÁ¦ÇÑ °ÍÃ³·³ Ã³¸®
+		// ì½”ìŠ¤ ì‚­ì œí•œ ê²ƒì²˜ëŸ¼ ì²˜ë¦¬
 		public int delete_update(int id) {
 			return sqlSession.update("co.course_delete_update", id);
 	***REMOVED***
 
-		// ÄÚ½º ¹°¸®Àû »èÁ¦
+		// ì½”ìŠ¤ ë¬¼ë¦¬ì  ì‚­ì œ
 		public int delete_physical() {
 			return sqlSession.delete("co.course_delete");
 	***REMOVED***

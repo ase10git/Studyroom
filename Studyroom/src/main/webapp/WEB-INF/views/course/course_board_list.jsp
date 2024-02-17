@@ -13,13 +13,17 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="resources/css/main.css">
-
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">		
 		function back() {
 			location.href = "course_list";
 	***REMOVED***
 		
-		function write_board() {
+		function insert() {
 			location.href="course_board_insert_form?course_id=${course_dto.id***REMOVED***";
 	***REMOVED***
 	</script>
@@ -45,7 +49,7 @@
                         <td>${fn:split(course_dto.start_date, " ")[0]***REMOVED*** ~ ${fn:split(course_dto.end_date, " ")[0]***REMOVED***</td>
                     </tr>
                     <tr>
-                        <td colspan="3"><p class="summary"><pre>${course_dto.summary***REMOVED***</pre></p></td>
+                        <td colspan="3"><p class="summary">${course_dto.summary***REMOVED***</p></td>
                     </tr>
                 </table>
             </div>
@@ -65,11 +69,13 @@
                             <td>${fn:split(dto.register_date, " ")[0]***REMOVED***</td>
                         </tr>  
                     </c:forEach>
-                
+
                     <tr>
+                    	<c:if test="${role eq 'admin'***REMOVED***">
                         <td>
-                            <input id="insert_btn" type="button" value="글 작성하기" onclick="write_board()">
+                            <input id="insert_btn" type="button" value="글 작성하기" onclick="insert()">
                         </td>
+                        </c:if>
                         <td>
                             <input id="back_btn" type="button" value="뒤로 가기" onclick="back()">
                         </td>
@@ -79,6 +85,8 @@
           </div>
         </div>
       </section>
+
+    <%@ include file="../include/footer.jsp" %>
 
 	<!-- bootstrap script -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

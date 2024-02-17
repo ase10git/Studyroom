@@ -1,10 +1,22 @@
 @charset "UTF-8";
+html, body{height: 100%;***REMOVED***
+
+body{
+	background: linear-gradient(to bottom, #ffffff, #add8e6);
+***REMOVED***
 
 *{margin:0; padding:0; box-sizing: border-box;***REMOVED***
-ul, ol, li{list-style: none;***REMOVED***
-a{text-decoration: none;***REMOVED***
 
-.box{align-items: flex-start;***REMOVED***
+ul, ol, li{list-style: none;***REMOVED***
+
+a{text-decoration: none; color:black;***REMOVED***
+a:hover{text-decoration: underline;***REMOVED***
+
+.sec{width:100%;***REMOVED***
+
+.sec .container{width:100%;***REMOVED***
+
+.sec .container .row{align-items: center;***REMOVED***
 
 .sec .container .row .box table{
     width: 600px;

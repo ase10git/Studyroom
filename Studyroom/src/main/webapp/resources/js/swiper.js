@@ -16,6 +16,7 @@ const swiper = new Swiper('.swiper', {
     ***REMOVED***,
 
     autoplay: {
-        delay: 3000,
+        delay: 5000,
     ***REMOVED***
 ***REMOVED***);
+

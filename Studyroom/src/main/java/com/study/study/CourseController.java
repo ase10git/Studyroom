@@ -33,83 +33,84 @@ public class CourseController {
 	@Autowired
 	HttpSession session;	
 	
-	// ÄÚ½º È­¸é º¸±â - ¸®½ºÆ®
-	// admin¸¸ »ç¿ë °¡´É
+	// ì½”ìŠ¤ í™”ë©´ ë³´ê¸° - ë¦¬ìŠ¤íŠ¸
+	// adminë§Œ ì‚¬ìš© ê°€ëŠ¥
 	@RequestMapping("course_list")
 	public String course_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
 
-		// ****************** ÆíÁıÀÚ - Å×½ºÆ®¿ë user_id **********************
-		int user_id = (int)session.getAttribute("userId");;
+		// ì‚¬ìš©ìì˜ ë²ˆí˜¸ë¥¼ ì„¸ì…˜ì—ì„œ ê°€ì ¸ì˜¤ê¸°
+		int user_id = (int)session.getAttribute("userId");
+		// ì‚¬ìš©ìì˜ ê¶Œí•œì„ ì„¸ì…˜ì—ì„œ ê°€ì ¸ì˜¤ê¸°
 		String role = (String)session.getAttribute("role");
-		// ***************************************************************
 		
-		// ½ÃÀÛ, Á¾·á ÆäÀÌÁö °è»ê
+		// ì‹œì‘, ì¢…ë£Œ í˜ì´ì§€ ê³„ì‚°
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
 		int end = start + Common.Board.BLOCKLIST - 1;
 		
-		// ÆäÀÌÁö Á¤º¸¸¦ map¿¡ ÀúÀå
+		// í˜ì´ì§€ ì •ë³´ë¥¼ mapì— ì €ì¥
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
 		
-		// ÀüÃ¼ °Ô½Ã±Û ¼ö Á¶È¸
+		// ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ ì¡°íšŒ
 		int rowTotal = 0;
 		
-		// ÀüÃ¼ ÄÚ½º list
-		List<CourseDTO> list = null; // °ü¸®ÀÚ
-		List<UserCourseDTO> list_user = null; // ÇĞ»ı°ú ¸àÅä
+		// ì „ì²´ ì½”ìŠ¤ list
+		List<CourseDTO> list = null; // ê´€ë¦¬ì
+		List<UserCourseDTO> list_user = null; // í•™ìƒê³¼ ë©˜í† 
 		
-		if (role.equals("admin")) { // °ü¸®ÀÚÀÏ °æ¿ì
-			// ÆäÀÌÁö ¹øÈ£¿¡ µû¸¥ ÀüÃ¼ ÄÚ½º Á¶È¸
+		if (role.equals("admin")) { // ê´€ë¦¬ìì¼ ê²½ìš°
+			// í˜ì´ì§€ ë²ˆí˜¸ì— ë”°ë¥¸ ì „ì²´ ì½”ìŠ¤ ì¡°íšŒ
 			list = course_dao.selectList(map);
 
-			rowTotal = course_dao.getRowTotal(); // ÀüÃ¼ ÄÚ½º °³¼ö
+			rowTotal = course_dao.getRowTotal(); // ì „ì²´ ì½”ìŠ¤ ê°œìˆ˜
 		
-	***REMOVED*** else { // ÇĞ»ıÀÌ³ª ¸àÅäÀÏ °æ¿ì
-			map.put("user_id", user_id); // map¿¡ »ç¿ëÀÚ Á¤º¸ ÀúÀå
+	***REMOVED*** else { // í•™ìƒì´ë‚˜ ë©˜í† ì¼ ê²½ìš°
+			map.put("user_id", user_id); // mapì— ì‚¬ìš©ì ì •ë³´ ì €ì¥
 
-			// ÆäÀÌÁö ¹øÈ£¿¡ µû¸¥ Æ¯Á¤ »ç¿ëÀÚÀÇ ÄÚ½º ÀüÃ¼ Á¶È¸
+			// í˜ì´ì§€ ë²ˆí˜¸ì— ë”°ë¥¸ íŠ¹ì • ì‚¬ìš©ìì˜ ì½”ìŠ¤ ì „ì²´ ì¡°íšŒ
 			list_user = course_dao.selectList_user(map);
 			
-			// Æ¯Á¤ »ç¿ëÀÚ°¡ ¼ÓÇÑ ÄÚ½ºÀÇ ÀüÃ¼ °Ô½Ã±Û ¼ö
+			// íŠ¹ì • ì‚¬ìš©ìê°€ ì†í•œ ì½”ìŠ¤ì˜ ì „ì²´ ê²Œì‹œê¸€ ìˆ˜
 			rowTotal = course_dao.getRowTotal_user(user_id);
 	***REMOVED***
 		
-		// ÆäÀÌÁö ¸Ş´º »ı¼ºÇÏ±â
+		// í˜ì´ì§€ ë©”ë‰´ ìƒì„±í•˜ê¸°
 		String pageMenu = Paging.getPaging("course_list", 
 											page, 
 											rowTotal, 
 											Common.Board.BLOCKLIST, 
 											Common.Board.BLOCKPAGE);
 		
-		// °ü¸®ÀÚ¶ó¸é ÀüÃ¼ ÄÚ½º Á¶È¸ ³»¿ªÀ» Æ÷¿öµù
+		// ê´€ë¦¬ìë¼ë©´ ì „ì²´ ì½”ìŠ¤ ì¡°íšŒ ë‚´ì—­ì„ í¬ì›Œë”©
 		if (role.equals("admin")) {
 			model.addAttribute("list", list);
-	***REMOVED*** else { // ÇĞ»ı°ú ¸àÅä¶ó¸é Âü¿©ÇÑ ÄÚ½ºÀÇ Á¶È¸ ³»¿ªÀ» Æ÷¿öµù
+	***REMOVED*** else { // í•™ìƒê³¼ ë©˜í† ë¼ë©´ ì°¸ì—¬í•œ ì½”ìŠ¤ì˜ ì¡°íšŒ ë‚´ì—­ì„ í¬ì›Œë”©
 			model.addAttribute("list", list_user);
 	***REMOVED***
-		// ÆäÀÌÁö ¸Ş´º¸¦ Æ÷¿öµù
+		// ë°ì´í„°ë¥¼ í¬ì›Œë”©
 		model.addAttribute("pageMenu", pageMenu);
+		model.addAttribute("role", role);
 		
 		return Common.COURSE_PATH + "course_list.jsp?page=" + page;
 ***REMOVED***
 		
-	// ÄÚ½º »ó¼¼ º¸±â
+	// ì½”ìŠ¤ ìƒì„¸ ë³´ê¸°
 	@RequestMapping("course_view")
 	public String course_view(Model model, int id, int page) {	
 		
-		// id·Î ÄÚ½º Á¶È¸ÇÏ±â
+		// idë¡œ ì½”ìŠ¤ ì¡°íšŒí•˜ê¸°
 		CourseDTO dto = course_dao.selectOne(id);
 		
-		// ÆäÀÌÁö¿¡ ÄÚ½º Æ÷¿öµù
+		// í˜ì´ì§€ì— ì½”ìŠ¤ í¬ì›Œë”©
 		model.addAttribute("dto", dto);
 		
 		return Common.COURSE_PATH + "course_view.jsp?page=" + page;
 ***REMOVED***
 
 	
-	// ÄÚ½º Ãß°¡ ÆäÀÌÁö·Î ÀÌµ¿
-	// admin¸¸ °¡´É
+	// ì½”ìŠ¤ ì¶”ê°€ í˜ì´ì§€ë¡œ ì´ë™
+	// adminë§Œ ê°€ëŠ¥
 	@RequestMapping("course_insert_form")
 	public String course_insert_form() {
 
@@ -119,15 +120,15 @@ public class CourseController {
 ***REMOVED***
 	
 	
-	// ÄÚ½º Ãß°¡ÇÏ±â
-	// admin¸¸ °¡´É
+	// ì½”ìŠ¤ ì¶”ê°€í•˜ê¸°
+	// adminë§Œ ê°€ëŠ¥
 	@RequestMapping("course_insert")
 	public String course_insert(CourseDTO dto) {
 
-		// ÄÚ½º Ãß°¡
+		// ì½”ìŠ¤ ì¶”ê°€
 		int res = course_dao.insert(dto);
 	
-		// ÄÚ½º Ãß°¡ ¿Ï·á ½Ã ÄÚ½º º¸±â È­¸éÀ¸·Î 
+		// ì½”ìŠ¤ ì¶”ê°€ ì™„ë£Œ ì‹œ ì½”ìŠ¤ ë³´ê¸° í™”ë©´ìœ¼ë¡œ 
 		if (res > 0) {
 			return "redirect:course_list";
 	***REMOVED***
@@ -136,15 +137,15 @@ public class CourseController {
 ***REMOVED***
 	
 	
-	// ÄÚ½º ¼öÁ¤ ÆäÀÌÁö·Î ÀÌµ¿
-	// admin¸¸ °¡´É
+	// ì½”ìŠ¤ ìˆ˜ì • í˜ì´ì§€ë¡œ ì´ë™
+	// adminë§Œ ê°€ëŠ¥
 	@RequestMapping("course_modify_form")
 	public String course_modify_form(Model model, int id) {
 		
-		// ¿äÃ» ÆäÀÌÁö¿¡¼­ ÄÚ½ºÀÇ id¸¦ ¹Ş¾Æ ÄÚ½º Á¶È¸
+		// ìš”ì²­ í˜ì´ì§€ì—ì„œ ì½”ìŠ¤ì˜ idë¥¼ ë°›ì•„ ì½”ìŠ¤ ì¡°íšŒ
 		CourseDTO dto = course_dao.selectOne(id);
 		
-		// ÄÚ½º °´Ã¼¸¦ ¼öÁ¤ ÆäÀÌÁö·Î Æ÷¿öµù
+		// ì½”ìŠ¤ ê°ì²´ë¥¼ ìˆ˜ì • í˜ì´ì§€ë¡œ í¬ì›Œë”©
 		model.addAttribute("dto", dto);
 		
 		return Common.ADMIN_PATH + "course_modify_form.jsp";
@@ -152,18 +153,18 @@ public class CourseController {
 ***REMOVED***
 	
 	
-	// ÄÚ½º ¼öÁ¤ÇÏ±â
-	// admin¸¸ °¡´É
+	// ì½”ìŠ¤ ìˆ˜ì •í•˜ê¸°
+	// adminë§Œ ê°€ëŠ¥
 	@RequestMapping("course_modify")
 	public String course_modify(CourseDTO dto, int id) {
 
-		// »õ·Î º¯°æÇÒ dtoÀÇ id¸¦ ÀúÀå
+		// ìƒˆë¡œ ë³€ê²½í•  dtoì˜ idë¥¼ ì €ì¥
 		dto.setId(id);
 		
-		// ÄÚ½º ¼öÁ¤
+		// ì½”ìŠ¤ ìˆ˜ì •
 		int res = course_dao.modify(dto);
 
-		// ÄÚ½º ¼öÁ¤ ¿Ï·á ½Ã ÄÚ½º º¸´Â È­¸éÀ¸·Î µ¹¾Æ°¡±â
+		// ì½”ìŠ¤ ìˆ˜ì • ì™„ë£Œ ì‹œ ì½”ìŠ¤ ë³´ëŠ” í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê¸°
 		if (res > 0) {
 			return "redirect:course_list";
 	***REMOVED***
@@ -171,15 +172,15 @@ public class CourseController {
 		return "";
 ***REMOVED***
 	
-	// ÄÚ½º »èÁ¦µÈ °ÍÃ³·³ ¼öÁ¤ÇÏ±â(³í¸®Àû »èÁ¦)
-	// admin¸¸ °¡´É
+	// ì½”ìŠ¤ ì‚­ì œëœ ê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°(ë…¼ë¦¬ì  ì‚­ì œ)
+	// adminë§Œ ê°€ëŠ¥
 	@RequestMapping("course_delete")
 	@ResponseBody
 	public String course_delete(int id) {
 		
 		int res = course_dao.delete_update(id);
 	
-		if (res == 1) { // ajax Äİ¹é ¸Ş¼Òµå¿¡ Àü´ŞÇÒ ³»¿ë
+		if (res == 1) { // ajax ì½œë°± ë©”ì†Œë“œì— ì „ë‹¬í•  ë‚´ìš©
 			return "[{'result':'yes'***REMOVED***]";
 	***REMOVED*** else {
 			return "[{'result':'no'***REMOVED***]";
@@ -187,15 +188,15 @@ public class CourseController {
 
 ***REMOVED***
 	
-	// ÄÚ½º ¹°¸®Àû »èÁ¦
-	// admin¸¸ °¡´É
+	// ì½”ìŠ¤ ë¬¼ë¦¬ì  ì‚­ì œ
+	// adminë§Œ ê°€ëŠ¥
 	@RequestMapping("course_delete_physical")
 	@ResponseBody
 	public String course_delete_physical() {
 
 		int res = course_dao.delete_physical();
 	
-		if (res == 1) { // ajax Äİ¹é ¸Ş¼Òµå¿¡ Àü´ŞÇÒ ³»¿ë
+		if (res == 1) { // ajax ì½œë°± ë©”ì†Œë“œì— ì „ë‹¬í•  ë‚´ìš©
 			return "[{'result':'yes'***REMOVED***]";
 	***REMOVED*** else {
 			return "[{'result':'no'***REMOVED***]";

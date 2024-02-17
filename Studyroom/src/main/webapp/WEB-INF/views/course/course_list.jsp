@@ -12,7 +12,11 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="resources/css/main.css">
-
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">		
 		function move(id) {
 			location.href = "course_board_list?course_id=" + id;
@@ -22,7 +26,7 @@
 			location.href = "course_view?id=" + id + "&page=${param.page***REMOVED***";	
 	***REMOVED***
 		
-		function write_course() {
+		function insert() {
 			location.href = "course_insert_form";
 	***REMOVED***
 	</script>
@@ -31,12 +35,12 @@
 
 	<%@ include file="../include/menu.jsp" %>
 	
-    <section class="sec">
+    <section class="sec course">
         <div class="container">
          <h1>코스 목록</h1>
           <div class="row gy-4">
             <div class="col box col-12 col-md-6">
-                <table>
+                <table class="course-box">
                     <tr>
                         <th>번호</th>
                         <th>코스 이름</th>
@@ -53,22 +57,25 @@
                             <td>
                                 <input id="course_board_btn" type="button" value="코스로 이동" onclick="move(${dto.id***REMOVED***)">
                             </td>
-                            <td>
-                                <input id="course_view_btn" type="button" value="코스 관리" onclick="management(${dto.id***REMOVED***)">
-                            </td>
+                            <c:if test="${role eq 'admin'***REMOVED***">
+	                            <td>
+	                                <input id="course_view_btn" type="button" value="코스 관리" onclick="management(${dto.id***REMOVED***)">
+	                            </td>
+                            </c:if>
                         </tr>  
                     </c:forEach>
-                
-                    <tr>
-                        <td>
-                            <input id="insert_btn" type="button" value="코스 추가하기" onclick="write_course()">
-                        </td>
-                    </tr>
                 </table>
             </div>
+            <c:if test="${role eq 'admin'***REMOVED***">
+	  			<div class="col box col-6">
+		        	<input id="insert_btn" type="button" value="코스 추가하기" onclick="insert()">    
+				</div>
+			</c:if>
           </div>
         </div>
       </section>
+
+    <%@ include file="../include/footer.jsp" %>
 
 	<!-- bootstrap script -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

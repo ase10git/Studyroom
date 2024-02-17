@@ -12,42 +12,49 @@ import lombok.RequiredArgsConstructor;
 public class CourseBoardDAO {
 	final SqlSession sqlSession;
 
-		// ÆäÀÌÁöº° ÄÚ½º °øÁö±Û Á¶È¸
+		// í˜ì´ì§€ë³„ ì½”ìŠ¤ ê³µì§€ê¸€ ì¡°íšŒ
 		public List<CourseBoardDTO> selectList(HashMap<String, Integer> map){
 			return sqlSession.selectList("cb.board_list", map);
 	***REMOVED***
 	
-		// ÀüÃ¼ ÄÚ½º °øÁö±Û ¼ö Á¶È¸
+		// ì „ì²´ ì½”ìŠ¤ ê³µì§€ê¸€ ìˆ˜ ì¡°íšŒ
 		public int getRowTotal(int course_id) {
 			return sqlSession.selectOne("cb.board_count", course_id);
 	***REMOVED***
 		
-		// ÄÚ½º °øÁö±Û ÇÑ °Ç Á¶È¸
+		// ì½”ìŠ¤ ê³µì§€ê¸€ í•œ ê±´ ì¡°íšŒ
 		public CourseBoardDTO selectOne(int id) {
 			return sqlSession.selectOne("cb.board_one", id);
 	***REMOVED***
 			
-		// »èÁ¦ ¿äÃ»µÈ ÄÚ½º °øÁö±Û Á¶È¸
+		// ì‚­ì œ ìš”ì²­ëœ ì½”ìŠ¤ ê³µì§€ê¸€ ì¡°íšŒ
 		public List<CourseBoardDTO> deleteList() {
 			return sqlSession.selectList("cb.board_delete_list");
 	***REMOVED***
 		
-		// ÄÚ½º °øÁö±Û Ãß°¡ÇÏ±â
+		// ì½”ìŠ¤ ê³µì§€ê¸€ ì¶”ê°€í•˜ê¸°
 		public int insert(CourseBoardDTO dto) {
-			return sqlSession.insert("cb.board_insert", dto);
+			// ì „ì²´ ê³µì§€ê¸€ ì¶”ê°€
+			int course_id = dto.getCourse_id();
+			
+			if (course_id == 0) {
+				return sqlSession.insert("a.announcement_insert", dto);
+		***REMOVED*** else {
+				return sqlSession.insert("cb.board_insert", dto);
+		***REMOVED***
 	***REMOVED***
 
-		// ÄÚ½º °øÁö±Û ¼öÁ¤ÇÏ±â
+		// ì½”ìŠ¤ ê³µì§€ê¸€ ìˆ˜ì •í•˜ê¸°
 		public int modify(CourseBoardDTO dto) {
 			return sqlSession.update("cb.board_modify", dto);
 	***REMOVED***
 		
-		// »èÁ¦ÇÑ°ÍÃ³·³ ¼öÁ¤ÇÏ±â
+		// ì‚­ì œí•œê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°
 		public int delete_update(int id) {
 			return sqlSession.update("cb.board_delete_update", id);
 	***REMOVED***
 		
-		// ÄÚ½º °øÁö±Û ¹°¸®Àû »èÁ¦
+		// ì½”ìŠ¤ ê³µì§€ê¸€ ë¬¼ë¦¬ì  ì‚­ì œ
 		public int delete_physical() {
 			return sqlSession.delete("cb.board_delete");
 	***REMOVED***

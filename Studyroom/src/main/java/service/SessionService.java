@@ -13,17 +13,17 @@ public class SessionService {
 	@Autowired
     private HttpSession session;
 	
-	// ¼¼¼Ç¿¡¼­ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+	// ì„¸ì…˜ì—ì„œ ì‚¬ìš©ì ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 	public UserDTO getUserFromSession() {
         return (UserDTO) session.getAttribute("email");
     ***REMOVED***
 	
-	// ¼¼¼Ç¿¡ »ç¿ëÀÚ Á¤º¸ ÀúÀåÇÏ±â
+	// ì„¸ì…˜ì— ì‚¬ìš©ì ì •ë³´ ì €ì¥í•˜ê¸°
     public void setUserInSession(String attr, UserDTO dto) {
         session.setAttribute(attr, dto);
     ***REMOVED***
     
-    // ¼¼¼Ç¿¡ »ç¿ëÀÚ Á¤º¸ Á¦°ÅÇÏ±â
+    // ì„¸ì…˜ì— ì‚¬ìš©ì ì •ë³´ ì œê±°í•˜ê¸°
     public void removeAttribute(String attr) {
         session.removeAttribute(attr);
     ***REMOVED***

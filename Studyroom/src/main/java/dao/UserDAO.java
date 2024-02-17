@@ -14,23 +14,23 @@ public class UserDAO {
 	
 	final SqlSession sqlSession;
 	
-	//·Î±×ÀÎ Ã¼Å©
-	// ´ÜÀÏ »ç¿ëÀÚ Á¤º¸ Á¶È¸(·Î±×ÀÎ ÀÌ¸ŞÀÏÈ®ÀÎ¿ë)
+	//ë¡œê·¸ì¸ ì²´í¬
+	// ë‹¨ì¼ ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ(ë¡œê·¸ì¸ ì´ë©”ì¼í™•ì¸ìš©)
 	public UserDTO selectOne(String email) {
 		return sqlSession.selectOne("u.login_check",email);
 ***REMOVED***
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	public int insert(UserDTO userDTO) {
 		return sqlSession.insert("u.insert",userDTO);
 ***REMOVED***
 	
-//	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤		// ¹Ì¿Ï¼º
+//	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì •		// ë¯¸ì™„ì„±
 //	public int modify(UserDTO userDTO) {
 //		return sqlSession.update("u.update", userDTO);
 //***REMOVED***
 //	
-//	// ÀüÃ¼ »ç¿ëÀÚ Á¶È¸(admin¿ë)	// ¹Ì¿Ï¼º
+//	// ì „ì²´ ì‚¬ìš©ì ì¡°íšŒ(adminìš©)	// ë¯¸ì™„ì„±
 //	public List<UserDTO> selectList() {
 //		return sqlSession.selectList("u.user_list");
 //***REMOVED***

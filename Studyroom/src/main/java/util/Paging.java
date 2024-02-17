@@ -25,12 +25,13 @@ public class Paging {
 		if (startPage > 1) isPrevPage = true;
 		
 		sb = new StringBuffer();
+		
 		if(isPrevPage) {
 			sb.append("<a href='"+pageURL+"?page=");
 			sb.append(startPage-1);
-			sb.append("'>?</a>");
+			sb.append("'><i class=\"fi fi-br-arrow-alt-square-right\"></i></a>");
 	***REMOVED*** else {
-			sb.append("?");
+			sb.append("");
 	***REMOVED***
 		
 		sb.append("");
@@ -54,9 +55,9 @@ public class Paging {
 		if(isNextPage) {
 			sb.append("<a href='"+pageURL+"?page=");
 			sb.append(endPage+1);
-			sb.append("'>?</a>");
+			sb.append("'><i class=\"fi fi-br-arrow-alt-square-left\"></i></a>");
 	***REMOVED*** else {
-			sb.append("?");
+			sb.append("");
 	***REMOVED***
 		
 		return sb.toString();
