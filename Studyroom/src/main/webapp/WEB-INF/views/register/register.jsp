@@ -40,7 +40,7 @@
 			//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
 			//비동기 통신을 이용한다.
 			let url = "check_email";
-			let param = "email="+email;
+			let param = "email="+encodeURIComponent(email);
 			
 			sendRequest(url,param,resultFn,"POST");
 	***REMOVED***
@@ -155,41 +155,51 @@
 
 	<section class="sec register">
 		<div class="container">
-		 <h1 class="title text-center">회원 가입</h1>
 		  <div class="row gy-4 justify-content-center">
-			<div class="box col-6">
+			<div class="col box col-6">
+				<div class="title-box">
+					<h1 class="title text-center">회원 가입</h1>
+				</div>
 				<!-- register_insert 전송 -->
-				<form action="register_insert" method="post">
+				<form name="f" action="register_insert" method="post" class="login-form">
 					<div class="mb-3">
-					  <div class="d-flex justify-content-between">
-					  	<label for="email" class="form-label">이메일</label>
-					  	<input type="button" class="btn btn-primary btn-sm" value="이메일 중복체크" onclick="check_email()">
-					  </div>
-					  <input type="email" class="form-control" id="email" name="email" onchange="che()" placeholder="example@abc.com" checked="checked" aria-describedby="emailHelp">
-					  <div id="emailHelp" class="form-text text-danger"></div>
-					</div>
-					<div class="mb-3">
-					  <label for="pwd" class="form-label">비밀번호</label>
-					  <input type="password" class="form-control" id="pwd" name="pwd" placeholder="4~12자리 입력해 주세요." aria-describedby="pwdHelp">
-					  <div id="pwdHelp" class="form-text text-danger"></div>
-					</div>
-					 <div class="mb-3">
-					  <label for="name" class="form-label">이름</label>
-					  <input type="text" class="form-control" id="username" name="username" placeholder="이름을 입력해 주세요." aria-describedby="nameHelp">
-					  <div id="nameHelp" class="form-text text-danger"></div>
+						<div class="d-flex justify-content-between">
+							<label for="email" class="form-label">이메일</label>
+							<input type="button" class="btn btn-primary btn-sm" value="이메일 중복체크" onclick="check_email()">
+						</div>
+						<input type="email" class="form-control" id="email" name="email" onchange="che()" placeholder="example@abc.com" checked="checked" aria-describedby="emailHelp">
+						<div id="emailHelp" class="form-text text-danger"></div>
 					</div>
 					<div class="mb-3">
-					  <label for="tel" class="form-label">전화번호</label>
-					  <input type="tel" class="form-control" id="tel" name="tel" placeholder="(ex:01012345678)" aria-describedby="telHelp">
-					  <div id="telHelp" class="form-text text-danger"></div>
+						<label for="pwd" class="form-label">비밀번호</label>
+						<input type="password" class="form-control" id="pwd" name="pwd" placeholder="4~12자리 입력해 주세요." aria-describedby="pwdHelp">
+						<div id="pwdHelp" class="form-text text-danger"></div>
 					</div>
 					<div class="mb-3">
-					  <input id="mentor" name="role" type="radio" value="mentor"><span>멘토</span>
-					  <input id="student" name="role" type="radio" value="student"><span>학생</span>
-					  <div id="roleHelp" class="form-text text-danger"></div>
+						<label for="name" class="form-label">이름</label>
+						<input type="text" class="form-control" id="username" name="username" placeholder="이름을 입력해 주세요." aria-describedby="nameHelp">
+						<div id="nameHelp" class="form-text text-danger"></div>
 					</div>
-					<input type="button" class="btn btn-primary" value="회원가입" onclick="send(this.form)">
-					<input type="button" class="btn btn-light" value="취소" onclick="location.href='login_form'">				
+					<div class="mb-3">
+						<label for="tel" class="form-label">전화번호</label>
+						<input type="tel" class="form-control" id="tel" name="tel" placeholder="(ex:01012345678)" aria-describedby="telHelp">
+						<div id="telHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="btn-wrap">
+						<div class="form-check form-check-inline mb-3">
+							<input id="student" name="role" type="radio" class="form-check-input" value="student">
+							<label for="student" class="form-check-label">학생</label>
+						</div>
+						<div class="form-check form-check-inline mb-3">
+							<input id="mentor" name="role" type="radio" class="form-check-input" value="mentor">
+							<label for="mentor" class="form-check-label">멘토</label>
+						</div>
+						<div id="roleHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="d-grid gap-2 btn-wrap">
+						<input type="button" class="btn btn-primary" value="회원가입" onclick="send(this.form)">
+						<input type="button" class="btn btn-outline-dark" value="취소" onclick="location.href='login_form'">
+					</div>		
 				</form>
 			</div>
 		  </div>

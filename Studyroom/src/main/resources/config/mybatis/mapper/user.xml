@@ -39,6 +39,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	select * from user_tbl order by id desc
 	</select>
 
+	<!-- 삭제 요청한 사용자 조회 -->
+	<select id="delete_list" resultType="user">
+	 	select * from user_tbl where del_flag = -1
+	</select>
+
+	<!-- 사용자 물리적 삭제 -->
+	<delete id="user_delete" parameterType="java.util.ArrayList">
+		delete from user_tbl where id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item***REMOVED***
+		</foreach>
+	</delete>
+
 	<!-- 전체 게시물 수 조회 -->
 <!-- 	<select id="board_count" resultType="int"> -->
 <!-- 		select count(*) from community_board -->

@@ -25,40 +25,44 @@ public class Paging {
 		if (startPage > 1) isPrevPage = true;
 		
 		sb = new StringBuffer();
+
+		sb.append("<nav aria-label=\"page\">"
+				+ "&nbsp;<ul class=\"pagination justify-content-center\">");
 		
 		if(isPrevPage) {
-			sb.append("<a href='"+pageURL+"?page=");
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 			sb.append(startPage-1);
-			sb.append("'><i class=\"fi fi-br-arrow-alt-square-right\"></i></a>");
+			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-right\"></i></a>");
 	***REMOVED*** else {
-			sb.append("");
+			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-right\\\"></i></li>");
 	***REMOVED***
 		
 		sb.append("");
 		for (int i = startPage; i <= endPage; i++) {
 			if(i > totalPage) break;
 			if(i == nowPage) {
-				sb.append("&nbsp;<b><font color='#ff0000'>");
+				sb.append("<li class=\"page-item active\" aria-current=\"page\"><span class=\"page-link\">");
 				sb.append(i);
-				sb.append("</font></b>");
+				sb.append("</span></li>");
 		***REMOVED*** else {
-				sb.append("&nbsp;<a href='"+pageURL+"?page=");
+				sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 				sb.append(i);
-				sb.append("'>");
+				sb.append("\">");
 				sb.append(i);
 				sb.append("</a>");
 		***REMOVED***
 	***REMOVED***
 		
-		sb.append("&nbsp; ");
-		
 		if(isNextPage) {
-			sb.append("<a href='"+pageURL+"?page=");
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 			sb.append(endPage+1);
-			sb.append("'><i class=\"fi fi-br-arrow-alt-square-left\"></i></a>");
+			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-left\"></i></a>");
 	***REMOVED*** else {
-			sb.append("");
+			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-left\\\"></i></li>");
 	***REMOVED***
+		
+		sb.append("&nbsp;</ul>\n"
+				+ "</nav>\n");
 		
 		return sb.toString();
 ***REMOVED***

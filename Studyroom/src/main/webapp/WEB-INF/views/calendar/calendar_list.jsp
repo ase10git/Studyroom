@@ -219,7 +219,7 @@
 	
 	  <section class="sec event">
 	    <div class="container">
-	     <h1>캘린더</h1>
+	     <h1 class="title text-center">캘린더</h1>
 	      <div class="row gy-4">
 	        <div class="col box">
 				<div id="calendar-header">

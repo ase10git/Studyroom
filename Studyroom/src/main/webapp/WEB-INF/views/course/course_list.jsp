@@ -37,28 +37,34 @@
 	
     <section class="sec course">
         <div class="container">
-         <h1 class="title">코스 목록</h1>
-         	<c:if test="${role eq 'admin'***REMOVED***">
-		    	<input id="insert_btn" type="button" class="btn btn-primary" value="코스 추가하기" onclick="insert()">    
-			</c:if>
-          <div class="row gy-4">
-            <div class="col box col-12 col-md-6">
-               <c:forEach var="dto" items="${list***REMOVED***">
-               		<div class="gt item">
-	               		<span class="name"><a href="course_board_list?course_id=${dto.id***REMOVED***">${dto.title***REMOVED***</a></span>
-	               		<span class="instructor">${dto.instructor***REMOVED***</span>
-	               		<span class="duration">${fn:split(dto.start_date, " ")[0]***REMOVED*** ~ ${fn:split(dto.end_date, " ")[0]***REMOVED***</span>
-	               		
-	               		<c:if test="${role eq 'admin'***REMOVED***">
-							<input id="manage-btn" type="button" class="btn btn-primary" value="코스 관리" onclick="management(${dto.id***REMOVED***)">
-	                    </c:if>
-               		</div>
-                </c:forEach>
-            </div>
-            <div class="col box col-12">
-            	${pageMenu***REMOVED***
-            </div>
-          </div>
+	        <div class="title-wrap d-flex justify-content-between">
+	         <h1 class="title text-center">코스 목록</h1>
+	         	<c:if test="${role eq 'admin'***REMOVED***">
+			    	<input id="insert_btn" type="button" class="btn btn-primary btn-sm" value="코스 추가하기" onclick="insert()">    
+				</c:if>
+			</div>
+			
+	        <div class="row gy-4 justify-content-center">
+	        	<c:forEach var="dto" items="${list***REMOVED***">
+	               <div class="col box col-4">
+	               		<div class="gt item card d-flex">
+	               			<span class="card-header fw-bold d-flex justify-content-between align-items-center">
+		               			<a href="course_board_list?course_id=${dto.id***REMOVED***">${dto.title***REMOVED***</a>
+		               			<c:if test="${role eq 'admin'***REMOVED***">
+									<input id="manage-btn" type="button" class="btn btn-primary float-end" value="코스 관리" onclick="management(${dto.id***REMOVED***)">
+			                    </c:if>
+		               		</span>
+		               		<div class="card-body">
+			               		<p class="instructor card-text">
+			               			<span class="d-block">${dto.instructor***REMOVED***</span>
+			               			<span class="d-block">${fn:split(dto.start_date, " ")[0]***REMOVED*** ~ ${fn:split(dto.end_date, " ")[0]***REMOVED***</span>
+			               		</p>
+		               		</div>
+	               		</div>
+	               </div>
+	            </c:forEach>
+	            <div class="col box col-12">${pageMenu***REMOVED***</div>
+	    	</div>
         </div>
     </section>
 

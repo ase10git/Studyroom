@@ -12,6 +12,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -31,32 +32,34 @@
 	
 	<section class="sec community">
 		<div class="container">
-		 <h1>커뮤니티 글 작성하기</h1>
+		 <h1 class="title text-center">커뮤니티 글 작성하기</h1>
 		  <div class="row gy-4">
-			<div class="col box col-12">
+			<div class="col box col-12 d-flex justify-content-center">
 				<form action="community_insert" name="f" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="page" value="${param.page***REMOVED***">
-					<table border="1">
+					<table>
 						<tr>
 							<th>제목</th>
-							<td><input name="title"></td>
+							<td><input name="title" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><input name="nickname"></td>
+							<td><input name="nickname" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea name="content" rows="10" cols="50" style="resize:none;"></textarea></td>
+							<td><textarea name="content" class="form-control" rows="10" cols="50" style="resize:none;"></textarea></td>
 						</tr>
 						<tr>
 							<th>첨부파일</th>
-							<td><input name="file" type="file"></td>
+							<td><input name="file" type="file" class="form-control"></td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="button" class="btn btn-primary" value="추가" onclick="send_check();">		
-								<input type="button" class="btn btn-light" value="취소" onclick="location.href='community_list'">
+								<div class="d-flex justify-content-end">
+									<input type="button" class="btn btn-primary" value="추가" onclick="send_check();">		
+									<input type="button" class="btn btn-light" value="취소" onclick="location.href='community_list'">
+								</div>
 							</td>
 						</tr>
 					</table>

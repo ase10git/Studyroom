@@ -10,6 +10,7 @@
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -50,8 +51,9 @@
 
 	<div class="sec auth">
 		<div class="container">
+			<h2 class="title text-center">사용자 인증</h2>
 			<div class="row">
-				<div class="col box">
+				<div class="col box col-12 d-flex justify-content-center align-items-center">
 					<table>
 						<tr>
 							<th>비밀번호</th>

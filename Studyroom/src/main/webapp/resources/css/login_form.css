@@ -1,13 +1,25 @@
 @charset "UTF-8";
 
-body, html {
-	height: 100%;
+html, body{
 	margin: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 ***REMOVED***
 
-.sec{width:100%;***REMOVED***
+.sec .container .row .col{
+    padding:20px;
+    background-color: rgb(237, 250, 254);
+    border-radius: 10px;
+***REMOVED***
 
-.sec .container .row .col form div .form-text{color:red;***REMOVED***
+.sec .container .row .col .title-box{
+    padding: 5px;
+    background-color: rgb(169, 228, 255);
+    border: 5px solid white;
+    border-radius: 10px;
+***REMOVED***
+
+.sec .container .row .col .login-form{
+    margin: 10px;
+***REMOVED***

@@ -13,6 +13,7 @@
       crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/community_view.css">
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -85,18 +86,13 @@
 	
 	<section class="sec community">
 		<div class="container">
-			<h1>커뮤니티 글 상세보기</h1>
+			<h2 class="title text-center">${dto.title ***REMOVED***</h2>
 			<div class="row gy-4">
-
-				<div class="col box">
+				<div class="col box col-12 d-flex justify-content-center">
 					<table class="community-box">
 						<tr>
-							<th>제목</th>
-							<td>${dto.title ***REMOVED***</td>
-						</tr>
-						<tr>
 							<th>작성자</th>
-								<c:choose>
+							<c:choose>
 								<c:when test="${dto.nickname ne null***REMOVED***">
 									<td>${dto.nickname***REMOVED***</td>
 								</c:when>
@@ -120,9 +116,9 @@
 						</tr>
 					</table>
 				</div>	
-
+			</div>
+			<div class="row gy-4">
 				<!-- 답글 작성 -->
-				<c:if test="${user_id ne dto.id***REMOVED***">
 					<div class="accordion col box" id="insert-reply">
 					  <div class="accordion-item">
 					    <h2 class="accordion-header">
@@ -145,8 +141,8 @@
 					    </div>
 					  </div>
 					</div>
-				</c:if>
-
+			</div>
+			<div class="row gy-4">
 				<!-- 답글 보여주기 -->
 				<div class="col box reply">
 					<c:forEach var="dto" items="${reply_list***REMOVED***">
@@ -169,14 +165,14 @@
 						</div>
 					</c:forEach>
 					
-					<div class="btn-wrap">
+					<div class="d-flex justify-content-end">
 						<!-- 추천하기 -->
 						<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
 						
 						<!-- 목록보기 -->
 						<input type="button" class="btn btn-light" value="목록보기" onclick="location.href='community_list'">
 						
-						<c:if test="${user_id eq dto.id***REMOVED***">
+						<c:if test="${userId == dto.id***REMOVED***">
 							<!-- 삭제 -->
 							<input type="button" class="btn btn-dark" value="삭제" onclick="del()">
 							<!-- 수정 -->

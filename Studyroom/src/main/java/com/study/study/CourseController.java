@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dto.CourseBoardDTO;
 import dto.CourseDTO;
 import dto.UserCourseDTO;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +27,7 @@ import util.Paging;
 public class CourseController {
 	
 	final CourseDAO course_dao;
-	//final UserDAO user_dao;
+	final CourseBoardDAO course_board_dao;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -177,9 +179,13 @@ public class CourseController {
 	@RequestMapping("course_delete")
 	@ResponseBody
 	public String course_delete(int id) {
-		
+	
+		// 코스 먼저 del_flag = -1 설정
 		int res = course_dao.delete_update(id);
-	
+
+		// 코스의 공지글들도 논리적 삭제 처리
+		int res2 = course_board_dao.delete_update_course(id);
+		
 		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
 			return "[{'result':'yes'***REMOVED***]";
 	***REMOVED*** else {
@@ -188,19 +194,4 @@ public class CourseController {
 
 ***REMOVED***
 	
-	// 코스 물리적 삭제
-	// admin만 가능
-	@RequestMapping("course_delete_physical")
-	@ResponseBody
-	public String course_delete_physical() {
-
-		int res = course_dao.delete_physical();
-	
-		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
-			return "[{'result':'yes'***REMOVED***]";
-	***REMOVED*** else {
-			return "[{'result':'no'***REMOVED***]";
-	***REMOVED***
-
-***REMOVED***
 ***REMOVED***

@@ -24,26 +24,30 @@
 			let pwdHelp = document.getElementById("pwdHelp");
 	***REMOVED***
 		
+
 		function send(f) {
 			var email = f.email.value.trim();
 			var pwd = f.pwd.value.trim();
 			
 			if(email == '') {
 				emailHelp.innerHTML = "이메일을 입력해주세요.";
+				pwdHelp.innerHTML = "";
 				return;
 		***REMOVED***
-			
-			if(pwd == '') {
-				pwdHelp.innerHTML = "비밀번호를 입력해주세요.";
-				return;
-		***REMOVED***
-			
+						
 			//이메일은 형식검사
 			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/i
 				
 			if(!regex.test(email)){
 				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
+				pwdHelp.innerHTML = "";
 // 				alert("이메일 형식이 맞지 않습니다.");
+				return;
+		***REMOVED***
+			
+			if(pwd == '') {
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "비밀번호를 입력해주세요.";
 				return;
 		***REMOVED***
 			
@@ -63,7 +67,7 @@
 			***REMOVED*** else if(json[0].param == 'no_pwd') {
 					alert("비밀번호를 다시 입력해 주세요.")
 			***REMOVED*** else {
-					alert("로그인 성공");
+					alert("로그인을 성공했습니다!");
 
 					location.href='announcement_list';
 
@@ -94,8 +98,10 @@
 					    <input type="password" class="form-control" id="pwd" name="pwd">
 					    <div id="pwdHelp" class="form-text text-danger"></div>
 					</div>
-					<input type="button" class="btn btn-primary" value="로그인" onclick="send(this.form)">
-					<input type="button" class="btn btn-light" value="회원가입" onclick="location.href='register'">
+					<div class="d-grid gap-2">
+						<input type="button" class="btn btn-primary" value="로그인" onclick="send(this.form)">
+						<input type="button" class="btn btn-info" value="회원가입" onclick="location.href='register'">
+					</div>
 				</form>
 			</div>
 		  </div>

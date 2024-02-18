@@ -1,84 +1,62 @@
 @charset "UTF-8";
 
-* {
-    margin:0;   /* 留덉쭊 由ъ뀑 */
-    padding:0;   /* �뙣�뵫 由ъ뀑 */
-***REMOVED***
-
-a {
-    text-decoration:none;  /* �뀓�뒪�듃 留곹겕 諛묒쨪 �뾾�븷湲� */ 
-    color: inherit;
-***REMOVED***
-
-a:link {
-    text-decoration: none;
-    color: inherit; 
-***REMOVED***
-
 a:hover {
     text-decoration: underline;
     background-color: gray;
 ***REMOVED***
 
-ul {
-      list-style: none;
-      padding-bottom: 200px;
-***REMOVED***
-
-/* 濡쒓퀬 */
-#logo { 
-    float:left;   /* �쇊履쎌쑝濡� �뵆濡쒗똿 */ 
-    width:250px;   /*  �꼫鍮� */ 
-    height:100px;   /* �넂�씠 */
-    line-height:100px;  /* �꽭濡쒕줈 以묎컙�뿉 留욎땄 - 以꾧컙寃⑹쓣 �넂�씠 媛믨낵 媛숆쾶 */
-    padding-left:150px;  /* �쇊履쎌뿉 �뿬諛� */
-***REMOVED***
-
-#logo h1 {
-    font-family:fantasy;
-    font-weight:300;
-    font-size:40px;   /* 湲��옄 �겕湲� */
-    color:rgb(255,255,140);   /* 湲��옄 �깋*/
-***REMOVED***
-
-/* swiper */
-.sec.visual{
+.sec .container{
     width: 100%; max-width: 992px;
-    margin-top:50px;
 ***REMOVED***
 
-.visual .swiper .swiper-wrapper .swiper-slide{
+/* /* 濡쒓퀬 */ */
+/* #logo {  */
+/*     float:left;   �쇊履쎌쑝濡� �뵆濡쒗똿  */
+/*     width:250px;    �꼫鍮�  */
+/*     height:100px;   �넂�씠 */
+/*     line-height:100px;  �꽭濡쒕줈 以묎컙�뿉 留욎땄 - 以꾧컙寃⑹쓣 �넂�씠 媛믨낵 媛숆쾶 */
+/*     padding-left:150px;  �쇊履쎌뿉 �뿬諛� */
+/* ***REMOVED*** */
+
+/* #logo h1 { */
+/*     font-family:fantasy; */
+/*     font-weight:300; */
+/*     font-size:40px;   湲��옄 �겕湲� */
+/*     color:rgb(255,255,140);   湲��옄 �깋 */
+/* ***REMOVED*** */
+
+/* carousel */
+.infocarousel{
+    width: 100%; max-width: 992px;
+***REMOVED***
+
+.infocarousel .carousel-inner .carousel-item{
     height: auto; min-height: 300px; max-height: 558px;
+    border-radius : 5px;
 ***REMOVED***
 
-.visual .swiper .swiper-wrapper .swiper-slide img{
-    width: 1170px; height: 100%;
+.infocarousel .carousel-inner .carousel-item img{
+    height: auto; min-height: 300px; max-height: 558px;
+    border-radius : 5px;
 ***REMOVED***
 
-.visual .swiper .swiper-pagination{
-    width: 100px;
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur( 0.5px );
-    -webkit-backdrop-filter: blur( 0.5px );
-    border-radius: 5px;
+/* card */
+.sec .container .row, .sec .container .title-wrap{
+    width: 100%
 ***REMOVED***
 
-.visual .swiper .swiper-pagination-bullet{
-    background-color: white;
+.sec .container .row .gt{
+    width: 18rem; height: 25rem;
 ***REMOVED***
 
-.visual .swiper .swiper-button-prev{
-    color: white;
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur( 12.5px );
-    -webkit-backdrop-filter: blur( 12.5px );
-    border-radius: 5px;
+.sec .container .row .gt .col{
+    width: 100%; height: 100%;
 ***REMOVED***
 
-.visual .swiper .swiper-button-next{
-    color: white;
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur( 12.5px );
-    -webkit-backdrop-filter: blur( 12.5px );
-    border-radius: 5px;
+.sec .container .row .col .gt a img{
+    width: 15rem; height: 20rem
+***REMOVED***
+
+.info{
+    margin: 30px 0;
 ***REMOVED***
