@@ -12,6 +12,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -26,9 +27,9 @@
 
    <section class="sec community">
       <div class="container">
-       <h1>커뮤니티 글</h1>
+       <h1 class="title text-center">커뮤니티</h1>
         <div class="row gy-4">
-			<div class="col box col-12">
+			<div class="col box col-12 d-flex justify-content-center">
 				<table class="board">
 					<tr>
 						<th>번호</th>
@@ -45,7 +46,14 @@
 								<td>
 									<a href="community_view?id=${dto.id}&page=${param.page}">${dto.title}</a>
 								</td>
-								<td>${dto.nickname }</td>  
+								<c:choose>
+									<c:when test="${dto.nickname ne null}">
+										<td>${dto.nickname}</td>
+									</c:when>
+									<c:otherwise>
+										<td>수강생</td>
+									</c:otherwise>
+								</c:choose>
 								<td>${fn:split(dto.register_date,' ')[0]}</td>       
 								<td>${dto.readhit }</td>
 							</tr>   

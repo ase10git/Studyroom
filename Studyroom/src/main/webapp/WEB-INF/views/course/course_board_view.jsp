@@ -13,6 +13,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -63,9 +64,9 @@
 
 	<section class="sec course-board">
 		<div class="container">
-		 <h1>코스 공지글 상세보기</h1>
+		 <h1 class="title">코스 공지글 상세보기</h1>
 		  <div class="row gy-4">
-			<div class="col box col-12 col-md-6">
+			<div class="col box col-12 d-flex justify-content-center">
 				<table class="board-box">	
 					<tr>
 						<th>제목</th>
@@ -98,14 +99,15 @@
 						</td>
 					</tr>
 				</table>
-				<div class="btn-wrap">
-					<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
-					<c:if test="${role eq 'admin'}">
-						<input id="modify_btn" type="button" class="btn btn-primary" value="글 수정하기" onclick="modify()"></input>
-						<input id="delete_btn" type="button" class="btn btn-dark" value="글 삭제하기" onclick="del()"></input>
-					</c:if>
-				</div>
+
 			</div>
+		  </div>
+		  <div class="btn-wrap d-flex justify-content-end">
+				<c:if test="${role eq 'admin'}">
+					<input id="modify_btn" type="button" class="btn btn-primary" value="글 수정하기" onclick="modify()"></input>
+					<input id="delete_btn" type="button" class="btn btn-dark" value="글 삭제하기" onclick="del()"></input>
+				</c:if>
+				<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
 		  </div>
 		</div>
 	  </section>

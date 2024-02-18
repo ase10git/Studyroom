@@ -1,8 +1,9 @@
 package dao;
 
-import org.apache.ibatis.session.SqlSession;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import dto.UserDTO;
@@ -35,4 +36,13 @@ public class UserDAO {
 //		return sqlSession.selectList("u.user_list");
 //	}
 
+	// 삭제 요청한 사용자 조회(admin용)
+	public List<UserDTO> deleteList() {
+		return sqlSession.selectList("u.delete_list");
+	}
+	
+	// 사용자 물리적 삭제
+	public int delete_physical(ArrayList<Integer> userList) {
+		return sqlSession.delete("u.user_delete", userList);
+	}
 }

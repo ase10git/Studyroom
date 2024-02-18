@@ -56,10 +56,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ID = #{id}
 	</update>
 
+	<!-- 삭제된 코스의 공지글들도 삭제한 것처럼 수정하기 -->
+	<update id="delete_update_course" parameterType="int">
+		UPDATE course_board 
+		SET DEL_FLAG = -1
+		WHERE COURSE_ID = #{id}
+	</update>
+
 	<!-- 코스 공지글 물리적 삭제 -->
-	<delete id="board_delete" parameterType="int">
-		DELETE FROM course_board 
-		WHERE DEL_FLAG = -1
+	<delete id="board_delete" parameterType="java.util.ArrayList">
+		DELETE FROM course_board WHERE ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
 	</delete>
+
+	<!-- 특정 코스들의 공지글 물리적 삭제 -->
+	<delete id="board_delete_course" parameterType="java.util.ArrayList">
+	DELETE FROM course_board WHERE COURSE_ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
 </mapper>
 
