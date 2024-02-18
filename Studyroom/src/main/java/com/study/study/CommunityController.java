@@ -18,6 +18,7 @@ import dto.CommunityDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
+import util.Common.Announcement;
 import util.Paging;
 
 @Controller
@@ -152,7 +153,7 @@ public class CommunityController {
 	return "redirect:community_list";
 }
 
-	//게시글 삭제하기
+	//게시글 삭제된 것처럼 처리
 	@RequestMapping("community_delete") 
 	@ResponseBody
 	public String community_delete(int id) {
@@ -170,14 +171,7 @@ public class CommunityController {
 			return "[{'result':'no'}]";
 			}
 		}
-	
-	//게시글 물리적 삭제하기
-	@RequestMapping("community_delete_physical")
-	@ResponseBody
-	public String community_delete_physical(int id) {
-		return null;
-	}
-	
+
 	//답글 추가하기
 	@RequestMapping("community_reply") 
 	public String community_reply(CommunityDTO dto, Integer id, int page) {

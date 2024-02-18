@@ -58,8 +58,8 @@ public class ServletContext implements WebMvcConfigurer{
 
 	// CourseController Bean
 	@Bean
-	public CourseController courseController(CourseDAO course_dao) {
-		return new CourseController(course_dao);
+	public CourseController courseController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
+		return new CourseController(course_dao, course_board_dao);
 	}
 	
 	// CourseBoardController Bean
@@ -82,8 +82,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// AdminController Bean
 	@Bean
-	public AdminController adminController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
-		return new AdminController(course_dao, course_board_dao);
+	public AdminController adminController(UserDAO user_dao, CourseDAO course_dao, CourseBoardDAO course_board_dao, CommunityDAO community_dao) {
+		return new AdminController(user_dao, course_dao, course_board_dao, community_dao);
 	}
 
 }

@@ -57,10 +57,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					
 	</update>
 	
+	<!-- 삭제 요청한 게시글 조회 -->
+	<select id="delete_list" resultType="community">
+		select * from community_board where del_flag = -1
+	</select>
+	
 	<!-- 게시글 물리적 삭제 -->
-	<delete id="community_delete">
-		DELETE FROM community_board 
-		WHERE DEL_FLAG = -1
+	<delete id="community_delete" parameterType="java.util.ArrayList">
+		<foreach collection="list" item="item" separator=",">
+			DELETE FROM community_board WHERE ID = #{item}
+		</foreach>
 	</delete>
 	
 	<!-- 댓글추가를 위한 step + 1 -->
@@ -111,6 +117,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_community_like where user_id=#{user_id} and community_board_id=#{community_board_id}
 	</select>
 
+	<!-- 사용자 커뮤니티 테이블에서 특정 사용자들의 추천 내역 제거 -->
+	<delete id="only_user_delete" parameterType="java.util.ArrayList">
+		DELETE FROM user_community_like 
+		WHERE user_id IN
+		<foreach collection="list" item="item"  open="(" close=")" separator=",">
+			 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- 사용자 커뮤니티 테이블에서 특정 커뮤니티들의 추천 내역 제거 -->
+	<delete id="only_community_delete" parameterType="java.util.ArrayList">
+		DELETE FROM user_community_like 
+		WHERE community_board_id IN
+		<foreach collection="list" item="item"  open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
 
 </mapper>
 

@@ -11,6 +11,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -59,10 +60,10 @@
 	
 	<section class="sec course">
 		<div class="container">
-		 <h1 class="title">코스 상세보기</h1>
+		 <h1 class="title text-center">코스 상세보기</h1>
 		  <div class="row gy-4">
-			<div class="col box col-12">
-				<table class="course-box">	
+			<div class="col box col-12 d-flex justify-content-center">
+				<table>	
 					<tr>
 						<th>코스 이름</th>
 						<td>${dto.title}</td>
@@ -83,9 +84,11 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
-							<input id="delete_btn" type="button" class="btn btn-dark" value="코스 삭제하기" onclick="del()"></input>
-							<input id="modify_btn" type="button" class="btn btn-primary" value="코스 수정하기" onclick="modify()"></input>
+							<div class="d-flex justify-content-center">
+								<input id="modify_btn" type="button" class="btn btn-primary" value="코스 수정하기" onclick="modify()"></input>
+								<input id="delete_btn" type="button" class="btn btn-dark" value="코스 삭제하기" onclick="del()"></input>
+								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
+							</div>
 						</td>
 					</tr>
 				</table>

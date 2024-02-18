@@ -53,9 +53,9 @@ public class LoginController {
 		
 		//************************** 편집자 - 테스트용 *****************************
 		session.setAttribute("userId", dto.getId());
-		System.out.println(dto.getId());
+//		System.out.println(dto.getId());
 		session.setAttribute("role", dto.getRole());
-		System.out.println(dto.getRole());
+//		System.out.println(dto.getRole());
 		//***********************************************************************		
 		
 		//로그인에 성공한 경우
@@ -79,7 +79,7 @@ public class LoginController {
 	@RequestMapping("check_email")
 	@ResponseBody
 	public String check_email(String email) {
-		System.out.println(email);
+//		System.out.println(email);
 		UserDTO dto = user_dao.selectOne(email);
 		
 		//null이면 중복되지 않으므로 가입 가능
@@ -99,7 +99,7 @@ public class LoginController {
 			return "redirect:login_form";
 		}
 		
-		return null;
+		return "/error";
 	}
 	
 }

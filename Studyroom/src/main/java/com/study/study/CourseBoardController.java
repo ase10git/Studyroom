@@ -183,29 +183,16 @@ public class CourseBoardController {
 	@RequestMapping("course_board_delete")
 	@ResponseBody
 	public String course_board_delete(int id) {
-		// 권한 설정 예정
 		
 		// 공지글 삭제된 것처럼 수정하기(논리적 삭제)
 		int res = course_board_dao.delete_update(id);
 	
-		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
-			return "[{'result':'yes'}]";
-		} else {
-			return "[{'result':'no'}]";
-		}
-
-	}
-	
-	// 코스 공지글 물리적 삭제
-	// admin, mentor만 가능
-	@RequestMapping("course_board_delete_physical")
-	@ResponseBody
-	public String course_board_delete_physical() {
-		// 권한 설정 예정
+		// id로 공지글 조회
+		CourseBoardDTO dto = course_board_dao.selectOne(id);		
 		
-		// 공지글 DB에서 삭제하기(물리적 삭제)
-		int res = course_board_dao.delete_physical();
-	
+		// 공지글에 첨부된 파일 제거
+		AnnouncementController.fileManager.fileDelete(dto);
+		
 		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
 			return "[{'result':'yes'}]";
 		} else {

@@ -16,6 +16,8 @@ public class Context_1_dataSource {
 		ds.setUrl("jdbc:oracle:thin:@1.213.238.239:1521:xe");
 		ds.setUsername("Studyroom");
 		ds.setPassword("study1234");
+
+		ds.addConnectionProperty("allowMultiQueries", "true");
 		return ds;
 	}
 

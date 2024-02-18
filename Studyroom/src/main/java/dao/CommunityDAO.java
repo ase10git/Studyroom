@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+
+import com.study.study.AnnouncementController;
 
 import dto.CommunityDTO;
 import dto.UserCommunityLikeDTO;
@@ -43,12 +46,22 @@ public class CommunityDAO {
 		
 		//삭제한것처럼 수정하기
 		public int del_update(CommunityDTO dto) {
+			// 첨부된 파일 제거
+			AnnouncementController.fileManager.fileDelete(dto);
+			
 			return sqlSession.update("cm.del_update",dto);
 		}
 		
+		// 삭제 요청한 게시글 조회
+		public List<CommunityDTO> deleteList() {
+			return sqlSession.selectList("cm.delete_list");
+		}
+		
 		// 게시글 물리적 삭제
-		public int community_delete() {
-			return sqlSession.delete("cm.community_delete");
+		public int delete_physical(ArrayList<Integer> communityList) {
+			// 특정 게시글 추천 내역 제거
+			this.only_community_delete(communityList);
+			return sqlSession.delete("cm.community_delete", communityList);
 		}
 		
 		//댓글추가를 위한 step + 1
@@ -81,5 +94,15 @@ public class CommunityDAO {
 			Integer result = sqlSession.selectOne("cm.like_count", dto);
 			
 			return (result != null) ? result.intValue() : 0;
+		}
+		
+		// 사용자 커뮤니티 테이블에서 특정 사용자 추천 내역 제거
+		public int only_user_delete(ArrayList<Integer> userList) {
+			return sqlSession.delete("cm.only_user_delete", userList);
+		}
+		
+		// 사용자 커뮤니티 테이블에서 특정 사용자 추천 내역 제거
+		public int only_community_delete(ArrayList<Integer> communityList) {
+			return sqlSession.delete("cm.only_community_delete", communityList);
 		}
 }
