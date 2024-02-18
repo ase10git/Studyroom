@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="a">
+	<select id="announcement_list" resultType="courseboard">
+		SELECT * FROM COURSE_BOARD WHERE COURSE_ID IS NULL  
+	</select>
+	
+	<!-- 전체 게시물 수 조회 -->
+	<select id="announcement_count" resultType="int">
+		SELECT COUNT(*) FROM COURSE_BOARD WHERE COURSE_ID IS NULL 
+	</select>
+	
+	<!-- 게시물 한 건 조회 -->
+	<select id="announcement_one" parameterType="int" resultType="courseboard">
+		SELECT * FROM COURSE_BOARD WHERE ID=#{id***REMOVED***
+	</select>
+	
+
+	<!-- 공지글 추가하기 -->
+	<insert id="announcement_insert" parameterType="courseboard">
+		INSERT INTO course_board VALUES(
+			SEQ_COURSE_BOARD_ID.nextVal,
+			null,
+			#{title***REMOVED***,
+			#{content***REMOVED***,
+			sysdate,
+			#{file_name***REMOVED***,
+			0
+		)
+	</insert>
+	
+		<!-- 공지글 수정하기 -->
+	<update id="announcement_modify" parameterType="courseboard">
+		UPDATE course_board 
+		SET TITLE = #{title***REMOVED***,
+			CONTENT = #{content***REMOVED***,
+			FILE_NAME = #{file_name***REMOVED***
+		WHERE ID = #{id***REMOVED***
+	</update>
+	
+		<!-- 공지글 삭제한 것처럼 수정 -->
+	<update id="anouncement_delete_update" parameterType="int">
+		UPDATE course_board 
+		SET DEL_FLAG = -1
+		WHERE ID = #{id***REMOVED***
+	</update>
+	
+</mapper>
+

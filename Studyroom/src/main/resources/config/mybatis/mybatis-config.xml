@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="dto.UserDTO" alias="user"/>
+		<typeAlias type="dto.CustomerServiceDTO" alias="csboard"/>
+		<typeAlias type="dto.CourseDTO" alias="course"/>
+		<typeAlias type="dto.CourseBoardDTO" alias="courseboard"/>
+		<typeAlias type="dto.UserCourseDTO" alias="usercourse"/>
+		<typeAlias type="dto.CommunityDTO" alias="community"/> 
+		<typeAlias type="dto.CalendarDTO" alias="calendar"/>	
+		<typeAlias type="dto.UserCommunityLikeDTO" alias="uclike"/>	
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="config/mybatis/mapper/user.xml" />
+		<mapper resource="config/mybatis/mapper/customerService.xml" />
+		<mapper resource="config/mybatis/mapper/announcement.xml" />
+		<mapper resource="config/mybatis/mapper/course.xml" />
+		<mapper resource="config/mybatis/mapper/course_board.xml" />
+		<mapper resource="config/mybatis/mapper/community.xml" />
+		<mapper resource="config/mybatis/mapper/calendar.xml" />
+	</mappers>
+</configuration>

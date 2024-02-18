@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co">
+	<!-- 코스 전체 조회 -->
+	<select id="course_list" parameterType="java.util.HashMap" resultType="course" > 	
+	 	SELECT * FROM (SELECT RANK() OVER(ORDER BY id DESC) AS no, c.* FROM course c)
+		WHERE DEL_FLAG != -1
+		AND no BETWEEN #{start***REMOVED*** AND #{end***REMOVED***
+	</select>
+
+	<!-- 전체 코스 수 조회 -->
+	<select id="course_count" resultType="int">
+		SELECT COUNT(*) FROM course WHERE DEL_FLAG != -1
+	</select>
+	
+	<!-- 코스 한 건 조회 -->
+	<select id="course_view" parameterType="int" resultType="course">
+		SELECT * FROM course WHERE ID=#{id***REMOVED***
+	</select>
+		
+	<!-- 특정 사용자의 코스 전체 조회 -->
+	<select id="course_list_user" parameterType="java.util.HashMap" resultType="usercourse" >
+		SELECT * FROM USER_COURSE_VIEW
+		WHERE DEL_FLAG != -1 AND USER_ID = #{user_id***REMOVED***
+	</select>
+
+	<!-- 특정 사용자의 전체 코스 수 조회 -->
+	<select id="course_count_user" resultType="int">
+		SELECT COUNT(*) FROM USER_COURSE_VIEW
+		WHERE DEL_FLAG != -1 AND USER_ID = #{user_id***REMOVED***
+	</select>
+
+	<!-- 삭제 요청된 코스 조회 -->
+	<select id="course_delete_list" resultType="course">
+		SELECT * FROM course WHERE DEL_FLAG = -1
+	</select>
+	
+	<!-- 코스 추가하기 -->
+	<insert id="course_insert" parameterType="course">
+		INSERT INTO course VALUES(
+			SEQ_COURSE_ID.nextVal,
+			#{title***REMOVED***,
+			#{instructor***REMOVED***,
+			#{summary***REMOVED***,
+			TO_DATE(#{start_date***REMOVED***, 'YYYY-MM-DD'),
+			TO_DATE(#{end_date***REMOVED***, 'YYYY-MM-DD'),
+			0
+		)
+	</insert>
+	
+	<!-- 코스 수정하기 -->
+	<update id="course_modify" parameterType="course">
+		UPDATE course
+		SET TITLE = #{title***REMOVED***,
+			INSTRUCTOR = #{instructor***REMOVED***,
+			SUMMARY = #{summary***REMOVED***,
+			START_DATE = TO_DATE(#{start_date***REMOVED***, 'YYYY-MM-DD'),
+			END_DATE = TO_DATE(#{end_date***REMOVED***, 'YYYY-MM-DD')
+		WHERE ID = #{id***REMOVED***	
+	</update>
+	
+	<!-- 코스 삭제처럼 처리하기 -->
+	<update id="course_delete_update" parameterType="int">
+		UPDATE course
+		SET DEL_FLAG = -1
+		WHERE ID = #{id***REMOVED***					
+	</update>
+
+	<!-- 코스 물리적 삭제 -->
+	<delete id="course_delete" parameterType="int">
+		DELETE FROM course
+		WHERE ID = #{id***REMOVED*** AND DEL_FLAG = -1
+	</delete>
+</mapper>
+

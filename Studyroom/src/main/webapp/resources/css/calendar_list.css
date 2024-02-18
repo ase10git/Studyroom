@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+#calendar {
+    width: 60%;
+    margin: 0 auto;
+    table-layout: fixed;
+    overflow: auto;
+***REMOVED***
+
+#calendar th {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    width: 200px;
+***REMOVED***
+
+#calendar td {
+    height: 150px;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #ddd;
+***REMOVED***
+
+#calendar td:hover {
+    background-color: #f5f5f5;
+***REMOVED***
+
+
+#calendar-header {
+    text-align: right;
+    font-size: 25px;
+    margin-bottom: 10px;
+    margin-right: 230px;
+***REMOVED***
+#calendar_title{
+	text-align: left;
+	font-size: 64px;
+	margin-left: 315px;
+	background: linear-gradient(to bottom right, white, lightblue, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+***REMOVED***
+
+.prev-svg-button {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z'/%3E%3C/svg%3E");
+    width: 32px; /* SVG 너비 설정 */
+    height: 32px; /* SVG 높이 설정 */
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none; /* 버튼 스타일링을 위한 추가적인 스타일링 */
+    cursor: pointer;
+***REMOVED***
+
+.next-svg-button {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E");
+    width: 32px; /* SVG 너비 설정 */
+    height: 32px; /* SVG 높이 설정 */
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none; /* 버튼 스타일링을 위한 추가적인 스타일링 */
+    cursor: pointer;
+***REMOVED***
+#current-year-month {
+	display: inline-block;
+    vertical-align: top; /* 위쪽 정렬 */
+    margin-top: -4px; /* 원하는 만큼 위로 올리기 */
+***REMOVED***
+.prev-svg-button, .next-svg-button {
+    border: none; /* 테두리 제거 */
+    cursor: pointer;
+    background-color: transparent; /* 배경색 투명하게 설정 */
+***REMOVED***
+
+body {
+    background: linear-gradient(to bottom, #ffffff,#add8e6);
+    background-size: cover;
+    background-repeat: no-repeat;
+***REMOVED***
+
+
+
+
