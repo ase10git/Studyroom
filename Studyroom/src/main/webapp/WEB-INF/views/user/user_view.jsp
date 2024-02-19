@@ -17,7 +17,16 @@
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+    <script>
+	    if (${updateSuccess***REMOVED***) {
+	        alert('수정 완료');
+	    ***REMOVED***
     
+	    function redirectToAuthForm(action) {
+	        var id = "${dto.id***REMOVED***";
+	        location.href = "user_pw_auth_form?id="+id+"&action="+action;
+	    ***REMOVED***
+	</script>
 </head>
 <body>
 
@@ -58,7 +67,7 @@
 			</div>
 			<div class="row g-3 align-items-center justify-content-end">
 			  <div class="col-auto">
-			    <input type="button" class="btn btn-primary" value="수정하기" onclick="location.href='user_pw_auth_form'">
+			    <input type="button" class="btn btn-primary" value="수정하기" onclick="redirectToAuthForm('update')">
 			  </div>
 			</div>
 		  </div>

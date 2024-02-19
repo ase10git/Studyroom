@@ -9,6 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_tbl where email=#{email***REMOVED*** 
 	</select>
 	
+	<!-- 사용자 하나 조회(id) -->
+	<select id="select_one_by_id" parameterType="int" resultType="user">
+		select * from user_tbl where id=#{id***REMOVED*** 
+	</select>
 	
 	<!-- 사용자 추가 -->
 	<insert id="insert" parameterType="user">
@@ -31,6 +35,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			tel = #{tel***REMOVED***,
 			pwd = #{pwd***REMOVED***
 		where id = #{id***REMOVED***
+	</update>
+	
+	<!-- 회원탈퇴(한것처럼 보이게 하는 기능) -->
+	<update id="del_update" parameterType="user">
+		update user_tbl
+		set username = #{username***REMOVED***,
+			email = #{email***REMOVED***,
+			tel = #{tel***REMOVED***,
+			pwd = #{pwd***REMOVED***,
+			del_flag = -1
+		where id=#{id***REMOVED***
 	</update>
 	
 	
