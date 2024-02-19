@@ -85,17 +85,22 @@ public class CommunityDAO {
 		}
 		
 		// 특정 사용자의 커뮤니티 글 추천 여부 조회
-		public int like_count(int user_id, int community_board_id) {
-			
-			UserCommunityLikeDTO dto = new UserCommunityLikeDTO();
-			dto.setUser_id(user_id);
-			dto.setCommunity_board_id(community_board_id);
-			
-			Integer result = sqlSession.selectOne("cm.like_count", dto);
-			
-			return (result != null) ? result.intValue() : 0;
-		}
+        public int like_count(UserCommunityLikeDTO likedto) {
+            Integer result = sqlSession.selectOne("cm.like_count", likedto);
+
+            return (result != null) ? result.intValue() : 0;
+        }
 		
+        // 커뮤니티 테이블에 커뮤니티 글의 추천수 저장
+        public int community_likehit(int id) {
+        	return sqlSession.update("cm.community_likehit",id);
+        }
+        
+        // 사용자 커뮤니티 테이블에 특정 사용자의 커뮤니티 글 추천 데이터 저장
+        public int community_like(UserCommunityLikeDTO likedto) {
+			return sqlSession.insert("cm.community_like",likedto);
+        }
+        
 		// 사용자 커뮤니티 테이블에서 특정 사용자 추천 내역 제거
 		public int only_user_delete(ArrayList<Integer> userList) {
 			return sqlSession.delete("cm.only_user_delete", userList);

@@ -18,6 +18,7 @@ import dao.CourseBoardDAO;
 import dao.CourseDAO;
 import dto.CourseBoardDTO;
 import dto.CourseDTO;
+import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 import util.Paging;
@@ -43,6 +44,14 @@ public class CourseBoardController {
 	@RequestMapping("course_board_list")
 	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {
 
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		}
+		
 		// 시작, 종료 페이지 계산
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -70,7 +79,7 @@ public class CourseBoardController {
 											Common.Board.BLOCKPAGE);
 		
 		// 사용자의 권한을 세션에서 가져오기
-		String role = (String) session.getAttribute("role");
+		String role = user_dto.getRole();
 		
 		// 페이지에 데이터 포워딩
 		model.addAttribute("list", list);
@@ -85,11 +94,19 @@ public class CourseBoardController {
 	@RequestMapping("course_board_view")
 	public String course_board_view(Model model, int id, int page) {
 		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		}
+		
 		// id로 공지글 조회하기
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
 		
 		// 사용자 권한 세션에서 가져오기
-		String role = (String)session.getAttribute("role");
+		String role = user_dto.getRole();
 		
 		// 페이지에 조회한 공지글 포워딩
 		model.addAttribute("dto", dto);
@@ -103,6 +120,18 @@ public class CourseBoardController {
 	@RequestMapping("course_board_insert_form")
 	public String course_board_insert_form() {
 		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		} else {
+			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
+				return "/error";
+			}
+		}
+		
 		return Common.ADMIN_PATH + "course_board_insert_form.jsp";
 	}
 	
@@ -111,6 +140,18 @@ public class CourseBoardController {
 	// admin, mentor만 가능
 	@RequestMapping("course_board_insert")
 	public String course_board_insert(CourseBoardDTO dto) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		} else {
+			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
+				return "/error";
+			}
+		}
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
 		AnnouncementController.fileManager.fileUpload(dto);
@@ -138,6 +179,18 @@ public class CourseBoardController {
 	@RequestMapping("course_board_modify_form")
 	public String course_board_modify_form(Model model, int id) {
 		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		} else {
+			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
+				return "/error";
+			}
+		}
+		
 		// 요청 페이지에서 공지글의 id를 받아 공지글을 조회
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
 		
@@ -152,6 +205,18 @@ public class CourseBoardController {
 	@RequestMapping("course_board_modify")
 	public String course_board_modify(CourseBoardDTO dto, int id, int page, int delete_flag) {
 
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		} else {
+			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
+				return "/error";
+			}
+		}
+		
 		// 원본 origin_dto를 id로 조회
 		CourseBoardDTO origin_dto = course_board_dao.selectOne(id);
 		
@@ -183,6 +248,18 @@ public class CourseBoardController {
 	@RequestMapping("course_board_delete")
 	@ResponseBody
 	public String course_board_delete(int id) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		} else {
+			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
+				return "/error";
+			}
+		}
 		
 		// 공지글 삭제된 것처럼 수정하기(논리적 삭제)
 		int res = course_board_dao.delete_update(id);
