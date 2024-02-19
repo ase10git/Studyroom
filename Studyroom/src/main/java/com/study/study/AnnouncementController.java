@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.AnnouncementDAO;
 import dto.CourseBoardDTO;
+import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
 import util.FileManager;
@@ -38,6 +39,14 @@ public class AnnouncementController {
 	
 	@RequestMapping("announcement_list") 
 	public String announcement_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		}
 		
 		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
 		if (fileManager.getSavePath() == null) {
@@ -70,12 +79,9 @@ public class AnnouncementController {
 		
 		request.getSession().removeAttribute("show");
 		
-		// 사용자 권한 세션에서 가져오기
-		String role = (String)session.getAttribute("role");
-		
+		// 데이터 포워딩
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
-		model.addAttribute("role", role);
 		
 		return Common.ANNOUNCEMENT_PATH + "announcement_list.jsp?page="+page;
 	}
@@ -83,14 +89,18 @@ public class AnnouncementController {
 	// 전체 공지글 상세보기
 	@RequestMapping("view")
 	public String view(Model model, int id, int page) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/login";
+		}
+				
 		CourseBoardDTO dto = announcement_dao.selectOne(id);
-		
-		// 사용자 권한 세션에서 가져오기
-		String role = (String)session.getAttribute("role");
-		
-		// 데이터 포워딩
+
 		model.addAttribute("dto",dto);
-		model.addAttribute("role", role);
 		
 		return Common.ANNOUNCEMENT_PATH+"announcement_view.jsp?page="+page;
 	}

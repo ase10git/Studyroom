@@ -48,35 +48,28 @@
 		}
 		
 		function reply(){
-			
-			
-			if(confirm("답글을 작성하시겠습니까?")){    //확인 하고 난 후
+			if(!confirm("답글을 작성하시겠습니까?")) { // 작성 취소
+				return;
+			}else{ // 전송
 				f.submit();
-				//location.href='community_view?id=${dto.id}&page=${param.page}';
-			}else{   //취소
-				return;
 			}
-		
-			//location.href='reply_form?id=${dto.id}&page=${param.page}';
 		}
+		
 		function modify(){
-			//원본 비밀번호와 내가 작성한 비밀번호가 일치할때만 수정이 가능하도록 
-			/* let ori_pwd = f.ori_pwd.value;
-			let pwd = f.pwd.value;
-			
-			if(pwd==''){
-				alert("비밀번호를 입력하세요")
-				return;
-			}
-			
-			if(ori_pwd != pwd){
-				alert('비밀번호 불일치');
-				return;
-			} */
+			// 세션에서 정보 가져와서 비교 필요
 			location.href="community_modify_form?id=${dto.id}&page=${param.page}";
 		}
+		
 		function like(){
+			
+			if("${user_like}"==1){
+				alert('이미 추천했습니다.');
+				return
+			}
+			
+			location.href="community_like?id=${dto.id}&page=${param.page}";
 			alert('추천되었습니다.');
+			
 		}
 	</script>
 </head>
@@ -166,18 +159,18 @@
 					</c:forEach>
 					
 					<div class="d-flex justify-content-end">
-						<!-- 추천하기 -->
-						<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
-						
-						<!-- 목록보기 -->
-						<input type="button" class="btn btn-light" value="목록보기" onclick="location.href='community_list'">
-						
-						<c:if test="${userId == dto.id}">
-							<!-- 삭제 -->
-							<input type="button" class="btn btn-dark" value="삭제" onclick="del()">
+						<c:if test="${userId == dto.user_id}">
 							<!-- 수정 -->
 							<input type="button" class="btn btn-primary" value="수정" onclick="modify()">
+							<!-- 삭제 -->
+							<input type="button" class="btn btn-dark" value="삭제" onclick="del()">
 						</c:if>	
+							<c:if test="${userId != dto.user_id}">
+								<!-- 추천하기 -->
+								<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
+							</c:if>	
+							<!-- 목록보기 -->
+							<input type="button" class="btn btn-light" value="목록보기" onclick="location.href='community_list'">
 					</div>
 				</div>
 			</div>

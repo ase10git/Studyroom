@@ -10,12 +10,18 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
     <link rel="stylesheet" href="resources/css/main.css">
+    <style>
+    	html, body{
+    		display:flex; align-content:center; justify-content:center;
+    	}
+    	.sec{ margin-top : 100px;}
+    </style>
 </head>
 <body>
 
   <section class="sec error">
     <div class="container">
-     <h1 class="title text-center">에러가 발생했습니다!</h1>
+     <h1 class="title text-center">😥에러가 발생했습니다!</h1>
       <div class="row gy-4 justify-content-center">
         <div class="box col-12 col-md-6 text-center">
         	<span class="text-danger fw-bold">요청과 권한을 다시 확인해주세요!</span>

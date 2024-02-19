@@ -16,7 +16,7 @@ a:hover{text-decoration: underline;}
 
 .sec{width:100%;}
 
-.sec .container{width:100%;}
+.sec .container{width:100%; margin:0 auto;}
 
 .sec .container .row{align-items: center;}
 
