@@ -44,18 +44,20 @@ public class AdminController {
 	
 	@Autowired
 	HttpSession session;
-
+	
 	// 삭제 관리 페이지로 이동
 	@RequestMapping("delete_management")
 	public String delete_management(Model model) {
-				
-		// 사용자 권한을 세션에서 가져옴
-		String role = ((UserDTO)session.getAttribute("dto")).getRole();
-		
-		// 관리자 외의 다른 사용자의 접근 차단
-		if (!role.equals("admin")) {
+			
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 		}
+
 		
 		// del_flag = -1인 사용자 조회
 		List<UserDTO> user_list = user_dao.deleteList();
@@ -83,11 +85,12 @@ public class AdminController {
 	@RequestMapping("delete_physical")
 	public String delete_physical() {
 		
-		// 사용자 권한을 세션에서 가져옴
-		String role = ((UserDTO)session.getAttribute("dto")).getRole();
-		
-		// 관리자 외의 다른 사용자의 접근 차단
-		if (!role.equals("admin")) {
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) {
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 		}
 		

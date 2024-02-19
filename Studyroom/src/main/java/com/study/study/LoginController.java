@@ -50,7 +50,7 @@ public class LoginController {
 		
 		//세션에 바인딩
 		session.setAttribute("dto", dto);
-		
+		System.out.println("권한? : "+dto.getRole());
 		//로그인에 성공한 경우
 		return "[{'param':'clear'}]";
 	}

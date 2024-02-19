@@ -46,11 +46,8 @@ public class CourseBoardController {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-		}
+		if (user_dto == null) return "/";
 		
 		// 시작, 종료 페이지 계산
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
@@ -96,11 +93,8 @@ public class CourseBoardController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-		}
+		if (user_dto == null) return "/";
 		
 		// id로 공지글 조회하기
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
@@ -125,13 +119,12 @@ public class CourseBoardController {
 		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else {
-			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
-				return "/error";
-			}
+			return "/";
+		} // 관리자와 멘토만 접근 가능 
+		else if (!user_dto.getRole().equals("admin") && !user_dto.getRole().equals("mentor")) { 
+			return "/error";
 		}
-		
+
 		return Common.ADMIN_PATH + "course_board_insert_form.jsp";
 	}
 	
@@ -146,11 +139,10 @@ public class CourseBoardController {
 		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else {
-			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
-				return "/error";
-			}
+			return "/";
+		} // 관리자와 멘토만 접근 가능 
+		else if (!user_dto.getRole().equals("admin") && !user_dto.getRole().equals("mentor")) { 
+			return "/error";
 		}
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
@@ -184,11 +176,10 @@ public class CourseBoardController {
 		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else {
-			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
-				return "/error";
-			}
+			return "/";
+		} // 관리자와 멘토만 접근 가능 
+		else if (!user_dto.getRole().equals("admin") && !user_dto.getRole().equals("mentor")) { 
+			return "/error";
 		}
 		
 		// 요청 페이지에서 공지글의 id를 받아 공지글을 조회
@@ -210,11 +201,10 @@ public class CourseBoardController {
 		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else {
-			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
-				return "/error";
-			}
+			return "/";
+		} // 관리자와 멘토만 접근 가능 
+		else if (!user_dto.getRole().equals("admin") && !user_dto.getRole().equals("mentor")) { 
+			return "/error";
 		}
 		
 		// 원본 origin_dto를 id로 조회
@@ -254,11 +244,10 @@ public class CourseBoardController {
 		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else {
-			if (user_dto.getRole() != "admin" || user_dto.getRole() != "mentor") { // 관리자와 멘토만 접근 가능
-				return "/error";
-			}
+			return "/";
+		} // 관리자와 멘토만 접근 가능 
+		else if (!user_dto.getRole().equals("admin") && !user_dto.getRole().equals("mentor")) { 
+			return "/error";
 		}
 		
 		// 공지글 삭제된 것처럼 수정하기(논리적 삭제)
@@ -281,6 +270,11 @@ public class CourseBoardController {
 	// 첨부 파일 다운로드
 	@RequestMapping("course_board_filedownload")
 	public String course_board_filedownload(Model model, int id) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
 		
 		// id로 CourseBoardDTO 조회
 		CourseBoardDTO dto = course_board_dao.selectOne(id);

@@ -4,14 +4,6 @@ import lombok.Data;
 
 @Data
 public class UserCourseDTO {
-	private int user_id; // »ç¿ëÀÚid
-	private int id; // ÄÚ½ºid
-	private int del_flag; // »èÁ¦¿©ºÎ
-	
-	private String title; // ÄÚ½ºÀÌ¸§
-	private String instructor; // °­»çÀÌ¸§
-	private String summary; // ÄÚ½º ¼³¸í
-	private String start_date; // ½ÃÀÛÀÏ
-	private String end_date; // Á¾·áÀÏ
-	
+	private int user_id; // ì‚¬ìš©ìid
+	private int course_id; // ì½”ìŠ¤id
 }
