@@ -3,7 +3,6 @@ package com.study.study;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,9 +99,6 @@ public class CalendarController {
 	public void editEvent(@RequestParam("id") int id, @RequestParam("type") String type, @RequestParam("comment") String comment) {
 	    cal_dao.updateEvent(id, type, comment);
 	}
-	
-	
-	
 	
  	    
 }

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.sec .container{
+	width:100%; max-width:720px;
+	margin: 30px auto;
+    padding:20px;
+    background-color: rgb(237, 250, 254);
+    border-radius: 10px;
+}
+
+.sec .container .title{
+    padding: 5px;
+    background-color: rgb(169, 228, 255);
+    border: 5px solid white;
+    border-radius: 10px;
+}

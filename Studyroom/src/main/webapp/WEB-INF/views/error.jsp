@@ -4,24 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Error!</title>
 	<!-- bootstrap css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
+    <link rel="stylesheet" href="resources/css/main.css">
 </head>
 <body>
 
-	<%@ include file="../include/menu.jsp" %>
-	
-  <section class="sec event">
+  <section class="sec error">
     <div class="container">
-     <h1>test home</h1>
-      <div class="row gy-4">
-        <div class="box col-12 col-md-6">
-          <div class="gt">
-
-          </div>
+     <h1 class="title text-center">에러가 발생했습니다!</h1>
+      <div class="row gy-4 justify-content-center">
+        <div class="box col-12 col-md-6 text-center">
+        	<span class="text-danger fw-bold">요청과 권한을 다시 확인해주세요!</span>
         </div>
       </div>
     </div>

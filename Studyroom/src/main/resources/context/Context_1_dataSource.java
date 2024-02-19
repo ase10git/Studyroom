@@ -16,6 +16,8 @@ public class Context_1_dataSource {
 		***REMOVED***
 		***REMOVED***
 		***REMOVED***
+
+		ds.addConnectionProperty("allowMultiQueries", "true");
 		return ds;
 	}
 
