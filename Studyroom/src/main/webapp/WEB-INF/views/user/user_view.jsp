@@ -18,13 +18,12 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
     <script>
-	    if (${updateSuccess}) {
+	    if ("${updateSuccess}") {
 	        alert('수정 완료');
 	    }
     
 	    function redirectToAuthForm(action) {
-	        var id = "${dto.id}";
-	        location.href = "user_pw_auth_form?id="+id+"&action="+action;
+	        location.href = "user_pw_auth_form?id=${dto.id}&action="+action;
 	    }
 	</script>
 </head>
