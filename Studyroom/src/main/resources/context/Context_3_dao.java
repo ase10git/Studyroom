@@ -11,6 +11,8 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCourseDAO;
+import dao.UserCourseViewDAO;
 import dao.UserDAO;
 
 @Configuration
@@ -53,6 +55,18 @@ public class Context_3_dao {
 		return new CalendarDAO(sqlSession);
 	}
 
+	// UserCourseDAO Bean : 사용자-코스
+	@Bean
+	public UserCourseDAO userCourseDAO(SqlSession sqlSession) {
+		return new UserCourseDAO(sqlSession);
+	}
+		
+	// UserCourseViewDAO Bean : 사용자-코스
+	@Bean
+	public UserCourseViewDAO userCourseViewDAO(SqlSession sqlSession) {
+		return new UserCourseViewDAO(sqlSession);
+	}
+			
 	// SessionCheckAspect Bean : 세션체크 Advice
 	@Bean
 	public SessionCheckAspect sessionCheckAspect() {

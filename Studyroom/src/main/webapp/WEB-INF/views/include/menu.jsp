@@ -15,6 +15,11 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+    <script>
+    	function logout() {
+    		location.href="logout";
+    	}
+    </script>
 </head>
 
 <body>
@@ -27,5 +32,6 @@
 			<li><a href='calendar_list' class="item calendar"><i class="fi fi-rr-calendar-lines-pen"></i><span>캘린더</span></a></li>
 		</ul>
 	</div>
+	<input type="button" class="btn btn-primary" id="logout" value="로그아웃" onclick="logout()">
 </body>
 </html>
