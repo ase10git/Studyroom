@@ -12,103 +12,139 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/community_view.css">
-<script src="resources/js/HttpRequest.js"></script>
-<script type="text/javascript">
-	function del(){
-		if(!confirm("삭제하시겠습니까?")){
-			return;
-	***REMOVED***
+	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+	<script src="resources/js/HttpRequest.js"></script>
+	<script type="text/javascript">
+		function del(){
+			if(!confirm("삭제하시겠습니까?")){
+				return;
+		***REMOVED***
 
-		var url = "community_delete";
-		var param = "id=${dto.id***REMOVED***"
+			var url = "community_delete";
+			var param = "id=${dto.id***REMOVED***"
+			
+			sendRequest(url,param,delCheck,"post");
+	***REMOVED***
 		
-		sendRequest(url,param,delCheck,"post");
-***REMOVED***
-	
-	function delCheck(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			var data = xhr.responseText;
-			
-			var json = (new Function('return' + data))();
-			
-			if(json[0].result == 'yes'){
-				alert('삭제 성공')
-				location.href='community_list?page=${param.page***REMOVED***';
-		***REMOVED*** else {
-				alert('삭제 실패')
+		function delCheck(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var data = xhr.responseText;
+				
+				var json = (new Function('return' + data))();
+				
+				if(json[0].result == 'yes'){
+					alert('삭제 성공')
+					location.href='community_list?page=${param.page***REMOVED***';
+			***REMOVED*** else {
+					alert('삭제 실패')
+			***REMOVED***
 		***REMOVED***
 	***REMOVED***
-***REMOVED***
-	
-	function reply(){
 		
+		function reply(){
+			
+			
+			if(confirm("답글을 작성하시겠습니까?")){    //확인 하고 난 후
+				f.submit();
+				//location.href='community_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***';
+		***REMOVED***else{   //취소
+				return;
+		***REMOVED***
 		
-		if(confirm("답글을 작성하시겠습니까?")){    //확인 하고 난 후
-			f.submit();
-			//location.href='community_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***';
-		 ***REMOVED***else{   //취소
-		     return;
-		 ***REMOVED***
-	
-		//location.href='reply_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***';
-***REMOVED***
-	function modify(){
-		//원본 비밀번호와 내가 작성한 비밀번호가 일치할때만 수정이 가능하도록 
-		/* let ori_pwd = f.ori_pwd.value;
-		let pwd = f.pwd.value;
-		
-		if(pwd==''){
-			alert("비밀번호를 입력하세요")
-			return;
+			//location.href='reply_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***';
 	***REMOVED***
-		
-		if(ori_pwd != pwd){
-			alert('비밀번호 불일치');
-			return;
-	***REMOVED*** */
-		location.href="community_modify_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
-***REMOVED***
-	function like(){
-		alert('추천되었습니다.');
-***REMOVED***
-</script>
+		function modify(){
+			//원본 비밀번호와 내가 작성한 비밀번호가 일치할때만 수정이 가능하도록 
+			/* let ori_pwd = f.ori_pwd.value;
+			let pwd = f.pwd.value;
+			
+			if(pwd==''){
+				alert("비밀번호를 입력하세요")
+				return;
+		***REMOVED***
+			
+			if(ori_pwd != pwd){
+				alert('비밀번호 불일치');
+				return;
+		***REMOVED*** */
+			location.href="community_modify_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
+	***REMOVED***
+		function like(){
+			alert('추천되었습니다.');
+	***REMOVED***
+	</script>
 </head>
 <body>
 
 	<%@ include file="../include/menu.jsp" %>
 	
-	<section class="sec event">
+	<section class="sec community">
 		<div class="container">
-			<h1>커뮤니티 글 상세보기</h1>
+			<h2 class="title text-center">${dto.title ***REMOVED***</h2>
 			<div class="row gy-4">
-
-				<div class="col box">
-					<table border="1">
-						<caption>:::게시글 상세보기:::</caption>
-						<tr>
-							<th>제목</th>
-							<td>${dto.title ***REMOVED***</td>
-						</tr>
+				<div class="col box col-12 d-flex justify-content-center">
+					<table class="community-box">
 						<tr>
 							<th>작성자</th>
-							<td>${dto.nickname ***REMOVED***</td>
+							<c:choose>
+								<c:when test="${dto.nickname ne null***REMOVED***">
+									<td>${dto.nickname***REMOVED***</td>
+								</c:when>
+								<c:otherwise>
+									<td>수강생</td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 						<tr>
 							<th>작성일</th>
 							<td>${dto.register_date ***REMOVED***</td>
 						</tr>
 						<tr>
-							<th>이미지</th>
-							<td><img src="${pageContext.request.contextPath***REMOVED***/resources/upload/${dto.file_name***REMOVED***" alt="이미지"></td>
-						<tr>
 							<th>내용</th>
-							<td width="500px" height="200px"><pre>${dto.content***REMOVED***</pre></td>
+							<td>
+								<p>${dto.content***REMOVED***</p>
+								<c:if test="${dto.file_name ne 'no_file'***REMOVED***">
+									<img src="${pageContext.request.contextPath***REMOVED***/resources/upload/${dto.file_name***REMOVED***" alt="이미지">
+								</c:if>
+							</td>
 						</tr>
 					</table>
 				</div>	
-
+			</div>
+			<div class="row gy-4">
+				<!-- 답글 작성 -->
+					<div class="accordion col box" id="insert-reply">
+					  <div class="accordion-item">
+					    <h2 class="accordion-header">
+					      <button class="accordion-button collapsed" type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+					        답글 작성하기
+					      </button>
+					    </h2>
+					    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#insert-reply">
+					      <div class="accordion-body">
+					    	<form action="community_reply" name="f" method="post">
+								<input type="hidden" name="id"	 value="${param.id ***REMOVED***">
+								<input type="hidden" name="page" value="${param.page***REMOVED***">	
+									<!-- 답변 -->
+									<textarea name="content" class="input"  style="resize:none;"></textarea>	
+									<c:if test="${dto.depth lt 1 ***REMOVED***">	
+										<input type="button" class="btn btn-primary" value="답변 등록" onclick="reply()">
+									</c:if>
+							</form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+			</div>
+			<div class="row gy-4">
 				<!-- 답글 보여주기 -->
-				<div class="col box">
+				<div class="col box reply">
 					<c:forEach var="dto" items="${reply_list***REMOVED***">
 						<div class="reply_box">
 							<c:choose>
@@ -128,39 +164,27 @@
 							</c:choose>
 						</div>
 					</c:forEach>
-				</div>		
-
-				<div class="col box">
-					<form action="community_reply" name="f" method="post">
-						<input type="hidden" name="id"	 value="${param.id ***REMOVED***">
-						<input type="hidden" name="page" value="${param.page***REMOVED***">	
-							<!-- 답변 -->
-							<textarea name="content" class="input"  style="resize:none;"></textarea>	
-							<c:if test="${dto.depth lt 1 ***REMOVED***">	
-								<input type="button" value="답변 등록" onclick="reply()">
-							</c:if>
-					</form>
-				</div>
-
-				<div class="col box">
-					<div class="btn-wrap">
+					
+					<div class="d-flex justify-content-end">
 						<!-- 추천하기 -->
-						<input type="button" value="추천하기" onclick="like()">
+						<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
 						
 						<!-- 목록보기 -->
-						<input type="button" value="목록보기" onclick="location.href='community_list'">
+						<input type="button" class="btn btn-light" value="목록보기" onclick="location.href='community_list'">
 						
-						<!-- 삭제 -->
-						<input type="button" value="삭제" onclick="del()">
-						<!-- 수정 -->
-						<input type="button" value="수정" onclick="modify()">	
+						<c:if test="${userId == dto.id***REMOVED***">
+							<!-- 삭제 -->
+							<input type="button" class="btn btn-dark" value="삭제" onclick="del()">
+							<!-- 수정 -->
+							<input type="button" class="btn btn-primary" value="수정" onclick="modify()">
+						</c:if>	
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>
 
+	<%@ include file="../include/footer.jsp" %>
 
 		<!-- bootstrap script -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

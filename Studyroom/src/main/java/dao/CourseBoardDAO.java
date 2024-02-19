@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+
+import com.study.study.AnnouncementController;
 
 import dto.CourseBoardDTO;
 import lombok.RequiredArgsConstructor;
@@ -12,44 +15,66 @@ import lombok.RequiredArgsConstructor;
 public class CourseBoardDAO {
 	final SqlSession sqlSession;
 
-		// ÆäÀÌÁöº° ÄÚ½º °øÁö±Û Á¶È¸
+		// í˜ì´ì§€ë³„ ì½”ìŠ¤ ê³µì§€ê¸€ ì¡°íšŒ
 		public List<CourseBoardDTO> selectList(HashMap<String, Integer> map){
 			return sqlSession.selectList("cb.board_list", map);
 	***REMOVED***
 	
-		// ÀüÃ¼ ÄÚ½º °øÁö±Û ¼ö Á¶È¸
+		// ì „ì²´ ì½”ìŠ¤ ê³µì§€ê¸€ ì¤‘ ì‚­ì œ ì•ˆëœ ê¸€ì˜ ìˆ˜ ì¡°íšŒ
 		public int getRowTotal(int course_id) {
 			return sqlSession.selectOne("cb.board_count", course_id);
 	***REMOVED***
 		
-		// ÄÚ½º °øÁö±Û ÇÑ °Ç Á¶È¸
+		// ì½”ìŠ¤ ê³µì§€ê¸€ í•œ ê±´ ì¡°íšŒ
 		public CourseBoardDTO selectOne(int id) {
 			return sqlSession.selectOne("cb.board_one", id);
 	***REMOVED***
 			
-		// »èÁ¦ ¿äÃ»µÈ ÄÚ½º °øÁö±Û Á¶È¸
+		// ì‚­ì œ ìš”ì²­ëœ ì½”ìŠ¤ ê³µì§€ê¸€ ì¡°íšŒ
 		public List<CourseBoardDTO> deleteList() {
 			return sqlSession.selectList("cb.board_delete_list");
 	***REMOVED***
 		
-		// ÄÚ½º °øÁö±Û Ãß°¡ÇÏ±â
+		// ì½”ìŠ¤ ê³µì§€ê¸€ ì¶”ê°€í•˜ê¸°
 		public int insert(CourseBoardDTO dto) {
-			return sqlSession.insert("cb.board_insert", dto);
+			// ì „ì²´ ê³µì§€ê¸€ ì¶”ê°€
+			int course_id = dto.getCourse_id();
+			
+			if (course_id == 0) {
+				return sqlSession.insert("a.announcement_insert", dto);
+		***REMOVED*** else {
+				return sqlSession.insert("cb.board_insert", dto);
+		***REMOVED***
 	***REMOVED***
 
-		// ÄÚ½º °øÁö±Û ¼öÁ¤ÇÏ±â
+		// ì½”ìŠ¤ ê³µì§€ê¸€ ìˆ˜ì •í•˜ê¸°
 		public int modify(CourseBoardDTO dto) {
 			return sqlSession.update("cb.board_modify", dto);
 	***REMOVED***
 		
-		// »èÁ¦ÇÑ°ÍÃ³·³ ¼öÁ¤ÇÏ±â
+		// ì‚­ì œí•œ ê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°
 		public int delete_update(int id) {
+			// idë¡œ ê³µì§€ê¸€ ì¡°íšŒ
+			CourseBoardDTO dto = this.selectOne(id);
+			
+			// ì²¨ë¶€ëœ íŒŒì¼ ì œê±°
+			AnnouncementController.fileManager.fileDelete(dto);
+			
 			return sqlSession.update("cb.board_delete_update", id);
 	***REMOVED***
 		
-		// ÄÚ½º °øÁö±Û ¹°¸®Àû »èÁ¦
-		public int delete_physical() {
-			return sqlSession.delete("cb.board_delete");
+		// ì‚­ì œëœ ì½”ìŠ¤ì˜ ê³µì§€ê¸€ë“¤ë„ ì‚­ì œí•œ ê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°
+		public int delete_update_course(int course_id) {
+			return sqlSession.update("cb.delete_update_course", course_id);
+	***REMOVED***
+		
+		// ì½”ìŠ¤ ê³µì§€ê¸€ ë¬¼ë¦¬ì  ì‚­ì œ
+		public int delete_physical(ArrayList<Integer> courseBoardList) {
+			return sqlSession.delete("cb.board_delete", courseBoardList);
 	***REMOVED***
 
+		// íŠ¹ì • ì½”ìŠ¤ë“¤ì˜ ê³µì§€ê¸€ ë¬¼ë¦¬ì  ì‚­ì œ
+		public int delete_physical_course(ArrayList<Integer> courseList) {
+			return sqlSession.delete("cb.board_delete_course", courseList);
+	***REMOVED***
 ***REMOVED***

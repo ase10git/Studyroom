@@ -10,39 +10,74 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
+	<link rel="stylesheet" href="resources/css/main.css">
+	<link rel="stylesheet" href="resources/css/user_view.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
 
 	<%@ include file="../include/menu.jsp" %>
 
-	<section class="sec event">
-		<div class="container">
-		 <h1>사용자 정보</h1>
-		  <div class="row gy-4">
-			<div class="box col-12 col-md-6">
-				<table border="1">
-					<tr>
-						<th>아이디</th>
-						<td>${dto.username***REMOVED***</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>${dto.email***REMOVED***</td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td>${dto.tel***REMOVED***</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="center">
-							<input type="button" value="수정하기" onclick="location.href='user_pw_auth_form'">
-						</td>
-					</tr>
-				</table>
+	<section class="sec user">
+		<div class="container justify-content-center">
+		 <h1 class="title text-center">사용자 정보</h1>
+	  		<div class="row g-3 align-items-center justify-content-center">
+			  <div class="col-auto">
+			    <label for="email" class="col-form-label">이메일</label>
+			    <input type="email" id="email" class="form-control" value="${dto.email***REMOVED***" disabled readonly>
+			  </div>
+			</div>
+			<div class="row g-3 align-items-center justify-content-center">
+			  <div class="col-auto">
+			    <label for="pwd" class="col-form-label">비밀번호</label>
+			    <input type="password" id="pwd" class="form-control" value="${dto.pwd***REMOVED***" disabled readonly>
+			  </div>
+			</div>
+			<div class="row g-3 align-items-center justify-content-center">
+			  <div class="col-auto">
+			    <label for="name" class="col-form-label">이름</label>
+			    <input type="text" id="name" class="form-control" value="${dto.username***REMOVED***" disabled readonly>
+			  </div>
+			</div>
+			<div class="row g-3 align-items-center justify-content-center">
+			  <div class="col-auto">
+			    <label for="tel" class="col-form-label">전화번호</label>
+			    <input type="tel" id="tel" class="form-control" value="${dto.tel***REMOVED***" disabled readonly>
+			  </div>
+			</div>
+			<div class="row g-3 align-items-center justify-content-center">
+			  <div class="col-auto">
+			    <label for="role" class="col-form-label">역할</label>
+			    <input type="text" id="role" class="form-control" value="${dto.role***REMOVED***" disabled readonly>
+			  </div>
+			</div>
+			<div class="row g-3 align-items-center justify-content-end">
+			  <div class="col-auto">
+			    <input type="button" class="btn btn-primary" value="수정하기" onclick="location.href='user_pw_auth_form'">
+			  </div>
 			</div>
 		  </div>
+	</section>
+
+	<c:if test="${role eq 'admin'***REMOVED***">
+		<div class="sec admin">
+			<div class="container">
+				<h2 class="title text-center">삭제 요청 관리</h2>
+				<div class="row col-12 justify-content-center">
+					<div class="col-auto">
+						<input type="button" class="btn btn-primary" value="이동" onclick="location.href='delete_management'">
+					</div>
+				</div>
+			</div>
 		</div>
-	  </section>
+	</c:if>
+
+	<%@ include file="../include/footer.jsp" %>
 
 		<!-- bootstrap script -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

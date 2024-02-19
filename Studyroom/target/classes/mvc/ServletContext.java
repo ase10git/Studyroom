@@ -21,7 +21,6 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
-import dao.UserCommunityLikeDAO;
 import dao.UserDAO;
 
 ***REMOVED***
@@ -33,7 +32,7 @@ public class ServletContext implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 ***REMOVED***
 
-	// TestController Bean : *****ÆíÁýÀÚ - ¼¼¼Ç ¿¬°á Å×½ºÆ®¸¦ À§ÇÑ ÀÓ½Ã ÄÁÆ®·Ñ·¯
+	// TestController Bean : *****ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 ***REMOVED***
 	public TestController testController() {
 		return new TestController();
@@ -59,8 +58,8 @@ public class ServletContext implements WebMvcConfigurer{
 
 	// CourseController Bean
 ***REMOVED***
-	public CourseController courseController(CourseDAO course_dao) {
-		return new CourseController(course_dao);
+	public CourseController courseController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
+		return new CourseController(course_dao, course_board_dao);
 ***REMOVED***
 	
 	// CourseBoardController Bean
@@ -71,8 +70,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// CommunityController Bean
 ***REMOVED***
-	public CommunityController communityController(CommunityDAO dao,UserCommunityLikeDAO uclDAO) {
-		return new CommunityController(dao,uclDAO);
+	public CommunityController communityController(CommunityDAO dao) {
+		return new CommunityController(dao);
 ***REMOVED***
 	
 	// CalendarController Bean
@@ -83,8 +82,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// AdminController Bean
 ***REMOVED***
-	public AdminController adminController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
-		return new AdminController(course_dao, course_board_dao);
+	public AdminController adminController(UserDAO user_dao, CourseDAO course_dao, CourseBoardDAO course_board_dao, CommunityDAO community_dao) {
+		return new AdminController(user_dao, course_dao, course_board_dao, community_dao);
 ***REMOVED***
 
 ***REMOVED***

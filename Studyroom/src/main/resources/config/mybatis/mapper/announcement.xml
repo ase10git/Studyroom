@@ -4,12 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="a">
 	<select id="announcement_list" resultType="courseboard">
-		SELECT * FROM COURSE_BOARD WHERE COURSE_ID IS NULL  
+		SELECT * FROM COURSE_BOARD WHERE COURSE_ID IS NULL AND DEL_FLAG = 0
 	</select>
 	
 	<!-- 전체 게시물 수 조회 -->
 	<select id="announcement_count" resultType="int">
-		SELECT COUNT(*) FROM COURSE_BOARD WHERE COURSE_ID IS NULL 
+		SELECT COUNT(*) FROM COURSE_BOARD WHERE COURSE_ID IS NULL AND DEL_FLAG = 0
 	</select>
 	
 	<!-- 게시물 한 건 조회 -->
@@ -30,22 +30,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			0
 		)
 	</insert>
-	
-		<!-- 공지글 수정하기 -->
-	<update id="announcement_modify" parameterType="courseboard">
-		UPDATE course_board 
-		SET TITLE = #{title***REMOVED***,
-			CONTENT = #{content***REMOVED***,
-			FILE_NAME = #{file_name***REMOVED***
-		WHERE ID = #{id***REMOVED***
-	</update>
-	
-		<!-- 공지글 삭제한 것처럼 수정 -->
-	<update id="anouncement_delete_update" parameterType="int">
-		UPDATE course_board 
-		SET DEL_FLAG = -1
-		WHERE ID = #{id***REMOVED***
-	</update>
-	
+
 </mapper>
 

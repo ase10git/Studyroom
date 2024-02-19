@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+.footer{
+    width: 100%;
+    background-color: #add8e6;
+    color:white;
+    background-origin: 0;
+***REMOVED***
+
+.footer .container{
+    width: 100%;
+***REMOVED***
+
+.footer .container .title{
+    padding:20px 0; margin:0;
+    text-align: center;
+***REMOVED***
+
+.footer .container .title{color: black;***REMOVED***
+
+.footer .container .row{ 
+    width: 100%;
+    align-items: baseline;
+    margin-bottom: 10px;
+***REMOVED***
+
+.footer .container .row .col{
+    height: 100%;
+***REMOVED***
+
+.footer .container .row .col ul{margin: 0; padding: 0;***REMOVED***
+
+.footer .container .row .col ul li a{color: black;***REMOVED***
+
+.footer .container .row .col ul li:first-of-type{
+    color:rgb(255, 66, 2); font-weight: bold;
+***REMOVED***
+
+.footer .container .row .col.sns ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+***REMOVED***
+
+.footer .container .row .col.sns ul li:first-of-type{width: 100%;***REMOVED***
+
+@media screen and (max-width:576px) {
+    .footer .container .row{ font-size: 14px; ***REMOVED***
+***REMOVED***
+
+@media screen and (max-width:480px) {
+    .footer .container .row{ 
+        
+        font-size: 12px; 
+    ***REMOVED***
+***REMOVED***
+
+.footer .container .copyright{
+    margin: 10px;
+***REMOVED***
+
+.footer .container .copyright .box ul{
+    display: flex;
+    justify-content: center;
+***REMOVED***
+
+.footer .container .copyright .box ul li{
+    padding : 0 10px;
+    position: relative;
+***REMOVED***
+
+.footer .container .copyright .box ul li::after{
+    content: ''; width: 1px; height: 50%;
+    position: absolute; right: 0; top: 25%;
+    background-color: #ddd;
+    
+***REMOVED***
+
+.footer .container .copyright .box ul li:last-of-type::after{
+    display:none;
+***REMOVED***
+
+.footer .container .row.copyright .col ul li{
+    color:white; font-weight: bold;
+***REMOVED***
+
+.footer .container .row.copyright .col p{
+    color:white; font-weight: bold;
+    text-align: center;
+***REMOVED***
