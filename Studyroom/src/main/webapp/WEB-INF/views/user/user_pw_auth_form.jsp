@@ -17,29 +17,38 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script>
-		function pwCheck(){
-		let pwd = ${dto.pwd}; //원본비밀번호
+		function pwCheck1(){
 		let c_pwd = document.getElementById("c_pwd").value;
 		
-		if(pwd != c_pwd){
-			alert("비밀번호 불일치");
+		if(c_pwd==''){
+			alert('비밀번호를 입력하세요')
 			return;
 		}
 		
+		var action = "${action}";
 		var url = "authenticate";
-		var param = "id=${dto.id}&pwd="+encodeURIComponent(pwd)
+		var param = "id=${dto.id}&pwd="+encodeURIComponent(c_pwd)+"&action="+encodeURIComponent(action);
 		
 		sendRequest(url,param,pwCheck2,"post");
 	}
 	
 	function pwCheck2(response){
 		if(xhr.readyState == 4 && xhr.status == 200){
-		    if (response === "success") {
-		        window.location.href = "user_modify_form";
-		    } else {
-		        alert("비밀번호가 틀렸습니다.");
-		    }
+			var data = xhr.responseText;
+			var json = (new Function('return' + data))();
 			
+			if(json[0].param == 'no_pwd'){
+				alert('비밀번호가 틀립니다.');
+			} else {
+				 var action = json[0].action;
+	            if (action === 'update') {
+	                location.href = 'user_modify_form?id=${dto.id}';
+	            } else if (action === 'delete') {
+	                location.href = 'user_delete_confirm?id=${dto.id}';
+	            } else {
+	                alert('Invalid action');
+	            }
+			}
 		}
 	}
 	</script>
@@ -61,15 +70,15 @@
 						</tr>
 						<tr>
 							<td colspan="2" align="center">
-								<input type="button" class="btn btn-primary" value="다음" onclick="pwCheck1()">
-								<input type="button" class="btn btn-light" value="취소" onclick="location.href='user_view'">
+								<input type="button" value="다음" onclick="pwCheck1()">
+								<input type="button" value="취소" onclick="location.href='user_view'">
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>  
 
 	<%@ include file="../include/footer.jsp" %>
 

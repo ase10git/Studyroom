@@ -15,6 +15,59 @@
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+	<script>
+	    if (${authFail}) {
+	        alert('비밀번호가 틀렸습니다.');
+	    }
+	
+		function send(f){
+			if(!confirm("수정하시겠습니까?")){
+				return;
+			}
+			
+			let name = f.name.value.trim();
+			let email = f.email.value.trim();
+			let tel = f.tel.value.trim();
+			let pwd = f.pwd.value.trim();
+			let pwd_check = f.pwd_check.value.trim();
+						
+			if(name == ''){
+				alert('이름을 입력해주세요')
+				return;
+			}
+			
+			if(email == ''){
+				alert('이메일을 입력해주세요')
+				return;
+			}
+			
+			if(tel == ''){
+				alert('전화번호를 입력해주세요')
+				return;
+			}
+			
+			if(pwd === ''){
+				alert('비밀번호를 입력해주세요')
+				return;
+			}
+			
+			if(pwd_check === '' || pwd !== pwd_check)) {
+				alert('비밀번호가 일치하지 않습니다')
+				return;
+			}
+			
+			//이메일은 형식검사
+			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+			if(!regex.test(email)){
+				alert('형식에 맞게 작성해주세요')
+				return;
+			}
+			
+			f.method = "post";
+			f.action = "user_modify";
+			f.submit();
+		}
+	</script>
 </head>
 <body>
 	
@@ -25,35 +78,38 @@
 		 <h1>사용자 정보 수정</h1>
 		  <div class="row gy-4">
 			<div class="box col-12">
-				<!-- 슈발 user 테이블에 이름 항목부터 넣자 -->
-				<%-- 	<form action="insert" name="f" method="post">
-					<input type="hidden" name="id" value="${param.page}">
-					<table>
-						<caption>정보 수정</caption>
+				<form action="insert" name="f" method="post">
+					<input type="hidden" name="id" value="${dto.id}">
+					<table border="1">
+						<caption>사용자 정보 수정</caption>
 						<tr>
-							<th>제목</th>
-							<td><input name="subject"></td>
+							<th>이름</th>
+							<td><input name="name" value="${dto.username}" placeholder="이름 입력"></td>
 						</tr>
 						<tr>
-							<th>작성자</th>
-							<td><input name="name"></td>
+							<th>이메일</th>
+							<td><input name="email" value="${dto.email}" readonly></td>
 						</tr>
 						<tr>
-							<th>내용</th>
-							<td><textarea name="content" rows="10" cols="50" style="resize:none;"></textarea></td>
+							<th>전화번호</th>
+							<td><input name="tel" value="${dto.tel}" placeholder="전화번호 입력"></td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input name="pwd" type="password"></td>
+							<td><input name="pwd" type="password" placeholder="비밀번호 입력"></td>
+						</tr>
+						<tr>
+							<th>비밀번호 확인</th>
+							<td><input name="pwd_check" type="password" placeholder="한번 더 입력"></td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<img src="resources/img/btn_reg.gif" onclick="send_check();">
-								<img src="resources/img/btn_back.gif" onclick="location.href='board_list'">
+								<input type="button" value="수정" onclick="send_check();">
+								<input type="button" value="취소" onclick="location.href='user_view'">
 							</td>
 						</tr>
 					</table>
-				</form> --%>
+				</form>
 			</div>
 		  </div>
 		</div>
