@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCourseViewDAO;
 import dto.CourseDTO;
-import dto.UserCourseDTO;
+import dto.UserCourseViewDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
@@ -28,24 +29,22 @@ public class CourseController {
 	
 	final CourseDAO course_dao;
 	final CourseBoardDAO course_board_dao;
+	final UserCourseViewDAO uc_view_dao;
 	
 	@Autowired
 	HttpServletRequest request;
 	
 	@Autowired
 	HttpSession session;	
-	
+
 	// 코스 화면 보기 - 리스트
 	@RequestMapping("course_list")
 	public String course_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-		}
+		if (user_dto == null) return "/";
 		
 		// 사용자의 번호를 세션에서 가져오기
 		int user_id = user_dto.getId();
@@ -66,7 +65,7 @@ public class CourseController {
 		
 		// 전체 코스 list
 		List<CourseDTO> list = null; // 관리자
-		List<UserCourseDTO> list_user = null; // 학생과 멘토
+		List<UserCourseViewDTO> list_user = null; // 학생과 멘토
 		
 		if (role.equals("admin")) { // 관리자일 경우
 			// 페이지 번호에 따른 전체 코스 조회
@@ -78,10 +77,10 @@ public class CourseController {
 			map.put("user_id", user_id); // map에 사용자 정보 저장
 
 			// 페이지 번호에 따른 특정 사용자의 코스 전체 조회
-			list_user = course_dao.selectList_user(map);
+			list_user = uc_view_dao.selectList_user(map);
 			
 			// 특정 사용자가 속한 코스의 전체 게시글 수
-			rowTotal = course_dao.getRowTotal_user(user_id);
+			rowTotal = uc_view_dao.getRowTotal(user_id);
 		}
 		
 		// 페이지 메뉴 생성하기
@@ -110,11 +109,12 @@ public class CourseController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) { 
-			return "/login";
-		} 
+		if (user_dto == null) {
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
+			return "/error";
+		}
 		
 		// id로 코스 조회하기
 		CourseDTO dto = course_dao.selectOne(id);
@@ -133,11 +133,10 @@ public class CourseController {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else if (user_dto.getRole() != "admin") { // 관리자만 접근 가능
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 		}
 		
@@ -154,11 +153,10 @@ public class CourseController {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else if (user_dto.getRole() != "admin") { // 관리자만 접근 가능
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 		}
 		
@@ -179,13 +177,13 @@ public class CourseController {
 	@RequestMapping("course_modify_form")
 	public String course_modify_form(Model model, int id) {
 		
+		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else if (user_dto.getRole() != "admin") { // 관리자만 접근 가능
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 		}
 		
@@ -207,11 +205,10 @@ public class CourseController {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "/login";
-		} else if (user_dto.getRole() != "admin") { // 관리자만 접근 가능
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 		}
 		
@@ -237,12 +234,11 @@ public class CourseController {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
-			return "error : 로그인 후 이용해주세요";
-		} else if (user_dto.getRole() != "admin") { // 관리자만 접근 가능
-			return "error : 권한이 차단되었습니다";
+			return "/";
+		} else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
+			return "/error";
 		}
 		
 		// 코스 먼저 del_flag = -1 설정
