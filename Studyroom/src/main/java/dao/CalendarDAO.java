@@ -14,12 +14,12 @@ public class CalendarDAO {
 
 	final SqlSession sqlSession;
 	
-	// »ç¿ëÀÚº° ÀÏÁ¤ Á¶È¸
+	// ì‚¬ìš©ìë³„ ì¼ì • ì¡°íšŒ
 	public List<CalendarDTO> calendar_list(int user_id) {
 		return sqlSession.selectList("CalendarMapper.getEventsByUserId", user_id);
 	}
 
-	// »ç¿ëÀÚÀÇ ¿ùº° ÀÏÁ¤ Á¶È¸
+	// ì‚¬ìš©ìì˜ ì›”ë³„ ì¼ì • ì¡°íšŒ
 	public List<CalendarDTO> getEventsByMonth(int user_id, int year, int month) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("user_id", user_id);
@@ -28,17 +28,17 @@ public class CalendarDAO {
 		return sqlSession.selectList("CalendarMapper.getEventsByMonth", params);
 	}
 	
-	// ÀÏÁ¤À» Á¦°ÅµÈ °ÍÃ³·³ Ã³¸®
+	// ì¼ì •ì„ ì œê±°ëœ ê²ƒì²˜ëŸ¼ ì²˜ë¦¬
 	public void deleteEvent(int id) {
 	    sqlSession.update("CalendarMapper.deleteEvent", id);
 	}
 
-	// ÀÏÁ¤ ¹°¸®Àû Á¦°Å
+	// ì¼ì • ë¬¼ë¦¬ì  ì œê±°
 	public void deleteEventPhysical() {
 		sqlSession.delete("CalendarMapper.deleteEventPhysical");
 	}
 	
-	// ÀÏÁ¤ Ãß°¡
+	// ì¼ì • ì¶”ê°€
 	public boolean insertEvent(String type, String comment, String datetime, int userId) {
 	    Map<String, Object> paramMap = new HashMap<>();
 	    paramMap.put("userId", userId);
@@ -49,7 +49,7 @@ public class CalendarDAO {
 	    return sqlSession.insert("CalendarMapper.insertEvent", paramMap) == 1;
 	}
 	
-	// ÀÏÁ¤ ¼öÁ¤
+	// ì¼ì • ìˆ˜ì •
 	public int updateEvent(int id, String type, String comment) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);

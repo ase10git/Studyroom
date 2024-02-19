@@ -13,8 +13,8 @@ import mvc.ServletContext;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 	// getRootConfigClasses
-	// ÇÁ·ÎÁ§Æ®ÀÇ ¸ğµ¨ ¿µ¿ª ¼³Á¤ ´ã´ç
-	// µ¥ÀÌÅÍº£ÀÌ½º ¿¬°áÇ®(DBCP), Mybatis, mapper µî°ú °°Àº ·ÎÁ÷ ¼³Á¤ ´ã´ç
+	// í”„ë¡œì íŠ¸ì˜ ëª¨ë¸ ì˜ì—­ ì„¤ì • ë‹´ë‹¹
+	// ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²°í’€(DBCP), Mybatis, mapper ë“±ê³¼ ê°™ì€ ë¡œì§ ì„¤ì • ë‹´ë‹¹
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] {Context_1_dataSource.class, 
@@ -24,23 +24,23 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	}
 	
 	// getServletConfigClasses
-	// DispatcherServletÀÌ »ç¿ëÇÒ ¼³Á¤ Å¬·¡½º¸¦ ¹İÈ¯
-	// Spring MVC À¥ ¿µ¿ª ¼³Á¤°ú View, Controller ¼³Á¤ ´ã´ç
+	// DispatcherServletì´ ì‚¬ìš©í•  ì„¤ì • í´ë˜ìŠ¤ë¥¼ ë°˜í™˜
+	// Spring MVC ì›¹ ì˜ì—­ ì„¤ì •ê³¼ View, Controller ì„¤ì • ë‹´ë‹¹
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[] {ServletContext.class};
 	}
 	
 	// getServletMappings
-	// DispatcherServletÀÇ URL ÆĞÅÏ ÁöÁ¤
+	// DispatcherServletì˜ URL íŒ¨í„´ ì§€ì •
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/"}; // ¸ğµç ¿äÃ» Ã³¸®
+		return new String[] {"/"}; // ëª¨ë“  ìš”ì²­ ì²˜ë¦¬
 	}
 	
 	// filter
-	// Å¬¶óÀÌ¾ğÆ® ¿äÃ»ÀÌ Servlet¿¡ µµ´ŞÇÏ±â ÀüÀÌ³ª ÈÄ¿¡ 
-	// ¿äÃ» ¹× ÀÀ´ä µ¥ÀÌÅÍ º¯ÇüÇÏ°Å³ª Ãß°¡ ÀÛ¾÷ ¼öÇà
+	// í´ë¼ì´ì–¸íŠ¸ ìš”ì²­ì´ Servletì— ë„ë‹¬í•˜ê¸° ì „ì´ë‚˜ í›„ì— 
+	// ìš”ì²­ ë° ì‘ë‹µ ë°ì´í„° ë³€í˜•í•˜ê±°ë‚˜ ì¶”ê°€ ì‘ì—… ìˆ˜í–‰
 	@Override
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();

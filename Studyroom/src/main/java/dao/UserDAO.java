@@ -1,8 +1,9 @@
 package dao;
 
-import org.apache.ibatis.session.SqlSession;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import dto.UserDTO;
@@ -14,25 +15,34 @@ public class UserDAO {
 	
 	final SqlSession sqlSession;
 	
-	//·Î±×ÀÎ Ã¼Å©
-	// ´ÜÀÏ »ç¿ëÀÚ Á¤º¸ Á¶È¸(·Î±×ÀÎ ÀÌ¸ŞÀÏÈ®ÀÎ¿ë)
+	//ë¡œê·¸ì¸ ì²´í¬
+	// ë‹¨ì¼ ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ(ë¡œê·¸ì¸ ì´ë©”ì¼í™•ì¸ìš©)
 	public UserDTO selectOne(String email) {
 		return sqlSession.selectOne("u.login_check",email);
 	}
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	public int insert(UserDTO userDTO) {
 		return sqlSession.insert("u.insert",userDTO);
 	}
 	
-//	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤		// ¹Ì¿Ï¼º
+//	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì •		// ë¯¸ì™„ì„±
 //	public int modify(UserDTO userDTO) {
 //		return sqlSession.update("u.update", userDTO);
 //	}
 //	
-//	// ÀüÃ¼ »ç¿ëÀÚ Á¶È¸(admin¿ë)	// ¹Ì¿Ï¼º
+//	// ì „ì²´ ì‚¬ìš©ì ì¡°íšŒ(adminìš©)	// ë¯¸ì™„ì„±
 //	public List<UserDTO> selectList() {
 //		return sqlSession.selectList("u.user_list");
 //	}
 
+	// ì‚­ì œ ìš”ì²­í•œ ì‚¬ìš©ì ì¡°íšŒ(adminìš©)
+	public List<UserDTO> deleteList() {
+		return sqlSession.selectList("u.delete_list");
+	}
+	
+	// ì‚¬ìš©ì ë¬¼ë¦¬ì  ì‚­ì œ
+	public int delete_physical(ArrayList<Integer> userList) {
+		return sqlSession.delete("u.user_delete", userList);
+	}
 }

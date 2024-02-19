@@ -9,147 +9,197 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
-<script src="resources/js/HttpRequest.js"></script>
-<script type="text/javascript">
-	let u_emailCheck = false;
-
-	function check_email() {
-		let email = document.getElementById("email").value;
-		if(email == '') {
-			alert("이메일을 입력하세요.");
-			return;
+	  <link rel="stylesheet" href="resources/css/main.css">
+	  <link rel="stylesheet" href="resources/css/register_form.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+	<script src="resources/js/HttpRequest.js"></script>
+	<script type="text/javascript">
+		let u_emailCheck = false;
+		
+		window.onload = function() {
+			let emailHelp = document.getElementById("emailHelp");
+			let pwdHelp = document.getElementById("pwdHelp");
+			let nameHelp = document.getElementById("nameHelp");
+			let telHelp = document.getElementById("telHelp");
+			let roleHelp = document.getElementById("roleHelp");
 		}
-		
-		//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
-		//비동기 통신을 이용한다.
-		let url = "check_email";
-		let param = "email="+email;
-		
-		sendRequest(url,param,resultFn,"POST");
-	}
-	
-	function resultFn() {
-		if(xhr.readyState == 4 && xhr.status == 200) {
-			var data = xhr.responseText;
-			var json = (new Function('return'+data))();
+
+		function check_email() {
+			let email = document.getElementById("email").value;
 			
-			if(json[0].res == 'yes') {
-				alert("사용가능한 이메일 입니다.");
-				u_emailCheck = true;
-			} else {
-				alert("이미 사용중인 이메일 입니다.");
+			if(email == '') {
+				emailHelp.innerHTML = "이메일을 입력해주세요.";
+// 				alert("이메일을 입력하세요.");
 				return;
 			}
+			
+			//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
+			//비동기 통신을 이용한다.
+			let url = "check_email";
+			let param = "email="+encodeURIComponent(email);
+			
+			sendRequest(url,param,resultFn,"POST");
 		}
-	}
-	
-	function che() {
-		u_emailCheck = false;
-	}
+		
+		function resultFn() {
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				var data = xhr.responseText;
+				var json = (new Function('return'+data))();
+				
+				if(json[0].res == 'yes') {
+					alert("사용가능한 이메일 입니다.");
+					emailHelp.innerHTML = "";
+					u_emailCheck = true;
+				} else {
+					alert("이미 사용중인 이메일 입니다.");
+					return;
+				}
+			}
+		}
+		
+		function che() {
+			u_emailCheck = false;
+		}
 
-	function send(f) {
-		let email = f.email.value.trim();
-		let pwd = f.pwd.value.trim();
-		let username = f.username.value.trim();
-		let tel = f.tel.value.trim();
-		let role = f.role.value.trim();
+		function send(f) {
+			let email = f.email.value.trim();
+			let pwd = f.pwd.value.trim();
+			let username = f.username.value.trim();
+			let tel = f.tel.value.trim();
+			let role = f.role.value.trim();
+			
+			//유효성 검사
+			if(email == ''){
+				emailHelp.innerHTML = "이메일을 입력해주세요.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("이메일을 입력하세요.");
+				return;
+			}
+			
+			if(pwd == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "비밀번호를 입력해주세요.";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("비밀번호를 입력하세요.");
+				return;
+			}
+			
+			if(username == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "이름을 입력해주세요.";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("이름을 입력하세요.");
+				return;
+			}
+			
+			if(tel == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "전화번호를 입력해주세요.";
+				roleHelp.innerHTML = "";
+// 				alert("전화번호를 입력하세요.");
+				return;
+			}
+			
+			if(role == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "유형을 선택해주세요.";
+// 				alert("유형을 선택해주세요.");
+				return;
+			} 
 		
-		//유효성 검사
-		if(email == ''){
-			alert("이메일을 입력하세요.");
-			return;
+			//이메일은 형식검사
+			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+		
+			if(!regex.test(email)){
+				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("이메일 형식이 맞지 않습니다.");
+				return;
+			}
+			
+			if(!u_emailCheck){
+				emailHelp.innerHTML = "중복된 이메일 입니다.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("중복된 이메일 입니다.");
+				return;
+			}
+			
+			f.submit();
 		}
-		
-		if(pwd == ''){
-			alert("비밀번호를 입력하세요.");
-			return;
-		}
-		
-		if(username == ''){
-			alert("이름을 입력하세요.");
-			return;
-		}
-		
-		if(tel == ''){
-			alert("전화번호를 입력하세요.");
-			return;
-		}
-		
-		if(role == ''){
-			alert("유형을 선택해주세요.");
-			return;
-		} 
-	
-		//이메일은 형식검사
-		let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
-	
-		if(!regex.test(email)){
-			alert("이메일 형식이 맞지 않습니다.");
-			return;
-		}
-		
-		if(!u_emailCheck){
-			alert("중복된 이메일 입니다.");
-			return;
-		}
-		
-		f.submit();
-	}
-</script>
+	</script>
 </head>
+
 <body>
 
-	<%@ include file="../include/menu.jsp" %>
-
-	<section class="sec event">
+	<section class="sec register">
 		<div class="container">
-		 <h1>test home</h1>
-		  <div class="row gy-4">
-			<div class="box col-12 col-md-6">
+		  <div class="row gy-4 justify-content-center">
+			<div class="col box col-6">
+				<div class="title-box">
+					<h1 class="title text-center">회원 가입</h1>
+				</div>
 				<!-- register_insert 전송 -->
-				<form action="register_insert" method="post">
-					<table border="1" align="center">
-						<caption>::: 회원가입 :::</caption>
-						<tr>
-							<th>이메일</th>
-							<td>
-					  			<input id="email" name="email" type="email" onchange="che()" placeholder="example@abc.com" autofocus="autofocus" checked="checked">
-					  			<input type="button" value="이메일 중복체크" onclick="check_email()">
-									<!--<input id="email_check" name="check_email" type="button" value="이메일 인증하기"> -->
-				  			</td>
-			  			</tr>
-						<tr>
-							<th>비밀번호</th>
-							<td>
-								<input id="pwd" name="pwd" type="password" placeholder="4~12자리 입력해 주세요.">
-							</td>
-						</tr>
-						<tr>
-							<th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-							<td>
-								<input id="username" name="username" placeholder="이름을 입력해 주세요.">
-							</td>
-						</tr>	
-						<tr>
-							<th>전화번호</th>
-							<td>
-								<input id="tel" name="tel" placeholder="(ex:01012345678)">
-							</td>
-						</tr>
-						<tr>
-							<th>유&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;형</th>
-							<td style="font-family: Arial;font-size: 15px;color: #808080;">
-								<input id="mentor" name="role" type="radio" value="mentor">멘토
-								<input id="student" name="role" type="radio" value="student">학생
-							</td>
-						</tr>	
-						<tr>
-							<td colspan="2">
-								<input type="button" value="회원가입" onclick="send(this.form)">
-								<input type="button" value="취소" onclick="location.href='login_form'">
-							</td>
-						</tr>
-					</table>
+				<form name="f" action="register_insert" method="post" class="login-form">
+					<div class="mb-3">
+						<div class="d-flex justify-content-between">
+							<label for="email" class="form-label">이메일</label>
+							<input type="button" class="btn btn-primary btn-sm" value="이메일 중복체크" onclick="check_email()">
+						</div>
+						<input type="email" class="form-control" id="email" name="email" onchange="che()" placeholder="example@abc.com" checked="checked" aria-describedby="emailHelp">
+						<div id="emailHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="mb-3">
+						<label for="pwd" class="form-label">비밀번호</label>
+						<input type="password" class="form-control" id="pwd" name="pwd" placeholder="4~12자리 입력해 주세요." aria-describedby="pwdHelp">
+						<div id="pwdHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="mb-3">
+						<label for="name" class="form-label">이름</label>
+						<input type="text" class="form-control" id="username" name="username" placeholder="이름을 입력해 주세요." aria-describedby="nameHelp">
+						<div id="nameHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="mb-3">
+						<label for="tel" class="form-label">전화번호</label>
+						<input type="tel" class="form-control" id="tel" name="tel" placeholder="(ex:01012345678)" aria-describedby="telHelp">
+						<div id="telHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="btn-wrap">
+						<div class="form-check form-check-inline mb-3">
+							<input id="student" name="role" type="radio" class="form-check-input" value="student">
+							<label for="student" class="form-check-label">학생</label>
+						</div>
+						<div class="form-check form-check-inline mb-3">
+							<input id="mentor" name="role" type="radio" class="form-check-input" value="mentor">
+							<label for="mentor" class="form-check-label">멘토</label>
+						</div>
+						<div id="roleHelp" class="form-text text-danger"></div>
+					</div>
+					<div class="d-grid gap-2 btn-wrap">
+						<input type="button" class="btn btn-primary" value="회원가입" onclick="send(this.form)">
+						<input type="button" class="btn btn-outline-dark" value="취소" onclick="location.href='login_form'">
+					</div>		
 				</form>
 			</div>
 		  </div>

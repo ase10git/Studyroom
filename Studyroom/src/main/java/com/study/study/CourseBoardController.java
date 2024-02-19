@@ -39,59 +39,67 @@ public class CourseBoardController {
 	@Autowired
 	HttpSession session;
 	
-	// ÄÚ½º °øÁö±Û ÀüÃ¼¸¦ ÆäÀÌÁöº°·Î
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ì „ì²´ë¥¼ í˜ì´ì§€ë³„ë¡œ
 	@RequestMapping("course_board_list")
 	public String course_board_list(Model model, Integer course_id, @RequestParam(required=false, defaultValue="1") int page) {
 
-		// ½ÃÀÛ, Á¾·á ÆäÀÌÁö °è»ê
+		// ì‹œì‘, ì¢…ë£Œ í˜ì´ì§€ ê³„ì‚°
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
 		int end = start + Common.Board.BLOCKLIST - 1;
 		
-		// ÆäÀÌÁö Á¤º¸¸¦ map¿¡ ÀúÀå
+		// í˜ì´ì§€ ì •ë³´ë¥¼ mapì— ì €ì¥
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("course_id", course_id);
 	
-		// ÆäÀÌÁö ¹øÈ£¿¡ µû¸¥ ÀüÃ¼ °Ô½Ã±Û Á¶È¸
-		List<CourseBoardDTO> list = course_board_dao.selectList(map); // test¿ë course_id = 1
+		// í˜ì´ì§€ ë²ˆí˜¸ì— ë”°ë¥¸ ì „ì²´ ê²Œì‹œê¸€ ì¡°íšŒ
+		List<CourseBoardDTO> list = course_board_dao.selectList(map); // testìš© course_id = 1
 		
-		// ÀüÃ¼ °Ô½Ã±Û ¼ö Á¶È¸
+		// ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ ì¡°íšŒ
 		int rowTotal = course_board_dao.getRowTotal(course_id);
 		
-		// courseÀÇ Á¤º¸ °¡Á®¿À±â
+		// courseì˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		CourseDTO course_dto = course_dao.selectOne(course_id);
 		
-		// ÆäÀÌÁö ¸Ş´º »ı¼ºÇÏ±â
+		// í˜ì´ì§€ ë©”ë‰´ ìƒì„±í•˜ê¸°
 		String pageMenu = Paging.getPaging("course_board_list", 
 											page, 
 											rowTotal, 
 											Common.Board.BLOCKLIST, 
 											Common.Board.BLOCKPAGE);
 		
-		// ÆäÀÌÁö¿¡ µ¥ÀÌÅÍ Æ÷¿öµù
+		// ì‚¬ìš©ìì˜ ê¶Œí•œì„ ì„¸ì…˜ì—ì„œ ê°€ì ¸ì˜¤ê¸°
+		String role = (String) session.getAttribute("role");
+		
+		// í˜ì´ì§€ì— ë°ì´í„° í¬ì›Œë”©
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("course_dto", course_dto);
+		model.addAttribute("role", role);
 		
 		return Common.COURSE_PATH +"course_board_list.jsp?page=" + page;
 	}
 	
-	// ÄÚ½º °øÁö±Û »ó¼¼º¸±â
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ìƒì„¸ë³´ê¸°
 	@RequestMapping("course_board_view")
 	public String course_board_view(Model model, int id, int page) {
 		
-		// id·Î °øÁö±Û Á¶È¸ÇÏ±â
+		// idë¡œ ê³µì§€ê¸€ ì¡°íšŒí•˜ê¸°
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
 		
-		// ÆäÀÌÁö¿¡ Á¶È¸ÇÑ °øÁö±Û Æ÷¿öµù
+		// ì‚¬ìš©ì ê¶Œí•œ ì„¸ì…˜ì—ì„œ ê°€ì ¸ì˜¤ê¸°
+		String role = (String)session.getAttribute("role");
+		
+		// í˜ì´ì§€ì— ì¡°íšŒí•œ ê³µì§€ê¸€ í¬ì›Œë”©
 		model.addAttribute("dto", dto);
+		model.addAttribute("role", role);
 		
 		return Common.COURSE_PATH + "course_board_view.jsp?page=" + page;
 	}
 	
-	// ÄÚ½º °øÁö±Û Ãß°¡ÇÏ±â ÆäÀÌÁö ÀÌµ¿
-	// admin, mentor¸¸ °¡´É
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ì¶”ê°€í•˜ê¸° í˜ì´ì§€ ì´ë™
+	// admin, mentorë§Œ ê°€ëŠ¥
 	@RequestMapping("course_board_insert_form")
 	public String course_board_insert_form() {
 		
@@ -99,95 +107,93 @@ public class CourseBoardController {
 	}
 	
 	
-	// ÄÚ½º °øÁö±Û Ãß°¡ÇÏ±â
-	// admin, mentor¸¸ °¡´É
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ì¶”ê°€í•˜ê¸°
+	// admin, mentorë§Œ ê°€ëŠ¥
 	@RequestMapping("course_board_insert")
 	public String course_board_insert(CourseBoardDTO dto) {
 		
-		// ÆÄÀÏ ¾÷·Îµå¸¦ ÁøÇàÇÏ°í dto¿¡ ÆÄÀÏ ÀÌ¸§ ÀúÀå
+		// íŒŒì¼ ì—…ë¡œë“œë¥¼ ì§„í–‰í•˜ê³  dtoì— íŒŒì¼ ì´ë¦„ ì €ì¥
 		AnnouncementController.fileManager.fileUpload(dto);
 		
-		// °øÁö±Û Ãß°¡
+		// ê³µì§€ê¸€ ì¶”ê°€
 		int res = course_board_dao.insert(dto);
 	
-		// Ãß°¡ ¿Ï·á ½Ã °øÁö±Û º¸´Â ÆäÀÌÁö·Î µ¹¾Æ°¡±â
+		// ì½”ìŠ¤ id ê°€ì ¸ì˜¤ê¸°
+		int isCourse = dto.getCourse_id();
+		
+		// ì¶”ê°€ ì™„ë£Œ ì‹œ ê³µì§€ê¸€ ë³´ëŠ” í˜ì´ì§€ë¡œ ëŒì•„ê°€ê¸°
 		if (res > 0) {
-			return "course_board_list";
+			if(isCourse == 0) {
+				return "redirect:announcement_list";
+			} else {
+				return "redirect:course_board_list?course_id="+isCourse;
+			}
 		}
 		
-		return "";
+		return "/error";
 	}
 	
-	// ÄÚ½º °øÁö±Û ¼öÁ¤ ÆäÀÌÁö ÀÌµ¿
-	// admin, mentor¸¸ °¡´É
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ìˆ˜ì • í˜ì´ì§€ ì´ë™
+	// admin, mentorë§Œ ê°€ëŠ¥
 	@RequestMapping("course_board_modify_form")
 	public String course_board_modify_form(Model model, int id) {
 		
-		// ¿äÃ» ÆäÀÌÁö¿¡¼­ °øÁö±ÛÀÇ id¸¦ ¹Ş¾Æ °øÁö±ÛÀ» Á¶È¸
+		// ìš”ì²­ í˜ì´ì§€ì—ì„œ ê³µì§€ê¸€ì˜ idë¥¼ ë°›ì•„ ê³µì§€ê¸€ì„ ì¡°íšŒ
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
 		
-		// °øÁö±Û °´Ã¼¸¦ ¼öÁ¤ ÆäÀÌÁö·Î Æ÷¿öµù
+		// ê³µì§€ê¸€ ê°ì²´ë¥¼ ìˆ˜ì • í˜ì´ì§€ë¡œ í¬ì›Œë”©
 		model.addAttribute("dto", dto);
 		
 		return Common.ADMIN_PATH + "course_board_modify_form.jsp";
 	}
 	
-	// ÄÚ½º °øÁö±Û ¼öÁ¤ÇÏ±â
-	// admin, mentor¸¸ °¡´É
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ìˆ˜ì •í•˜ê¸°
+	// admin, mentorë§Œ ê°€ëŠ¥
 	@RequestMapping("course_board_modify")
 	public String course_board_modify(CourseBoardDTO dto, int id, int page, int delete_flag) {
 
-		// ¿øº» origin_dto¸¦ id·Î Á¶È¸
+		// ì›ë³¸ origin_dtoë¥¼ idë¡œ ì¡°íšŒ
 		CourseBoardDTO origin_dto = course_board_dao.selectOne(id);
 		
-		// ÆÄÀÏ ¾÷·Îµå¸¦ ÁøÇàÇÏ°í dto¿¡ ÆÄÀÏ ÀÌ¸§ ÀúÀå
-		// ¸¸¾à Ã·ºÎ ÆÄÀÏ »èÁ¦ ¿äÃ»ÀÌ ÀÖÀ¸¸é »èÁ¦¸¦ ÁøÇà
+		// íŒŒì¼ ì—…ë¡œë“œë¥¼ ì§„í–‰í•˜ê³  dtoì— íŒŒì¼ ì´ë¦„ ì €ì¥
+		// ë§Œì•½ ì²¨ë¶€ íŒŒì¼ ì‚­ì œ ìš”ì²­ì´ ìˆìœ¼ë©´ ì‚­ì œë¥¼ ì§„í–‰
 		AnnouncementController.fileManager.fileUpload(dto, origin_dto, delete_flag);
 		
-		// ¼öÁ¤ÇÑ ³»¿ëÀ» origin_dto¿¡ ÀúÀå
+		// ìˆ˜ì •í•œ ë‚´ìš©ì„ origin_dtoì— ì €ì¥
 		origin_dto.setTitle(dto.getTitle());
 		origin_dto.setContent(dto.getContent());
 		
-		// °øÁö±Û ¼öÁ¤
+		// ê³µì§€ê¸€ ìˆ˜ì •
 		int res = course_board_dao.modify(origin_dto);
 		
-		// °øÁö±Û ¼öÁ¤ ¿Ï·á ½Ã ajax¸¦ À§ÇÑ ¸Ş½ÃÁö Àü¼Û
+		// ê³µì§€ê¸€ ìˆ˜ì • ì™„ë£Œ ì‹œ ajaxë¥¼ ìœ„í•œ ë©”ì‹œì§€ ì „ì†¡
 		if (res > 0) {
-			return "redirect:course_board_view?id="+dto.getId()+"&page="+page;
+			if (origin_dto.getCourse_id() == 0) {
+				return "redirect:view?id="+dto.getId()+"&page="+page;
+			} else {
+				return "redirect:course_board_view?id="+dto.getId()+"&page="+page;
+			}
+		} else {
+			return "/error";
 		}
-		
-		return "/";
 	}
 	
-	// ÄÚ½º °øÁö±Û »èÁ¦µÈ °ÍÃ³·³ ¼öÁ¤ÇÏ±â
-	// admin, mentor¸¸ °¡´É
+	// ì½”ìŠ¤ ê³µì§€ê¸€ ì‚­ì œëœ ê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°
+	// admin, mentorë§Œ ê°€ëŠ¥
 	@RequestMapping("course_board_delete")
 	@ResponseBody
 	public String course_board_delete(int id) {
-		// ±ÇÇÑ ¼³Á¤ ¿¹Á¤
 		
-		// °øÁö±Û »èÁ¦µÈ °ÍÃ³·³ ¼öÁ¤ÇÏ±â(³í¸®Àû »èÁ¦)
+		// ê³µì§€ê¸€ ì‚­ì œëœ ê²ƒì²˜ëŸ¼ ìˆ˜ì •í•˜ê¸°(ë…¼ë¦¬ì  ì‚­ì œ)
 		int res = course_board_dao.delete_update(id);
 	
-		if (res == 1) { // ajax Äİ¹é ¸Ş¼Òµå¿¡ Àü´ŞÇÒ ³»¿ë
-			return "[{'result':'yes'}]";
-		} else {
-			return "[{'result':'no'}]";
-		}
-
-	}
-	
-	// ÄÚ½º °øÁö±Û ¹°¸®Àû »èÁ¦
-	// admin, mentor¸¸ °¡´É
-	@RequestMapping("course_board_delete_physical")
-	@ResponseBody
-	public String course_board_delete_physical() {
-		// ±ÇÇÑ ¼³Á¤ ¿¹Á¤
+		// idë¡œ ê³µì§€ê¸€ ì¡°íšŒ
+		CourseBoardDTO dto = course_board_dao.selectOne(id);		
 		
-		// °øÁö±Û DB¿¡¼­ »èÁ¦ÇÏ±â(¹°¸®Àû »èÁ¦)
-		int res = course_board_dao.delete_physical();
-	
-		if (res == 1) { // ajax Äİ¹é ¸Ş¼Òµå¿¡ Àü´ŞÇÒ ³»¿ë
+		// ê³µì§€ê¸€ì— ì²¨ë¶€ëœ íŒŒì¼ ì œê±°
+		AnnouncementController.fileManager.fileDelete(dto);
+		
+		if (res == 1) { // ajax ì½œë°± ë©”ì†Œë“œì— ì „ë‹¬í•  ë‚´ìš©
 			return "[{'result':'yes'}]";
 		} else {
 			return "[{'result':'no'}]";
@@ -195,14 +201,14 @@ public class CourseBoardController {
 
 	}
 
-	// Ã·ºÎ ÆÄÀÏ ´Ù¿î·Îµå
+	// ì²¨ë¶€ íŒŒì¼ ë‹¤ìš´ë¡œë“œ
 	@RequestMapping("course_board_filedownload")
 	public String course_board_filedownload(Model model, int id) {
 		
-		// id·Î CourseBoardDTO Á¶È¸
+		// idë¡œ CourseBoardDTO ì¡°íšŒ
 		CourseBoardDTO dto = course_board_dao.selectOne(id);
 
-		// ÆÄÀÏ ´Ù¿î·Îµå¸¦ Ã³¸®ÇÒ ÆäÀÌÁö¿¡ dto¿Í fileManager¸¦ Æ÷¿öµù
+		// íŒŒì¼ ë‹¤ìš´ë¡œë“œë¥¼ ì²˜ë¦¬í•  í˜ì´ì§€ì— dtoì™€ fileManagerë¥¼ í¬ì›Œë”©
 		model.addAttribute("dto", dto);
 		model.addAttribute("fileManager", AnnouncementController.fileManager);
 		
