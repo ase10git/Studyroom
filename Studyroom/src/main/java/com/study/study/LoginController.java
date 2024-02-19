@@ -51,13 +51,6 @@ public class LoginController {
 		//세션에 바인딩
 		session.setAttribute("dto", dto);
 		
-		//************************** 편집자 - 테스트용 *****************************
-		session.setAttribute("userId", dto.getId());
-//		System.out.println(dto.getId());
-		session.setAttribute("role", dto.getRole());
-//		System.out.println(dto.getRole());
-		//***********************************************************************		
-		
 		//로그인에 성공한 경우
 		return "[{'param':'clear'***REMOVED***]";
 ***REMOVED***
@@ -65,7 +58,7 @@ public class LoginController {
 	//로그아웃
 	@RequestMapping("logout") 
 	public String logout() {
-		session.removeAttribute("email");
+		session.removeAttribute("dto");
 		return "redirect:login_form";
 ***REMOVED***
 	
@@ -79,7 +72,7 @@ public class LoginController {
 	@RequestMapping("check_email")
 	@ResponseBody
 	public String check_email(String email) {
-//		System.out.println(email);
+		// 이메일 중복 조회
 		UserDTO dto = user_dao.selectOne(email);
 		
 		//null이면 중복되지 않으므로 가입 가능

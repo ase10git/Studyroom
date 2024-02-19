@@ -9,6 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_tbl where email=#{email***REMOVED*** 
 	</select>
 	
+	<!-- id로 사용자 조회 -->
+	<select id="user_select" parameterType="int" resultType="user">
+		select * from user_tbl where id=#{id***REMOVED*** 
+	</select>
 	
 	<!-- 사용자 추가 -->
 	<insert id="insert" parameterType="user">

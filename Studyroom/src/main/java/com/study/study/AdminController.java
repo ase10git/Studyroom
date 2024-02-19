@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
@@ -35,7 +34,6 @@ public class AdminController {
 	final UserDAO user_dao;
 	final CourseDAO course_dao;
 	final CourseBoardDAO course_board_dao;
-//	final CustomerServiceDAO cs_dao;
 	final CommunityDAO community_dao;
 	
 	@Autowired
@@ -50,9 +48,9 @@ public class AdminController {
 	// 삭제 관리 페이지로 이동
 	@RequestMapping("delete_management")
 	public String delete_management(Model model) {
-		
+				
 		// 사용자 권한을 세션에서 가져옴
-		String role = (String)session.getAttribute("role");
+		String role = ((UserDTO)session.getAttribute("dto")).getRole();
 		
 		// 관리자 외의 다른 사용자의 접근 차단
 		if (!role.equals("admin")) {
@@ -84,6 +82,14 @@ public class AdminController {
 	// 물리적 삭제 진행
 	@RequestMapping("delete_physical")
 	public String delete_physical() {
+		
+		// 사용자 권한을 세션에서 가져옴
+		String role = ((UserDTO)session.getAttribute("dto")).getRole();
+		
+		// 관리자 외의 다른 사용자의 접근 차단
+		if (!role.equals("admin")) {
+			return "/error";
+	***REMOVED***
 		
 		// 페이지에서 삭제 체크박스로 선택한 각 카테고리의 id 정보를 배열로 가져옴
 		String[] userId = request.getParameterValues("userId");

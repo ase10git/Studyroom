@@ -52,6 +52,11 @@
 		function modify() {
 			location.href = "course_modify_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
 	***REMOVED***
+		
+		function add_user() {
+			// 전체 사용자 조회 페이지로 이동해서 동작
+			location.href="#";
+	***REMOVED***
 	</script>
 </head>
 <body>
@@ -85,6 +90,7 @@
 					<tr>
 						<td colspan="2">
 							<div class="d-flex justify-content-center">
+								<input id="add_user_btn" type="button" class="btn btn-primary" value="사용자 추가하기" onclick="add_user()"></input> 
 								<input id="modify_btn" type="button" class="btn btn-primary" value="코스 수정하기" onclick="modify()"></input>
 								<input id="delete_btn" type="button" class="btn btn-dark" value="코스 삭제하기" onclick="del()"></input>
 								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>

@@ -13,7 +13,6 @@ import com.study.study.CommunityController;
 import com.study.study.CourseBoardController;
 import com.study.study.CourseController;
 import com.study.study.LoginController;
-import com.study.study.TestController;
 import com.study.study.UserController;
 
 import dao.AnnouncementDAO;
@@ -30,12 +29,6 @@ public class ServletContext implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-***REMOVED***
-
-	// TestController Bean : *****������ - ���� ���� �׽�Ʈ�� ���� �ӽ� ��Ʈ�ѷ�
-***REMOVED***
-	public TestController testController() {
-		return new TestController();
 ***REMOVED***
 	
 	// LoginController Bean

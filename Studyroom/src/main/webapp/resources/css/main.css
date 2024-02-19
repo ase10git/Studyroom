@@ -16,7 +16,7 @@ a:hover{text-decoration: underline;***REMOVED***
 
 .sec{width:100%;***REMOVED***
 
-.sec .container{width:100%;***REMOVED***
+.sec .container{width:100%; margin:0 auto;***REMOVED***
 
 .sec .container .row{align-items: center;***REMOVED***
 

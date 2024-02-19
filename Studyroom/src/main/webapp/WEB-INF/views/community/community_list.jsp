@@ -19,6 +19,12 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+    
+ 	<script type="text/javascript">
+ 		function write_board() {
+ 			location.href = "community_insert_form?page=${param.page***REMOVED***";
+ 	***REMOVED***
+ 	</script>
 </head>
 
 <body>
@@ -30,22 +36,20 @@
        <h1 class="title text-center">커뮤니티</h1>
         <div class="row gy-4">
 			<div class="col box col-12 d-flex justify-content-center">
-				<table class="board">
+				<table class="board text-center">
 					<tr>
 						<th>번호</th>
-						<th>제목</th>
 						<th>작성자</th>
-						<th>작성일</th>
+						<th>제목</th>
 						<th>조회수</th>
+						<th>추천</th>
+						<th>작성일</th>
 					</tr>
 
 					<c:forEach var="dto" items="${list***REMOVED***">
 						<c:if test="${dto.depth eq 0 and dto.del_flag eq 0***REMOVED***">
 							<tr>
 								<td>${dto.id***REMOVED***</td>
-								<td>
-									<a href="community_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***">${dto.title***REMOVED***</a>
-								</td>
 								<c:choose>
 									<c:when test="${dto.nickname ne null***REMOVED***">
 										<td>${dto.nickname***REMOVED***</td>
@@ -54,24 +58,25 @@
 										<td>수강생</td>
 									</c:otherwise>
 								</c:choose>
+								<td>
+									<a href="community_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***">${dto.title***REMOVED***</a>
+								</td>
+								<td>${dto.readhit***REMOVED***</td>
+								<td>${dto.likehit***REMOVED***</td>
 								<td>${fn:split(dto.register_date,' ')[0]***REMOVED***</td>       
-								<td>${dto.readhit ***REMOVED***</td>
 							</tr>   
 						</c:if>
 					</c:forEach>
-					<tr>
-						<td colspan="5" align="center">
-							${pageMenu***REMOVED***
-						</td>
-					</tr>
-					<tr>
-						<td colspan="5" align="right">
-							<input type="button" class="btn btn-primary" class="btn write-btn" value="글쓰기"
-							onclick="location.href='community_insert_form?page=${param.page***REMOVED***'">
-						</td>
-					</tr>
 				</table>
 			</div>
+        </div>
+        <div class="row gy-4">
+        	<div class="menu-tab">
+        		${pageMenu***REMOVED***
+        		<div class="d-flex justify-content-end">
+					<input type="button" class="btn btn-primary" class="btn write-btn" value="글쓰기" onclick="write_board()">
+				</div>
+        	</div>
         </div>
       </div>
     </section>
