@@ -1,116 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style type="text/css">
-	.menu ::before{
-	    font-family: 'Material Icons';
-	    font-size: 1.5em;
-	    float: left;
-	    clear: left;
-***REMOVED***
-	
-	.menu label::before{ content: '\e5d2'; ***REMOVED***
-	.menu li:nth-child(1) a::before{ content: '\f02e'; ***REMOVED***
-	.menu li:nth-child(2) a::before{ content: '\e8d6'; ***REMOVED***
-	.menu li:nth-child(3) a::before{ content: '\e88a'; ***REMOVED***
-	.menu li:nth-child(4) a::before{ content: '\e8cc'; ***REMOVED***
-	.menu li:nth-child(5) a::before{ content: '\e87d'; ***REMOVED***
-	.menu li:nth-child(6) a::before{ content: '\e8b8'; ***REMOVED***
-	
-	#expand-menu { /* 체크박스 폼 요소 감춤 */
-    	display: none;
-***REMOVED***
-	
-	#expand-menu:checked ~ ul { /* 체크박스 체크되었으면 메뉴 목록 표시 - 반응형 표시용 */
-	    display: block;
-	    height: auto;
-***REMOVED***
-	
-	.menu {
-	    display: block;
-	    width: 200px;
-	    background-color: #000;
-	    color: #fff;
-	    border-radius: 20px;
-	    padding: 10px;
-	    box-sizing: border-box;
-	    overflow: hidden; /* 반응형 애니메이션용 */
-	    transition: all 0.5s ease; /* 반응형 애니메이션 */
-***REMOVED***
-	
-	.menu ul {
-	    list-style: none;
-	    margin: 0;
-	    padding: 0;
-***REMOVED***
-	
-	.menu a, .menu > label {
-	    display: block;
-	    height: 25px;
-	    padding: 8px;
-	    cursor: pointer;
-	    color: #fff;
-	    text-decoration: none;
-***REMOVED***
-	
-	.menu a:hover {
-    	color: #000;
-***REMOVED***
-	
-	.menu ul li:hover, .menu > label:hover {
-	    background-color: #fff;
-	    color: #000;
-	    border-radius: 10px;
-***REMOVED***
-	
-	.menu div {
-	    line-height: 1.5;
-	    font-size: 1em;
-	    font-family: 'Noto Sans KR';
-	    padding: 0 0 0 50px; /* 아이콘과 텍스트 사이 여백 */
-***REMOVED***
-	
-	@media screen and (max-width:1023px) {
-    	.menu { /* 1단계 */
-        	width: 60px;
-    ***REMOVED***
-***REMOVED***
-	
-	@media screen and (max-width:560px) {
-	    .menu #expand-menu:not(:checked) ~ ul { /* 2단계 */
-	        display: none;
-	    ***REMOVED***
-***REMOVED***
-	
-	.menu div {
-	    position: absolute; /* 절대 위치로 텍스트 고정 */
-	    left: 50px;
-	    line-height: 1.5;
-	    font-size: 1em;
-	    font-family: 'Noto Sans KR';
-	    padding: 0 0 0 20px; /* 패딩 20p로 축소 */
-***REMOVED***
-	
-	.menu #expand-menu:not(:checked) ~ ul { /* 데스크탑 화면에서도 메뉴를 접었더 펼칠 수 있음 */
-   		display: none;
-***REMOVED***
-</style>
+<title>메뉴</title>
+	<link rel="stylesheet" href="resources/css/menu.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 	<div class="menu">
-		<label for="expand-menu"><div>Studyroom</div></label>
-		<input type="checkbox" id="expand-menu" name="expand-menu">
-		<ul>
-			<li><a href='/' class="item"><div>로그인</div></a>
-			<li><a href='/' class="item"><div>메뉴1</div></a>
-			<li><a href='/' class="item"><div>메뉴2</div></a>
-			<li><a href='/' class="item"><div>메뉴3</div></a>
-			<li><a href='/' class="item"><div>메뉴4</div></a>
+		<ul class="menu-bar">
+			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath***REMOVED***/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
+			<li><a href='user_view' class="item user-info"><i class="fi fi-ss-user"></i><span>내 정보</span></a></li>
+			<li><a href='course_list' class="item course"><i class="fi fi-ss-book"></i><span>코스</span></a></li>
+			<li><a href='community_list' class="item community"><i class="fi fi-ss-users-alt"></i><span>커뮤니티</span></a></li>
+			<li><a href='calendar_list' class="item calendar"><i class="fi fi-rr-calendar-lines-pen"></i><span>캘린더</span></a></li>
 		</ul>
 	</div>
 </body>

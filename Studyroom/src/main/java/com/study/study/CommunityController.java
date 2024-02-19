@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommunityDAO;
 import dto.CommunityDTO;
+import dto.UserCommunityLikeDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
@@ -25,17 +26,16 @@ import util.Paging;
 public class CommunityController {
 	
 	final CommunityDAO community_dao;
-	
-	
+		
 	@Autowired
 	HttpServletRequest request;
 	
 	@Autowired
 	HttpSession session;
-	
-	@RequestMapping("/community_list")//Ä¿¹Â´ÏÆ¼ È­¸é ÆäÀÌÁö
+
+	//ì»¤ë®¤ë‹ˆí‹° í™”ë©´ í˜ì´ì§€
+	@RequestMapping("/community_list")
 	public String community_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
-		
 		
 		int start = (page - 1) * Common.Board.BLOCKLIST+1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -44,39 +44,54 @@ public class CommunityController {
 		map.put("start", start);
 		map.put("end", end);
 		
-		//ÆäÀÌÁö ¹øÈ£¿¡ ´Ù¸¥ ÀüÃ¼ °Ô½Ã±Û Á¶È¸
+		//í˜ì´ì§€ ë²ˆí˜¸ì— ë‹¤ë¥¸ ì „ì²´ ê²Œì‹œê¸€ ì¡°íšŒ
 		List<CommunityDTO> list = community_dao.selectList(map);
 		
-		//ÀüÃ¼ °Ô½Ã±Û ¼ö Á¶È¸
+		//ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ ì¡°íšŒ
 		int rowTotal = community_dao.getRowTotal();
 		
-		//ÆäÀÌÁö ¸Ş´º »ı¼ºÇÏ±â
+		//í˜ì´ì§€ ë©”ë‰´ ìƒì„±í•˜ê¸°
 		String pageMenu = Paging.getPaging("community_list", 
 											page,
 											rowTotal,
 											Common.Board.BLOCKLIST,
 											Common.Board.BLOCKPAGE);
 		
-		
 		request.getSession().removeAttribute("show");
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
-		
 		return Common.VIEW_PATH+"community/community_list.jsp?page="+page;
 ***REMOVED***
 	
-	@RequestMapping("/community_list_user")//»ç¿ëÀÚ ÀÛ¼º±Û ¸ñ·Ï ÆäÀÌÁö
+	//ì‚¬ìš©ì ì‘ì„±ê¸€ ëª©ë¡ í˜ì´ì§€
+	@RequestMapping("/community_list_user")
 	public String community_list_user() {
 		return Common.VIEW_PATH + "community/community_list_user.jsp";
 ***REMOVED***
 	
-	@RequestMapping("community_view")//°Ô½Ã±Û »ó¼¼º¸±â ÆäÀÌÁö
+	//ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸° í˜ì´ì§€
+	@RequestMapping("community_view")
 	public String community_view(Model model, int id, int page) {
+		// ê²Œì‹œê¸€ ì •ë³´ ì¡°íšŒ
 		CommunityDTO dto = community_dao.selectOne(id);
 		
-		//Á¶È¸¼ö Áõ°¡
+		// ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì„¸ì…˜ì—ì„œ ê°€ì ¸ì˜´
+		int user_id = (int)session.getAttribute("userId");
+
+		// í˜„ì¬ ì‚¬ìš©ìì™€ ì»¤ë®¤ë‹ˆí‹° ì•„ì´ë””ë¥¼ DBì— ë„˜ê²¨ì£¼ê¸° ìœ„í•´ ê°ì²´ì— ì €ì¥í•˜ê¸° 
+		 UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+		 likedto.setUser_id(user_id);
+		 likedto.setCommunity_board_id(id);
+		
+		// ì‚¬ìš©ìê°€ íŠ¹ì • ê²Œì‹œê¸€ì— ì¶”ì²œì„ í–ˆì—ˆëŠ”ì§€ í™•ì¸
+		 int user_like = community_dao.like_count(likedto);
+		
+		//ë‹µê¸€ ì¡°íšŒ
+		List<CommunityDTO> reply_list = community_dao.select_reply(id);
+		
+		//ì¡°íšŒìˆ˜ ì¦ê°€
 		HttpSession session = request.getSession();
 		String show = (String)session.getAttribute("show");
 		
@@ -86,28 +101,33 @@ public class CommunityController {
 	***REMOVED***
 		
 		model.addAttribute("dto",dto);
+		model.addAttribute("reply_list",reply_list);
+		model.addAttribute("user_like", user_like);
+		model.addAttribute("userId", user_id);
 		
-		return Common.VIEW_PATH+"/community/community_view.jsp?page="+page;
-	//return Common.VIEW_PATH+"/community/community_view.jsp";
-***REMOVED***
-
-@RequestMapping("community_insert_form") //°Ô½Ã±Û Ãß°¡ ÆäÀÌÁö 
-public String community_insert_form(int page) {
-	
-	UserDTO show = (UserDTO)session.getAttribute("id");
-	
-	if(show ==null) {
-		return Common.VIEW_PATH + "/community/community_insert_form.jsp?page"+page;
+		return Common.VIEW_PATH + "/community/community_view.jsp?page="+page;
 ***REMOVED***
 	
-	
-	return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
+	//ê²Œì‹œê¸€ ì¶”ê°€ í˜ì´ì§€
+	@RequestMapping("community_insert_form")  
+	public String community_insert_form(int page) {
+		
+		UserDTO show = (UserDTO)session.getAttribute("id");
+		
+		if(show ==null) {
+			return Common.VIEW_PATH + "/community/community_insert_form.jsp?page"+page;
+	***REMOVED***
+		return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
 ***REMOVED***
-
-@RequestMapping("community_insert") // °Ô½Ã±Û Ãß°¡ ÇÏ±â
-public String community_insert(CommunityDTO dto,int page) {
 	
-	System.out.println("nickname : " + dto.getNickname());
+	//ê²Œì‹œê¸€ ì¶”ê°€ í•˜ê¸°
+	@RequestMapping("community_insert") 
+	public String community_insert(CommunityDTO dto,int page) {
+	
+		// íŒŒì¼ ì—…ë¡œë“œë¥¼ ì§„í–‰í•˜ê³  dtoì— íŒŒì¼ ì´ë¦„ ì €ì¥
+		AnnouncementController.fileManager.fileUpload(dto);
+	
+//		System.out.println("nickname : " + dto.getNickname());
 		String ip = request.getRemoteAddr();
 		dto.setIp_addr(ip);
 		int res = community_dao.insert(dto);
@@ -116,36 +136,38 @@ public String community_insert(CommunityDTO dto,int page) {
 			return "redirect:community_list?page="+page;
 	***REMOVED***
 		return null;
+***REMOVED***
+	
+	//ê²Œì‹œê¸€ ìˆ˜ì •í•˜ê¸° í˜ì´ì§€
+	@RequestMapping("community_modify_form") 
+	public String community_modify_form(Model model, int id, int page) {
+		CommunityDTO dto = community_dao.selectOne(id); //í•œê±´ì„ ì¡°íšŒ í•˜ë ¤ê³ í•¨
 		
+		model.addAttribute("dto",dto);
+		// ë‹¤ì‹œ ë’¤ë¡œ ê°ˆ ë•Œ í•„ìš”í•œ page ì •ë³´ë„ ë„˜ê²¨ì¤Œ
+		model.addAttribute("page", page);
+		return Common.VIEW_PATH+"community/community_modify_form.jsp";
+***REMOVED***
+		
+	//ê²Œì‹œê¸€ ìˆ˜ì •í•˜ê¸°
+	@RequestMapping("community_modify")
+	public String community_modify(CommunityDTO dto, HttpServletRequest request) {
+		String ip = request.getRemoteAddr();
+		dto.setIp_addr(ip);
+		
+		//whereì ˆì—ì„œ ì‚¬ìš©í•  idë„ ë°›ì•„ì™€ì•¼í•¨.
+		int res = community_dao.update(dto);
+		return "redirect:community_list";
 ***REMOVED***
 
-@RequestMapping("community_modify_form") //°Ô½Ã±Û ¼öÁ¤ÇÏ±â ÆäÀÌÁö
-public String community_modify_form(Model model, int id) {
-	CommunityDTO dto = community_dao.selectOne(id); //ÇÑ°ÇÀ» Á¶È¸ ÇÏ·Á°íÇÔ
-	
-	model.addAttribute("dto",dto);
-	return Common.VIEW_PATH+"community/community_modify_form.jsp";
-***REMOVED***
-
-
-@RequestMapping("community_modify")//°Ô½Ã±Û ¼öÁ¤ÇÏ±â
-public String community_modify(CommunityDTO dto, HttpServletRequest request) {
-	String ip = request.getRemoteAddr();
-	dto.setIp_addr(ip);
-	
-	//whereÀı¿¡¼­ »ç¿ëÇÒ idµµ ¹Ş¾Æ¿Í¾ßÇÔ.
-	
-	int res = community_dao.update(dto);
-	return "redirect:community_list";
-***REMOVED***
-	
-	@RequestMapping("community_delete") //°Ô½Ã±Û »èÁ¦ÇÏ±â
+	//ê²Œì‹œê¸€ ì‚­ì œëœ ê²ƒì²˜ëŸ¼ ì²˜ë¦¬
+	@RequestMapping("community_delete") 
 	@ResponseBody
 	public String community_delete(int id) {
 		
 		CommunityDTO baseDTO = community_dao.selectOne(id);
 		
-		baseDTO.setTitle("ÀÌ¹Ì »èÁ¦µÈ ±ÛÀÔ´Ï´Ù.");
+		baseDTO.setTitle("ì´ë¯¸ ì‚­ì œëœ ê¸€ì…ë‹ˆë‹¤.");
 		baseDTO.setNickname("unknown");
 		
 		int res = community_dao.del_update(baseDTO);
@@ -156,25 +178,47 @@ public String community_modify(CommunityDTO dto, HttpServletRequest request) {
 			return "[{'result':'no'***REMOVED***]";
 		***REMOVED***
 	***REMOVED***
-		
-	
-	
-	
-	@RequestMapping("community_delete_physical")//°Ô½Ã±Û ¹°¸®Àû »èÁ¦ÇÏ±â
-	@ResponseBody
-	public String community_delete_physical(int id) {
-		return null;
-***REMOVED***
-	
-	
-	@RequestMapping("community_reply_insert") //´ä±Û Ãß°¡ÇÏ±â
-	public String community_reply_insert(CommunityDTO dto, int id, int page) {
 
-	return null;
+	//ë‹µê¸€ ì¶”ê°€í•˜ê¸°
+	@RequestMapping("community_reply") 
+	public String community_reply(CommunityDTO dto, Integer id, int page) {
+//		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ ì˜´");
+		String ip = request.getRemoteAddr();
+		
+		CommunityDTO baseDTO = community_dao.selectOne(id);
+		
+		int res = community_dao.update_step(baseDTO);
+		
+		dto.setIp_addr(ip);
+		
+		//ëŒ“ê¸€ì´ ë“¤ì–´ê°ˆ ìœ„ì¹˜ ì„ ì •
+		dto.setRef(baseDTO.getRef());
+		dto.setStep(baseDTO.getStep()+1);
+		dto.setDepth(baseDTO.getDepth()+1);
+		
+		res = community_dao.reply(dto);
+		
+		return "redirect:community_view?id="+id+"&page="+page;
 ***REMOVED***
 	
-	
-	
+	// ì‚¬ìš©ì ì»¤ë®¤ë‹ˆí‹° í…Œì´ë¸”ì— ë°ì´í„° ì €ì¥
+	@RequestMapping("community_like")
+	public String community_like(int id,int page) {
+		
+		int user_id = (int)session.getAttribute("userId");
+		
+		  UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+          likedto.setUser_id(user_id);
+          likedto.setCommunity_board_id(id);
+
+          int res1 = community_dao.community_like(likedto);
+          int res2 = community_dao.community_likehit(id);
+          
+          if(res1 > 0 && res2 > 0 ) {
+        	  return "redirect:community_list?id="+id+"&page="+page;
+          ***REMOVED***
+          return "";
+***REMOVED***
 	
 ***REMOVED***
 

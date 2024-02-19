@@ -7,13 +7,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 ***REMOVED***
 ***REMOVED***
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 
 import lombok.RequiredArgsConstructor;
 
 ***REMOVED***
-@EnableAspectJAutoProxy
 @RequiredArgsConstructor
 public class Context_2_myBatis {
 	
@@ -25,7 +23,7 @@ public class Context_2_myBatis {
 		
 		factoryBean.setDataSource(ds);
 		
-		// mapper¸¦ ¾Ë°íÀÖ´Â mybatis-config.xml ÆÄÀÏÀÇ À§Ä¡¸¦ ¾Ë·ÁÁà¾ß ÇÔ
+		// mapperë¥¼ ì•Œê³ ìˆëŠ” mybatis-config.xml íŒŒì¼ì˜ ìœ„ì¹˜ë¥¼ ì•Œë ¤ì¤˜ì•¼ í•¨
 		factoryBean.setConfigLocation(new ClassPathResource("config/mybatis/mybatis-config.xml"));
 		
 		return factoryBean.getObject();

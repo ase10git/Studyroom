@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.UserDAO;
 import dto.UserDTO;
@@ -18,38 +21,89 @@ public class UserController {
 	
 	final UserDAO user_dao;
 	
-//    @Autowired
-//    private SessionService sessionService;
-	
 	@Autowired
 	HttpSession session;
 	
-	// »ç¿ëÀÚ Á¤º¸ È­¸é º¸±â
+	// ì‚¬ìš©ì ì •ë³´ í™”ë©´ ë³´ê¸°
 	@RequestMapping("user_view")
 	public String user_view(Model model) {	
-//		UserDTO dto = sessionService.getUserFromSession();
 		UserDTO dto = (UserDTO)session.getAttribute("email");
 		model.addAttribute("dto", dto);	
 		return Common.USER_PATH+"user_view.jsp";
 ***REMOVED***
 	
-	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ÇÏ±â Àü ºñ¹Ğ¹øÈ£ È®ÀÎ ÆäÀÌÁö ÀÌµ¿
+	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì •í•˜ê¸° ì „ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ í˜ì´ì§€ ì´ë™
 	@RequestMapping("user_pw_auth_form")
-	public String user_pw_auth_form(Model model) {
-		UserDTO dto = (UserDTO)session.getAttribute("email");
-		model.addAttribute("dto", dto);	
-		return Common.USER_PATH+"pw_auth_form.jsp";
+	public String user_pw_auth_form(Model model, int id, @RequestParam("action") String action) {
+	    UserDTO dto = user_dao.selectOne(id);
+	    model.addAttribute("dto", dto);
+	    model.addAttribute("action", action);
+	    return Common.USER_PATH + "user_pw_auth_form.jsp";
 ***REMOVED***
 	
+	// ë¹„ë°€ë²ˆí˜¸ í™•ì¸ ë¡œì§
 	@RequestMapping("authenticate")
-	public String authenticate() {
-		return "";
+	@ResponseBody
+	public String authenticate(int id, String pwd, @RequestParam("action") String action) { 
+		UserDTO dto = user_dao.selectOne(id);
+		if(!pwd.equals(dto.getPwd())){
+			return "[{'param':'no_pwd'***REMOVED***]";
+	***REMOVED***
+		session.setAttribute("authenticated", "true");
+		String jsonResponse = "[{'param':'clear', 'action':'" + action + "'***REMOVED***]";
+		return jsonResponse;
 ***REMOVED***
 	
-	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ ÆäÀÌÁö ÀÌµ¿	// ¹Ì¿Ï¼º
+	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì • í˜ì´ì§€ ì´ë™
 	@RequestMapping("user_modify_form")
-	public String user_modify_form(Model model) {
-		return Common.USER_PATH+"user_modify_form.jsp";
-***REMOVED***
+    public String user_modify_form(Model model, int id, RedirectAttributes redirectAttributes) {
+        if (!session.getAttribute("authenticated").equals("true")) {
+        	redirectAttributes.addFlashAttribute("authFail", true);
+            return "redirect:user_pw_auth_form?id="+id+"&action=update";
+        ***REMOVED***
+        session.removeAttribute("authenticated");
+	    UserDTO dto = user_dao.selectOne(id);
+	    model.addAttribute("dto", dto);
+        return Common.USER_PATH + "user_modify_form.jsp";
+    ***REMOVED***
+	
+	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì • ë¡œì§
+	@RequestMapping("user_modify")
+    public String user_modify(UserDTO dto, RedirectAttributes redirectAttributes) {
+        int res = user_dao.modify(dto);
+        
+        if (res > 0) {
+            redirectAttributes.addFlashAttribute("updateSuccess", true);
+        ***REMOVED***
+        return "redirect:user_view";
+    ***REMOVED***
+	
+	// ì‚¬ìš©ì íšŒì› íƒˆí‡´ í™•ì¸ í˜ì´ì§€ ì´ë™
+	@RequestMapping("user_delete_confirm")
+    public String user_delete_confirm(Model model, int id, RedirectAttributes redirectAttributes) {
+        if (!session.getAttribute("authenticated").equals("true")) {
+        	redirectAttributes.addFlashAttribute("authFail", true);
+            return "redirect:user_pw_auth_form?id="+id+"&action=update";
+        ***REMOVED***
+        session.removeAttribute("authenticated");
+	    model.addAttribute("id", id);
+        return Common.USER_PATH + "user_delete_confirm.jsp";
+    ***REMOVED***
 
+	// ì‚¬ìš©ì íšŒì› íƒˆí‡´(í•œê²ƒì²˜ëŸ¼ ë³´ì´ëŠ”) ë¡œì§
+	@RequestMapping("user_delete")
+	public String user_delete(int id) {
+		UserDTO dto = user_dao.selectOne(id);
+		dto.setUsername("unknown");
+		dto.setEmail("unknown");
+		dto.setTel("unknown");
+		dto.setEmail("unknown");
+		dto.setPwd("0000");
+		int res = user_dao.del_update(dto);
+	    if(res == 1) {
+	        return "[{'result':'yes'***REMOVED***]";
+	    ***REMOVED*** else {
+	        return "[{'result':'no'***REMOVED***]";
+	    ***REMOVED***
+***REMOVED***
 ***REMOVED***

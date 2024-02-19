@@ -10,7 +10,12 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
-
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script>
 		// 첨부 파일 제거 요청 여부
 		// 0 = false
@@ -30,7 +35,11 @@
 		
 		// 수정을 취소하고 공지글 상세보기 페이지로 이동
 		function back() {
-			location.href = "course_board_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
+			if("${dto.course_id***REMOVED***" == 0) { 
+				location.href = "view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
+		***REMOVED*** else {
+				location.href = "course_board_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
+		***REMOVED***
 	***REMOVED***
 		
 		// 첨부파일 제거 요청 처리
@@ -57,36 +66,44 @@
 </head>
 <body>
 
-	<section class="sec">
+	<%@ include file="../include/menu.jsp" %>
+	
+	<section class="sec board">
 		<div class="container">
-		 <h1>코스 공지글 수정하기</h1>
+			<c:choose>
+				<c:when test="${dto.course_id eq 0***REMOVED***">
+					<h1 class="title text-center">공지사항 수정하기</h1>
+				</c:when>
+				<c:otherwise>
+					<h1 class="title text-center">코스 공지글 수정하기</h1>
+				</c:otherwise> 
+			</c:choose>
 		  <div class="row gy-4">
-			<div class="box col-12 col-md-6">
+			<div class="col box col-12 d-flex justify-content-center">
 				<form name="f" method="POST" enctype="multipart/form-data">
 					<table>
-<!-- 						<caption>:::글 수정하기:::</caption> -->
 						<tr>
 							<th>제목</th>
-							<td><input name="title" value="${dto.title***REMOVED***"></td>
+							<td><input name="title" class="form-control" value="${dto.title***REMOVED***"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea name="content" rows="10" cols="50" style="resize:none;">${dto.content***REMOVED***</textarea></td>
+							<td><textarea name="content" class="form-control" rows="10" cols="50" style="resize:none;">${dto.content***REMOVED***</textarea></td>
 						</tr>
 						<tr>
 							<th>첨부파일</th>
 							<td colspan="2">
 								<span id="file_name">${dto.file_name***REMOVED***</span>
-								<input id="file_delete_btn" type="button" value="첨부파일 제거" onclick="delete_file()">
-								<input name="file" type="file">
+								<input id="file_delete_btn" type="button" class="btn btn-primary" value="첨부파일 제거" onclick="delete_file()">
+								<input name="file" type="file" class="form-control">
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<input id="send_btn" type="button" value="글 수정하기" onclick="send()"></input>
-							</td>
-							<td>
-								<input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>
+							<td colspan="2">
+								<div class="d-flex justify-content-end">
+									<input id="send_btn" type="button" class="btn btn-primary" value="글 수정하기" onclick="send()"></input>
+									<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
+								</div>
 							</td>
 						</tr>
 					</table>
@@ -95,6 +112,8 @@
 		  </div>
 		</div>
 	  </section>
+
+	<%@ include file="../include/footer.jsp" %>
 
 	<!-- bootstrap script -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

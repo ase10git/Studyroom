@@ -12,63 +12,53 @@ import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 import dao.UserDAO;
-import service.SessionService;
 
 ***REMOVED***
 @EnableAspectJAutoProxy
 public class Context_3_dao {
 	
-	// UserDAO Bean : »ç¿ëÀÚ
+	// UserDAO Bean : ì‚¬ìš©ì
 ***REMOVED***
 	public UserDAO userDAO(SqlSession sqlSession) {
 		return new UserDAO(sqlSession);
 ***REMOVED***
 
-	// AnnouncementDAO Bean : ÀüÃ¼ °øÁö»çÇ×
+	// AnnouncementDAO Bean : ì „ì²´ ê³µì§€ì‚¬í•­
 ***REMOVED***
 	public AnnouncementDAO announcementDAO(SqlSession sqlSession) {
 		return new AnnouncementDAO(sqlSession);
 ***REMOVED***
 
-	// CourseDAO Bean : ÄÚ½º
+	// CourseDAO Bean : ì½”ìŠ¤
 ***REMOVED***
 	public CourseDAO courseDAO(SqlSession sqlSession) {
 		return new CourseDAO(sqlSession);
 ***REMOVED***
 	
-	// CourseBoardDAO Bean : ÄÚ½º °øÁö±Û
+	// CourseBoardDAO Bean : ì½”ìŠ¤ ê³µì§€ê¸€
 ***REMOVED***
 	public CourseBoardDAO courseBoardDAO(SqlSession sqlSession) {
 		return new CourseBoardDAO(sqlSession);
 ***REMOVED***
 	
-	// CommunityDAO Bean : Ä¿¹Â´ÏÆ¼
+	// CommunityDAO Bean : ì»¤ë®¤ë‹ˆí‹°
 ***REMOVED***
 	public CommunityDAO communityDAO(SqlSession sqlSession) {
 		return new CommunityDAO(sqlSession);
 ***REMOVED***
 	
-	// CalendarDAO Bean : Ä¶¸°´õ
+	// CalendarDAO Bean : ìº˜ë¦°ë”
 ***REMOVED***
 	public CalendarDAO calendarDAO(SqlSession sqlSession) {
 		return new CalendarDAO(sqlSession);
 ***REMOVED***
 
-	// SessionCheckAspect Bean : ¼¼¼ÇÃ¼Å© Advice
+	// SessionCheckAspect Bean : ì„¸ì…˜ì²´í¬ Advice
 ***REMOVED***
 	public SessionCheckAspect sessionCheckAspect() {
 		return new SessionCheckAspect();
 ***REMOVED***
-	
-***REMOVED***
-	public SessionService sessionService() {
-		return new SessionService();
-***REMOVED***
-	
-	
-	
-	
-	
+
 ***REMOVED***
 
 

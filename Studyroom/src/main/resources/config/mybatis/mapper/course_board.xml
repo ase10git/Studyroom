@@ -4,13 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cb">
 	<!-- 특정 코스의 코스 전체 공지글 조회 -->
-	<select id="board_list" resultType="courseboard" parameterType="int">
-	 	SELECT * FROM course_board
-	 	WHERE COURSE_ID = #{course_id***REMOVED*** AND DEL_FLAG != -1
+	<select id="board_list" parameterType="java.util.HashMap" resultType="courseboard" >
+	 	SELECT * FROM (SELECT RANK() OVER(ORDER BY id DESC) AS no, cb.* FROM course_board cb)
+		WHERE  COURSE_ID = #{course_id***REMOVED*** AND DEL_FLAG != -1
+		AND no BETWEEN #{start***REMOVED*** AND #{end***REMOVED***
 	</select>
 	
 	<!-- 특정 코스의 코스 전체 공지글 수 조회 -->
-	<select id="board_count" resultType="int" parameterType="int">
+	<select id="board_count" parameterType="int" resultType="int" >
 		SELECT COUNT(*) FROM course_board
 		WHERE COURSE_ID = #{course_id***REMOVED*** AND DEL_FLAG != -1
 	</select>
@@ -55,10 +56,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ID = #{id***REMOVED***
 	</update>
 
+	<!-- 삭제된 코스의 공지글들도 삭제한 것처럼 수정하기 -->
+	<update id="delete_update_course" parameterType="int">
+		UPDATE course_board 
+		SET DEL_FLAG = -1
+		WHERE COURSE_ID = #{id***REMOVED***
+	</update>
+
 	<!-- 코스 공지글 물리적 삭제 -->
-	<delete id="board_delete" parameterType="int">
-		DELETE FROM course_board 
-		WHERE DEL_FLAG = -1
+	<delete id="board_delete" parameterType="java.util.ArrayList">
+		DELETE FROM course_board WHERE ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item***REMOVED***
+		</foreach>
 	</delete>
+
+	<!-- 특정 코스들의 공지글 물리적 삭제 -->
+	<delete id="board_delete_course" parameterType="java.util.ArrayList">
+	DELETE FROM course_board WHERE COURSE_ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item***REMOVED***
+		</foreach>
+	</delete>
+
 </mapper>
 

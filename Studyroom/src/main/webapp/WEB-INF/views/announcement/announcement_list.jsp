@@ -1,73 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
-	* {
-		margin:0;   /* 마진 리셋 */
-		padding:0;   /* 패딩 리셋 */
-***REMOVED***
-	
-	a {
-		text-decoration:none;  /* 텍스트 링크 밑줄 없애기 */ 
-		color: inherit;
-***REMOVED***
-	
-	a:link {
-		text-decoration: none;
-		color: inherit; 
-***REMOVED***
-	
-	a:hover {
-		text-decoration: underline;
-		background-color: gray;
-***REMOVED***
-	
-	ul {
-  		list-style: none;
-  		padding-bottom: 200px;
-***REMOVED***
-	
-	/* 로고 */
-	#logo { 
-		float:left;   /* 왼쪽으로 플로팅 */ 
-		width:250px;   /*  너비 */ 
-		height:100px;   /* 높이 */
-		line-height:100px;  /* 세로로 중간에 맞춤 - 줄간격을 높이 값과 같게 */
-		padding-left:150px;  /* 왼쪽에 여백 */
-***REMOVED***
-	
-	#logo h1 {
-		font-family:fantasy;
-		font-weight:300;
-		font-size:40px;   /* 글자 크기 */
-		color:rgb(255,255,140);   /* 글자 색*/
-***REMOVED***
-</style>
-</head>
-<body>
-	
-	<table border="1">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>등록일</th>
-			<th>조회수</th>
-		</tr>
-		<c:forEach var="dto" items="${list ***REMOVED***">
-			<tr>
-				<td>${dto.id ***REMOVED***</td>
-				<td>${dto.title ***REMOVED***</td>
-				<td>관리자</td> <!-- 작성자는 관리자로 표시되게 -->
-				<td>${dto.register_date ***REMOVED***</td>
-				<td>${dto.readhit ***REMOVED***</td>
-			</tr>
-		</c:forEach>		
-	</table>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>공지사항</title>
+
+    <!-- bootstrap css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"/>
+
+    <!-- flaticon -->
+    <link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel="stylesheet" href="resources/css/announcement_list.css" />
+    <link rel="stylesheet" href="resources/css/main.css" />
+    
+    <script type="text/javascript">
+    	function insert() {
+    		location.href = "course_board_insert_form?course_id=0";
+    ***REMOVED***
+    </script>
+  </head>
+  
+  <body>
+    <%@ include file="../include/menu.jsp" %>
+
+    <!-- carousel -->
+      <div id="infocarousel" class="carousel slide container" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="4000">
+            <img src="resources/img/visual_pubg.jpg" class="d-block w-100 h-auto" alt="테스트 이미지1" />
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="resources/img/visual_baldursgate3.jpg" class="d-block w-100" alt="테스트 이미지2" />
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="resources/img/visual_lostark.jpg" class="d-block w-100" alt="테스트 이미지4" />
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img  src="resources/img/visual_minecraft.jpg" class="d-block w-100" alt="테스트 이미지5" />
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="resources/img/visual_valorant.jpg" class="d-block w-100" alt="테스트 이미지6" />
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#infocarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">이전</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#infocarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">다음</span>
+        </button>
+      </div>
+
+    <section class="sec info">
+      <div class="container">
+        <div class="title-wrap d-flex justify-content-between">
+          <h1 class="title">스터디룸 공지사항</h1>
+          <c:if test="${role eq 'admin'***REMOVED***">
+            <input type="button" class="btn btn-primary insert-btn" value="공지 추가하기" onclick="insert()">
+          </c:if>
+        </div>
+        <div class="row g-4 d-flex justify-content-center">
+          <c:forEach var="dto" items="${list***REMOVED***">
+            <div class="gt col-4">
+              <div class="col box card">
+                <a href="view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***">
+                    <c:if test="${dto.file_name ne 'no_file'***REMOVED***">
+                      <img class="card-img-top w-80 h-60" src="${pageContext.request.contextPath***REMOVED***/resources/upload/${dto.file_name***REMOVED***" alt="공지사항 이미지">
+					          </c:if>
+                    <span class="card-title">${dto.title***REMOVED***</span>
+                    <span class="card-text">${fn:split(dto.register_date, " ")[0]***REMOVED***</span>
+                </a>
+              </div>
+            </div>
+          </c:forEach>
+          ${pageMenu***REMOVED***
+        </div>
+      </div>
+    </section>
+
+    <%@ include file="../include/footer.jsp" %>
+
+    <!-- bootstrap script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+
+  </body>
 </html>

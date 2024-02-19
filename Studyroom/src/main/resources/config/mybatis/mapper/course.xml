@@ -2,13 +2,15 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="c">
+<mapper namespace="co">
 	<!-- 코스 전체 조회 -->
-	<select id="course_list" resultType="course">
-	 	SELECT * FROM course WHERE DEL_FLAG != -1
+	<select id="course_list" parameterType="java.util.HashMap" resultType="course" > 	
+	 	SELECT * FROM (SELECT RANK() OVER(ORDER BY id DESC) AS no, c.* FROM course c)
+		WHERE DEL_FLAG != -1
+		AND no BETWEEN #{start***REMOVED*** AND #{end***REMOVED***
 	</select>
-	
-	<!-- 코스 전체 공지글 수 조회 -->
+
+	<!-- 전체 코스 수 조회 -->
 	<select id="course_count" resultType="int">
 		SELECT COUNT(*) FROM course WHERE DEL_FLAG != -1
 	</select>
@@ -17,7 +19,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="course_view" parameterType="int" resultType="course">
 		SELECT * FROM course WHERE ID=#{id***REMOVED***
 	</select>
-	
+		
+	<!-- 특정 사용자의 코스 전체 조회 -->
+	<select id="course_list_user" parameterType="java.util.HashMap" resultType="usercourse" >
+		SELECT * FROM USER_COURSE_VIEW
+		WHERE DEL_FLAG != -1 AND USER_ID = #{user_id***REMOVED***
+	</select>
+
+	<!-- 특정 사용자의 전체 코스 수 조회 -->
+	<select id="course_count_user" resultType="int">
+		SELECT COUNT(*) FROM USER_COURSE_VIEW
+		WHERE DEL_FLAG != -1 AND USER_ID = #{user_id***REMOVED***
+	</select>
+
 	<!-- 삭제 요청된 코스 조회 -->
 	<select id="course_delete_list" resultType="course">
 		SELECT * FROM course WHERE DEL_FLAG = -1
@@ -31,7 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{instructor***REMOVED***,
 			#{summary***REMOVED***,
 			TO_DATE(#{start_date***REMOVED***, 'YYYY-MM-DD'),
-			TO_DATE(#{end_date***REMOVED***, 'YYYY-MM-DD')
+			TO_DATE(#{end_date***REMOVED***, 'YYYY-MM-DD'),
+			0
 		)
 	</insert>
 	
@@ -54,9 +69,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- 코스 물리적 삭제 -->
-	<delete id="course_delete" parameterType="int">
-		DELETE FROM course
-		WHERE ID = #{id***REMOVED*** AND DEL_FLAG = -1
+	<delete id="course_delete" parameterType="java.util.ArrayList">
+		DELETE FROM course WHERE ID IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			 #{item***REMOVED***
+		</foreach>
 	</delete>
+
+	<!-- 사용자 코스 테이블에 데이터 추가 -->
+	<select id="user_course_insert" parameterType="usercourse">
+		INSERT INTO user_course VALUES (
+			user_id = #{user_id***REMOVED***,
+			course_id = #{id***REMOVED***
+		)
+	</select>
+	
+	<!-- 사용자 코스 테이블에 데이터 제거 -->
+	<delete id="user_course_delete" parameterType="usercourse">
+		DELETE FROM user_course 
+		WHERE user_id = #{user_id***REMOVED*** AND course_id = #{id***REMOVED***
+	</delete>
+	
+	<!-- 사용자 코스 테이블에서 특정 코스 제거 -->
+	<delete id="only_course_delete" parameterType="java.util.ArrayList">
+		DELETE FROM user_course 
+		WHERE course_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item***REMOVED***
+		</foreach>
+	</delete>
+
+	<!-- 사용자 코스 테이블에서 특정 사용자를 제거 -->
+	<delete id="only_user_delete" parameterType="java.util.ArrayList">
+		DELETE FROM user_course 
+		WHERE user_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+		  #{item***REMOVED***
+		</foreach>
+	</delete>
+	
 </mapper>
 

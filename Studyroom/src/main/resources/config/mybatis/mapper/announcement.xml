@@ -3,9 +3,33 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="a">
-	<select id="announcement_list" resultType="announcement">
-		SELECT * FROM announcement
+	<select id="announcement_list" resultType="courseboard">
+		SELECT * FROM COURSE_BOARD WHERE COURSE_ID IS NULL AND DEL_FLAG = 0
 	</select>
 	
+	<!-- 전체 게시물 수 조회 -->
+	<select id="announcement_count" resultType="int">
+		SELECT COUNT(*) FROM COURSE_BOARD WHERE COURSE_ID IS NULL AND DEL_FLAG = 0
+	</select>
+	
+	<!-- 게시물 한 건 조회 -->
+	<select id="announcement_one" parameterType="int" resultType="courseboard">
+		SELECT * FROM COURSE_BOARD WHERE ID=#{id***REMOVED***
+	</select>
+	
+
+	<!-- 공지글 추가하기 -->
+	<insert id="announcement_insert" parameterType="courseboard">
+		INSERT INTO course_board VALUES(
+			SEQ_COURSE_BOARD_ID.nextVal,
+			null,
+			#{title***REMOVED***,
+			#{content***REMOVED***,
+			sysdate,
+			#{file_name***REMOVED***,
+			0
+		)
+	</insert>
+
 </mapper>
 
