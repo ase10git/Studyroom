@@ -39,11 +39,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		int start = (page - 1) * Common.Board.BLOCKLIST+1;
 		int end = start + Common.Board.BLOCKLIST - 1;
@@ -79,11 +76,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***		
+		if (user_dto == null) return "/";	
 		
 		// 게시글 정보 조회
 		CommunityDTO dto = community_dao.selectOne(id);
@@ -125,11 +119,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***	
+		if (user_dto == null) return "/";
 		
 		return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
 ***REMOVED***
@@ -140,11 +131,8 @@ public class CommunityController {
 	
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***	
+		if (user_dto == null) return "/";
 		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
 		AnnouncementController.fileManager.fileUpload(dto);
@@ -165,12 +153,9 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
-
+		if (user_dto == null) return "/";
+		
 		CommunityDTO dto = community_dao.selectOne(id); //한건을 조회 하려고함
 		
 		// 글 작성자가 아니라면 접근 불가
@@ -190,11 +175,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		// 글 작성자가 아니라면 접근 불가
 		if (user_dto.getId() != dto.getUser_id()) {
@@ -216,11 +198,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 
 		CommunityDTO baseDTO = community_dao.selectOne(id);
 		
@@ -247,11 +226,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		String ip = request.getRemoteAddr();
 		
@@ -277,11 +253,8 @@ public class CommunityController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		int user_id = user_dto.getId();
 		

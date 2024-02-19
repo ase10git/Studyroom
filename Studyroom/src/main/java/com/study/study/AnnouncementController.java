@@ -42,11 +42,8 @@ public class AnnouncementController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
 		if (fileManager.getSavePath() == null) {
@@ -82,6 +79,7 @@ public class AnnouncementController {
 		// 데이터 포워딩
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
+		model.addAttribute("role", user_dto.getRole());
 		
 		return Common.ANNOUNCEMENT_PATH + "announcement_list.jsp?page="+page;
 ***REMOVED***
@@ -92,15 +90,13 @@ public class AnnouncementController {
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 				
 		CourseBoardDTO dto = announcement_dao.selectOne(id);
 
 		model.addAttribute("dto",dto);
+		model.addAttribute("role",user_dto.getRole());
 		
 		return Common.ANNOUNCEMENT_PATH+"announcement_view.jsp?page="+page;
 ***REMOVED***

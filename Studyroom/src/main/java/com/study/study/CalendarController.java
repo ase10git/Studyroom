@@ -40,17 +40,13 @@ public class CalendarController {
 	@Autowired
 	HttpSession session;
 	
-	
 	@RequestMapping("calendar_list")
 	public String calendar(Model model){ 
 		
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
         int user_id = user_dto.getId();
        
@@ -87,11 +83,8 @@ public class CalendarController {
 	    
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		if (cal_dao == null) {
 	        System.out.println("cal_dao is null");
@@ -108,11 +101,8 @@ public class CalendarController {
         
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
-		
 		// 비로그인 사용자 차단
-		if (user_dto == null) {
-			return "/login";
-	***REMOVED***
+		if (user_dto == null) return "/";
 		
 		if (comment.isEmpty()) {
             return "내용을 입력해 주세요";
