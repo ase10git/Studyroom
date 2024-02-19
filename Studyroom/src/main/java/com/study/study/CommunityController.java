@@ -37,6 +37,11 @@ public class CommunityController {
 	@RequestMapping("/community_list")
 	public String community_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
 		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+		
 		int start = (page - 1) * Common.Board.BLOCKLIST+1;
 		int end = start + Common.Board.BLOCKLIST - 1;
 		
@@ -65,20 +70,20 @@ public class CommunityController {
 		return Common.VIEW_PATH+"community/community_list.jsp?page="+page;
 ***REMOVED***
 	
-	//사용자 작성글 목록 페이지
-	@RequestMapping("/community_list_user")
-	public String community_list_user() {
-		return Common.VIEW_PATH + "community/community_list_user.jsp";
-***REMOVED***
-	
 	//게시글 상세보기 페이지
 	@RequestMapping("community_view")
 	public String community_view(Model model, int id, int page) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";	
+		
 		// 게시글 정보 조회
 		CommunityDTO dto = community_dao.selectOne(id);
 		
 		// 사용자 아이디를 세션에서 가져옴
-		int user_id = (int)session.getAttribute("userId");
+		int user_id = user_dto.getId();
 
 		// 현재 사용자와 커뮤니티 아이디를 DB에 넘겨주기 위해 객체에 저장하기 
 		 UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
@@ -112,11 +117,11 @@ public class CommunityController {
 	@RequestMapping("community_insert_form")  
 	public String community_insert_form(int page) {
 		
-		UserDTO show = (UserDTO)session.getAttribute("id");
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
 		
-		if(show ==null) {
-			return Common.VIEW_PATH + "/community/community_insert_form.jsp?page"+page;
-	***REMOVED***
 		return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
 ***REMOVED***
 	
@@ -124,10 +129,14 @@ public class CommunityController {
 	@RequestMapping("community_insert") 
 	public String community_insert(CommunityDTO dto,int page) {
 	
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+		
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
 		AnnouncementController.fileManager.fileUpload(dto);
 	
-//		System.out.println("nickname : " + dto.getNickname());
 		String ip = request.getRemoteAddr();
 		dto.setIp_addr(ip);
 		int res = community_dao.insert(dto);
@@ -135,13 +144,24 @@ public class CommunityController {
 		if(res > 0) {
 			return "redirect:community_list?page="+page;
 	***REMOVED***
-		return null;
+		return "/error";
 ***REMOVED***
 	
 	//게시글 수정하기 페이지
 	@RequestMapping("community_modify_form") 
 	public String community_modify_form(Model model, int id, int page) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+		
 		CommunityDTO dto = community_dao.selectOne(id); //한건을 조회 하려고함
+		
+		// 글 작성자가 아니라면 접근 불가
+		if (user_dto.getId() != dto.getUser_id()) {
+			return "/error";
+	***REMOVED***
 		
 		model.addAttribute("dto",dto);
 		// 다시 뒤로 갈 때 필요한 page 정보도 넘겨줌
@@ -152,6 +172,17 @@ public class CommunityController {
 	//게시글 수정하기
 	@RequestMapping("community_modify")
 	public String community_modify(CommunityDTO dto, HttpServletRequest request) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+		
+		// 글 작성자가 아니라면 접근 불가
+		if (user_dto.getId() != dto.getUser_id()) {
+			return "/error";
+	***REMOVED***
+			
 		String ip = request.getRemoteAddr();
 		dto.setIp_addr(ip);
 		
@@ -163,9 +194,19 @@ public class CommunityController {
 	//게시글 삭제된 것처럼 처리
 	@RequestMapping("community_delete") 
 	@ResponseBody
-	public String community_delete(int id) {
+	public String community_delete(int id) {	
 		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+
 		CommunityDTO baseDTO = community_dao.selectOne(id);
+		
+		// 글 작성자가 아니라면 접근 불가
+		if (user_dto.getId() != baseDTO.getUser_id()) {
+			return "/error";
+	***REMOVED***
 		
 		baseDTO.setTitle("이미 삭제된 글입니다.");
 		baseDTO.setNickname("unknown");
@@ -182,7 +223,12 @@ public class CommunityController {
 	//답글 추가하기
 	@RequestMapping("community_reply") 
 	public String community_reply(CommunityDTO dto, Integer id, int page) {
-//		System.out.println("컨트롤러 옴");
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+		
 		String ip = request.getRemoteAddr();
 		
 		CommunityDTO baseDTO = community_dao.selectOne(id);
@@ -205,27 +251,27 @@ public class CommunityController {
 	@RequestMapping("community_like")
 	public String community_like(int id,int page) {
 		
-		int user_id = (int)session.getAttribute("userId");
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
 		
-		  UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
-          likedto.setUser_id(user_id);
-          likedto.setCommunity_board_id(id);
-
-          int res1 = community_dao.community_like(likedto);
-          int res2 = community_dao.community_likehit(id);
-          
-          if(res1 > 0 && res2 > 0 ) {
-        	  return "redirect:community_list?id="+id+"&page="+page;
-          ***REMOVED***
-          return "";
+		int user_id = user_dto.getId();
+		
+		UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+	    likedto.setUser_id(user_id);
+	    likedto.setCommunity_board_id(id);
+	
+	    int res1 = community_dao.community_like(likedto);
+	    int res2 = community_dao.community_likehit(id);
+	      
+	    if(res1 > 0 && res2 > 0 ) {
+	    	return "redirect:community_list?id="+id+"&page="+page;
+	    ***REMOVED***
+	    return "/error";
 ***REMOVED***
 	
 ***REMOVED***
-
-
-
-
-
 
 
 

@@ -52,6 +52,11 @@
 		function modify() {
 			location.href = "course_modify_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
 	***REMOVED***
+		
+		function add_user() {
+			// 전체 사용자 조회 페이지로 이동해서 동작
+			location.href="#";
+	***REMOVED***
 	</script>
 </head>
 <body>
