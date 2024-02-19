@@ -1,5 +1,8 @@
 package com.study.study;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dao.UserDAO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
-import service.SessionService;
 import util.Common;
 
 @Controller
@@ -17,67 +19,70 @@ public class LoginController {
 
 	final UserDAO user_dao;
 	
-    @Autowired
-    private SessionService sessionService;
+	@Autowired
+	HttpServletRequest request;
 	
-	//Ã¹ È­¸é(·Î±×ÀÎ)
+	@Autowired
+	HttpSession session;
+	
+	//ì²« í™”ë©´(ë¡œê·¸ì¸)
 	@RequestMapping(value = {"/","/login_form"})
 	public String login_form() {
 		return Common.LOGIN_PATH+"login_form.jsp";
 	}
 	
-	//·Î±×ÀÎ ¸ÅÇÎ
+	//ë¡œê·¸ì¸ ë§¤í•‘
 	@RequestMapping("login") 
 	@ResponseBody
 	public String login(String email, String pwd) {
-		//email¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍ 1°Ç Á¶È¸
+		//emailì— í•´ë‹¹í•˜ëŠ” ë°ì´í„° 1ê±´ ì¡°íšŒ
 		UserDTO dto = user_dao.selectOne(email);
 		
-		//dto°¡ nullÀÏ °æ¿ì emailÀÌ DB¿¡ Á¸ÀçÇÏÁö ¾ÊÀ½
+		//dtoê°€ nullì¼ ê²½ìš° emailì´ DBì— ì¡´ì¬í•˜ì§€ ì•ŠìŒ
 		if(dto == null) {
 			return "[{'param':'no_email'}]";
 		}
 		
-		//¿ì¸®°¡ ÀÔ·Â¹ŞÀº pwd¿Í DB¿¡ ÀúÀåµÈ ºñ¹Ğ¹øÈ£¸¦ ºñ±³ÇÏ±â
+		//ìš°ë¦¬ê°€ ì…ë ¥ë°›ì€ pwdì™€ DBì— ì €ì¥ëœ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë¹„êµí•˜ê¸°
 		if(!pwd.equals(dto.getPwd())) {
 			return "[{'param':'no_pwd'}]";
 		}
 		
-		//¼¼¼Ç¿¡ ¹ÙÀÎµù
-		sessionService.setUserInSession("email", dto);
+		//ì„¸ì…˜ì— ë°”ì¸ë”©
+		session.setAttribute("dto", dto);
 		
-		//************************** ÆíÁıÀÚ - Å×½ºÆ®¿ë *****************************
-//		session.setAttribute("userId", dto.getId());
+		//************************** í¸ì§‘ì - í…ŒìŠ¤íŠ¸ìš© *****************************
+		session.setAttribute("userId", dto.getId());
 //		System.out.println(dto.getId());
-//		session.setAttribute("role", dto.getRole());
+		session.setAttribute("role", dto.getRole());
 //		System.out.println(dto.getRole());
-		//***********************************************************************
+		//***********************************************************************		
 		
-		//·Î±×ÀÎ¿¡ ¼º°øÇÑ °æ¿ì
+		//ë¡œê·¸ì¸ì— ì„±ê³µí•œ ê²½ìš°
 		return "[{'param':'clear'}]";
 	}
 	
-	//·Î±×¾Æ¿ô
+	//ë¡œê·¸ì•„ì›ƒ
 	@RequestMapping("logout") 
 	public String logout() {
-		sessionService.removeAttribute("email");
+		session.removeAttribute("email");
 		return "redirect:login_form";
 	}
 	
-	//È¸¿ø°¡ÀÔ ÆäÀÌÁö·Î ÀÌµ¿
+	//íšŒì›ê°€ì… í˜ì´ì§€ë¡œ ì´ë™
 	@RequestMapping("register") 
 	public String register() {
 		return Common.REGISTER_PATH+"register.jsp";
 	}
 	
-	//ÀÌ¸ŞÀÏ Ã¼Å©
+	//ì´ë©”ì¼ ì²´í¬
 	@RequestMapping("check_email")
 	@ResponseBody
 	public String check_email(String email) {
-		System.out.println(email);
+//		System.out.println(email);
 		UserDTO dto = user_dao.selectOne(email);
 		
-		//nullÀÌ¸é Áßº¹µÇÁö ¾ÊÀ¸¹Ç·Î °¡ÀÔ °¡´É
+		//nullì´ë©´ ì¤‘ë³µë˜ì§€ ì•Šìœ¼ë¯€ë¡œ ê°€ì… ê°€ëŠ¥
 		if(dto == null) {
 			return "[{'res':'yes'}]";
 		}
@@ -85,7 +90,7 @@ public class LoginController {
 		return "[{'res':'no'}]";
 	}
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	@RequestMapping("register_insert")
 	public String register_insert(UserDTO dto) {
 		int res = user_dao.insert(dto);
@@ -94,7 +99,7 @@ public class LoginController {
 			return "redirect:login_form";
 		}
 		
-		return null;
+		return "/error";
 	}
 	
 }

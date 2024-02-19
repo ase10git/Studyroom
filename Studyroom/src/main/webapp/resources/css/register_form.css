@@ -1,0 +1,24 @@
+@charset "UTF-8";
+html, body{
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sec .container .row .col .title-box .title{
+    padding: 5px;
+    background-color: rgb(169, 228, 255);
+    border: 5px solid white;
+    border-radius: 10px;
+}
+
+.sec .container .row .box{
+    padding:20px;
+    background-color: rgb(237, 250, 254);
+    border-radius: 10px;
+}
+
+.sec .container .row .box .login-form{
+    margin: 10px;
+}

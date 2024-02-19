@@ -1,99 +1,25 @@
 @charset "UTF-8";
 
-body, html {
-	height: 100%;
+html, body{
 	margin: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
 }
 
-.container {
-    display: flex;
+.sec .container .row .col{
+    padding:20px;
+    background-color: rgb(237, 250, 254);
+    border-radius: 10px;
 }
 
-.logo {
-    width: 300px;
-    height: 100%;
-    background-color: #333;
-    color: #fff;
-    border-radius: 20px;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-    transition: all 0.5s ease;
-    position: relative;
+.sec .container .row .col .title-box{
+    padding: 5px;
+    background-color: rgb(169, 228, 255);
+    border: 5px solid white;
+    border-radius: 10px;
 }
 
-    .logo h1 {
-        margin: 0;
-        padding: 20px 0;
-        text-align: center;
-        font-size: 24px;
-    }
-
-
-
-    #expand-menu {
-        display: none;
-    }
-
-    #expand-menu:checked ~ .menu {
-        width: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-
-    .login-form {
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .login-form input[type="text"],
-    .login-form input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .login-form input[type="button"] {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        background-color: #333;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .login-form input[type="button"]:hover {
-        background-color: #555;
-    }
-
-@media (max-width: 768px) {
-	.container {
-		flex-direction: column;
-		align-items: stretch;
-	}
-
-	.logo {
-		width: 100%;
-		height: auto;
-		border-radius: 0;
-	}
-
-	.logo h1 {
-	    padding: 10px 0;
-	    font-size: 20px;
-	}
-
-    .login-form {
-        border-radius: 0;
-    }
-   }
+.sec .container .row .col .login-form{
+    margin: 10px;
+}
