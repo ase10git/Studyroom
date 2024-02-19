@@ -20,6 +20,10 @@
 		function send(f){
 			f.submit();
 	***REMOVED***
+		
+		function back() {
+			location.href = "community_view?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
+	***REMOVED***
 	</script>
 </head>
 <body>
@@ -50,7 +54,7 @@
 								<td colspan="2">
 									<div class="d-flex justify-content-end">
 										<input type="button" class="btn btn-primary" value="수정" onclick="send(this.form)">		
-										<input type="button" class="btn btn-light" value="취소" onclick="location.href='community_list'">
+										<input type="button" class="btn btn-light" value="취소" onclick="back()">
 									</div>
 								</td>
 							</tr>		

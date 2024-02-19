@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommunityDAO;
 import dto.CommunityDTO;
+import dto.UserCommunityLikeDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
-import util.Common.Announcement;
 import util.Paging;
 
 @Controller
@@ -80,8 +80,13 @@ public class CommunityController {
 		// 사용자 아이디를 세션에서 가져옴
 		int user_id = (int)session.getAttribute("userId");
 
+		// 현재 사용자와 커뮤니티 아이디를 DB에 넘겨주기 위해 객체에 저장하기 
+		 UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+		 likedto.setUser_id(user_id);
+		 likedto.setCommunity_board_id(id);
+		
 		// 사용자가 특정 게시글에 추천을 했었는지 확인
-		int user_like = community_dao.like_count(user_id, id);
+		 int user_like = community_dao.like_count(likedto);
 		
 		//답글 조회
 		List<CommunityDTO> reply_list = community_dao.select_reply(id);
@@ -106,13 +111,13 @@ public class CommunityController {
 	//게시글 추가 페이지
 	@RequestMapping("community_insert_form")  
 	public String community_insert_form(int page) {
-	
-	UserDTO show = (UserDTO)session.getAttribute("id");
-	
-	if(show ==null) {
-		return Common.VIEW_PATH + "/community/community_insert_form.jsp?page"+page;
-***REMOVED***
-	return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
+		
+		UserDTO show = (UserDTO)session.getAttribute("id");
+		
+		if(show ==null) {
+			return Common.VIEW_PATH + "/community/community_insert_form.jsp?page"+page;
+	***REMOVED***
+		return Common.VIEW_PATH+"community/community_insert_form.jsp?page="+page;
 ***REMOVED***
 	
 	//게시글 추가 하기
@@ -122,7 +127,7 @@ public class CommunityController {
 		// 파일 업로드를 진행하고 dto에 파일 이름 저장
 		AnnouncementController.fileManager.fileUpload(dto);
 	
-	System.out.println("nickname : " + dto.getNickname());
+//		System.out.println("nickname : " + dto.getNickname());
 		String ip = request.getRemoteAddr();
 		dto.setIp_addr(ip);
 		int res = community_dao.insert(dto);
@@ -135,22 +140,24 @@ public class CommunityController {
 	
 	//게시글 수정하기 페이지
 	@RequestMapping("community_modify_form") 
-	public String community_modify_form(Model model, int id) {
-	CommunityDTO dto = community_dao.selectOne(id); //한건을 조회 하려고함
-	
-	model.addAttribute("dto",dto);
-	return Common.VIEW_PATH+"community/community_modify_form.jsp";
+	public String community_modify_form(Model model, int id, int page) {
+		CommunityDTO dto = community_dao.selectOne(id); //한건을 조회 하려고함
+		
+		model.addAttribute("dto",dto);
+		// 다시 뒤로 갈 때 필요한 page 정보도 넘겨줌
+		model.addAttribute("page", page);
+		return Common.VIEW_PATH+"community/community_modify_form.jsp";
 ***REMOVED***
-	
+		
 	//게시글 수정하기
 	@RequestMapping("community_modify")
 	public String community_modify(CommunityDTO dto, HttpServletRequest request) {
-	String ip = request.getRemoteAddr();
-	dto.setIp_addr(ip);
-	
-	//where절에서 사용할 id도 받아와야함.
-	int res = community_dao.update(dto);
-	return "redirect:community_list";
+		String ip = request.getRemoteAddr();
+		dto.setIp_addr(ip);
+		
+		//where절에서 사용할 id도 받아와야함.
+		int res = community_dao.update(dto);
+		return "redirect:community_list";
 ***REMOVED***
 
 	//게시글 삭제된 것처럼 처리
@@ -175,7 +182,7 @@ public class CommunityController {
 	//답글 추가하기
 	@RequestMapping("community_reply") 
 	public String community_reply(CommunityDTO dto, Integer id, int page) {
-		System.out.println("컨트롤러 옴");
+//		System.out.println("컨트롤러 옴");
 		String ip = request.getRemoteAddr();
 		
 		CommunityDTO baseDTO = community_dao.selectOne(id);
@@ -194,6 +201,24 @@ public class CommunityController {
 		return "redirect:community_view?id="+id+"&page="+page;
 ***REMOVED***
 	
+	// 사용자 커뮤니티 테이블에 데이터 저장
+	@RequestMapping("community_like")
+	public String community_like(int id,int page) {
+		
+		int user_id = (int)session.getAttribute("userId");
+		
+		  UserCommunityLikeDTO likedto = new UserCommunityLikeDTO();
+          likedto.setUser_id(user_id);
+          likedto.setCommunity_board_id(id);
+
+          int res1 = community_dao.community_like(likedto);
+          int res2 = community_dao.community_likehit(id);
+          
+          if(res1 > 0 && res2 > 0 ) {
+        	  return "redirect:community_list?id="+id+"&page="+page;
+          ***REMOVED***
+          return "";
+***REMOVED***
 	
 ***REMOVED***
 
