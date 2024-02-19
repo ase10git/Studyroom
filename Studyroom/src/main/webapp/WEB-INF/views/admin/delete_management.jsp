@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>삭제 요청 관리</title>
 	<!-- bootstrap css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"

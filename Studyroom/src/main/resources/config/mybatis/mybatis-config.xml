@@ -14,6 +14,7 @@
 		<typeAlias type="dto.CourseDTO" alias="course"/>
 		<typeAlias type="dto.CourseBoardDTO" alias="courseboard"/>
 		<typeAlias type="dto.UserCourseDTO" alias="usercourse"/>
+		<typeAlias type="dto.UserCourseViewDTO" alias="ucview"/>
 		<typeAlias type="dto.CommunityDTO" alias="community"/> 
 		<typeAlias type="dto.CalendarDTO" alias="calendar"/>	
 		<typeAlias type="dto.UserCommunityLikeDTO" alias="uclike"/>	
@@ -25,6 +26,8 @@
 		<mapper resource="config/mybatis/mapper/announcement.xml" />
 		<mapper resource="config/mybatis/mapper/course.xml" />
 		<mapper resource="config/mybatis/mapper/course_board.xml" />
+		<mapper resource="config/mybatis/mapper/usercourse.xml" />
+		<mapper resource="config/mybatis/mapper/ucview.xml" />
 		<mapper resource="config/mybatis/mapper/community.xml" />
 		<mapper resource="config/mybatis/mapper/calendar.xml" />
 	</mappers>

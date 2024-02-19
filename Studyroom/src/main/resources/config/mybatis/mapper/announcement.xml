@@ -4,7 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="a">
 	<select id="announcement_list" resultType="courseboard">
-		SELECT * FROM COURSE_BOARD WHERE COURSE_ID IS NULL AND DEL_FLAG = 0
+		SELECT * FROM COURSE_BOARD 
+		WHERE COURSE_ID IS NULL AND DEL_FLAG = 0
+		ORDER BY REGISTER_DATE DESC
 	</select>
 	
 	<!-- 전체 게시물 수 조회 -->
