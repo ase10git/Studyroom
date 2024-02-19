@@ -11,7 +11,12 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
-
+	<link rel="stylesheet" href="resources/css/style_with_table.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
+    href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="resources/js/HttpRequest.js"></script>
 	<script>
 		function back() {
@@ -51,13 +56,14 @@
 </head>
 <body>
 
-	<section class="sec">
+	<%@ include file="../include/menu.jsp" %>
+	
+	<section class="sec course">
 		<div class="container">
-		 <h1>코스 공지글</h1>
+		 <h1 class="title text-center">코스 상세보기</h1>
 		  <div class="row gy-4">
-			<div class="box col-12">
+			<div class="col box col-12 d-flex justify-content-center">
 				<table>	
-<!-- 					<caption>::게시글 상세보기::</caption> -->
 					<tr>
 						<th>코스 이름</th>
 						<td>${dto.title}</td>
@@ -69,22 +75,20 @@
 					<tr>
 						<th>코스 설명</th>
 						<td>
-							<p class="summary"><pre>${dto.summary}</pre></p>
+							<p class="summary">${dto.summary}</p>
 						</td>
 					</tr>
 					<tr>
-						<th>코스 시작일</th>
-						<td>${fn:split(dto.start_date, " ")[0]}</td>
-					</tr>
-					<tr>
-						<th>코스 종료일</th>
-						<td>${fn:split(dto.end_date, " ")[0]}</td>
+						<th>기간</th>
+						<td>${fn:split(dto.start_date, " ")[0]} ~ ${fn:split(dto.end_date, " ")[0]}</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input id="back_btn" type="button" value="뒤로 돌아가기" onclick="back()"></input>
-							<input id="delete_btn" type="button" value="코스 삭제하기" onclick="del()"></input>
-							<input id="modify_btn" type="button" value="코스 수정하기" onclick="modify()"></input>
+							<div class="d-flex justify-content-center">
+								<input id="modify_btn" type="button" class="btn btn-primary" value="코스 수정하기" onclick="modify()"></input>
+								<input id="delete_btn" type="button" class="btn btn-dark" value="코스 삭제하기" onclick="del()"></input>
+								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
+							</div>
 						</td>
 					</tr>
 				</table>
@@ -92,6 +96,8 @@
 		  </div>
 		</div>
 	  </section>
+
+	<%@ include file="../include/footer.jsp" %>
 
 	<!-- bootstrap script -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 

@@ -21,25 +21,24 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
-import dao.TestDAO;
 import dao.UserDAO;
 
 @Configuration
 @EnableWebMvc
-//@ComponentScan(basePackages = {"com.study.study","dao"})
-
+//@ComponentScan("com.study.study")
 public class ServletContext implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
-	// TestController Bean : *****ÆíÁýÀÚ - ¼¼¼Ç ¿¬°á Å×½ºÆ®¸¦ À§ÇÑ ÀÓ½Ã ÄÁÆ®·Ñ·¯
+	// TestController Bean : *****ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@Bean
 	public TestController testController() {
 		return new TestController();
 	}
 	
+	// LoginController Bean
 	@Bean
 	public LoginController loginController(UserDAO userDAO) {
 		return new LoginController(userDAO);
@@ -59,8 +58,8 @@ public class ServletContext implements WebMvcConfigurer{
 
 	// CourseController Bean
 	@Bean
-	public CourseController courseController(CourseDAO course_dao) {
-		return new CourseController(course_dao);
+	public CourseController courseController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
+		return new CourseController(course_dao, course_board_dao);
 	}
 	
 	// CourseBoardController Bean
@@ -83,8 +82,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// AdminController Bean
 	@Bean
-	public AdminController adminController(CourseDAO course_dao, CourseBoardDAO course_board_dao) {
-		return new AdminController(course_dao, course_board_dao);
+	public AdminController adminController(UserDAO user_dao, CourseDAO course_dao, CourseBoardDAO course_board_dao, CommunityDAO community_dao) {
+		return new AdminController(user_dao, course_dao, course_board_dao, community_dao);
 	}
 
 }

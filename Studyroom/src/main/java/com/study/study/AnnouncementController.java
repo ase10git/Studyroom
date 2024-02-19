@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.AnnouncementDAO;
-import dto.AnnouncementDTO;
+import dto.CourseBoardDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
+import util.FileManager;
 import util.Paging;
 
 @Controller
@@ -30,8 +31,23 @@ public class AnnouncementController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping("announcement_list")
+	// FileManager 클래스 인스턴스 생성
+	public static FileManager fileManager = new FileManager();
+
+	String webPath = "/resources/upload/"; // 프로젝트상 경로
+	
+	@RequestMapping("announcement_list") 
 	public String announcement_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
+		
+		// FileManager의 파일 저장 경로를 request로부터 받아와 저장하기
+		if (fileManager.getSavePath() == null) {
+
+			String realPath = request.getServletContext().getRealPath("/resources/upload/");
+			fileManager.setSavePath(realPath);
+			System.out.println(realPath);
+		}
+		
+		
 		int start = (page - 1) * Common.Announcement.BLOCKLIST+1;
 		int end = start + Common.Announcement.BLOCKLIST -1;
 		
@@ -39,13 +55,13 @@ public class AnnouncementController {
 		map.put("start", start);
 		map.put("end", end);
 		
-		//������ ��ȣ�� ���� ��ü �Խñ� ��ȸ
-		List<AnnouncementDTO> list = announcement_dao.selectList(map);
+		//페이지 번호에 따른 전체 게시글 조회
+		List<CourseBoardDTO> list = announcement_dao.selectList(map);
 		
-		//��ü �Խñ� �� ��ȸ
+		//전체 게시글 수 조회
 		int rowTotal = announcement_dao.getRowTotal();
 		
-		//������ �޴� �����ϱ�
+		//페이지 메뉴 생성하기
 		String pageMenu = Paging.getPaging("announcement_list",
 											page,
 											rowTotal,
@@ -54,10 +70,29 @@ public class AnnouncementController {
 		
 		request.getSession().removeAttribute("show");
 		
+		// 사용자 권한 세션에서 가져오기
+		String role = (String)session.getAttribute("role");
+		
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
+		model.addAttribute("role", role);
 		
 		return Common.ANNOUNCEMENT_PATH + "announcement_list.jsp?page="+page;
+	}
+	
+	// 전체 공지글 상세보기
+	@RequestMapping("view")
+	public String view(Model model, int id, int page) {
+		CourseBoardDTO dto = announcement_dao.selectOne(id);
+		
+		// 사용자 권한 세션에서 가져오기
+		String role = (String)session.getAttribute("role");
+		
+		// 데이터 포워딩
+		model.addAttribute("dto",dto);
+		model.addAttribute("role", role);
+		
+		return Common.ANNOUNCEMENT_PATH+"announcement_view.jsp?page="+page;
 	}
 	
 }

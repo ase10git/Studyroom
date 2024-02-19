@@ -2,24 +2,49 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="c">
-	<select id="calendar_list" resultType="calendar" parameterType="int">
-		select * from calendar_event where user_id = #{userid}
+<mapper namespace="CalendarMapper">
+
+	<!-- 캘린더 테이블에서 정보 가져오기 -->
+	<resultMap id="CalendarEventResultMap" type="calendar">
+		<id property="id" column="id" />
+		<result property="user_id" column="user_id" />
+		<result property="type" column="type" />
+		<result property="datetime" column="datetime" />
+		<result property="del_flag" column="del_flag" />
+		<result property="comment" column="comment" />
+	</resultMap>
+
+	<!-- 사용자별 일정 조회 -->
+	<select id="getEventsByUserId" resultMap="CalendarEventResultMap">
+		SELECT * FROM calendar_event WHERE user_id = #{user_id} AND del_flag = 0
 	</select>
 
-	<select id="getCalYearAndMonth" parameterType="map" resultType="calendar">
-    SELECT * FROM calendar_event
-	WHERE user_id = #{userId} AND EXTRACT(YEAR FROM datetime) = #{year} AND EXTRACT(MONTH FROM datetime) = #{month}
+	<!-- 사용자의 월별 일정 조회 -->
+	<select id="getEventsByMonth" resultMap="CalendarEventResultMap">
+		SELECT * FROM calendar_event WHERE user_id = #{user_id} AND EXTRACT(YEAR FROM datetime) = #{year} AND EXTRACT(MONTH FROM datetime) = #{month} AND del_flag = 0
 	</select>
 	
-	<select id="getcalendarEvent" resultType="calendar" parameterType="map">
-    SELECT * FROM calendar_event WHERE user_id = #{userId} AND id = #{id}
-</select>
-
-<update id="calendarEventUpdate" parameterType="int">
-        UPDATE calendar_event
-        SET del_flag = -1
-        WHERE id = #{id}
+	<!-- 일정을 삭제된 것처럼 처리 -->
+	<update id="deleteEvent">
+        UPDATE calendar_event SET del_flag = -1 WHERE id = #{id}
     </update>
-	
+    
+    <!-- 일정 물리적 제거 -->
+	<delete id="deleteEventPhysical">
+        DELETE FROM calendar_event WHERE del_flag = -1
+    </delete>
+    
+    <!-- 일정 추가 -->
+    <insert id="insertEvent" parameterType="map">
+    INSERT INTO calendar_event ("ID", "USER_ID", "TYPE", "DATETIME", "COMMENT", "DEL_FLAG")
+    VALUES (SEQ_CALENDAR_EVENT_ID.NEXTVAL, #{userId}, #{type}, TO_DATE(#{datetime}, 'YYYY-MM-DD HH24:MI:SS'), #{comment}, #{delFlag})
+	</insert>
+
+	<!-- 일정 수정 -->
+	<update id="updateEvent" parameterType="map">
+	    UPDATE calendar_event
+	    SET "TYPE" = #{type}, "COMMENT" = #{comment}
+	    WHERE "ID" = #{id} AND "DEL_FLAG" = 0
+	</update>
+
 </mapper>
