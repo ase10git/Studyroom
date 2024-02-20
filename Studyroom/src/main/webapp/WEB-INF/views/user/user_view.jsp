@@ -18,13 +18,12 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
     <script>
-	    if (${updateSuccess***REMOVED***) {
+	    if ("${updateSuccess***REMOVED***") {
 	        alert('수정 완료');
 	    ***REMOVED***
     
 	    function redirectToAuthForm(action) {
-	        var id = "${dto.id***REMOVED***";
-	        location.href = "user_pw_auth_form?id="+id+"&action="+action;
+	        location.href = "user_pw_auth_form?id=${dto.id***REMOVED***&action="+action;
 	    ***REMOVED***
 	</script>
 </head>
@@ -72,19 +71,6 @@
 			</div>
 		  </div>
 	</section>
-
-	<c:if test="${role eq 'admin'***REMOVED***">
-		<div class="sec admin">
-			<div class="container">
-				<h2 class="title text-center">삭제 요청 관리</h2>
-				<div class="row col-12 justify-content-center">
-					<div class="col-auto">
-						<input type="button" class="btn btn-primary" value="이동" onclick="location.href='delete_management'">
-					</div>
-				</div>
-			</div>
-		</div>
-	</c:if>
 
 	<%@ include file="../include/footer.jsp" %>
 

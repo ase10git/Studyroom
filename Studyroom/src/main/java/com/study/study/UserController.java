@@ -26,16 +26,28 @@ public class UserController {
 	
 	// 사용자 정보 화면 보기
 	@RequestMapping("user_view")
-	public String user_view(Model model) {	
-		UserDTO dto = (UserDTO)session.getAttribute("email");
-		model.addAttribute("dto", dto);	
+	public String user_view(Model model, UserDTO userDTO) {
+		
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_session = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단(관리자 제외)
+		if (user_session == null) return "/";
+		
+		model.addAttribute("dto", userDTO);
+		model.addAttribute("role", userDTO.getRole());
 		return Common.USER_PATH+"user_view.jsp";
 ***REMOVED***
 	
 	// 사용자 정보 수정하기 전 비밀번호 확인 페이지 이동
 	@RequestMapping("user_pw_auth_form")
 	public String user_pw_auth_form(Model model, int id, @RequestParam("action") String action) {
-	    UserDTO dto = user_dao.selectOne(id);
+	    
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_dto == null) return "/";
+		
+		UserDTO dto = user_dao.selectOne(id);
 	    model.addAttribute("dto", dto);
 	    model.addAttribute("action", action);
 	    return Common.USER_PATH + "user_pw_auth_form.jsp";
@@ -53,6 +65,7 @@ public class UserController {
 		String jsonResponse = "[{'param':'clear', 'action':'" + action + "'***REMOVED***]";
 		return jsonResponse;
 ***REMOVED***
+
 	
 	// 사용자 정보 수정 페이지 이동
 	@RequestMapping("user_modify_form")

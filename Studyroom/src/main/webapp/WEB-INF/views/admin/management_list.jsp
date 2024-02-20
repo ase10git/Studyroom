@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +10,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
   <link rel="stylesheet" href="resources/css/main.css">
-  <link rel="stylesheet" href="resources/css/style_with_table.css">
+  <link rel="stylesheet" href="resources/css/management_list.css">
   	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -23,21 +21,28 @@
 	
 	<%@ include file="../include/menu.jsp" %>
 	
-  <section class="sec event">
-    <div class="container">
-     <h1 class="title text-center">전체 사용자</h1>
-      <div class="row gy-4">
-        <div class="col box col-12 d-flex justify-content-center">
-          <table class="board text-center">
-          	<tr>
-          		<td><a href="">${dto.username***REMOVED***</td>
-          	</tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
+	<div class="sec admin">
+		<div class="container">
+			<h2 class="title text-center">전체 사용자 보기</h2>
+			<div class="row col-12 justify-content-center">
+				<div class="col-auto">
+					<input type="button" class="btn btn-primary" value="이동" onclick="location.href='user_all_info_list'">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="sec admin">
+		<div class="container">
+			<h2 class="title text-center">삭제 요청 관리</h2>
+			<div class="row col-12 justify-content-center">
+				<div class="col-auto">
+					<input type="button" class="btn btn-primary" value="이동" onclick="location.href='delete_management'">
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<%@ include file="../include/footer.jsp" %>
   
 	<!-- bootstrap script -->
