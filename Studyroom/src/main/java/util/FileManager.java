@@ -22,6 +22,8 @@ public class FileManager {
 //	String webPath = "/resources/upload/"; // 프로젝트 경로
 	String savePath = "D:\\Program Files (x86)\\Develop\\Web\\spring-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Studyroom\\resources\\upload\\";
 	
+//			"D:\\Program Files (x86)\\Develop\\Web\\spring-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Studyroom\\resources\\upload\\";
+	
 	// =================================== 파일 업로드 ===========================================
 	// 새 공지글 추가 시 파일 업로드
 	public void fileUpload(CourseBoardDTO new_dto) {

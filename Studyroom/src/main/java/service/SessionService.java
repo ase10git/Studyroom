@@ -15,7 +15,7 @@ public class SessionService {
 	
 	// 세션에서 사용자 정보 가져오기
 	public UserDTO getUserFromSession() {
-        return (UserDTO) session.getAttribute("email");
+        return (UserDTO) session.getAttribute("dto");
     ***REMOVED***
 	
 	// 세션에 사용자 정보 저장하기
