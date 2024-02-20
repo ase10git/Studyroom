@@ -164,7 +164,7 @@
          <div class="col box col-6">
             <div class="title-box">
                <h1 class="title text-center">Studyroom</h1>
-               <h3 align="center">::: 회원가입 :::</h3><br>
+               <h3 class="text-center">::: 회원가입 :::</h3><br>
             </div>
             <!-- register_insert 전송 -->
             <form name="f" action="register_insert" method="post" class="login-form">

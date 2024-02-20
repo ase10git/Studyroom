@@ -64,6 +64,11 @@ public class CommunityDAO {
 			return sqlSession.delete("cm.community_delete", communityList);
 	***REMOVED***
 		
+		// 특정 사용자의 게시글 물리적 삭제
+		public void delete_user(ArrayList<Integer> userList) {
+			sqlSession.delete("cm.delete_user",userList);
+	***REMOVED***
+		
 		//댓글추가를 위한 step + 1
 		public int update_step(CommunityDTO dto) {
 			return sqlSession.update("cm.community_update_step",dto);
