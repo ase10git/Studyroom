@@ -246,7 +246,6 @@ public class CourseController {
 
 		// 코스의 공지글들도 논리적 삭제 처리
 		int res2 = course_board_dao.delete_update_course(id);
-
 		if (res == 1) { // ajax 콜백 메소드에 전달할 내용
 			return "[{'result':'yes'}]";
 		} else {
