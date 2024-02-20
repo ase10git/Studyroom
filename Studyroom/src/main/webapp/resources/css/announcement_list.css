@@ -8,6 +8,9 @@ a:hover {
 .sec .container{
     width: 100%; max-width: 992px;
 }
+.sec.info {
+    background: linear-gradient(to bottom, #ffffff, #add8e6);
+}
 
 /* /* 濡쒓퀬 */ */
 /* #logo {  */
@@ -24,6 +27,8 @@ a:hover {
 /*     font-size:40px;   湲��옄 �겕湲� */
 /*     color:rgb(255,255,140);   湲��옄 �깋 */
 /* } */
+
+
 
 /* carousel */
 .infocarousel{
@@ -46,7 +51,7 @@ a:hover {
 }
 
 .sec .container .row .gt{
-    width: 18rem; height: 25rem;
+    width: 18rem; height: 18rem;
 }
 
 .sec .container .row .gt .col{
@@ -58,5 +63,32 @@ a:hover {
 }
 
 .info{
-    margin: 30px 0;
+    margin-top: 30px;
+    margin-bottom: 0;
 }
+.carousel-item img {
+    width: 1116px;
+    height: 418.5px;
+    object-fit: cover;
+    margin: auto; 
+    display: block; 
+	}
+
+.titles{
+	background-color: rgb(81,114,245);;
+    color: #000;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+#titleBoxs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+	
