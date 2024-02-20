@@ -3,9 +3,9 @@ html, body{
 	width: 100%; height: 100%;
 ***REMOVED***
 
-body{
-	background: linear-gradient(to bottom, #ffffff, #add8e6);
-***REMOVED***
+/* body{ */
+/* 	background: linear-gradient(to bottom, #ffffff, #ffffff); */
+/* ***REMOVED*** */
 
 *{margin:0; padding:0; box-sizing: border-box;***REMOVED***
 
@@ -27,3 +27,4 @@ a:hover{text-decoration: underline;***REMOVED***
 /* ***REMOVED*** */
 
 /* .sec .container .row .box tr, th, td{border:1px solid black;***REMOVED*** */
+/*ㅁ*/

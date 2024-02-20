@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .menu {
-	display: block;
-	width: 200px;
+	display: flex;
+	width: 250px;
 	background-color: #add8e6;;
 	color: #fff;
 	border-radius: 0 10px 10px 0;
@@ -14,14 +14,57 @@
 	padding: 0;
 ***REMOVED***
 
+/* .menu-bar .user-info,
+.menu-bar .course,
+.menu-bar .community,
+.menu-bar .calendar {
+    background-color: rgb(81,114,245); 푸른 계열 배경 색상
+    padding: 10px; 패딩 추가
+    border-radius: 5px; 둥근 테두리 적용
+    margin-top: 10px;
+    text-align: center;
+    padding-right: 30px;
+    padding-left: 30px;
+***REMOVED*** */
+
+
+
+
 .menu a:hover {
-	color: #000;
+	color:#4B89DC;
+	text-decoration: none;
 ***REMOVED***
 
 .menu #expand-menu:not(:checked) ~ ul { /* 데스크탑 화면에서도 메뉴를 접었더 펼칠 수 있음 */
 	display: none;
 ***REMOVED***
 
-.menu .menu-bar li a .logo{width:200px; height:100px;***REMOVED***
+.menu .menu-bar li a .logo{width:100%; height:auto;***REMOVED***
 
 .menu .menu-bar li a i{margin-left : 5px;***REMOVED***
+
+.menu-bar .logo {
+    border-radius: 15%;
+    overflow: hidden; /* 테두리 둥글게 */
+***REMOVED***
+
+.menu .menu-bar .user-info a{
+	margin-top:5px;
+	margin-bottom: 5px;
+	width: 100%;
+***REMOVED***
+
+.menu .menu-bar .course a,
+.menu .menu-bar .community a,
+.menu .menu-bar .calendar a{
+	margin-bottom: 5px;
+	width: 100%;
+***REMOVED***
+
+
+.nanum-gothic-regular {
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+***REMOVED***

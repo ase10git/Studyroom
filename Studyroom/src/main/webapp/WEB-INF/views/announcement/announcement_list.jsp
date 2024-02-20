@@ -8,6 +8,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <head>
     <meta charset="UTF-8" />
     <title>공지사항</title>
+   
 
     <!-- bootstrap css -->
     <link
@@ -19,8 +20,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- flaticon -->
     <link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link rel="stylesheet" href="resources/css/announcement_list.css" />
-    <link rel="stylesheet" href="resources/css/main.css" />
+    <link rel="stylesheet" href="resources/css/announcement_list.css?after" />
+    <link rel="stylesheet" href="resources/css/main.css?after" />
     
     <script type="text/javascript">
     	function insert() {
@@ -38,24 +39,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
           <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-          <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="4000">
-            <img src="resources/img/visual_pubg.jpg" class="d-block w-100 h-auto" alt="테스트 이미지1" />
+            <img src="resources/img/announcementsIMG1.jpg" class="d-block w-100 " alt="테스트 이미지1" />
           </div>
           <div class="carousel-item" data-bs-interval="4000">
-            <img src="resources/img/visual_baldursgate3.jpg" class="d-block w-100" alt="테스트 이미지2" />
+            <img src="resources/img/announcementsIMG2.jpg" class="d-block w-100" alt="테스트 이미지2" />
           </div>
           <div class="carousel-item" data-bs-interval="4000">
-            <img src="resources/img/visual_lostark.jpg" class="d-block w-100" alt="테스트 이미지4" />
-          </div>
-          <div class="carousel-item" data-bs-interval="4000">
-            <img  src="resources/img/visual_minecraft.jpg" class="d-block w-100" alt="테스트 이미지5" />
-          </div>
-          <div class="carousel-item" data-bs-interval="4000">
-            <img src="resources/img/visual_valorant.jpg" class="d-block w-100" alt="테스트 이미지6" />
+            <img  src="resources/img/announcementsIMG4_1.png" class="d-block w-100" alt="테스트 이미지5" />
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#infocarousel" data-bs-slide="prev">
@@ -70,8 +63,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <section class="sec info">
       <div class="container">
-        <div class="title-wrap d-flex justify-content-between">
-          <h1 class="title">스터디룸 공지사항</h1>
+        <div class="title-wrap d-flex justify-content-between" id="titleBoxs">
+          <h1 class="titles nanum-gothic-regular">스터디룸 공지사항</h1>
           <c:if test="${role eq 'admin'***REMOVED***">
             <input type="button" class="btn btn-primary insert-btn" value="공지 추가하기" onclick="insert()">
           </c:if>

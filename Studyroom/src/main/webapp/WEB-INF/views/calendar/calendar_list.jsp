@@ -6,7 +6,7 @@
     <title>캘린더</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/main.css">
-    <link rel="stylesheet" href="resources/css/calendar_list.css">
+    <link rel="stylesheet" href="resources/css/calendar_list.css?after">
     <link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="resources/js/HttpRequest.js"></script>
@@ -222,15 +222,11 @@
 	<%@ include file="../include/menu.jsp" %>
 	<h1 id="calendar_title">Calendar</h1>
 	<div id="calendar-header">
-		<nav aria-label="Page navigation example">
-	 	 	<ul class="pagination">
-	   		 	<li class="page-item"><button onclick="prevMonth()" id="prev" class="prev-svg-button page-link">이전 달</button></li>	    
-				<li><span id="current-year-month"></span></li>
-			    <li class="page-item"><button onclick="nextMonth()" id="next" class="next-svg-button page-link">다음 달</button></li>
-		  	</ul>
-		</nav>			    
+		<button onclick="prevMonth()" id="prev" class="btn btn-outline-primary">previous</button>
+		<span id="current-year-month"></span>
+		<button onclick="nextMonth()" id="next" class="btn btn-outline-primary">Next</button>
 	</div>
-	<section class="sec event">
+	  <section class="sec event">
 	    <div class="container">
 	     
 	      <div class="row gy-4">
@@ -254,8 +250,11 @@
 			        </tbody>
 			    </table>
 	        </div>
+	        
 	      </div>
+	      
 	    </div>
+	    
 	  </section>
 
 

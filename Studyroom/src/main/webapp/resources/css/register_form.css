@@ -6,16 +6,22 @@ html, body{
 	align-items: center;
 ***REMOVED***
 
+h1 {
+	font-family: "Cinzel", serif;
+	font-weight: 600px;
+***REMOVED***
+
+
 .sec .container .row .col .title-box .title{
     padding: 5px;
-    background-color: rgb(169, 228, 255);
-    border: 5px solid white;
+    background-color: #F5F7F8;
+    border: 5px solid #F5F7F8;
     border-radius: 10px;
 ***REMOVED***
 
 .sec .container .row .box{
     padding:20px;
-    background-color: rgb(237, 250, 254);
+    background-color: #F5F7F8;
     border-radius: 10px;
 ***REMOVED***
 

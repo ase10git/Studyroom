@@ -15,6 +15,10 @@
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script src="resources/js/HttpRequest.js"></script>
 	<script type="text/javascript">
@@ -51,11 +55,12 @@
 				var json = (new Function('return'+data))();
 				
 				if(json[0].res == 'yes') {
-					alert("사용가능한 이메일 입니다.");
-					emailHelp.innerHTML = "";
+// 					alert("사용가능한 이메일 입니다.");
+					emailHelp.innerHTML = "사용가능한 이메일 입니다.";
 					u_emailCheck = true;
 			***REMOVED*** else {
-					alert("이미 사용중인 이메일 입니다.");
+// 					alert("이미 사용중인 이메일 입니다.");
+					emailHelp.innerHTML = "이미 사용중인 이메일 입니다.";
 					return;
 			***REMOVED***
 		***REMOVED***
@@ -158,7 +163,8 @@
         <div class="row gy-4 justify-content-center">
          <div class="col box col-6">
             <div class="title-box">
-               <h1 class="title text-center">회원 가입</h1>
+               <h1 class="title text-center">Studyroom</h1>
+               <h3 align="center">::: 회원가입 :::</h3><br>
             </div>
             <!-- register_insert 전송 -->
             <form name="f" action="register_insert" method="post" class="login-form">
