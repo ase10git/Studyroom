@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ucv">
+
+	<!-- 특정 사용자의 코스 전체 정보 조회 -->
+	<select id="uc_list" parameterType="java.util.HashMap" resultType="ucview" >
+		SELECT * FROM USER_COURSE_VIEW
+		WHERE DEL_FLAG != -1 AND USER_ID = #{user_id}
+	</select>
+	
+	<!-- 특정 사용자의 전체 코스 수 조회 -->
+	<select id="uc_count" resultType="int">
+		SELECT COUNT(*) FROM USER_COURSE_VIEW
+		WHERE DEL_FLAG != -1 AND USER_ID = #{user_id}
+	</select>
+</mapper>
+

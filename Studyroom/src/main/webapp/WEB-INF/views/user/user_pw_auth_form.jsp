@@ -16,6 +16,7 @@
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+    <script src="resources/js/HttpRequest.js"></script>
 	<script>
 		function pwCheck1(){
 		let c_pwd = document.getElementById("c_pwd").value;
@@ -66,12 +67,12 @@
 					<table>
 						<tr>
 							<th>비밀번호</th>
-							<td><input id="c_pwd" type="password"></td>
+							<td><input id="c_pwd" class="form-control" type="password"></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center">
-								<input type="button" value="다음" onclick="pwCheck1()">
-								<input type="button" value="취소" onclick="location.href='user_view'">
+								<input type="button" class="btn btn-primary" value="다음" onclick="pwCheck1()">
+								<input type="button" class="btn btn-dark" value="취소" onclick="location.href='user_view'">
 							</td>
 						</tr>
 					</table>
