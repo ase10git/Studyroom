@@ -69,6 +69,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 	</delete>
 	
+	<!-- 특정 사용자의 게시글 물리적 삭제 -->
+	<delete id="delete_user" parameterType="java.util.ArrayList">
+		DELETE FROM community_board WHERE user_id IN 
+		<foreach collection="list" item="item"  open="(" close=")" separator=",">
+			 #{item}
+		</foreach>
+	</delete>
+	
 	<!-- 댓글추가를 위한 step + 1 -->
 	<update id="community_update_step" parameterType="community">
 		update community_board set step = step + 1
