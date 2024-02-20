@@ -5,7 +5,6 @@ import org.apache.ibatis.session.SqlSession;
 ***REMOVED***
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import advice.SessionCheckAspect;
 import dao.AnnouncementDAO;
 import dao.CalendarDAO;
 import dao.CommunityDAO;
@@ -14,6 +13,7 @@ import dao.CourseDAO;
 import dao.UserCourseDAO;
 import dao.UserCourseViewDAO;
 import dao.UserDAO;
+import service.DeleteService;
 
 ***REMOVED***
 @EnableAspectJAutoProxy
@@ -67,17 +67,12 @@ public class Context_3_dao {
 		return new UserCourseViewDAO(sqlSession);
 ***REMOVED***
 			
-	// SessionCheckAspect Bean : 세션체크 Advice
+	// DeleteService : 삭제 서비스
 ***REMOVED***
-	public SessionCheckAspect sessionCheckAspect() {
-		return new SessionCheckAspect();
+	public DeleteService deleteService(UserDAO user_dao, CourseDAO course_dao, CourseBoardDAO course_board_dao, UserCourseDAO user_course_dao, CommunityDAO community_dao, CalendarDAO calendar_dao) {
+		return new DeleteService(user_dao, course_dao, course_board_dao, user_course_dao, community_dao, calendar_dao);
 ***REMOVED***
 
-	// SessionCheckAspect Bean : 세션체크 Service
-//***REMOVED***
-//	public SessionService sessionService() {
-//		return new SessionService();
-//***REMOVED***
 ***REMOVED***
 
 

@@ -54,7 +54,7 @@
 		function modify() {
 			location.href = "course_board_modify_form?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
 	***REMOVED***
-	
+		
 	</script>
 </head>
 

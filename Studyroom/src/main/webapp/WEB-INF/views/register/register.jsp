@@ -5,137 +5,150 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-   <!-- bootstrap css -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	<!-- bootstrap css -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
-     <link rel="stylesheet" href="resources/css/main.css">
-     <link rel="stylesheet" href="resources/css/register_form.css">
-   <!-- flaticon -->
-   <link rel='stylesheet' 
+	  <link rel="stylesheet" href="resources/css/main.css">
+	  <link rel="stylesheet" href="resources/css/register_form.css">
+	<!-- flaticon -->
+	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
-   <script src="resources/js/HttpRequest.js"></script>
-   <script type="text/javascript">
-      let u_emailCheck = false;
-      
-      window.onload = function() {
-         let emailHelp = document.getElementById("emailHelp");
-         let pwdHelp = document.getElementById("pwdHelp");
-         let nameHelp = document.getElementById("nameHelp");
-         let telHelp = document.getElementById("telHelp");
-         let roleHelp = document.getElementById("roleHelp");
-      ***REMOVED***
+	<script src="resources/js/HttpRequest.js"></script>
+	<script type="text/javascript">
+		let u_emailCheck = false;
+		
+		window.onload = function() {
+			let emailHelp = document.getElementById("emailHelp");
+			let pwdHelp = document.getElementById("pwdHelp");
+			let nameHelp = document.getElementById("nameHelp");
+			let telHelp = document.getElementById("telHelp");
+			let roleHelp = document.getElementById("roleHelp");
+	***REMOVED***
 
-      function check_email() {
-         let email = document.getElementById("email").value;
-         
-         if(email == '') {
-            emailHelp.innerHTML = "이메일을 입력해주세요.";
-//             alert("이메일을 입력하세요.");
-            return;
-         ***REMOVED***
-         
-         //완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
-         //비동기 통신을 이용한다.
-         let url = "check_email";
-         let param = "email="+encodeURIComponent(email);
-         
-         sendRequest(url,param,resultFn,"POST");
-      ***REMOVED***
-      
-      function resultFn() {
-         if(xhr.readyState == 4 && xhr.status == 200) {
-            var data = xhr.responseText;
-            var json = (new Function('return'+data))();
-            
-            if(json[0].res == 'yes') {
-               alert("사용가능한 이메일 입니다.");
-               emailHelp.innerHTML = "";
-               u_emailCheck = true;
-            ***REMOVED*** else {
-               alert("이미 사용중인 이메일 입니다.");
-               return;
-            ***REMOVED***
-         ***REMOVED***
-      ***REMOVED***
-      
-      function che() {
-         u_emailCheck = false;
-      ***REMOVED***
+		function check_email() {
+			let email = document.getElementById("email").value;
+			
+			if(email == '') {
+				emailHelp.innerHTML = "이메일을 입력해주세요.";
+// 				alert("이메일을 입력하세요.");
+				return;
+		***REMOVED***
+			
+			//완전히 새로고침을 하면 텍스트필드에 적오놓은것이 날아가기 때문에
+			//비동기 통신을 이용한다.
+			let url = "check_email";
+			let param = "email="+encodeURIComponent(email);
+			
+			sendRequest(url,param,resultFn,"POST");
+	***REMOVED***
+		
+		function resultFn() {
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				var data = xhr.responseText;
+				var json = (new Function('return'+data))();
+				
+				if(json[0].res == 'yes') {
+					alert("사용가능한 이메일 입니다.");
+					emailHelp.innerHTML = "";
+					u_emailCheck = true;
+			***REMOVED*** else {
+					alert("이미 사용중인 이메일 입니다.");
+					return;
+			***REMOVED***
+		***REMOVED***
+	***REMOVED***
+		
+		function che() {
+			u_emailCheck = false;
+	***REMOVED***
 
-      function send(f) {
-         let username = f.username.value.trim();
-         let email = f.email.value.trim();
-         let pwd = f.pwd.value.trim();
-         let tel = f.tel.value.trim();
-         let role = f.role.value.trim();
-         
-         //유효성 검사
-         if(email == ''){
-            emailHelp.innerHTML = "이메일을 입력해주세요.";
-            pwdHelp.innerHTML = "";
-            nameHelp.innerHTML = "";
-            telHelp.innerHTML = "";
-            roleHelp.innerHTML = "";
-            return;
-         ***REMOVED***
-         
-         if(pwd == ''){
-            emailHelp.innerHTML = "";
-            pwdHelp.innerHTML = "비밀번호를 입력해주세요.";
-            nameHelp.innerHTML = "";
-            telHelp.innerHTML = "";
-            roleHelp.innerHTML = "";
-            return;
-         ***REMOVED***
-         
-         
-         if(tel == ''){
-            emailHelp.innerHTML = "";
-            pwdHelp.innerHTML = "";
-            nameHelp.innerHTML = "";
-            telHelp.innerHTML = "전화번호를 입력해주세요.";
-            roleHelp.innerHTML = "";
-            return;
-         ***REMOVED***
-         
-         if(role == ''){
-            emailHelp.innerHTML = "";
-            pwdHelp.innerHTML = "";
-            nameHelp.innerHTML = "";
-            telHelp.innerHTML = "";
-            roleHelp.innerHTML = "유형을 선택해주세요.";
-            return;
-         ***REMOVED*** 
-      
-         //이메일은 형식검사
-         let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/i
-      
-         if(!regex.test(email)){
-            emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
-            pwdHelp.innerHTML = "";
-            nameHelp.innerHTML = "";
-            telHelp.innerHTML = "";
-            roleHelp.innerHTML = "";
-//             alert("이메일 형식이 맞지 않습니다.");
-            return;
-         ***REMOVED***
-         
-         if(!u_emailCheck){
-            emailHelp.innerHTML = "중복된 이메일 입니다.";
-            pwdHelp.innerHTML = "";
-            nameHelp.innerHTML = "";
-            telHelp.innerHTML = "";
-            roleHelp.innerHTML = "";
-//             alert("중복된 이메일 입니다.");
-            return;
-         ***REMOVED***
-         
-         f.submit();
-      ***REMOVED***
-   </script>
+		function send(f) {
+			let email = f.email.value.trim();
+			let pwd = f.pwd.value.trim();
+			let username = f.username.value.trim();
+			let tel = f.tel.value.trim();
+			let role = f.role.value.trim();
+			
+			//유효성 검사
+			if(email == ''){
+				emailHelp.innerHTML = "이메일을 입력해주세요.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("이메일을 입력하세요.");
+				return;
+		***REMOVED***
+			
+			if(pwd == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "비밀번호를 입력해주세요.";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("비밀번호를 입력하세요.");
+				return;
+		***REMOVED***
+			
+			if(username == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "이름을 입력해주세요.";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("이름을 입력하세요.");
+				return;
+		***REMOVED***
+			
+			if(tel == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "전화번호를 입력해주세요.";
+				roleHelp.innerHTML = "";
+// 				alert("전화번호를 입력하세요.");
+				return;
+		***REMOVED***
+			
+			if(role == ''){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "유형을 선택해주세요.";
+// 				alert("유형을 선택해주세요.");
+				return;
+		***REMOVED*** 
+		
+			//이메일은 형식검사
+			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/i
+		
+			if(!regex.test(email)){
+				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("이메일 형식이 맞지 않습니다.");
+				return;
+		***REMOVED***
+			
+			if(!u_emailCheck){
+				emailHelp.innerHTML = "중복된 이메일 입니다.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
+// 				alert("중복된 이메일 입니다.");
+				return;
+		***REMOVED***
+			
+			f.submit();
+	***REMOVED***
+	</script>
 </head>
 
 <body>

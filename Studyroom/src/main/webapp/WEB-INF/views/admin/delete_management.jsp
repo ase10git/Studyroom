@@ -31,7 +31,8 @@
 		***REMOVED***
 		</script>
 </head>
-<body>	
+<body>
+
 	<%@ include file="../include/menu.jsp" %>
 
     <section class="sec del-request">

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class UserCourseDTO {
-	private int user_id; // 사용자id
-	private int course_id; // 코스id
+	private int user_id; // user id
+	private int course_id; // course id
 ***REMOVED***

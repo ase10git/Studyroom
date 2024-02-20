@@ -69,6 +69,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 	</delete>
 	
+	<!-- 특정 사용자의 게시글 물리적 삭제 -->
+	<delete id="delete_user" parameterType="java.util.ArrayList">
+		DELETE FROM community_board WHERE user_id IN 
+		<foreach collection="list" item="item"  open="(" close=")" separator=",">
+			 #{item***REMOVED***
+		</foreach>
+	</delete>
+	
 	<!-- 댓글추가를 위한 step + 1 -->
 	<update id="community_update_step" parameterType="community">
 		update community_board set step = step + 1
@@ -117,6 +125,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_community_like where user_id=#{user_id***REMOVED*** and community_board_id=#{community_board_id***REMOVED***
 	</select>
 
+	<!-- 커뮤니티 테이블에 추천 수 추가 -->
+	<update id="community_likehit" parameterType="community">
+		update community_board set likehit = likehit + 1
+		where id=#{id***REMOVED***
+	</update>
+
+	<!-- 사용자 커뮤니티 테이블에 특정 사용자의 커뮤티니 추천 데이터 추가 -->
+	<insert id="community_like" parameterType="uclike">
+		insert into user_community_like values(
+			#{user_id***REMOVED***,
+			#{community_board_id***REMOVED***
+		)
+	</insert>
+	
 	<!-- 사용자 커뮤니티 테이블에서 특정 사용자들의 추천 내역 제거 -->
 	<delete id="only_user_delete" parameterType="java.util.ArrayList">
 		DELETE FROM user_community_like 

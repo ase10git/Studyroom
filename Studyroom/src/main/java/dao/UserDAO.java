@@ -21,16 +21,25 @@ public class UserDAO {
 		return sqlSession.selectOne("u.login_check",email);
 ***REMOVED***
 	
+	public UserDTO selectOne(int id) {
+		return sqlSession.selectOne("u.select_one_by_id", id);
+***REMOVED***
+	
 	//회원가입
 	public int insert(UserDTO userDTO) {
 		return sqlSession.insert("u.insert",userDTO);
 ***REMOVED***
 	
-//	// 사용자 정보 수정		// 미완성
-//	public int modify(UserDTO userDTO) {
-//		return sqlSession.update("u.update", userDTO);
-//***REMOVED***
-//	
+	// 사용자 정보 수정	
+	public int modify(UserDTO userDTO) {
+		return sqlSession.update("u.update", userDTO);
+***REMOVED***
+	
+	// 사용자 회원 탈퇴(한것처럼 보이게하는 로직)
+	public int del_update(UserDTO userDTO) {
+		return sqlSession.update("u.del_update",userDTO);
+***REMOVED***
+	
 //	// 전체 사용자 조회(admin용)	// 미완성
 //	public List<UserDTO> selectList() {
 //		return sqlSession.selectList("u.user_list");
