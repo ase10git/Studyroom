@@ -50,10 +50,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체 사용자 조회(admin용) -->
 	<select id="user_list" resultType="user" parameterType="java.util.HashMap">
-	 	select * 
-	 	from 
-	 		(select * from user_tbl u)
-	 	where id between #{start} and #{end}
+	 	select * from
+	 		(select rank() over(order by id desc) no, u.* from user_tbl u)
+	 		where no between #{start} and #{end}
 	</select>
 	
 	<!-- 전체 사용자 수 조회 -->

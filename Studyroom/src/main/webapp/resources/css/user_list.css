@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .sec .container{
-	width:100%; max-width:720px;
+	width:100%; max-width:600px;
 	margin: 30px auto;
     padding:20px;
     background-color: rgb(237, 250, 254);
@@ -30,4 +30,9 @@
 
 .sec .container .row .box table tr{
 	border-bottom: 2px solid white;
+}
+
+.sec .container .row .box table tr td input.btn{
+	font-size: 9px;
+	color:white;
 }

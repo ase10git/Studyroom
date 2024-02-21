@@ -64,11 +64,15 @@
 			    <input type="text" id="role" class="form-control" value="${dto.role}" disabled readonly>
 			  </div>
 			</div>
+			
+			<c:if test="${sessionScope.dto.id eq dto.id }">
 			<div class="row g-3 align-items-center justify-content-end">
 			  <div class="col-auto">
 			    <input type="button" class="btn btn-primary" value="수정하기" onclick="redirectToAuthForm('update')">
 			  </div>
 			</div>
+			</c:if>
+			
 		  </div>
 	</section>
 
