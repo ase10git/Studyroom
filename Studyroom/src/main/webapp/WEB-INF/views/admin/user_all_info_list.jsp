@@ -12,7 +12,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"/>
   <link rel="stylesheet" href="resources/css/main.css">
-  <link rel="stylesheet" href="resources/css/style_with_table.css">
+  <link rel="stylesheet" href="resources/css/user_list.css">
   	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -30,11 +30,34 @@
         <div class="col box col-12 d-flex justify-content-center">
           <table class="board text-center">
           	<tr>
-          		<td><a href="">${dto.username***REMOVED***</td>
+				<th>사용자 이름</th>
+				<th>로그인 이메일</th>
+				<th>삭제요청 여부</th>
+				<th>수강중인 코스</th>
+			</tr>
+          	<c:forEach var="dto" items="${list***REMOVED***">
+          	<tr>
+          		<td><button type="button" class="btn btn-link" onclick="location.href='user_view?id=${dto.id***REMOVED***'">Link</button></td>
+          		<td>${dto.email***REMOVED***</td>
+          		<c:choose>
+          			<c:when test="${dto.del_flag eq -1***REMOVED***">
+          				<td style="color:red;">삭제요청</td>
+          			</c:when>
+          			<c:otherwise>
+						<td></td>          			
+          			</c:otherwise>
+          		</c:choose>
+          		<td><button type="button" class="btn btn-info" onclick="location.href=''">보기</button></td>
           	</tr>
+          	</c:forEach>
           </table>
         </div>
       </div>
+      <div class="row gy-4">
+        	<div class="menu-tab">
+        		${pageMenu***REMOVED***
+        	</div>
+        </div>
     </div>
   </section>
 
