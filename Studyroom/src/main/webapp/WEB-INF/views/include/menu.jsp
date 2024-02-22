@@ -15,21 +15,25 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
-    <script>
-    	function logout() {
-    		location.href="logout";
-    	}
-    </script>
 </head>
 
 <body>
 	<div class="menu">
 		<ul class="menu-bar">
+<<<<<<< Updated upstream
 			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath}/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
 			<li><a href='user_view' class="item user-info"><i class="fi fi-ss-user"></i><span>내 정보</span></a></li>
 			<li><a href='course_list' class="item course"><i class="fi fi-ss-book"></i><span>코스</span></a></li>
 			<li><a href='community_list' class="item community"><i class="fi fi-ss-users-alt"></i><span>커뮤니티</span></a></li>
 			<li><a href='calendar_list' class="item calendar"><i class="fi fi-rr-calendar-lines-pen"></i><span>캘린더</span></a></li>
+=======
+			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath}/resources/img/logo_temp.jpeg" alt="스터디룸 로고"></a></li>
+			<li class="user-info"><a href='user_view?id=${dto.id}' class="btn btn-primary"><span class="nanum-gothic-regular">내 정보</span></a></li>
+			<li class="course"><a href='course_list' class="btn btn-primary"><span class="nanum-gothic-regular">코스</span></a></li>
+			<li class="community"><a href='community_list' class="btn btn-primary"><span class="nanum-gothic-regular">커뮤니티</span></a></li>
+			<li class="calendar"><a href='calendar_list' class="btn btn-primary"><span class="nanum-gothic-regular">캘린더</span></a></li>
+			<li><input type="button" class="btn btn-primary" id="logout" value="로그아웃" onclick="location.href='logout'"></li>
+>>>>>>> Stashed changes
 		</ul>
 	</div>
 	<input type="button" class="btn btn-primary" id="logout" value="로그아웃" onclick="logout()">

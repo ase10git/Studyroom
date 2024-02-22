@@ -6,6 +6,8 @@
 	color: #fff;
 	border-radius: 0 10px 10px 0;
 	padding: 10px;
+	position:absolute;
+	
 }
 
 .menu ul {
@@ -14,6 +16,23 @@
 	padding: 0;
 }
 
+<<<<<<< Updated upstream
+=======
+/* .menu-bar .user-info,
+.menu-bar .course,
+.menu-bar .community,
+.menu-bar .calendar {
+    background-color: rgb(81,114,245); 푸른 계열 배경 색상
+    padding: 10px; 패딩 추가
+    border-radius: 5px; 둥근 테두리 적용
+    margin-top: 10px;
+    text-align: center;
+    padding-right: 30px;
+    padding-left: 30px;
+} */
+
+
+>>>>>>> Stashed changes
 .menu a:hover {
 	color: #000;
 }
