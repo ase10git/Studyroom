@@ -222,15 +222,11 @@
 	<%@ include file="../include/menu.jsp" %>
 	<h1 id="calendar_title">Calendar</h1>
 	<div id="calendar-header">
-		<nav aria-label="Page navigation example">
-	 	 	<ul class="pagination">
-	   		 	<li class="page-item"><button onclick="prevMonth()" id="prev" class="prev-svg-button page-link">이전 달</button></li>	    
-				<li><span id="current-year-month"></span></li>
-			    <li class="page-item"><button onclick="nextMonth()" id="next" class="next-svg-button page-link">다음 달</button></li>
-		  	</ul>
-		</nav>			    
+		<button onclick="prevMonth()" id="prev" class="btn btn-outline-primary">previous</button>
+		<span id="current-year-month"></span>
+		<button onclick="nextMonth()" id="next" class="btn btn-outline-primary">Next</button>
 	</div>
-	<section class="sec event">
+	  <section class="sec event">
 	    <div class="container">
 	     
 	      <div class="row gy-4">

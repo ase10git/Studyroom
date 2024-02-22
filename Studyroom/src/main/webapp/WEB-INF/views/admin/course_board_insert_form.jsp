@@ -19,7 +19,16 @@
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
+// 		const hanguel_title = /^[가-힣]{1,26}$/;
+		
 		function send() {
+			let title = document.getElementById("title");
+			
+			if(!hanguel_title.test(title)) {
+				alert("한글 제목은 최대 25자까지만 입력 가능합니다!");
+				return;
+			}
+			
 			f.submit();
 		}
 		
@@ -54,7 +63,7 @@
 					<table class="insert-box">
 						<tr>
 							<th>제목</th>
-							<td><input name="title" class="form-control"></td>
+							<td><input name="title" id="title" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
