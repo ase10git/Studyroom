@@ -122,7 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 특정 사용자의 커뮤니티 글 추천 여부 조회 -->
 	<select id="like_count" parameterType="uclike" resultType="Integer">
-		select * from user_community_like where user_id=#{user_id***REMOVED*** and community_board_id=#{community_board_id***REMOVED***
+		select COUNT(*) from user_community_like where user_id=#{user_id***REMOVED*** and community_board_id=#{community_board_id***REMOVED***
 	</select>
 
 	<!-- 커뮤니티 테이블에 추천 수 추가 -->

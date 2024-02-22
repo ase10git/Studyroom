@@ -163,8 +163,7 @@
         <div class="row gy-4 justify-content-center">
          <div class="col box col-6">
             <div class="title-box">
-               <h1 class="title text-center">Studyroom</h1>
-               <h3 class="text-center">::: 회원가입 :::</h3><br>
+               <h1 class="title text-center">회원 가입</h1>
             </div>
             <!-- register_insert 전송 -->
             <form name="f" action="register_insert" method="post" class="login-form">

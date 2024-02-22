@@ -26,15 +26,23 @@ public class UserController {
 	
 	// 사용자 정보 화면 보기
 	@RequestMapping("user_view")
-	public String user_view(Model model) {
+	public String user_view(Model model, int id) {
 		
 		// 사용자 정보를 세션에서 가져옴
-		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		UserDTO user_session = (UserDTO)session.getAttribute("dto");
 		// 비로그인 사용자 차단
-		if (user_dto == null) return "/";
+		if (user_session == null) return "/";
+		// 사용자가 url로 다른 사용자 정보 페이지 접근 차단(관리자 제외)
+		if (!user_session.getRole().equals("admin")) {
+			if (user_session.getId() != id) {
+				return "/error";
+		***REMOVED***
+	***REMOVED***
 		
-		model.addAttribute("dto", user_dto);
-		model.addAttribute("role", user_dto.getRole());
+		
+		UserDTO userDTO = user_dao.selectOne(id);
+		model.addAttribute("dto", userDTO);
+		model.addAttribute("role", userDTO.getRole());
 		return Common.USER_PATH+"user_view.jsp";
 ***REMOVED***
 	

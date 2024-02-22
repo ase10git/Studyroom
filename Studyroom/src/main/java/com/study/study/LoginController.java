@@ -50,6 +50,7 @@ public class LoginController {
 		
 		//세션에 바인딩
 		session.setAttribute("dto", dto);
+		session.setMaxInactiveInterval(3600); // 세션 유지 시간 1시간으로 설정
 		//System.out.println("권한? : "+dto.getRole());
 		//로그인에 성공한 경우
 		return "[{'param':'clear'***REMOVED***]";
