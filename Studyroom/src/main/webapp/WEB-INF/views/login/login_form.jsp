@@ -17,8 +17,12 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script src="resources/js/HttpRequest.js"></script>
-
+	
 	<script type="text/javascript">
+		// 정규 표현식
+		const regex_email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/;
+		const regex_password = /^(?=(.*[a-zA-Z].*){2,***REMOVED***)(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15***REMOVED***$/;
+	
 		window.onload = function() {
 			let emailHelp = document.getElementById("emailHelp");
 			let pwdHelp = document.getElementById("pwdHelp");
@@ -34,14 +38,11 @@
 				pwdHelp.innerHTML = "";
 				return;
 		***REMOVED***
-						
-			//이메일은 형식검사
-			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/i
-				
-			if(!regex.test(email)){
+	
+			if(!regex_email.test(email)){
 				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
 				pwdHelp.innerHTML = "";
-// 				alert("이메일 형식이 맞지 않습니다.");
+
 				return;
 		***REMOVED***
 			
@@ -63,9 +64,15 @@
 				var json = (new Function('return' + data))();
 				
 				if(json[0].param == 'no_email') {
+<<<<<<< Updated upstream
 					alert("이메일이 존재하지 않습니다.");				
 			***REMOVED*** else if(json[0].param == 'no_pwd') {
 					alert("비밀번호를 다시 입력해 주세요.")
+=======
+					emailHelp.innerHTML = "이메일이 존재하지 않습니다.";
+			***REMOVED*** else if(json[0].param == 'no_pwd') {
+					pwdHelp.innerHTML = "비밀번호를 다시 입력해 주세요.";
+>>>>>>> Stashed changes
 			***REMOVED*** else {
 					alert("로그인을 성공했습니다!");
 

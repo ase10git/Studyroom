@@ -20,6 +20,10 @@
 	<script type="text/javascript">
 		let u_emailCheck = false;
 		
+		// 정규 표현식
+		const regex_email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/;
+		const regex_password = /^(?=(.*[a-zA-Z].*){2,***REMOVED***)(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15***REMOVED***$/;
+		
 		window.onload = function() {
 			let emailHelp = document.getElementById("emailHelp");
 			let pwdHelp = document.getElementById("pwdHelp");
@@ -33,7 +37,17 @@
 			
 			if(email == '') {
 				emailHelp.innerHTML = "이메일을 입력해주세요.";
-// 				alert("이메일을 입력하세요.");
+				return;
+		***REMOVED***
+			
+			//이메일은 형식검사
+			console.log(regex_email.test(email))
+			if(!regex_email.test(email)){
+				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
 				return;
 		***REMOVED***
 			
@@ -71,7 +85,7 @@
 			let username = f.username.value.trim();
 			let tel = f.tel.value.trim();
 			let role = f.role.value.trim();
-			
+
 			//유효성 검사
 			if(email == ''){
 				emailHelp.innerHTML = "이메일을 입력해주세요.";
@@ -79,7 +93,17 @@
 				nameHelp.innerHTML = "";
 				telHelp.innerHTML = "";
 				roleHelp.innerHTML = "";
-// 				alert("이메일을 입력하세요.");
+				return;
+		***REMOVED***
+			
+			//이메일은 형식검사
+			console.log(regex_email.test(email))
+			if(!regex_email.test(email)){
+				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
+				pwdHelp.innerHTML = "";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
 				return;
 		***REMOVED***
 			
@@ -89,7 +113,15 @@
 				nameHelp.innerHTML = "";
 				telHelp.innerHTML = "";
 				roleHelp.innerHTML = "";
-// 				alert("비밀번호를 입력하세요.");
+				return;
+		***REMOVED***
+			
+			if(!regex_password.test(pwd)){
+				emailHelp.innerHTML = "";
+				pwdHelp.innerHTML = "비밀번호는 영문자, 숫자, 특수문자 최소 1개 이상 포함해주세요";
+				nameHelp.innerHTML = "";
+				telHelp.innerHTML = "";
+				roleHelp.innerHTML = "";
 				return;
 		***REMOVED***
 			
@@ -99,7 +131,6 @@
 				nameHelp.innerHTML = "이름을 입력해주세요.";
 				telHelp.innerHTML = "";
 				roleHelp.innerHTML = "";
-// 				alert("이름을 입력하세요.");
 				return;
 		***REMOVED***
 			
@@ -108,8 +139,6 @@
 				pwdHelp.innerHTML = "";
 				nameHelp.innerHTML = "";
 				telHelp.innerHTML = "전화번호를 입력해주세요.";
-				roleHelp.innerHTML = "";
-// 				alert("전화번호를 입력하세요.");
 				return;
 		***REMOVED***
 			
@@ -119,22 +148,8 @@
 				nameHelp.innerHTML = "";
 				telHelp.innerHTML = "";
 				roleHelp.innerHTML = "유형을 선택해주세요.";
-// 				alert("유형을 선택해주세요.");
 				return;
 		***REMOVED*** 
-		
-			//이메일은 형식검사
-			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3***REMOVED***$/i
-		
-			if(!regex.test(email)){
-				emailHelp.innerHTML = "이메일 형식이 맞지 않습니다.";
-				pwdHelp.innerHTML = "";
-				nameHelp.innerHTML = "";
-				telHelp.innerHTML = "";
-				roleHelp.innerHTML = "";
-// 				alert("이메일 형식이 맞지 않습니다.");
-				return;
-		***REMOVED***
 			
 			if(!u_emailCheck){
 				emailHelp.innerHTML = "중복된 이메일 입니다.";
@@ -142,7 +157,6 @@
 				nameHelp.innerHTML = "";
 				telHelp.innerHTML = "";
 				roleHelp.innerHTML = "";
-// 				alert("중복된 이메일 입니다.");
 				return;
 		***REMOVED***
 			

@@ -33,8 +33,14 @@ public class UserController {
 		// 비로그인 사용자 차단
 		if (user_dto == null) return "/";
 		
+<<<<<<< Updated upstream
 		model.addAttribute("dto", user_dto);
 		model.addAttribute("role", user_dto.getRole());
+=======
+		UserDTO userDTO = user_dao.selectOne(id);
+		model.addAttribute("dto", userDTO);
+		model.addAttribute("role", userDTO.getRole());
+>>>>>>> Stashed changes
 		return Common.USER_PATH+"user_view.jsp";
 ***REMOVED***
 	

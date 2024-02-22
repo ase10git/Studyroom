@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +14,7 @@
 </head>
 <body>
     <footer class="footer">
+<<<<<<< Updated upstream
         <div class="container">
             <h2 class="title">Studyroom</h2>
             <div class="row gy-4 row-cols-4 row-cols-sm-2">
@@ -53,6 +55,18 @@
                     <p>@ Spring project Studyroom</p>
                 </div>
             </div>
+=======
+        <div class="footer-nav">
+        	<h1><a href="#">StudyRoom</a></h1>
+        	<ul class="footer-menu">
+        		<li><a href="#">개인정보 처리방침&nbsp;&nbsp;</a></li>
+        		<li><a href="#">고객센터&nbsp;&nbsp;</a></li>
+        		<li><a href="#">이용약관</a></li>
+        	</ul>
+        	<div class="copyright">
+        		Copyright 2024. 서유현&nbsp;안시은&nbsp;유승완&nbsp;원무희&nbsp;황영현
+        	</div>
+>>>>>>> Stashed changes
         </div>
     </footer>
     <!-- fontawesome -->
