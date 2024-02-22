@@ -48,10 +48,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id}
 	</update>
 	
-	
 	<!-- 전체 사용자 조회(admin용) -->
-	<select id="user_list" resultType="user">
-	 	select * from user_tbl order by id desc
+	<select id="user_list" resultType="user" parameterType="java.util.HashMap">
+	 	select * from
+	 		(select rank() over(order by id desc) no, u.* from user_tbl u)
+	 		where no between #{start} and #{end}
+	</select>
+	
+	<!-- 전체 사용자 수 조회 -->
+	<select id="user_count" resultType="int">
+		select count(*) from user_tbl
 	</select>
 
 	<!-- 삭제 요청한 사용자 조회 -->

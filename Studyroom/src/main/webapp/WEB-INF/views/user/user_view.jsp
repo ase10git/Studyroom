@@ -64,26 +64,17 @@
 			    <input type="text" id="role" class="form-control" value="${dto.role}" disabled readonly>
 			  </div>
 			</div>
+			
+			<c:if test="${sessionScope.dto.id eq dto.id }">
 			<div class="row g-3 align-items-center justify-content-end">
 			  <div class="col-auto">
 			    <input type="button" class="btn btn-primary" value="수정하기" onclick="redirectToAuthForm('update')">
 			  </div>
 			</div>
+			</c:if>
+			
 		  </div>
 	</section>
-
-	<c:if test="${role eq 'admin'}">
-		<div class="sec admin">
-			<div class="container">
-				<h2 class="title text-center">삭제 요청 관리</h2>
-				<div class="row col-12 justify-content-center">
-					<div class="col-auto">
-						<input type="button" class="btn btn-primary" value="이동" onclick="location.href='delete_management'">
-					</div>
-				</div>
-			</div>
-		</div>
-	</c:if>
 
 	<%@ include file="../include/footer.jsp" %>
 
