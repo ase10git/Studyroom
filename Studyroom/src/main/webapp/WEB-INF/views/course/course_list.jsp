@@ -12,6 +12,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="resources/css/course_list.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -37,11 +38,11 @@
 	
     <section class="sec course">
         <div class="container">
-	        <div class="title-wrap d-flex justify-content-between">
-	         <h1 class="title text-center">코스 목록</h1>
-	         	<c:if test="${role eq 'admin'}">
-			    	<input id="insert_btn" type="button" class="btn btn-primary btn-sm" value="코스 추가하기" onclick="insert()">    
-				</c:if>
+	       <div class="titlediv text-center">
+			    <h1 class="nanum-gothic-regular">코스 목록</h1>
+			    <c:if test="${role eq 'admin'}">
+			        <input id="insert_btn" type="button" class="btn btn-primary btn-sm" value="코스 추가하기" onclick="insert()">    
+			    </c:if>
 			</div>
 			
 	        <div class="row gy-4 justify-content-center">

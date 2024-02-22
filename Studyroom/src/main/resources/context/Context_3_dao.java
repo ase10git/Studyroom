@@ -66,7 +66,7 @@ public class Context_3_dao {
 	public UserCourseViewDAO userCourseViewDAO(SqlSession sqlSession) {
 		return new UserCourseViewDAO(sqlSession);
 	}
-			
+
 	// DeleteService : 삭제 서비스
 	@Bean
 	public DeleteService deleteService(UserDAO user_dao, CourseDAO course_dao, CourseBoardDAO course_board_dao, UserCourseDAO user_course_dao, CommunityDAO community_dao, CalendarDAO calendar_dao) {

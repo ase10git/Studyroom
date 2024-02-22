@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,10 +41,15 @@ public class UserDAO {
 		return sqlSession.update("u.del_update",userDTO);
 	}
 	
-//	// 전체 사용자 조회(admin용)	// 미완성
-//	public List<UserDTO> selectList() {
-//		return sqlSession.selectList("u.user_list");
-//	}
+	// 전체 사용자 조회(admin용)
+	public List<UserDTO> selectList(HashMap<String,Integer> map) {
+		return sqlSession.selectList("u.user_list", map);
+	}
+	
+	// 전체 사용자 수 조회
+	public int getRowTotal() {
+		return sqlSession.selectOne("u.user_count");
+	}
 
 	// 삭제 요청한 사용자 조회(admin용)
 	public List<UserDTO> deleteList() {

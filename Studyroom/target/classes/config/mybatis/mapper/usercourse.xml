@@ -18,8 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 		WHERE user_id = #{user_id} AND course_id = #{id} -->
 <!-- 	</delete> -->
 	
+	<!-- 위에 두개만 있어도 됨 -->
+	
 	<!-- 사용자 코스 테이블에서 특정 코스 제거 -->
-<!-- 	<delete id="course_delete" parameterType="java.util.ArrayList"> -->
+<!-- 	<delete id="only_course_delete" parameterType="java.util.ArrayList"> -->
 <!-- 		DELETE FROM user_course  -->
 <!-- 		WHERE course_id IN -->
 <!-- 		<foreach collection="list" item="item" open="(" close=")" separator=","> -->

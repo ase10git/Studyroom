@@ -62,9 +62,9 @@
 		
 		function like(){
 			
-			if("${user_like}"==1){
+			if("${user_like}"==1) {
 				alert('이미 추천했습니다.');
-				return
+				return;
 			}
 			
 			location.href="community_like?id=${dto.id}&page=${param.page}";

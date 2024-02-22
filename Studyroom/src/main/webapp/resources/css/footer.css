@@ -1,11 +1,21 @@
 @charset "UTF-8";
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 최소한 화면의 전체 높이만큼의 높이를 가짐 */
+}
+
+
+
+
 .footer{
     width: 100%;
     background-color: #add8e6;
     color:white;
     position: relative;
     padding: 60px 0px;
+    margin-top: auto;
 }
 
 .footer .container{
@@ -20,9 +30,10 @@
 
 .footer .footer-nav{
 	display: flex;
-	padding-left: 240px;
 	text-decoration: none;
 	position: relative;
+	flex-direction: column;
+	align-items: center;
 }
 .footer .footer-nav a{
 	text-decoration: none;
@@ -38,5 +49,6 @@
 	padding-left:40px;
 	padding-right: 40px;
 	padding-top: 15px;
+	padding-bottom: 0px;
 	text-decoration: none;
 }
