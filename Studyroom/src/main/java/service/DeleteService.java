@@ -99,6 +99,8 @@ public class DeleteService {
 				courseList.add(Integer.parseInt(courseId[i]));
 			}
 			
+			user_course_dao.course_delete(courseList);
+			
 			System.out.println("courseId : " + Arrays.toString(courseId));
 			courseResult = course_dao.delete_physical(courseList);
 			

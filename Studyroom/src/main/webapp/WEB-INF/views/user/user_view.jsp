@@ -18,8 +18,11 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
     <script>
-	    if ("${updateSuccess}") {
+	    if ("${updateSuccess}" == 1) {
 	        alert('수정 완료');
+	    }
+	    if("${updateSuccess}" == 2){
+	    	alert('실패했습니다')
 	    }
     
 	    function redirectToAuthForm(action) {
