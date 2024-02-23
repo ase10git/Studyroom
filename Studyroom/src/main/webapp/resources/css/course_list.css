@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.nanum-gothic-regular {
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: green;
+}
+
+body{
+	background: linear-gradient(to bottom, #ffffff, #add8e6);
+}
+
+.sec .container .titlediv h1{
+	background-color: rgb(81,114,245);
+	border-radius: 10px;
+	text-align: center;
+	width: 20%;
+	padding: 15px 20px;
+	margin: 0 auto 15px auto;
+}
+
+.row .col .gt .card-header a{
+	text-decoration: none;
+}
+
+.sec{
+	margin-top: 300px;
+	
+}

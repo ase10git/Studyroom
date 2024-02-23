@@ -37,7 +37,7 @@
 			</tr>
           	<c:forEach var="dto" items="${list}">
           	<tr>
-          		<td><button type="button" class="btn btn-link" onclick="location.href='user_view?id=${dto.id}'">Link</button></td>
+          		<td><button type="button" class="btn btn-link" onclick="location.href='user_view?id=${dto.id}'">${dto.username}</button></td>
           		<td>${dto.email}</td>
           		<c:choose>
           			<c:when test="${dto.del_flag eq -1}">
@@ -47,7 +47,7 @@
 						<td></td>          			
           			</c:otherwise>
           		</c:choose>
-          		<td><button type="button" class="btn btn-info" onclick="location.href=''">보기</button></td>
+          		<td><button type="button" class="btn btn-info" onclick="location.href='course_list?id=${dto.id}'">보기</button></td>
           	</tr>
           	</c:forEach>
           </table>

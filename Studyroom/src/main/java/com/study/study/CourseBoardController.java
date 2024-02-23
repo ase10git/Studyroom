@@ -73,7 +73,8 @@ public class CourseBoardController {
 											page, 
 											rowTotal, 
 											Common.Board.BLOCKLIST, 
-											Common.Board.BLOCKPAGE);
+											Common.Board.BLOCKPAGE,
+											null);
 		
 		// 사용자의 권한을 세션에서 가져오기
 		String role = user_dto.getRole();

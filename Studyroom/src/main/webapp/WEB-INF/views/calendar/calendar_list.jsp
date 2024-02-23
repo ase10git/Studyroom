@@ -6,7 +6,7 @@
     <title>캘린더</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/main.css">
-    <link rel="stylesheet" href="resources/css/calendar_list.css">
+    <link rel="stylesheet" href="resources/css/calendar_list.css?after">
     <link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="resources/js/HttpRequest.js"></script>
@@ -254,8 +254,11 @@
 			        </tbody>
 			    </table>
 	        </div>
+	        
 	      </div>
+	      
 	    </div>
+	    
 	  </section>
 
 

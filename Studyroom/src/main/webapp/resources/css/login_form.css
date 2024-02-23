@@ -7,16 +7,21 @@ html, body{
 	align-items: center;
 }
 
+h1 {
+	font-family: "Cinzel", serif;
+	font-weight: 600px;
+}
+
 .sec .container .row .col{
     padding:20px;
-    background-color: rgb(237, 250, 254);
+    background-color: #F5F7F8;
     border-radius: 10px;
 }
 
 .sec .container .row .col .title-box{
     padding: 5px;
-    background-color: rgb(169, 228, 255);
-    border: 5px solid white;
+    background-color: #F5F7F8;
+    border: 5px solid #F5F7F8;
     border-radius: 10px;
 }
 

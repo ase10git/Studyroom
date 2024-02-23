@@ -5,9 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="co">
 	<!-- 코스 전체 조회 -->
 	<select id="course_list" parameterType="java.util.HashMap" resultType="course" > 	
-	 	SELECT * FROM (SELECT RANK() OVER(ORDER BY id DESC) AS no, c.* FROM course c)
-		WHERE DEL_FLAG != -1
-		AND no BETWEEN #{start} AND #{end}
+	 	SELECT * FROM (SELECT RANK() OVER(ORDER BY id DESC) AS no, c.* FROM course c WHERE DEL_FLAG != -1)
+		WHERE no BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 전체 코스 수 조회 -->

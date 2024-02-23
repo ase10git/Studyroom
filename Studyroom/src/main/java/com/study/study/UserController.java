@@ -40,9 +40,9 @@ public class UserController {
 		}
 		
 		
-		UserDTO userDTO = user_dao.selectOne(id);
-		model.addAttribute("dto", userDTO);
-		model.addAttribute("role", userDTO.getRole());
+		UserDTO user_dto = user_dao.selectOne(id);
+		model.addAttribute("dto", user_dto);
+		model.addAttribute("role", user_dto.getRole());
 		return Common.USER_PATH+"user_view.jsp";
 	}
 	
@@ -94,9 +94,11 @@ public class UserController {
         int res = user_dao.modify(dto);
         
         if (res > 0) {
-            redirectAttributes.addFlashAttribute("updateSuccess", true);
+            redirectAttributes.addFlashAttribute("updateSuccess", 1);
+        } else {
+        	redirectAttributes.addFlashAttribute("updateSuccess", 2);
         }
-        return "redirect:user_view";
+        return "redirect:user_view?id="+dto.getId();
     }
 	
 	// 사용자 회원 탈퇴 확인 페이지 이동
