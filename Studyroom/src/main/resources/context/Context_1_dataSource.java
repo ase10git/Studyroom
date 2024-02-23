@@ -13,9 +13,9 @@ public class Context_1_dataSource {
 	public DataSource ds() {
 		BasicDataSource ds = new BasicDataSource();
 		ds.setDriverClassName("oracle.jdbc.OracleDriver");
-		***REMOVED***
-		***REMOVED***
-		***REMOVED***
+		ds.setUrl("jdbc:oracle:thin:localhost:1521:xe");
+		ds.setUsername("username");
+		ds.setPassword("password");
 
 		ds.addConnectionProperty("allowMultiQueries", "true");
 		return ds;
