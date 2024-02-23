@@ -73,15 +73,18 @@ public class CourseBoardController {
 											page, 
 											rowTotal, 
 											Common.Board.BLOCKLIST, 
-											Common.Board.BLOCKPAGE);
+											Common.Board.BLOCKPAGE,
+											null);
 		
 		// 사용자의 권한을 세션에서 가져오기
 		String role = user_dto.getRole();
+		int user_id = user_dto.getId();
 		
 		// 페이지에 데이터 포워딩
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("course_dto", course_dto);
+		model.addAttribute("user_id", user_id);
 		model.addAttribute("role", role);
 		
 		return Common.COURSE_PATH +"course_board_list.jsp?page=" + page;

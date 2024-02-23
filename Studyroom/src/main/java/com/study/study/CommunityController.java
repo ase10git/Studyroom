@@ -60,7 +60,8 @@ public class CommunityController {
 											page,
 											rowTotal,
 											Common.Board.BLOCKLIST,
-											Common.Board.BLOCKPAGE);
+											Common.Board.BLOCKPAGE,
+											null);
 		
 		request.getSession().removeAttribute("show");
 		
