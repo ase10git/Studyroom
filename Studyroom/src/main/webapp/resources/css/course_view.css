@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.sec .container{
+	border: 1px solid black;
+	margin-top: 100px;
+	background-color: white;
+}
+
+.sec .container .title{
+	background-color: rgb(13, 110, 253);
+	color: white;
+}
+
+.sec .container .row .col table tr {
+	border-bottom: 1px solid gray;
+}
+.sec .container .row .col table tr td .d-flex .btn {
+	margin: 10px;
+}

@@ -17,7 +17,28 @@
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+		const regex_title = /^[\w\s]{1,50}$|^[\p{ㄱ-힣}\s]{1,25}$/;
+		const regex_file = /([^\s]+(?=\.(jpg|gif|png|PNG|GIF|JPG))\.\2)/;
+	
 		function send(f){
+			let title = document.getElementById("title").value;
+			let content = document.getElementById("content").value;
+			
+			if (!title) {
+				alert("제목을 1글자 이상 입력해주세요");
+				return;
+			}
+			
+			if(!regex_title.test(title)) {
+				alert("제목은 영문자 50자 또는 한글 최대 25자까지만 입력 가능합니다!");
+				return;
+			}
+			
+			if (!content) {
+				alert("내용을 1글자 이상 입력해주세요");
+				return;
+			}
+			
 			f.submit();
 		}
 		
@@ -36,11 +57,12 @@
 		  <div class="row gy-4">
 			<div class="col box col-12 d-flex justify-content-center">
 				<form action="community_modify" method="post">
-					<input type="hidden" name="id" value="${dto.id }">
+					<input type="hidden" name="id" value="${dto.id}">
+					<input type="hidden" name="user_id" value="${dto.user_id}">
 						<table>
 							<tr>
 								<th>제목</th>
-								<td><input type="text" name="title" class="form-control" value="${dto.title}"></td>
+								<td><input type="text" name="title" id="title" class="form-control" value="${dto.title}"></td>
 							</tr>	
 							<tr>
 								<th>작성자</th>
@@ -48,8 +70,9 @@
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td><textarea name="content" class="form-control" rows="5" cols="50" style="resize:none;">${dto.content }</textarea></td>		
+								<td><textarea name="content" id="content" class="form-control" rows="5" cols="50" style="resize:none;">${dto.content }</textarea></td>		
 							</tr>
+						
 							<tr>
 								<td colspan="2">
 									<div class="d-flex justify-content-end">

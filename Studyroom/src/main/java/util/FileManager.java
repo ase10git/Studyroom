@@ -133,10 +133,6 @@ public class FileManager {
 		if (fileName != "no_file") { // 새로 변경된 공지글에 파일이 첨부된 경우에만			
 			// 공지글 수정 시 기존 파일 제거
 			fileDelete(origin_dto); 
-					
-			// DB에 보낼 파일 이름을 기존 origin_dto에 저장(새로 업데이트)
-			origin_dto.setFile_name(fileName);
-				
 		} else { // 새로 변경된 공지글에 첨부 파일이 없는 경우
 			if (flag == 1) { // 첨부 파일 삭제 요청 있음
 				fileDelete(origin_dto); // 첨부 파일 제거

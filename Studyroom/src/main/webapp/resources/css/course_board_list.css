@@ -19,7 +19,7 @@
 
 .sec .container .title{
     padding: 5px;
-    background-color: rgb(81,114,245);
+    background-color: rgb(13, 110, 253);
     border: 5px solid white;
     border-radius: 10px;
     color: white;
@@ -35,7 +35,7 @@
 }
 
 .sec .container .row .test{
-	background-color: rgb(81,114,245);
+	background-color: rgb(13, 110, 253);
 	padding: 0px;
 	border-radius: 10px;
 }
@@ -52,4 +52,8 @@
 
 .sec .container .row .test .board-box tr td .d-flex #back_btn{
 	margin-right: 10px;
+}
+
+.sec .container .row .col .course-box tr{
+	border-bottom: 1px solid gray;
 }

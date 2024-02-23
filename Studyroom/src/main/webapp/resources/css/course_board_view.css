@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.sec .container .title{
+	background-color: rgb(13, 110, 253);
+	color: white;
+	text-align: center;
+}
+
+.sec .container{
+	margin-top: 100px;
+	background-color: white;
+	border: 1px solid gray;
+}
+
+.sec .container .row .col table tr{
+	border-bottom: 1px solid gray;
+}

@@ -19,6 +19,49 @@
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script>
 		function send() {
+			const regex_title = /^[\w\s]{1,50}$|^[\p{ㄱ-힣}\s]{1,25}$/;
+			
+			let title = document.getElementById("title").value;
+			let instructor = document.getElementById("instructor").value;
+			let summary = document.getElementById("summary").value;
+			let start_date = document.getElementById("start_date").value;
+			let end_date = document.getElementById("end_date").value;
+
+			if (!title) {
+				alert("코스 이름을 입력해주세요!");
+				return;
+			}
+			
+			if(!regex_title.test(title)) {
+				alert("코스 이름은 영문자 50자 또는 한글 최대 25자까지만 입력 가능합니다!");
+				return;
+			}
+			
+			if (!instructor) {
+				alert("강사 이름을 입력해주세요!");
+				return;
+			}	
+			
+			if (!summary) {
+				alert("코스 설명을 입력해주세요!");
+				return;
+			}
+			
+			if (!start_date) {
+				alert("코스 시작일을 입력해주세요!");
+				return;
+			}
+			
+			if (!end_date) {
+				alert("코스 종료일을 입력해주세요!");
+				return;
+			}
+			
+			if (start_date > end_date) {
+				alert("코스 기간이 잘못 설정되었습니다!");
+				return;
+			}
+			
 			f.submit();
 		}
 		
@@ -41,22 +84,22 @@
 					<table>
 						<tr>
 							<th>코스 이름</th>
-							<td><input name="title" class="form-control" value="${dto.title}"></td>
+							<td><input name="title" id="title" class="form-control" value="${dto.title}"></td>
 						</tr>
 						<tr>
 							<th>강사</th>
-							<td><input name="instructor" class="form-control" value="${dto.instructor}"></td>
+							<td><input name="instructor" id="instructor" class="form-control" value="${dto.instructor}"></td>
 						</tr>
 						<tr>
 							<th>코스 설명</th>
-							<td><textarea name="summary" class="form-control" rows="5" cols="50" style="resize:none;">${dto.summary}</textarea></td>
+							<td><textarea name="summary" id="summary" class="form-control" rows="5" cols="50" style="resize:none;">${dto.summary}</textarea></td>
 						</tr>
 						<tr>
 							<th>코스 기간</th>
 							<td class="d-flex justify-content-center">
 								<div class="col-8 d-flex">
-									<input name="start_date" class="form-control" type="date" value="${fn:split(dto.start_date, ' ')[0]}">
-									<input name="end_date" class="form-control" type="date" value="${fn:split(dto.end_date, ' ')[0]}">
+									<input name="start_date" id="start_date" class="form-control" type="date" value="${fn:split(dto.start_date, ' ')[0]}">
+									<input name="end_date" id="end_date" class="form-control" type="date" value="${fn:split(dto.end_date, ' ')[0]}">
 								</div>
 							</td>
 						</tr>
