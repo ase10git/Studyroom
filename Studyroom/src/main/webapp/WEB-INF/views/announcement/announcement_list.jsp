@@ -34,6 +34,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ include file="../include/menu.jsp" %>
 
     <!-- carousel -->
+    <div class="section sec infocarousel-box">
       <div id="infocarousel" class="carousel slide container" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#infocarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -60,6 +61,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <span class="visually-hidden">다음</span>
         </button>
       </div>
+     </div>
 
     <section class="sec info">
       <div class="container">
