@@ -19,7 +19,29 @@
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
+		const regex_title = /^[\w\s]{1,50***REMOVED***$|^[\p{ㄱ-힣***REMOVED***\s]{1,25***REMOVED***$/;
+		
 		function send() {
+			let title = document.getElementById("title").value;
+			let content = document.getElementById("content").value;
+			
+			console.log(title)
+			
+			if (!title) {
+				alert("공지글 제목을 입력해주세요!");
+				return;
+		***REMOVED***
+			
+			if (!content) {
+				alert("내용을 1글자 이상 입력해주세요!");
+				return;
+		***REMOVED***
+			
+			if(!regex_title.test(title)) {
+				alert("제목은 영문자 50자 또는 한글 최대 25자까지만 입력 가능합니다!");
+				return;
+		***REMOVED***
+			
 			f.submit();
 	***REMOVED***
 		
@@ -54,11 +76,11 @@
 					<table class="insert-box">
 						<tr>
 							<th>제목</th>
-							<td><input name="title" class="form-control"></td>
+							<td><input name="title" id="title" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea name="content" class="form-control" rows="10" cols="50" style="resize:none;"></textarea></td>
+							<td><textarea name="content" id="content" class="form-control" rows="10" cols="50" style="resize:none;"></textarea></td>
 						</tr>
 						<tr>
 							<th>첨부파일</th>

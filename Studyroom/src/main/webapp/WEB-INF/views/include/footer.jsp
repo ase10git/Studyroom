@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,6 +20,9 @@
         		<li><a href="#">고객센터&nbsp;&nbsp;</a></li>
         		<li><a href="#">이용약관</a></li>
         	</ul>
+        	<div class="copyright">
+        		Copyright 2024. 서유현&nbsp;안시은&nbsp;유승완&nbsp;원무희&nbsp;황영현
+        	</div>
         </div>
     </footer>
     <!-- fontawesome -->

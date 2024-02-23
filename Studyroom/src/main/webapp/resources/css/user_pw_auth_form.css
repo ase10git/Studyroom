@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.sec .container{
+	background: white;
+	border: 1px solid gray;
+	margin-top: 200px;
+***REMOVED***
+
+.sec .container .title{
+	background-color: rgb(13, 110, 253);
+	color: white;
+***REMOVED***

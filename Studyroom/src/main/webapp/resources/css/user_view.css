@@ -4,13 +4,18 @@
 	width:100%; max-width:720px;
 	margin: 30px auto;
     padding:20px;
-    background-color: rgb(237, 250, 254);
+   	border:1px solid black;
     border-radius: 10px;
 ***REMOVED***
 
 .sec .container .title{
     padding: 5px;
-    background-color: rgb(169, 228, 255);
+    background-color:rgb(13, 110, 253);
     border: 5px solid white;
     border-radius: 10px;
+    color: white;
+***REMOVED***
+
+.user{
+	margin-top: 100px;
 ***REMOVED***

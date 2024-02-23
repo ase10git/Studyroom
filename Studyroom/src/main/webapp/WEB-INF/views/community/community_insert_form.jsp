@@ -18,13 +18,40 @@
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
-<script>
-	function send_check(){
-		let f = document.f;
-		
-		f.submit();
-***REMOVED***
-</script>
+	<script>
+		const regex_title = /^[\w\s]{1,50***REMOVED***$|^[\p{ㄱ-힣***REMOVED***\s]{1,25***REMOVED***$/;	
+		const regex_file = /([^\s]+(?=\.(jpg|gif|png|PNG|GIF|JPG))\.\2)/;
+		//출처: https://gocoding.tistory.com/93 [Developer Factory:티스토리]
+			
+		function send_check(){
+			let f = document.f;
+			let title = document.getElementById("title").value;
+			let content = document.getElementById("content").value;
+			let file = document.getElementById("file").value;
+			
+			if (!title) {
+				alert("제목을 1글자 이상 입력해주세요");
+				return;
+		***REMOVED***
+			
+			if(!regex_title.test(title)) {
+				alert("제목은 영문자 50자 또는 한글 최대 25자까지만 입력 가능합니다!");
+				return;
+		***REMOVED***
+			
+			if (!content) {
+				alert("내용을 1글자 이상 입력해주세요");
+				return;
+		***REMOVED***
+			
+			if(file && !regex_file.test(file)) {
+				alert("jpg, gif, png 형식 파일만 가능합니다!");
+				return;
+		***REMOVED***
+			
+			f.submit();
+	***REMOVED***
+	</script>
 </head>
 <body>
 
@@ -40,7 +67,7 @@
 					<table>
 						<tr>
 							<th>제목</th>
-							<td><input name="title" class="form-control"></td>
+							<td><input name="title" id="title" class="form-control"></td>
 						</tr>
 						<tr>
 							<th>작성자</th>
@@ -48,11 +75,11 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea name="content" class="form-control" rows="10" cols="50" style="resize:none;"></textarea></td>
+							<td><textarea name="content" id="content" class="form-control" rows="10" cols="50" style="resize:none;"></textarea></td>
 						</tr>
 						<tr>
 							<th>첨부파일</th>
-							<td><input name="file" type="file" class="form-control"></td>
+							<td><input name="file" id="file" type="file" class="form-control"></td>
 						</tr>
 						<tr>
 							<td colspan="2">

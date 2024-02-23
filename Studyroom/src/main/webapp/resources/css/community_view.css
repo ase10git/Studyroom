@@ -13,3 +13,7 @@
     border: none;
     outline: none;
 ***REMOVED***
+
+#content-box {
+	overflow-wrap: break-word;
+***REMOVED***

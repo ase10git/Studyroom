@@ -52,8 +52,8 @@ public class CourseController {
 		String role = user_dto.getRole();
 		
 		// 시작, 종료 페이지 계산
-		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
-		int end = start + Common.Board.BLOCKLIST - 1;
+		int start = (page - 1) * Common.Course.BLOCKLIST + 1;
+		int end = start + Common.Course.BLOCKLIST - 1;
 		
 		// 페이지 정보를 map에 저장
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -72,7 +72,7 @@ public class CourseController {
 			list = course_dao.selectList(map);
 
 			rowTotal = course_dao.getRowTotal(); // 전체 코스 개수
-		
+
 	***REMOVED*** else { // 학생이나 멘토일 경우
 			map.put("user_id", user_id); // map에 사용자 정보 저장
 
@@ -87,8 +87,8 @@ public class CourseController {
 		String pageMenu = Paging.getPaging("course_list", 
 											page, 
 											rowTotal, 
-											Common.Board.BLOCKLIST, 
-											Common.Board.BLOCKPAGE);
+											Common.Course.BLOCKLIST, 
+											Common.Course.BLOCKPAGE);
 		
 		// 관리자라면 전체 코스 조회 내역을 포워딩
 		if (role.equals("admin")) {
@@ -100,7 +100,7 @@ public class CourseController {
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("role", role);
 		
-		return Common.COURSE_PATH + "course_list.jsp?page=" + page;
+		return Common.COURSE_PATH + "course_list.jsp?page="+page;
 ***REMOVED***
 		
 	// 코스 상세 보기

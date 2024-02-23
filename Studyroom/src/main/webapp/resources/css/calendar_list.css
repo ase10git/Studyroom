@@ -52,7 +52,15 @@ ul {
 ***REMOVED***
 #calendar-header{
 	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 150px;
 ***REMOVED***
+
+
 .sec{
 	background: linear-gradient(to bottom, #ffffff, #add8e6);
+***REMOVED***
+
+#calendar-header #current-year-month{
+	font-size: 20px;
 ***REMOVED***

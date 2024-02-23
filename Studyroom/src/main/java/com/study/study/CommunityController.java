@@ -108,7 +108,7 @@ public class CommunityController {
 		model.addAttribute("dto",dto);
 		model.addAttribute("reply_list",reply_list);
 		model.addAttribute("user_like", user_like);
-		model.addAttribute("userId", user_id);
+		model.addAttribute("user_id", user_id);
 		
 		return Common.VIEW_PATH + "/community/community_view.jsp?page="+page;
 ***REMOVED***
@@ -139,6 +139,7 @@ public class CommunityController {
 	
 		String ip = request.getRemoteAddr();
 		dto.setIp_addr(ip);
+		dto.setUser_id(user_dto.getId());
 		int res = community_dao.insert(dto);
 		
 		if(res > 0) {
@@ -178,6 +179,8 @@ public class CommunityController {
 		// 비로그인 사용자 차단
 		if (user_dto == null) return "/";
 		
+		System.out.println("현재 사용자 " + user_dto.getId());
+		System.out.println("저장된 사용자 : " + dto.getUser_id());
 		// 글 작성자가 아니라면 접근 불가
 		if (user_dto.getId() != dto.getUser_id()) {
 			return "/error";
