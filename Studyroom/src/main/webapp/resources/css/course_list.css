@@ -22,6 +22,9 @@
 }
 
 .sec{
-	margin-top: 300px;
-	
+	margin-top:30px;
+}
+
+.box{
+	max-width:260px;
 }
