@@ -10,7 +10,7 @@
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous"/>
 	<link rel="stylesheet" href="resources/css/main.css">
-	<link rel="stylesheet" href="resources/css/style_with_table.css">
+	<link rel="stylesheet" href="resources/css/user_password_auth_form.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -65,12 +65,12 @@
 			<div class="row">
 				<div class="col box col-12 d-flex justify-content-center align-items-center">
 					<table>
-						<tr>
+						<tr class="input_box">
 							<th>비밀번호</th>
 							<td><input id="c_pwd" class="form-control" type="password"></td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center">
+							<td class="button_box" colspan="2" align="center">
 								<input type="button" class="btn btn-primary" value="다음" onclick="pwCheck1()">
 								<input type="button" class="btn btn-dark" value="취소" onclick="location.href='user_view?id=${dto.id***REMOVED***'">
 							</td>
