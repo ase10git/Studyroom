@@ -15,22 +15,6 @@
 	padding: 0;
 ***REMOVED***
 
-/* .menu-bar .user-info,
-.menu-bar .course,
-.menu-bar .community,
-.menu-bar .calendar {
-    background-color: rgb(81,114,245); 푸른 계열 배경 색상
-    padding: 10px; 패딩 추가
-    border-radius: 5px; 둥근 테두리 적용
-    margin-top: 10px;
-    text-align: center;
-    padding-right: 30px;
-    padding-left: 30px;
-***REMOVED*** */
-
-
-
-
 .menu a:hover {
 	color:#4B89DC;
 	text-decoration: none;
@@ -50,6 +34,12 @@
 ***REMOVED***
 
 .menu .menu-bar .user-info a{
+	margin-top:5px;
+	margin-bottom: 5px;
+	width: 100%;
+***REMOVED***
+
+.menu .menu-bar .user-info input{
 	margin-top:5px;
 	margin-bottom: 5px;
 	width: 100%;

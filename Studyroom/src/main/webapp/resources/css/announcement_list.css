@@ -12,35 +12,29 @@ a:hover {
     background: linear-gradient(to bottom, #ffffff, #add8e6);
 ***REMOVED***
 
-/* /* 濡쒓퀬 */ */
-/* #logo {  */
-/*     float:left;   �쇊履쎌쑝濡� �뵆濡쒗똿  */
-/*     width:250px;    �꼫鍮�  */
-/*     height:100px;   �넂�씠 */
-/*     line-height:100px;  �꽭濡쒕줈 以묎컙�뿉 留욎땄 - 以꾧컙寃⑹쓣 �넂�씠 媛믨낵 媛숆쾶 */
-/*     padding-left:150px;  �쇊履쎌뿉 �뿬諛� */
-/* ***REMOVED*** */
-
-/* #logo h1 { */
-/*     font-family:fantasy; */
-/*     font-weight:300; */
-/*     font-size:40px;   湲��옄 �겕湲� */
-/*     color:rgb(255,255,140);   湲��옄 �깋 */
-/* ***REMOVED*** */
-
-
 
 /* carousel */
-.infocarousel{
+.sec.infocarousel-box{
+	margin-top:30px;
+***REMOVED***
+
+
+#infocarousel{
     width: 100%; max-width: 992px;
 ***REMOVED***
 
-.infocarousel .carousel-inner .carousel-item{
+@media screen and (max-width:1485px) {
+	.sec.infocarousel-box{
+	    margin-top: 472px;
+***REMOVED***
+***REMOVED***
+
+#infocarousel .carousel-inner .carousel-item{
     height: auto; min-height: 300px; max-height: 558px;
     border-radius : 5px;
 ***REMOVED***
 
-.infocarousel .carousel-inner .carousel-item img{
+#infocarousel .carousel-inner .carousel-item img{
     height: auto; min-height: 300px; max-height: 558px;
     border-radius : 5px;
 ***REMOVED***
@@ -90,8 +84,3 @@ a:hover {
     align-items: center;
     flex-direction: column;
 ***REMOVED***
-
-#infocarousel{
-	margin-top: 150px;
-***REMOVED***
-	
