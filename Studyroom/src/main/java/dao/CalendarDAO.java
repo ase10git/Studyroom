@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,5 +60,8 @@ public class CalendarDAO {
         return sqlSession.update("CalendarMapper.updateEvent", params);
     }
 	
-	
+	// 사용자의 캘린더 제거
+	public void deleteUser(ArrayList<Integer> userList) {
+		sqlSession.delete("CalendarMapper.deleteUserEvent", userList); 
+	}
 }

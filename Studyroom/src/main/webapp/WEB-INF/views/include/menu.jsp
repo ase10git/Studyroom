@@ -26,8 +26,8 @@
 	<div class="menu">
 		<ul class="menu-bar">
 			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath}/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
-			<li><a href='user_view?id=${dto.id}' class="item user-info"><i class="fi fi-ss-user"></i><span>${sessionScope.dto.username}</span></a></li>
-			<li><a href='course_list' class="item course"><i class="fi fi-ss-book"></i><span>코스</span></a></li>
+			<li><a href='user_view?id=${sessionScope.dto.id}' class="item user-info"><i class="fi fi-ss-user"></i><span>${sessionScope.dto.username}</span></a></li>
+			<li><a href='course_list?id=${sessionScope.dto.id}' class="item course"><i class="fi fi-ss-book"></i><span>코스</span></a></li>
 			<li><a href='community_list' class="item community"><i class="fi fi-ss-users-alt"></i><span>커뮤니티</span></a></li>
 			<li><a href='calendar_list' class="item calendar"><i class="fi fi-rr-calendar-lines-pen"></i><span>캘린더</span></a></li>
 			

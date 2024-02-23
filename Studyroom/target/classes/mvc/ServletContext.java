@@ -20,6 +20,7 @@ import dao.CalendarDAO;
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCourseDAO;
 import dao.UserCourseViewDAO;
 import dao.UserDAO;
 
@@ -52,8 +53,8 @@ public class ServletContext implements WebMvcConfigurer{
 
 	// CourseController Bean
 	@Bean
-	public CourseController courseController(CourseDAO course_dao, CourseBoardDAO course_board_dao, UserCourseViewDAO us_view_dao) {
-		return new CourseController(course_dao, course_board_dao, us_view_dao);
+	public CourseController courseController(UserDAO userDAO, CourseDAO course_dao, CourseBoardDAO course_board_dao, UserCourseViewDAO us_view_dao) {
+		return new CourseController(userDAO, course_dao, course_board_dao, us_view_dao);
 	}
 	
 	// CourseBoardController Bean
@@ -76,8 +77,8 @@ public class ServletContext implements WebMvcConfigurer{
 	
 	// AdminController Bean
 	@Bean
-	public AdminController adminController(UserDAO user_dao, CourseDAO course_dao, CourseBoardDAO course_board_dao, CommunityDAO community_dao) {
-		return new AdminController(user_dao, course_dao, course_board_dao, community_dao);
+	public AdminController adminController(UserDAO user_dao, CourseDAO course_dao, UserCourseDAO user_course_dao, CourseBoardDAO course_board_dao, CommunityDAO community_dao) {
+		return new AdminController(user_dao, course_dao, user_course_dao, course_board_dao, community_dao);
 	}
 
 }

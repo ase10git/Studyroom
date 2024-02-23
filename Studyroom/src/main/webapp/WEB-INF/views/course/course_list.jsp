@@ -12,12 +12,22 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="resources/css/course_list.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
+	<!-- AJAX -->
+	<script src="resources/js/HttpRequest.js"></script>
 	<script type="text/javascript">		
+	    if ("${insertSuccess}" == 1) {
+	        alert('코스 추가 완료');
+	    }
+	    if("${insertSuccess}" == 2){
+	    	alert('실패했습니다')
+	    }
+		
 		function move(id) {
 			;
 		}
@@ -29,6 +39,36 @@
 		function insert() {
 			location.href = "course_insert_form";
 		}
+		
+		function user_course_insert(id) {
+			location.href = "user_course_insert_form?id="+id;
+		}
+		
+		function del(user_id, course_id){
+			if(!confirm("삭제하시겠습니까?")){
+				return;
+			}
+			
+			var url = "user_course_delete";
+			var param = "user_id="+user_id+"&course_id="+course_id;
+			
+			sendRequest(url,param,delCheck,"post");
+		}
+		
+		function delCheck(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var data = xhr.responseText;
+				
+				var json = (new Function('return' + data))();
+				
+				if(json[0].result == 'yes'){
+					alert('삭제 성공')
+					location.href='course_list?id='+${user_dto.id};
+				} else {
+					alert('삭제 실패')
+				}
+			}
+		}
 	</script>
 </head>
 <body>
@@ -37,11 +77,18 @@
 	
     <section class="sec course">
         <div class="container">
-	        <div class="title-wrap d-flex justify-content-between">
-	         <h1 class="title text-center">코스 목록</h1>
-	         	<c:if test="${role eq 'admin'}">
-			    	<input id="insert_btn" type="button" class="btn btn-primary btn-sm" value="코스 추가하기" onclick="insert()">    
-				</c:if>
+	       <div class="titlediv text-center">
+			    <h1 class="nanum-gothic-regular">코스 목록</h1>
+   		        <c:if test="${sessionScope.dto.role eq 'admin'}">
+              		<c:choose>
+              		<c:when test="${role eq 'admin'}">
+						<input id="insert_btn" type="button" class="btn btn-primary btn-sm" value="코스 만들기" onclick="insert()">
+                    </c:when>
+                    <c:otherwise>
+                    	<input id="insert_btn" type="button" class="btn btn-primary btn-sm" value="코스 추가하기" onclick="user_course_insert('${user_dto.id}')">
+                    </c:otherwise>
+                    </c:choose>
+            	</c:if>
 			</div>
 			
 	        <div class="row gy-4 justify-content-center">
@@ -50,9 +97,17 @@
 	               		<div class="gt item card d-flex">
 	               			<span class="card-header fw-bold d-flex justify-content-between align-items-center">
 		               			<a href="course_board_list?course_id=${dto.id}">${dto.title}</a>
-		               			<c:if test="${role eq 'admin'}">
-									<input id="manage-btn" type="button" class="btn btn-primary float-end" value="코스 관리" onclick="management(${dto.id})">
-			                    </c:if>
+		               			<!-- choose when 으로 이 밑에 조건을 감싸는 test=${sessionScope.dto.role eq 'admin'} 을 만들어서 버튼 바꾸기 -->
+		               			<c:if test="${sessionScope.dto.role eq 'admin'}">
+			               			<c:choose>
+			               			<c:when test="${role eq 'admin'}">
+										<input id="manage-btn" type="button" class="btn btn-primary float-end" value="코스 관리" onclick="management(${dto.id})">
+				                    </c:when>
+				                    <c:otherwise>
+				                    	<input id="manage-btn" type="button" class="btn btn-primary float-end" value="코스 제거" onclick="del('${user_dto.id}' , '${dto.id}')">
+				                    </c:otherwise>
+				                    </c:choose>
+				            	</c:if>
 		               		</span>
 		               		<div class="card-body">
 			               		<p class="instructor card-text">

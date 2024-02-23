@@ -15,6 +15,10 @@
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <!-- fontawesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script src="resources/js/HttpRequest.js"></script>
 
@@ -63,9 +67,11 @@
 				var json = (new Function('return' + data))();
 				
 				if(json[0].param == 'no_email') {
-					alert("이메일이 존재하지 않습니다.");				
+// 					alert("이메일이 존재하지 않습니다.");	
+					emailHelp.innerHTML = "이메일이 존재하지 않습니다.";
 				} else if(json[0].param == 'no_pwd') {
-					alert("비밀번호를 다시 입력해 주세요.")
+// 					alert("비밀번호를 다시 입력해 주세요.");
+					pwdHelp.innerHTML = "비밀번호를 다시 입력해 주세요.";
 				} else {
 					alert("로그인을 성공했습니다!");
 
@@ -84,6 +90,7 @@
 		  <div class="row gy-4 justify-content-center">
 			<div class="col box col-6">
 				<div class="title-box">
+<%-- 					<img src="${pageContext.request.contextPath}/resources/img/logo.png" height="150px;" width="200px;"> --%>
 					<h1 class="title text-center">Studyroom</h1>
 				</div>
 
@@ -100,7 +107,7 @@
 					</div>
 					<div class="d-grid gap-2">
 						<input type="button" class="btn btn-primary" value="로그인" onclick="send(this.form)">
-						<input type="button" class="btn btn-info" value="회원가입" onclick="location.href='register'">
+						<input type="button" class="btn btn-primary" value="회원가입" onclick="location.href='register'">
 					</div>
 				</form>
 			</div>

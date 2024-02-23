@@ -25,7 +25,8 @@
 		}
 		
 		function back() {
-			location.href='course_list';
+			let admin_id = ${sessionScope.dto.id};
+			location.href = "course_list?id="+admin_id;
 		}
 	</script>
 </head>
@@ -39,6 +40,7 @@
 		  <div class="row gy-4">
 			<div class="col box col-12 d-flex justify-content-center">
 				<form action="course_insert" name="f" method="POST">
+					<input type="hidden" name="admin_id" value="${sessionScope.dto.id}">
 					<input type="hidden" name="page" value="${param.page}">
 					<table>
 						<tr>
