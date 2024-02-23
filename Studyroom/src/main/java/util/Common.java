@@ -33,4 +33,12 @@ public class Common {
 		// 페이지 메뉴 수 
 		public final static int BLOCKPAGE = 3;
 ***REMOVED***
+	
+	public static class Course {
+		// 한 페이지에 보여줄 게시물 수
+		public final static int BLOCKLIST = 9;
+		
+		// 페이지 메뉴 수 
+		public final static int BLOCKPAGE = 5;
+***REMOVED***
 ***REMOVED***

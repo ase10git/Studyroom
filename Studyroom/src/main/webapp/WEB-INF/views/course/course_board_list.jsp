@@ -13,7 +13,8 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="resources/css/main.css">
-    <link rel="stylesheet" href="resources/css/style_with_table.css">
+    <!-- <link rel="stylesheet" href="resources/css/style_with_table.css"> -->
+    <link rel="stylesheet" href="resources/css/course_board_list.css">
 	<!-- flaticon -->
 	<link rel='stylesheet' 
     href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -53,7 +54,7 @@
                 </table>
             </div>
             
-            <div class="col box col-12 d-flex justify-content-center">
+            <div class="test col box col-12 d-flex justify-content-center">
                 <table class="board-box text-center">
                     <tr>
                         <th>번호</th>

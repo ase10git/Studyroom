@@ -5,43 +5,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="uco">
 
 	<!-- 사용자 코스 테이블에 데이터 추가 -->
-<!-- 	<select id="user_course_insert" parameterType="usercourse"> -->
-<!-- 		INSERT INTO user_course VALUES ( -->
-<!-- 			user_id = #{user_id***REMOVED***, -->
-<!-- 			course_id = #{id***REMOVED*** -->
-<!-- 		) -->
-<!-- 	</select> -->
+	<insert id="user_course_insert" parameterType="usercourse">
+		INSERT INTO user_course VALUES (#{user_id***REMOVED***, #{course_id***REMOVED***)
+	</insert>
 	
 	<!-- 사용자 코스 테이블에 데이터 제거 -->
-<!-- 	<delete id="user_course_delete" parameterType="usercourse"> -->
-<!-- 		DELETE FROM user_course  -->
-<!-- 		WHERE user_id = #{user_id***REMOVED*** AND course_id = #{id***REMOVED*** -->
-<!-- 	</delete> -->
+	<delete id="user_course_delete" parameterType="usercourse">
+		DELETE FROM user_course 
+		WHERE user_id = #{user_id***REMOVED*** AND course_id = #{course_id***REMOVED***
+	</delete>
 	
-	<!-- 위에 두개만 있어도 됨 -->
-	
-	
-	
-	
-	<!-- 이 나머지 두개는 뭔지... -->
 	
 	<!-- 사용자 코스 테이블에서 특정 코스 제거 -->
-<!-- 	<delete id="only_course_delete" parameterType="java.util.ArrayList"> -->
-<!-- 		DELETE FROM user_course  -->
-<!-- 		WHERE course_id IN -->
-<!-- 		<foreach collection="list" item="item" open="(" close=")" separator=","> -->
-<!-- 			#{item***REMOVED*** -->
-<!-- 		</foreach> -->
-<!-- 	</delete> -->
+	<delete id="course_delete" parameterType="java.util.ArrayList">
+		DELETE FROM user_course 
+		WHERE course_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item***REMOVED***
+		</foreach>
+	</delete>
 
-	<!-- 사용자 코스 테이블에서 특정 사용자를 제거 -->
-<!-- 	<delete id="only_user_delete" parameterType="java.util.ArrayList"> -->
-<!-- 		DELETE FROM user_course  -->
-<!-- 		WHERE user_id IN -->
-<!-- 		<foreach collection="list" item="item" open="(" close=")" separator=","> -->
-<!-- 		  #{item***REMOVED*** -->
-<!-- 		</foreach> -->
-<!-- 	</delete> -->
+	<!-- 	사용자 코스 테이블에서 특정 사용자를 제거 -->
+	<delete id="user_delete" parameterType="java.util.ArrayList">
+		DELETE FROM user_course 
+		WHERE user_id IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+		  #{item***REMOVED***
+		</foreach>
+	</delete>
 	
 </mapper>
 

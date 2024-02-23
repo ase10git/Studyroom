@@ -72,7 +72,7 @@
 						<tr>
 							<td colspan="2" align="center">
 								<input type="button" class="btn btn-primary" value="다음" onclick="pwCheck1()">
-								<input type="button" class="btn btn-dark" value="취소" onclick="location.href='user_view'">
+								<input type="button" class="btn btn-dark" value="취소" onclick="location.href='user_view?id=${dto.id***REMOVED***'">
 							</td>
 						</tr>
 					</table>

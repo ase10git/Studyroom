@@ -20,7 +20,8 @@
 	<script type="text/javascript" src="resources/js/HttpRequest.js"></script>
 	<script>
 		function back() {
-			location.href = "course_list?page=${param.page***REMOVED***";
+			let admin_id = ${sessionScope.dto.id***REMOVED***;
+			location.href = "course_list?id="+admin_id+"&page=${param.page***REMOVED***";
 	***REMOVED***
 	
 		function del() {			
@@ -36,13 +37,14 @@
 	***REMOVED***
 			
 		function resultFn() {
+			let admin_id = ${sessionScope.dto.id***REMOVED***;
 			if(xhr.readyState == 4 && xhr.status == 200) {
 				let data = xhr.responseText;
 				let json = (new Function('return' + data))();
 				
 				if(json[0].result == 'yes') {
 					alert("성공적으로 삭제했습니다.");
-					location.href = "course_list";
+					location.href = "course_list?id="+admin_id;
 			***REMOVED*** else {
 					alert("삭제를 실패했습니다.");
 			***REMOVED***
@@ -91,8 +93,8 @@
 						<td colspan="2">
 							<div class="d-flex justify-content-center">
 								<input id="modify_btn" type="button" class="btn btn-primary" value="코스 수정하기" onclick="modify()"></input>
-								<input id="delete_btn" type="button" class="btn btn-dark" value="코스 삭제하기" onclick="del()"></input>
-								<input id="back_btn" type="button" class="btn btn-light" value="뒤로 돌아가기" onclick="back()"></input>
+								<input id="delete_btn" type="button" class="btn btn-danger" value="코스 삭제하기" onclick="del()"></input>
+								<input id="back_btn" type="button" class="btn btn-dark" value="뒤로 돌아가기" onclick="back()"></input>
 							</div>
 						</td>
 					</tr>

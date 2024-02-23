@@ -72,7 +72,8 @@ public class AnnouncementController {
 											page,
 											rowTotal,
 											Common.Announcement.BLOCKLIST,
-											Common.Announcement.BLOCKPAGE);
+											Common.Announcement.BLOCKPAGE,
+											null);
 		
 		request.getSession().removeAttribute("show");
 		

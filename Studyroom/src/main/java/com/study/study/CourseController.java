@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
 import dao.UserCourseViewDAO;
+import dao.UserDAO;
 import dto.CourseDTO;
 import dto.UserCourseViewDTO;
 import dto.UserDTO;
@@ -27,6 +28,7 @@ import util.Paging;
 @RequiredArgsConstructor
 public class CourseController {
 	
+	final UserDAO user_dao;
 	final CourseDAO course_dao;
 	final CourseBoardDAO course_board_dao;
 	final UserCourseViewDAO uc_view_dao;
@@ -39,12 +41,21 @@ public class CourseController {
 
 	// 코스 화면 보기 - 리스트
 	@RequestMapping("course_list")
-	public String course_list(Model model, @RequestParam(required=false, defaultValue="1") int page) {
+	public String course_list(Model model, int id, @RequestParam(required=false, defaultValue="1") int page) {
 
 		// 사용자 정보를 세션에서 가져옴
-		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
+		UserDTO user_session = (UserDTO)session.getAttribute("dto");
 		// 비로그인 사용자 차단
-		if (user_dto == null) return "/";
+		if (user_session == null) return "/";
+		// 사용자가 url로 다른 사용자 정보 페이지 접근 차단(관리자 제외)
+		if (!user_session.getRole().equals("admin")) {
+			if (user_session.getId() != id) {
+				return "/error";
+		***REMOVED***
+	***REMOVED***
+		
+		// *** 세션에서가 아닌 파라미터에서 넘어온 id를 통해 가져온 user_dto 객체 준비 ***
+		UserDTO user_dto = user_dao.selectOne(id);
 		
 		// 사용자의 번호를 세션에서 가져오기
 		int user_id = user_dto.getId();
@@ -52,8 +63,8 @@ public class CourseController {
 		String role = user_dto.getRole();
 		
 		// 시작, 종료 페이지 계산
-		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
-		int end = start + Common.Board.BLOCKLIST - 1;
+		int start = (page - 1) * Common.Course.BLOCKLIST + 1;
+		int end = start + Common.Course.BLOCKLIST - 1;
 		
 		// 페이지 정보를 map에 저장
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -87,8 +98,9 @@ public class CourseController {
 		String pageMenu = Paging.getPaging("course_list", 
 											page, 
 											rowTotal, 
-											Common.Board.BLOCKLIST, 
-											Common.Board.BLOCKPAGE);
+											Common.Course.BLOCKLIST, 
+											Common.Course.BLOCKPAGE,
+											user_id);
 		
 		// 관리자라면 전체 코스 조회 내역을 포워딩
 		if (role.equals("admin")) {
@@ -97,10 +109,11 @@ public class CourseController {
 			model.addAttribute("list", list_user);
 	***REMOVED***
 		// 데이터를 포워딩
+		model.addAttribute("user_dto", user_dto);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("role", role);
 		
-		return Common.COURSE_PATH + "course_list.jsp?page=" + page;
+		return Common.COURSE_PATH + "course_list.jsp?id=" + user_id + "&page=" + page;
 ***REMOVED***
 		
 	// 코스 상세 보기
@@ -149,7 +162,7 @@ public class CourseController {
 	// 코스 추가하기
 	// admin만 가능
 	@RequestMapping("course_insert")
-	public String course_insert(CourseDTO dto) {
+	public String course_insert(CourseDTO dto, int admin_id) {
 
 		// 사용자 정보를 세션에서 가져옴
 		UserDTO user_dto = (UserDTO)session.getAttribute("dto");
@@ -165,7 +178,7 @@ public class CourseController {
 	
 		// 코스 추가 완료 시 코스 보기 화면으로 
 		if (res > 0) {
-			return "redirect:course_list";
+			return "redirect:course_list?id="+admin_id;
 	***REMOVED***
 		
 		return "/error";

@@ -15,14 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.CommunityDAO;
 import dao.CourseBoardDAO;
 import dao.CourseDAO;
+import dao.UserCourseDAO;
 import dao.UserDAO;
 import dto.CommunityDTO;
 import dto.CourseBoardDTO;
 import dto.CourseDTO;
+import dto.UserCourseDTO;
 import dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
@@ -37,6 +40,7 @@ public class AdminController {
 	
 	final UserDAO user_dao;
 	final CourseDAO course_dao;
+	final UserCourseDAO user_course_dao;
 	final CourseBoardDAO course_board_dao;
 	final CommunityDAO community_dao;
 	
@@ -74,8 +78,8 @@ public class AdminController {
 			return "/error";
 	***REMOVED***
 		
-		int start = (page - 1) * Common.Board.BLOCKLIST+1;
-		int end = start + Common.Board.BLOCKLIST - 1;
+		int start = (page - 1) * Common.Course.BLOCKLIST+1;
+		int end = start + Common.Course.BLOCKLIST - 1;
 		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("start", start);
@@ -85,17 +89,84 @@ public class AdminController {
 		
 		int rowTotal = user_dao.getRowTotal();
 		
-		String pageMenu = Paging.getPaging("",
+		String pageMenu = Paging.getPaging("user_all_info_list",
 										   page,
 										   rowTotal, 
-										   Common.Board.BLOCKLIST,
-										   Common.Board.BLOCKPAGE);
+										   Common.Course.BLOCKLIST,
+										   Common.Course.BLOCKPAGE,
+										   null);
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
 		return Common.ADMIN_PATH + "user_all_info_list.jsp?page="+page;
 ***REMOVED***
+	
+	@RequestMapping("user_course_insert_form")
+	public String user_course_insert_form(Model model, int id, @RequestParam(required=false, defaultValue="1") int page) {
+		// 사용자 정보를 세션에서 가져옴
+		UserDTO user_session = (UserDTO)session.getAttribute("dto");
+		// 비로그인 사용자 차단
+		if (user_session == null) {
+			return "/";
+		// 관리자만 허용
+	***REMOVED*** else if (!user_session.getRole().equals("admin")) { // 관리자만 접근 가능
+			return "/error";
+	***REMOVED***
+		
+		int start = (page - 1) * Common.Course.BLOCKLIST+1;
+		int end = start + Common.Course.BLOCKLIST - 1;
+		
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<CourseDTO> list = course_dao.selectList(map);
+		
+		int rowTotal = course_dao.getRowTotal();
+		
+		String pageMenu = Paging.getPaging("user_course_insert_form",
+										   page,
+										   rowTotal, 
+										   Common.Course.BLOCKLIST,
+										   Common.Course.BLOCKPAGE,
+										   id);
+		
+		UserDTO user_dto = user_dao.selectOne(id);
+		model.addAttribute("user_dto", user_dto);
+		model.addAttribute("list",list);
+		model.addAttribute("pageMenu",pageMenu);
+		
+		
+		return Common.ADMIN_PATH + "user_course_insert_form.jsp?page=" + page;
+***REMOVED***
+	
+	@RequestMapping("user_course_insert")
+	public String user_course_insert(UserCourseDTO dto, RedirectAttributes redirectAttributes) {
+		int res = user_course_dao.insert(dto);
+		
+        if (res > 0) {
+        	// 성공
+            redirectAttributes.addFlashAttribute("insertSuccess", 1);
+        ***REMOVED*** else {
+        	// 실패
+        	redirectAttributes.addFlashAttribute("insertSuccess", 2);
+        ***REMOVED***
+        return "redirect:course_list?id="+dto.getUser_id();
+    ***REMOVED***
+	
+	@RequestMapping("user_course_delete")
+	@ResponseBody
+	public String user_course_delete(UserCourseDTO dto) {
+	    int res = user_course_dao.delete(dto);
+	    
+	    if(res == 1) {
+	        return "[{'result':'yes'***REMOVED***]";
+	    ***REMOVED*** else {
+	        return "[{'result':'no'***REMOVED***]";
+	    ***REMOVED***
+***REMOVED***
+	
 	
 	// 삭제 관리 페이지로 이동
 	@RequestMapping("delete_management")
@@ -106,6 +177,7 @@ public class AdminController {
 		// 비로그인 사용자 차단
 		if (user_dto == null) {
 			return "/";
+		// 관리자만 허용
 	***REMOVED*** else if (!user_dto.getRole().equals("admin")) { // 관리자만 접근 가능
 			return "/error";
 	***REMOVED***

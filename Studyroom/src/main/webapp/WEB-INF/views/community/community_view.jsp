@@ -62,9 +62,9 @@
 		
 		function like(){
 			
-			if("${user_like***REMOVED***"==1){
+			if("${user_like***REMOVED***"==1) {
 				alert('이미 추천했습니다.');
-				return
+				return;
 		***REMOVED***
 			
 			location.href="community_like?id=${dto.id***REMOVED***&page=${param.page***REMOVED***";
@@ -165,10 +165,8 @@
 							<!-- 삭제 -->
 							<input type="button" class="btn btn-dark" value="삭제" onclick="del()">
 						</c:if>	
-							<c:if test="${userId != dto.user_id***REMOVED***">
-								<!-- 추천하기 -->
-								<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
-							</c:if>	
+							<!-- 추천하기 -->
+							<input type="button" class="btn btn-primary" value="추천하기" onclick="like()">
 							<!-- 목록보기 -->
 							<input type="button" class="btn btn-light" value="목록보기" onclick="location.href='community_list'">
 					</div>
