@@ -22,7 +22,7 @@
     <script src="https://kit.fontawesome.com/75c3a9ae5d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">		
 		function back() {
-			location.href = "course_list";
+			location.href = "course_list?id=${user_id}";
 		}
 		
 		function insert() {

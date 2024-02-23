@@ -2,7 +2,7 @@ package util;
 
 public class Paging {
 	
-	public static String getPaging(String pageURL, int nowPage, int rowTotal, int blockList, int blockPage) {
+	public static String getPaging(String pageURL, int nowPage, int rowTotal, int blockList, int blockPage, Integer id) {
 		int totalPage, startPage, endPage;
 		boolean isPrevPage, isNextPage;
 		StringBuffer sb;
@@ -32,6 +32,9 @@ public class Paging {
 		if(isPrevPage) {
 			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 			sb.append(startPage-1);
+	        if (id != null) {
+	            sb.append("&id=" + id);
+	        }
 			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-left\"></i></a>");
 		} else {
 			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-left\\\"></i></li>");
@@ -47,6 +50,9 @@ public class Paging {
 			} else {
 				sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 				sb.append(i);
+		        if (id != null) {
+		            sb.append("&id=" + id);
+		        }
 				sb.append("\">");
 				sb.append(i);
 				sb.append("</a>");
@@ -56,6 +62,9 @@ public class Paging {
 		if(isNextPage) {
 			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 			sb.append(endPage+1);
+	        if (id != null) {
+	            sb.append("&id=" + id);
+	        }
 			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-right\"></i></a>");
 		} else {
 			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-right\\\"></i></li>");

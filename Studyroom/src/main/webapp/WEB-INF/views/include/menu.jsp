@@ -24,11 +24,15 @@
 <body>
 	<div class="menu">
 		<ul class="menu-bar">
-			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath}/resources/img/logo_temp.jpeg" alt="스터디룸 로고"></a></li>
-			<li class="user-info"><a href='user_view?id=${dto.id}' class="btn btn-primary"><span class="nanum-gothic-regular">내 정보</span></a></li>
-			<li class="course"><a href='course_list' class="btn btn-primary"><span class="nanum-gothic-regular">코스</span></a></li>
-			<li class="community"><a href='community_list' class="btn btn-primary"><span class="nanum-gothic-regular">커뮤니티</span></a></li>
-			<li class="calendar"><a href='calendar_list' class="btn btn-primary"><span class="nanum-gothic-regular">캘린더</span></a></li>
+			<li><a href='announcement_list' class="item logo"><img class="logo" src="${pageContext.request.contextPath}/resources/img/logo_temp.png" alt="스터디룸 로고"></a></li>
+			<li><a href='user_view?id=${sessionScope.dto.id}' class="item user-info"><i class="fi fi-ss-user"></i><span>${sessionScope.dto.username}</span></a></li>
+			<li><a href='course_list?id=${sessionScope.dto.id}' class="item course"><i class="fi fi-ss-book"></i><span>코스</span></a></li>
+			<li><a href='community_list' class="item community"><i class="fi fi-ss-users-alt"></i><span>커뮤니티</span></a></li>
+			<li><a href='calendar_list' class="item calendar"><i class="fi fi-rr-calendar-lines-pen"></i><span>캘린더</span></a></li>
+			
+			<c:if test="${sessionScope.dto.role eq 'admin'}">
+			<li><a href='management_list' class="item management"><span>사용자 관리</span></a></li>
+			</c:if>
 			<li><input type="button" class="btn btn-primary" id="logout" value="로그아웃" onclick="location.href='logout'"></li>
 		</ul>
 	</div>
