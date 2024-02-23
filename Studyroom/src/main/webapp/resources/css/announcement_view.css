@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.sec .container .title{
+	background-color: rgb(13, 110, 253);
+	color: white;
+}
+
+.sec .container{
+	margin-top:150px;
+	background-color: white;
+	border: 1px solid gray;
+}
+
+.sec{
+	background-color: white;
+}
+
+.sec .container .row .box .info-box tr{
+	border-bottom: 1px solid gray;
+}

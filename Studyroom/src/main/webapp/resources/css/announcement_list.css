@@ -67,7 +67,7 @@ a:hover {
     margin-bottom: 0;
 }
 .carousel-item img {
-    width: 1116px;
+    width: 900px;
     height: 418.5px;
     object-fit: cover;
     margin: auto; 
@@ -91,4 +91,7 @@ a:hover {
     flex-direction: column;
 }
 
+#infocarousel{
+	margin-top: 150px;
+}
 	

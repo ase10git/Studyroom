@@ -59,7 +59,7 @@
 			}
 			
 			//이메일은 형식검사
-			let regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+			const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 			if(!regex.test(email)){
 				alert('형식에 맞게 작성해주세요')
 				return;
@@ -104,7 +104,7 @@
 						<tr>
 							<td colspan="2">
 								<input type="button" class="btn btn-primary" value="수정" onclick="send(this.form);">
-								<input type="button" class="btn btn-dark" value="취소" onclick="location.href='user_view'">
+								<input type="button" class="btn btn-dark" value="취소" onclick="location.href='user_view?id=${dto.id}'">
 							</td>
 						</tr>
 					</table>

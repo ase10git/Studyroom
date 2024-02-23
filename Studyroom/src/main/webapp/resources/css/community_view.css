@@ -13,3 +13,7 @@
     border: none;
     outline: none;
 }
+
+#content-box {
+	overflow-wrap: break-word;
+}

@@ -48,11 +48,19 @@
 		}
 		
 		function reply(){
+			let reply = document.getElementById("content").value;
+			
+			if (!reply) {
+				alert("답글을 1글자 이상 작성해주세요!");
+				return;
+			}
+			
 			if(!confirm("답글을 작성하시겠습니까?")) { // 작성 취소
 				return;
-			}else{ // 전송
-				f.submit();
 			}
+			
+			f.submit();
+
 		}
 		
 		function modify(){
@@ -71,6 +79,10 @@
 			alert('추천되었습니다.');
 			
 		}
+		
+		
+		console.log("${user_id}")
+		console.log("${dto.user_id}")
 	</script>
 </head>
 <body>
@@ -125,7 +137,7 @@
 								<input type="hidden" name="id"	 value="${param.id }">
 								<input type="hidden" name="page" value="${param.page}">	
 									<!-- 답변 -->
-									<textarea name="content" class="input"  style="resize:none;"></textarea>	
+									<textarea name="content" id="content" class="input"  style="resize:none;"></textarea>	
 									<c:if test="${dto.depth lt 1 }">	
 										<input type="button" class="btn btn-primary" value="답변 등록" onclick="reply()">
 									</c:if>
@@ -159,7 +171,7 @@
 					</c:forEach>
 					
 					<div class="d-flex justify-content-end">
-						<c:if test="${userId == dto.user_id}">
+						<c:if test="${user_id == dto.user_id}">
 							<!-- 수정 -->
 							<input type="button" class="btn btn-primary" value="수정" onclick="modify()">
 							<!-- 삭제 -->

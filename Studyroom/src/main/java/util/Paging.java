@@ -32,9 +32,9 @@ public class Paging {
 		if(isPrevPage) {
 			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 			sb.append(startPage-1);
-			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-right\"></i></a>");
+			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-left\"></i></a>");
 		} else {
-			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-right\\\"></i></li>");
+			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-left\\\"></i></li>");
 		}
 		
 		sb.append("");
@@ -56,9 +56,9 @@ public class Paging {
 		if(isNextPage) {
 			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\""+pageURL+"?page=");
 			sb.append(endPage+1);
-			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-left\"></i></a>");
+			sb.append("\"><i class=\"fi fi-br-arrow-alt-square-right\"></i></a>");
 		} else {
-			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-left\\\"></i></li>");
+			sb.append("<li class=\"page-item disabled\"><i class=\\\"fi fi-br-arrow-alt-square-right\\\"></i></li>");
 		}
 		
 		sb.append("&nbsp;</ul>\n"

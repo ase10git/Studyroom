@@ -39,7 +39,6 @@ public class UserController {
 			}
 		}
 		
-		
 		UserDTO userDTO = user_dao.selectOne(id);
 		model.addAttribute("dto", userDTO);
 		model.addAttribute("role", userDTO.getRole());
@@ -96,7 +95,7 @@ public class UserController {
         if (res > 0) {
             redirectAttributes.addFlashAttribute("updateSuccess", true);
         }
-        return "redirect:user_view";
+        return "redirect:user_view?id="+dto.getId();
     }
 	
 	// 사용자 회원 탈퇴 확인 페이지 이동
